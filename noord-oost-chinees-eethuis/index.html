@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="nl" data-l="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Noord-Oost Chinees Eethuis · 东北小吃 · Albert Cuyp</title>
+<meta name="description" content="Concept design voor Noord-Oost Chinees Eethuis, Albert Cuypstraat 65-H, Amsterdam.">
+<meta name="theme-color" content="#6E140F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lacquer:#6E140F; --red-d:#8E1C16; --red:#B3261E; --gold:#C9A227; --gold-l:#E4C866;
+  --paper:#F4ECDC; --paper-2:#EADFC8; --ink:#2A211C; --ink-2:#5A4A40; --line:rgba(42,33,28,.15);
+  --serif:"Noto Serif SC","Songti SC",serif; --sans:"Instrument Sans",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:17px;line-height:1.6;overflow-x:hidden}
+svg{display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+html[data-l="nl"] .en, html[data-l="en"] .nl{display:none!important}
+.skip{position:absolute;left:-999px;top:8px;background:var(--gold);color:var(--ink);padding:8px 14px;border-radius:999px;z-index:100}
+.skip:focus{left:12px}
+.wrap{width:min(1140px,100% - 40px);margin-inline:auto}
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:90;opacity:.08;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+header.top{position:fixed;inset:0 0 auto;z-index:50;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+header.top.solid{background:rgba(110,20,15,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:rgba(201,162,39,.25)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:68px}
+.mark{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--paper)}
+.seal-s{width:32px;height:32px;background:var(--red);color:var(--paper);display:grid;place-items:center;font-family:var(--serif);font-weight:900;font-size:13px;line-height:1;border-radius:4px;box-shadow:inset 0 0 0 1.5px rgba(244,236,220,.55)}
+.mark b{font-weight:600;font-size:16px;letter-spacing:.01em}
+nav.links{display:none;gap:28px}
+nav.links a{color:rgba(244,236,220,.8);text-decoration:none;font-size:15px;position:relative}
+nav.links a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+nav.links a:hover::after{transform:scaleX(1)}
+.lang{display:flex;border:1px solid rgba(244,236,220,.3);border-radius:999px;overflow:hidden}
+.lang button{background:none;border:0;color:rgba(244,236,220,.7);font:600 12px var(--sans);padding:6px 11px;cursor:pointer;letter-spacing:.06em}
+.lang button[aria-pressed="true"]{background:var(--gold);color:var(--lacquer)}
+@media(min-width:880px){nav.links{display:flex}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;background:radial-gradient(90% 70% at 70% 30%,#9a221a 0%,var(--lacquer) 55%,#4a0c09 100%);color:var(--paper);overflow:hidden;display:flex;align-items:center;padding:110px 0 110px}
+#snow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .grid{position:relative;display:grid;gap:36px;align-items:center}
+@media(min-width:900px){.hero .grid{grid-template-columns:auto 1fr;gap:80px}}
+.vwrap{position:relative;justify-self:start}
+.vert{font-family:var(--serif);font-weight:900;font-size:clamp(78px,15.5vh,140px);line-height:1.02;display:flex;flex-direction:column;color:var(--paper);
+  clip-path:inset(0 0 100% 0);filter:blur(8px);transition:clip-path 2s var(--ease) .3s,filter 1.6s ease .5s}
+.ready .vert{clip-path:inset(0 0 0 0);filter:none}
+@media(max-width:899px){.vert{flex-direction:row;font-size:clamp(64px,19vw,110px);letter-spacing:.02em;clip-path:inset(0 100% 0 0)}
+  .ready .vert{clip-path:inset(0 0 0 0)}}
+.seal{position:absolute;right:-26px;bottom:-14px;width:58px;height:58px;background:var(--red);color:var(--paper);display:grid;place-items:center;font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.05;text-align:center;border-radius:6px;writing-mode:horizontal-tb;letter-spacing:0;
+  box-shadow:inset 0 0 0 2px rgba(244,236,220,.6),0 8px 20px rgba(0,0,0,.25);transform:scale(2.2) rotate(-14deg);opacity:0;transition:transform .45s cubic-bezier(.3,1.6,.5,1) 2.1s,opacity .2s ease 2.1s}
+.ready .seal{transform:rotate(-6deg);opacity:1}
+@media(max-width:899px){.seal{right:-54px;bottom:8px;width:46px;height:46px;font-size:12px}}
+.copy{display:grid;gap:22px;max-width:560px}
+.copy > *{opacity:0;transform:translateY(14px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.ready .copy > *{opacity:1;transform:none}
+.ready .copy > :nth-child(1){transition-delay:1.1s}.ready .copy > :nth-child(2){transition-delay:1.3s}.ready .copy > :nth-child(3){transition-delay:1.5s}.ready .copy > :nth-child(4){transition-delay:1.7s}.ready .copy > :nth-child(5){transition-delay:1.9s}
+.copy h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5vw,56px);line-height:1.12;letter-spacing:-.005em}
+.copy p.lede{font-size:clamp(17px,2vw,19.5px);color:rgba(244,236,220,.82);max-width:42ch}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15.5px;transition:transform .25s var(--ease),background .25s,color .25s,border-color .25s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--gold);color:var(--lacquer)}
+.btn.primary:hover{background:var(--gold-l)}
+.btn.ghost{border:1px solid rgba(244,236,220,.35);color:var(--paper)}
+.btn.ghost:hover{border-color:var(--gold-l);color:var(--gold-l)}
+.btn svg{width:18px;height:18px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:14.5px;color:rgba(244,236,220,.75)}
+.meta span{display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:#a99}
+.is-open .dot{background:#6fd08c;animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(111,208,140,.6)}70%{box-shadow:0 0 0 9px rgba(111,208,140,0)}100%{box-shadow:0 0 0 0 rgba(111,208,140,0)}}
+.lantern{position:absolute;top:68px;right:12%;width:70px;opacity:.9;transform-origin:top center;animation:sway 6s ease-in-out infinite}
+.lantern .glow{animation:flick 3s ease-in-out infinite}
+@keyframes sway{50%{transform:rotate(3deg)}}
+@keyframes flick{50%{opacity:.7}}
+@media(max-width:899px){.lantern{right:6%;width:52px}}
+
+/* gold rule */
+.rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform 1.6s var(--ease)}
+.rule.in{transform:scaleX(1)}
+
+section{padding:clamp(80px,12vw,140px) 0}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(32px,5vw,54px);line-height:1.14}
+h2 .zh{display:block;font-size:.42em;font-weight:400;color:var(--red);letter-spacing:.3em;margin-bottom:12px}
+.sub{color:var(--ink-2);max-width:54ch;margin-top:14px}
+.rv{opacity:0;transform:translateY(22px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* story */
+.story .grid{display:grid;gap:56px}
+@media(min-width:900px){.story .grid{grid-template-columns:1.1fr .9fr;gap:90px;align-items:start}}
+.story p{margin-top:18px;max-width:56ch;color:#4a3d35}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
+.stat{padding:26px 0 22px;border-bottom:1px solid var(--line)}
+.stat:nth-child(odd){padding-right:16px;border-right:1px solid var(--line)}
+.stat:nth-child(even){padding-left:22px}
+.stat b{display:block;font-family:var(--serif);font-weight:600;font-size:46px;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:8px;color:var(--ink-2);font-size:14.5px}
+.press{margin-top:24px;font-size:15px;color:var(--ink-2)}
+.press q{font-family:var(--serif);color:var(--ink)}
+
+/* craft: jiaozi drawn on scroll */
+.craft{background:var(--lacquer);color:var(--paper);position:relative;overflow:hidden}
+.craft .grid{display:grid;gap:40px;align-items:center}
+@media(min-width:900px){.craft .grid{grid-template-columns:1fr 1fr;gap:80px}}
+.craft h2 .zh{color:var(--gold-l)}
+.craft .sub{color:rgba(244,236,220,.78)}
+.jiaozi{width:min(440px,86vw);margin-inline:auto;overflow:visible}
+.jiaozi .ln{fill:none;stroke:var(--gold-l);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.jiaozi .body{fill:rgba(244,236,220,.06)}
+.steps{margin-top:30px;display:grid;gap:14px;counter-reset:s}
+.steps li{list-style:none;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:baseline;opacity:.35;transition:opacity .5s}
+.steps li.on{opacity:1}
+.steps li::before{counter-increment:s;content:counter(s);font-family:var(--serif);color:var(--gold-l);font-size:20px}
+.craft .bigzh{position:absolute;right:-40px;bottom:-60px;font-family:var(--serif);font-weight:900;font-size:340px;line-height:1;color:rgba(244,236,220,.04);pointer-events:none;user-select:none}
+
+/* menu */
+.dishes{margin-top:48px;display:grid;gap:0;border-top:1px solid var(--line)}
+@media(min-width:900px){.dishes{grid-template-columns:1fr 1fr;column-gap:70px;border-top:0}.dish:nth-child(-n+2){border-top:1px solid var(--line)}}
+.dish{display:grid;grid-template-columns:1fr auto;gap:2px 18px;padding:22px 0;border-bottom:1px solid var(--line);position:relative}
+.dish h3{font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.3}
+.dish .zh{font-family:var(--serif);color:var(--red);font-size:15px;letter-spacing:.12em}
+.dish > div{grid-column:1}
+.dish .pr{grid-column:2;grid-row:1;font-weight:600;color:var(--red-d);white-space:nowrap;font-variant-numeric:tabular-nums}
+.dish .pr.tbc{color:var(--ink-2);font-weight:500;font-size:14px}
+.dish p{grid-column:1/-1;color:var(--ink-2);font-size:15.5px}
+.dish::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.dish:hover::after{transform:scaleX(1)}
+.note{margin-top:18px;font-size:14px;color:var(--ink-2)}
+
+/* allergens */
+.allergens{background:var(--paper-2)}
+.al-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:40px}
+@media(min-width:640px){.al-grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1000px){.al-grid{grid-template-columns:repeat(7,1fr)}}
+.al{background:var(--paper);padding:18px 14px;display:flex;flex-direction:column;gap:10px;min-height:100px}
+.al svg{width:26px;height:26px;stroke:var(--red);fill:none;stroke-width:1.3}
+.al span{font-size:14.5px;font-weight:500}
+.tbc-tag{display:inline-flex;margin-top:18px;font-size:13.5px;color:var(--red-d);border:1px dashed rgba(179,38,30,.45);border-radius:999px;padding:6px 14px}
+
+/* visit */
+.visit .grid{display:grid;gap:56px}
+@media(min-width:900px){.visit .grid{grid-template-columns:1fr 1fr;gap:90px}}
+.hours{margin-top:30px;border-top:1px solid var(--line)}
+.hours li{list-style:none;display:flex;justify-content:space-between;padding:13px 2px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.hours li.today{background:rgba(179,38,30,.08);padding-inline:12px;font-weight:600;color:var(--red-d);border-radius:6px}
+.addr{font-family:var(--serif);font-size:30px;line-height:1.25;font-weight:600}
+.where{color:var(--ink-2);margin-top:8px}
+.phone{display:block;margin-top:28px;font-family:var(--serif);font-size:clamp(30px,4vw,40px);color:var(--red);text-decoration:none;font-weight:600;letter-spacing:.01em}
+.phone small{display:block;font-family:var(--sans);font-size:14px;color:var(--ink-2);font-weight:500;letter-spacing:0}
+.visit .row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.visit .btn.ghost{border-color:var(--line);color:var(--ink)}
+.visit .btn.ghost:hover{border-color:var(--red);color:var(--red)}
+.visit .btn.primary{background:var(--red);color:var(--paper)}
+.visit .btn.primary:hover{background:var(--red-d)}
+
+footer{background:#3d0a07;color:rgba(244,236,220,.7);padding:56px 0 120px;font-size:14.5px}
+footer .row{display:flex;flex-wrap:wrap;gap:20px 48px;justify-content:space-between;align-items:flex-start}
+footer a{color:var(--gold-l)}
+footer .zh{font-family:var(--serif);font-size:28px;color:var(--paper)}
+.concept{margin-top:34px;padding-top:20px;border-top:1px solid rgba(244,236,220,.12);font-size:13px;color:rgba(244,236,220,.5)}
+
+.dock{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:60;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:6px;padding:7px;background:rgba(74,12,9,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(201,162,39,.3);border-radius:999px;transform:translateY(140%);transition:transform .6s var(--ease)}
+.dock.show{transform:none}
+.dock a{display:flex;align-items:center;justify-content:center;padding:12px 8px;border-radius:999px;color:var(--paper);text-decoration:none;font-weight:600;font-size:14.5px}
+.dock a.main{background:var(--gold);color:var(--lacquer)}
+@media(min-width:900px){.dock{left:auto;right:24px;bottom:24px;width:420px}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .vert{clip-path:none;filter:none}.seal{opacity:1;transform:rotate(-6deg)}
+  .copy > *,.rv{opacity:1!important;transform:none!important}.rule{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main"><span class="nl">Naar de inhoud</span><span class="en">Skip to content</span></a>
+
+<header class="top" id="top">
+  <div class="wrap bar">
+    <a class="mark" href="#"><span class="seal-s">东北</span><b>Noord-Oost Eethuis</b></a>
+    <nav class="links" aria-label="Hoofdmenu">
+      <a href="#verhaal"><span class="nl">Verhaal</span><span class="en">Story</span></a>
+      <a href="#gerechten"><span class="nl">Gerechten</span><span class="en">Dishes</span></a>
+      <a href="#allergenen"><span class="nl">Allergenen</span><span class="en">Allergens</span></a>
+      <a href="#bezoek"><span class="nl">Bezoek</span><span class="en">Visit</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Taal / Language">
+      <button type="button" data-set="nl" aria-pressed="true">NL</button>
+      <button type="button" data-set="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" aria-labelledby="h1">
+  <canvas id="snow" aria-hidden="true"></canvas>
+  <svg class="lantern" viewBox="0 0 70 150" aria-hidden="true">
+    <line x1="35" y1="0" x2="35" y2="40" stroke="#C9A227" stroke-width="1"/>
+    <rect x="25" y="40" width="20" height="6" rx="1" fill="none" stroke="#C9A227" stroke-width="1.2"/>
+    <ellipse class="glow" cx="35" cy="80" rx="27" ry="32" fill="rgba(255,120,60,.18)"/>
+    <ellipse cx="35" cy="80" rx="27" ry="32" fill="none" stroke="#E4C866" stroke-width="1.3"/>
+    <path d="M35 48v64M22 54c-6 16-6 36 0 52M48 54c6 16 6 36 0 52" fill="none" stroke="#E4C866" stroke-width=".8" opacity=".7"/>
+    <rect x="25" y="112" width="20" height="6" rx="1" fill="none" stroke="#C9A227" stroke-width="1.2"/>
+    <path d="M30 118v22M35 118v28M40 118v22" stroke="#C9A227" stroke-width=".8"/>
+  </svg>
+  <div class="wrap grid">
+    <div class="vwrap" aria-hidden="true"><div class="vert"><span>东</span><span>北</span><span>小</span><span>吃</span></div><span class="seal">东北<br>家常</span></div>
+    <div class="copy">
+      <h1 id="h1"><span class="nl">Noord-Oost Chinees Eethuis</span><span class="en">Noord-Oost Chinese Eethuis</span></h1>
+      <p class="lede"><span class="nl">Huiselijke keuken uit Noordoost-China, midden op de Albert Cuyp. Dumplings, met de hand gevouwen aan de toonbank.</span><span class="en">Home cooking from northeast China, right on the Albert Cuyp. Dumplings folded by hand at the counter.</span></p>
+      <div class="ctas">
+        <a class="btn primary" href="tel:+31206623688"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span class="nl">Bel of reserveer</span><span class="en">Call or book</span></a>
+        <a class="btn ghost" href="https://www.ubereats.com/nl/store/noord-oost-chinees-eethuis-amsterdam/9jF0hS2VSj-qR1v_djNvuA" target="_blank" rel="noopener"><span class="nl">Bezorging via Uber Eats</span><span class="en">Delivery on Uber Eats</span></a>
+      </div>
+      <div class="meta"><span data-status><span class="dot"></span><span class="txt">&nbsp;</span></span><span>★ 4,5 · Google (175)</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="verhaal" aria-labelledby="h-story">
+  <div class="wrap grid">
+    <div class="rv">
+      <h2 id="h-story"><span class="zh">家的味道</span><span class="nl">Een familie-eethuis met de smaak van thuis</span><span class="en">A family eethuis that tastes like home</span></h2>
+      <p class="nl">Dongbei, het koude noordoosten van China, staat bekend om eerlijke, verwarmende gerechten: stoofpotten, zuurkool, aardappel en natuurlijk dumplings. Na zo'n acht jaar in Den Haag kookt de familie die keuken nu ook in De Pijp.</p>
+      <p class="en">Dongbei, the cold northeast of China, is known for honest, warming food: stews, sauerkraut, potato and, of course, dumplings. After some eight years in The Hague, the family now cooks it in De Pijp too.</p>
+      <p class="nl">Gasten noemen het huiselijk en gezellig, en milder dan je van "de Chinees" gewend bent.</p>
+      <p class="en">Guests call it homely and warm, and lighter than the Chinese food they're used to.</p>
+      <p class="press"><span class="nl">Uitgelicht door iamsterdam bij de beste Chinese restaurants:</span><span class="en">Featured by iamsterdam among the best Chinese restaurants:</span> <q>rarely found Dongbei dishes</q></p>
+    </div>
+    <div class="stats rv" id="stats">
+      <div class="stat"><b data-count="4.5" data-dec="1">0</b><span>★ Google</span></div>
+      <div class="stat"><b data-count="175">0</b><span><span class="nl">reviews</span><span class="en">reviews</span></span></div>
+      <div class="stat"><b>~<i data-count="8" style="font-style:normal">0</i></b><span><span class="nl">jaar in Den Haag</span><span class="en">years in The Hague</span></span></div>
+      <div class="stat"><b data-count="2">0</b><span><span class="nl">vestigingen</span><span class="en">locations</span></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="rule rv"></div></div>
+
+<section class="craft" aria-labelledby="h-craft" id="craft">
+  <div class="bigzh" aria-hidden="true">饺</div>
+  <div class="wrap grid">
+    <div class="rv">
+      <h2 id="h-craft"><span class="zh">饺子 · jiǎozi</span><span class="nl">Gevouwen aan de toonbank</span><span class="en">Folded at the counter</span></h2>
+      <p class="sub"><span class="nl">Je ziet ze gemaakt worden terwijl je wacht. Scroll en vouw er zelf één.</span><span class="en">You watch them being made while you wait. Scroll and fold one yourself.</span></p>
+      <ol class="steps" id="steps">
+        <li><span class="nl">Een rond velletje deeg</span><span class="en">A round sheet of dough</span></li>
+        <li><span class="nl">Een lepel vulling in het midden</span><span class="en">A spoonful of filling in the centre</span></li>
+        <li><span class="nl">Dichtvouwen en plooien</span><span class="en">Fold shut and pleat</span></li>
+        <li><span class="nl">Koken of bakken, en op tafel</span><span class="en">Boil or pan-fry, and serve</span></li>
+      </ol>
+    </div>
+    <svg class="jiaozi" id="jiaozi" viewBox="0 0 320 220" aria-hidden="true">
+      <circle class="ln" data-step="0" cx="160" cy="118" r="92" opacity=".5"/>
+      <ellipse class="ln" data-step="1" cx="160" cy="124" rx="40" ry="20" opacity=".8"/>
+      <path class="ln body" data-step="2" d="M40 150c10-70 70-104 120-104s110 34 120 104c-40 22-200 22-240 0z"/>
+      <path class="ln" data-step="2" d="M70 106c6 8 14 12 22 12M100 82c5 10 12 16 22 18M134 68c3 10 9 18 18 22M168 66c2 10 7 18 15 22M200 74c1 10 5 18 12 22M232 92c0 8 3 14 8 18"/>
+      <path class="ln" data-step="3" d="M120 18c-6-8 4-12-2-20M160 12c-6-8 4-12-2-20M200 18c-6-8 4-12-2-20" opacity=".6"/>
+      <path class="ln" data-step="3" d="M30 176c70 18 190 18 260 0" opacity=".5"/>
+    </svg>
+  </div>
+</section>
+
+<section class="menu" id="gerechten" aria-labelledby="h-menu">
+  <div class="wrap">
+    <div class="rv">
+      <h2 id="h-menu"><span class="zh">东北菜</span><span class="nl">Proef het noordoosten</span><span class="en">A taste of the northeast</span></h2>
+      <p class="sub"><span class="nl">Een selectie van de kaart. Voor het volledige menu: bel even of kijk op Uber Eats.</span><span class="en">A selection from the menu. For the full menu, give us a call or see Uber Eats.</span></p>
+    </div>
+    <div class="dishes">
+      <div class="dish rv"><div><h3><span class="nl">Handgemaakte dumplings</span><span class="en">Handmade dumplings</span></h3><span class="zh">饺子</span></div><span class="pr tbc"><span class="nl">prijs volgt</span><span class="en">price tbc</span></span><p><span class="nl">Met de hand gevouwen aan de toonbank.</span><span class="en">Folded by hand at the counter.</span></p></div>
+      <div class="dish rv"><div><h3>Di san xian</h3><span class="zh">地三鲜</span></div><span class="pr tbc"><span class="nl">prijs volgt</span><span class="en">price tbc</span></span><p><span class="nl">"Drie van de aarde": gewokte aardappel, aubergine en paprika.</span><span class="en">"Three treasures of the earth": stir-fried potato, aubergine and pepper.</span></p></div>
+      <div class="dish rv"><div><h3><span class="nl">Buikspek met zuurkool</span><span class="en">Pork belly with sauerkraut</span></h3><span class="zh">酸菜炖五花肉</span></div><span class="pr tbc"><span class="nl">prijs volgt</span><span class="en">price tbc</span></span><p><span class="nl">Langzaam gestoofd, zoals in het noordoosten.</span><span class="en">Slow-braised, northeastern style.</span></p></div>
+      <div class="dish rv"><div><h3><span class="nl">Kip met paddenstoelen</span><span class="en">Chicken with mushrooms</span></h3><span class="zh">小鸡炖蘑菇</span></div><span class="pr tbc"><span class="nl">prijs volgt</span><span class="en">price tbc</span></span><p><span class="nl">Een klassieke Dongbei-stoofpot.</span><span class="en">A classic Dongbei stew.</span></p></div>
+      <div class="dish rv"><div><h3><span class="nl">BBQ lamsspiesjes</span><span class="en">BBQ lamb skewers</span></h3><span class="zh">羊肉串</span></div><span class="pr">€8,50</span><p><span class="nl">Vier stuks.</span><span class="en">Four pieces.</span></p></div>
+      <div class="dish rv"><div><h3><span class="nl">Zwarte paddenstoel in oude azijn</span><span class="en">Black fungus in aged vinegar</span></h3><span class="zh">老醋木耳</span></div><span class="pr">€15,50</span><p><span class="nl">Fris, zuur en knapperig.</span><span class="en">Fresh, tangy and crunchy.</span></p></div>
+      <div class="dish rv"><div><h3><span class="nl">Lotuswortel in pittige saus</span><span class="en">Lotus root in spicy sauce</span></h3><span class="zh">麻辣藕片</span></div><span class="pr">€15,50</span><p><span class="nl">Krokante plakjes lotuswortel.</span><span class="en">Crisp slices of lotus root.</span></p></div>
+      <div class="dish rv"><div><h3><span class="nl">Noordoost dunne noedels</span><span class="en">Northeast thin noodles</span></h3><span class="zh">东北面条</span></div><span class="pr tbc"><span class="nl">prijs volgt</span><span class="en">price tbc</span></span><p><span class="nl">Dunne noedels op noordoostelijke wijze.</span><span class="en">Thin noodles, northeastern style.</span></p></div>
+    </div>
+    <p class="note"><span class="nl">Prijzen onder voorbehoud, nog te bevestigen.</span><span class="en">Prices subject to change, to be confirmed.</span></p>
+  </div>
+</section>
+
+<section class="allergens" id="allergenen" aria-labelledby="h-al">
+  <div class="wrap">
+    <div class="rv">
+      <h2 id="h-al"><span class="nl">Allergenen</span><span class="en">Allergens</span></h2>
+      <p class="sub"><span class="nl">De 14 EU-allergenen. Allergie of dieetwens? Vraag het altijd even bij het bestellen.</span><span class="en">The 14 EU allergens. Allergy or dietary need? Always ask when ordering.</span></p>
+      <span class="tbc-tag"><span class="nl">Voorbeeld · per gerecht nog te bevestigen</span><span class="en">Example · per-dish details to be confirmed</span></span>
+    </div>
+    <div class="al-grid" id="algrid"></div>
+  </div>
+</section>
+
+<section class="visit" id="bezoek" aria-labelledby="h-visit">
+  <div class="wrap grid">
+    <div class="rv">
+      <h2 id="h-visit"><span class="nl">Langskomen</span><span class="en">Drop by</span></h2>
+      <div class="meta" style="color:var(--ink-2);margin-top:16px"><span data-status><span class="dot"></span><span class="txt">&nbsp;</span></span></div>
+      <ul class="hours" id="hours"></ul>
+      <p class="note"><span class="nl">Openingstijden nog te bevestigen.</span><span class="en">Opening hours to be confirmed.</span></p>
+    </div>
+    <div class="rv">
+      <p class="addr">Albert Cuypstraat 65-H<br>1072 CN Amsterdam</p>
+      <p class="where"><span class="nl">Op de Albert Cuyp, in De Pijp.</span><span class="en">On the Albert Cuyp market street, De Pijp.</span></p>
+      <a class="phone" href="tel:+31206623688">020 662 3688<small><span class="nl">Bestellen en reserveren</span><span class="en">To order and book</span></small></a>
+      <div class="row">
+        <a class="btn primary" href="https://www.google.com/maps/search/?api=1&amp;query=Noord-Oost+Chinees+Eethuis+Albert+Cuypstraat+65H+Amsterdam" target="_blank" rel="noopener"><span class="nl">Route plannen</span><span class="en">Get directions</span></a>
+        <a class="btn ghost" href="https://www.instagram.com/noordoosteethuis/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div><div class="zh">东北小吃</div><p style="margin-top:6px">Noord-Oost Chinees Eethuis · Albert Cuypstraat 65-H, Amsterdam</p></div>
+      <div><a href="tel:+31206623688">020 662 3688</a> · <a href="https://www.instagram.com/noordoosteethuis/" target="_blank" rel="noopener">@noordoosteethuis</a></div>
+    </div>
+    <p class="concept">Concept design by Dolcessi for Noord-Oost Chinees Eethuis · not the official website. <span class="nl">Tijden, prijzen en allergenen nog te bevestigen.</span><span class="en">Hours, prices and allergens to be confirmed.</span></p>
+  </div>
+</footer>
+
+<nav class="dock" id="dock" aria-label="Snelle acties">
+  <a class="main" href="tel:+31206623688"><span class="nl">Bellen</span><span class="en">Call</span></a>
+  <a href="https://www.ubereats.com/nl/store/noord-oost-chinees-eethuis-amsterdam/9jF0hS2VSj-qR1v_djNvuA" target="_blank" rel="noopener">Uber Eats</a>
+  <a href="https://www.google.com/maps/search/?api=1&amp;query=Noord-Oost+Chinees+Eethuis+Albert+Cuypstraat+65H+Amsterdam" target="_blank" rel="noopener">Route</a>
+</nav>
+
+<script>
+(function(){
+  var root=document.documentElement,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var btns=document.querySelectorAll('.lang button');
+  function setLang(l){root.dataset.l=l;root.lang=l;btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.set===l)});try{localStorage.setItem('no-lang',l)}catch(e){}renderHours();}
+  btns.forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.set)})});
+  requestAnimationFrame(function(){setTimeout(function(){document.body.classList.add('ready')},100)});
+
+  var top=document.getElementById('top'),dock=document.getElementById('dock');
+  function onScroll(){top.classList.toggle('solid',scrollY>40);dock.classList.toggle('show',scrollY>innerHeight*.7);}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');if(e.target.id==='stats')count();io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el,i){el.style.transitionDelay=((i%2)*.08)+'s';io.observe(el)});
+
+  /* counters */
+  function count(){document.querySelectorAll('[data-count]').forEach(function(el){var to=+el.dataset.count,dec=+(el.dataset.dec||0),t0=null,dur=1400;
+    if(reduce){el.textContent=to.toFixed(dec).replace('.',',');return}
+    function step(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=(to*e).toFixed(dec).replace('.',',');if(k<1)requestAnimationFrame(step)}requestAnimationFrame(step)})}
+
+  /* snow */
+  var cv=document.getElementById('snow'),cx=cv.getContext('2d'),flakes=[],W,H,dpr=Math.min(2,devicePixelRatio||1);
+  function size(){W=cv.offsetWidth;H=cv.offsetHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}
+  size();addEventListener('resize',size);
+  var N=Math.round(Math.min(110,W/9));for(var i=0;i<N;i++)flakes.push({x:Math.random()*W,y:Math.random()*H,r:.6+Math.random()*1.8,v:.25+Math.random()*.6,w:Math.random()*6.28,o:.25+Math.random()*.5});
+  var heroVisible=true;new IntersectionObserver(function(e){heroVisible=e[0].isIntersecting}).observe(cv);
+  function snow(){if(heroVisible){cx.clearRect(0,0,W,H);flakes.forEach(function(f){f.y+=f.v;f.w+=.01;f.x+=Math.sin(f.w)*.35;if(f.y>H+4){f.y=-4;f.x=Math.random()*W}
+    cx.beginPath();cx.arc(f.x,f.y,f.r,0,6.283);cx.fillStyle='rgba(244,236,220,'+f.o+')';cx.fill()})}requestAnimationFrame(snow)}
+  if(!reduce)snow();
+
+  /* jiaozi drawn by scroll */
+  var paths=[].slice.call(document.querySelectorAll('#jiaozi .ln')),steps=document.querySelectorAll('#steps li'),craft=document.getElementById('craft');
+  paths.forEach(function(p){var L=p.getTotalLength?p.getTotalLength():400;p.style.strokeDasharray=L;p.style.strokeDashoffset=reduce?0:L;p._L=L});
+  function drawJ(){var r=craft.getBoundingClientRect(),prog=Math.min(1,Math.max(0,(innerHeight*.85-r.top)/(r.height*.75)));
+    var stage=prog*4;paths.forEach(function(p){var s=+p.dataset.step,k=Math.min(1,Math.max(0,stage-s));p.style.strokeDashoffset=p._L*(1-k)});
+    steps.forEach(function(li,i){li.classList.toggle('on',stage>i+.15)})}
+  if(!reduce){addEventListener('scroll',drawJ,{passive:true});drawJ()}else steps.forEach(function(li){li.classList.add('on')});
+
+  /* allergens */
+  var AL=[['Gluten','Gluten','M8 20c0-6 4-10 4-16M12 4c3 3 3 7 0 10M12 4c-3 3-3 7 0 10M12 10c3 2 4 5 3 8M12 10c-3 2-4 5-3 8'],['Schaaldieren','Crustaceans','M5 14c0-4 3-7 7-7s7 3 7 7-3 5-7 5-7-1-7-5zM9 7L6 3M15 7l3-4M12 19v2'],['Ei','Eggs','M12 3c4 0 7 6 7 11a7 7 0 0 1-14 0c0-5 3-11 7-11z'],['Vis','Fish','M3 12c4-5 10-5 14 0-4 5-10 5-14 0zM17 12l4-3v6zM8 11h.01'],["Pinda's",'Peanuts','M9 4a4 4 0 0 1 4 6 4 4 0 1 1-4 8 4 4 0 0 1 0-14z'],['Soja','Soy','M6 18c0-6 5-12 12-12M9 15a2 2 0 1 0 0 .1M13 11a2 2 0 1 0 0 .1'],['Melk','Milk','M9 3h6M10 3v3l-2 4v11h8V10l-2-4V3M8 13h8'],['Noten','Nuts','M12 4c5 0 8 4 8 8s-3 8-8 8-8-4-8-8 3-8 8-8zM12 4v16'],['Selderij','Celery','M12 21V9M12 9c-3-1-5-4-5-6M12 9c3-1 5-4 5-6M9 21V12M15 21V12'],['Mosterd','Mustard','M9 3h6v3H9zM8 6h8l-1 15H9z'],['Sesam','Sesame','M8 9a2 3 0 1 0 0 .1M15 7a2 3 0 1 0 0 .1M12 15a2 3 0 1 0 0 .1'],['Sulfiet','Sulphites','M8 3h8M9 3v6l-4 10h14L15 9V3M7 15h10'],['Lupine','Lupin','M12 21V6M12 6c-2 0-3-2-3-3M12 10c-2 0-3-1-4-3M12 10c2 0 3-1 4-3M12 14c-2 0-3-1-4-3M12 14c2 0 3-1 4-3'],['Weekdieren','Molluscs','M4 15a8 8 0 0 1 16 0zM8 15l2-6M12 15V8M16 15l-2-6']];
+  var ag=document.getElementById('algrid');
+  AL.forEach(function(a,i){var d=document.createElement('div');d.className='al rv';d.style.transitionDelay=(i*.03)+'s';d.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+a[2]+'" stroke-linecap="round" stroke-linejoin="round"/></svg><span><span class="nl">'+a[0]+'</span><span class="en">'+a[1]+'</span></span>';ag.appendChild(d);io.observe(d)});
+
+  /* hours: 0 = Sunday; minutes from midnight */
+  var Hh={0:[720,1320],1:[720,1320],2:null,3:[720,1320],4:[720,1320],5:[720,1320],6:[720,1320]};
+  var DN={nl:['Zondag','Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag'],en:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']};
+  function fmt(m){return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}
+  function ams(){var p={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Amsterdam',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).forEach(function(x){p[x.type]=x.value});return{d:{Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[p.weekday],m:(+p.hour)*60+(+p.minute)}}
+  function renderHours(){var l=root.dataset.l,now=ams(),ul=document.getElementById('hours');ul.innerHTML='';
+    [1,2,3,4,5,6,0].forEach(function(d){var li=document.createElement('li');if(d===now.d)li.className='today';var h=Hh[d];li.innerHTML='<span>'+DN[l][d]+'</span><span>'+(h?fmt(h[0])+' – '+fmt(h[1]):(l==='nl'?'Gesloten':'Closed'))+'</span>';ul.appendChild(li)});
+    var h=Hh[now.d],msg,open=false;
+    if(h&&now.m>=h[0]&&now.m<h[1]){open=true;msg=(l==='nl'?'Nu open, tot ':'Open now, until ')+fmt(h[1])}
+    else{for(var i=0;i<8;i++){var d=(now.d+i)%7,hh=Hh[d];if(hh&&(i>0||now.m<hh[0])){msg=(l==='nl'?'Gesloten · open ':'Closed · opens ')+(i===0?(l==='nl'?'vandaag ':'today '):i===1?(l==='nl'?'morgen ':'tomorrow '):DN[l][d].toLowerCase()+' ')+fmt(hh[0]);break}}}
+    document.querySelectorAll('[data-status]').forEach(function(s){s.classList.toggle('is-open',open);s.querySelector('.txt').textContent=msg})}
+  var saved=null;try{saved=localStorage.getItem('no-lang')}catch(e){}
+  setLang(saved||((navigator.language||'nl').slice(0,2)==='nl'?'nl':'en'));
+  setInterval(renderHours,60000);
+})();
+</script>
+</body>
+</html>

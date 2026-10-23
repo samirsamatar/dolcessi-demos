@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#120D09">
+<title>Lanzhou Beef Noodles · Rijnstraat 67, Amsterdam (concept)</title>
+<meta name="description" content="Concept website for Lanzhou Beef Noodles, Rijnstraat 67, Amsterdam-Zuid. Hand-pulled Lanzhou beef noodle soup.">
+<link rel="preload" href="fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/noto-serif-sc-subset.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%23120D09%22/%3E%3Cpath d=%22M6 13c6 3 14 3 20 0M6 17c6 3 14 3 20 0M8 21c5 2 11 2 16 0%22 stroke=%22%23EBC46A%22 stroke-width=%222%22 fill=%22none%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:"Bricolage";font-weight:400;font-display:swap;src:url(fonts/bricolage-grotesque-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Bricolage";font-weight:500;font-display:swap;src:url(fonts/bricolage-grotesque-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Bricolage";font-weight:700;font-display:swap;src:url(fonts/bricolage-grotesque-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Bricolage";font-weight:800;font-display:swap;src:url(fonts/bricolage-grotesque-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:"Fraunces";font-style:italic;font-display:swap;src:url(fonts/fraunces-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"LZ Serif SC";font-weight:700;font-display:swap;src:url(fonts/noto-serif-sc-subset.woff2) format("woff2")}
+:root{
+  --ink:#120D09; --ink2:#1B140E; --line:#2E241B;
+  --broth:#D9B97A; --white:#F4EEE3; --red:#D7301F; --green:#5E9B48; --yellow:#EBC46A;
+  --soft:#CDBFAE; --mute:#8F8170;
+  --d:"Bricolage",system-ui,sans-serif; --s:"Fraunces",Georgia,serif; --cn:"LZ Serif SC","Noto Serif CJK SC","Songti SC",serif;
+  --pad:clamp(18px,4.5vw,72px);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink)}
+body{background:var(--ink);color:var(--white);font:400 17px/1.55 var(--d);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+em{font-family:var(--s);font-style:italic;font-weight:400;color:var(--yellow)}
+.cn{font-family:var(--cn);font-weight:700}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.08em}
+section{position:relative;padding:0 var(--pad)}
+.eyebrow{font:500 12px/1 var(--d);letter-spacing:.24em;text-transform:uppercase;color:var(--yellow)}
+h2{font:800 clamp(42px,6.4vw,104px)/.9 var(--d);letter-spacing:-.045em}
+.grain{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:18px;padding:16px var(--pad);background:linear-gradient(rgba(18,13,9,.9),rgba(18,13,9,0));opacity:0}
+.brand{display:flex;align-items:center;gap:10px;font:800 15px var(--d);letter-spacing:-.01em}
+.brand .cn{color:var(--yellow);font-size:18px}
+.nav .links{display:flex;gap:22px;margin-left:auto;font:500 13px var(--d);color:var(--soft)}
+.nav .links a:hover{color:var(--yellow)}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font:500 12px var(--d);color:var(--soft);white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:#6BCB77;box-shadow:0 0 10px #6BCB77}
+.dot.off{background:var(--mute);box-shadow:none}
+.lang{background:none;border:1px solid var(--line);border-radius:999px;color:var(--mute);padding:7px 11px;font:600 11px var(--d);letter-spacing:.12em;cursor:pointer}
+.lang b{color:var(--yellow);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:15px 24px;font:700 15px var(--d);background:var(--red);color:#fff;box-shadow:0 10px 40px rgba(215,48,31,.35);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 50px rgba(215,48,31,.5)}
+.btn.ghost{background:transparent;border:1px solid #4a3a2c;box-shadow:none;color:var(--white)}
+.btn.ghost:hover{border-color:var(--yellow)}
+.btn.s{padding:10px 16px;font-size:13px}
+.btn svg{width:16px;height:16px;fill:currentColor}
+
+/* hero */
+.hero{height:100vh;height:100svh;min-height:600px;padding:0;overflow:hidden}
+#pull{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-copy{position:absolute;left:var(--pad);top:50%;transform:translateY(-50%);max-width:min(600px,46vw);z-index:2}
+.hero-copy .eyebrow{opacity:0}
+.hero-title{font:800 clamp(50px,6.6vw,112px)/.88 var(--d);letter-spacing:-.05em;margin:20px 0 22px}
+.hero-title .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+.hero-title .w>span{display:inline-block;transform:translateY(110%)}
+.hero-sub{font-size:clamp(17px,1.4vw,20px);color:var(--soft);max-width:470px;opacity:0}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;opacity:0}
+.hero-cn{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font:700 clamp(36px,4.2vw,64px)/1 var(--cn);letter-spacing:.18em;color:var(--yellow);opacity:0;z-index:2;text-shadow:0 0 40px rgba(235,196,106,.25)}
+.hero-foot{position:absolute;left:var(--pad);right:var(--pad);bottom:22px;display:flex;justify-content:space-between;align-items:center;gap:12px;font:500 12px var(--d);color:var(--mute);z-index:2;letter-spacing:.06em}
+.counter{font:800 14px var(--d);color:var(--yellow)}
+.counter b{font-size:28px;letter-spacing:-.03em;margin-right:6px}
+.skip{background:none;border:0;color:var(--mute);font:500 12px var(--d);letter-spacing:.06em;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* five colours */
+.five{padding-top:0;padding-bottom:0}
+.five-pin{height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:5vw}
+.five-left h2{margin:16px 0 30px}
+.five-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.five-list li{display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);opacity:.28;transition:opacity .5s}
+.five-list li.on{opacity:1}
+.five-list .num{font:700 34px/1 var(--cn)}
+.five-list b{display:block;font:700 19px var(--d);letter-spacing:-.01em}
+.five-list span{font-size:15px;color:var(--soft)}
+.five-bowl{display:flex;justify-content:center}
+.five-bowl svg{width:min(520px,40vw);height:auto;overflow:visible;filter:drop-shadow(0 30px 60px rgba(0,0,0,.5))}
+.layer{opacity:0}
+
+/* widths */
+.widths{padding-top:14vh;padding-bottom:12vh}
+.widths h2{margin:16px 0 14px}
+.widths .lead{color:var(--soft);font-size:clamp(17px,1.4vw,20px);max-width:620px}
+.wstage{margin:6vh 0 3vh;height:min(300px,42vw);border:1px solid var(--line);border-radius:28px;background:radial-gradient(120% 120% at 50% 0%,#23190f,#140f0a);position:relative;overflow:hidden}
+.wstage svg{position:absolute;inset:0;width:100%;height:100%}
+.wstage .label{position:absolute;left:28px;top:24px}
+.wstage .label .cn{font-size:clamp(34px,4vw,56px);color:var(--yellow);line-height:1}
+.wstage .label p{color:var(--soft);font-size:15px;margin-top:6px}
+.wbtns{display:flex;flex-wrap:wrap;gap:10px}
+.wbtns button{background:#1b140e;border:1px solid var(--line);color:var(--soft);border-radius:16px;padding:12px 16px;cursor:pointer;text-align:left;font:500 13px var(--d);transition:border-color .3s,background .3s,color .3s}
+.wbtns button .cn{display:block;font-size:20px;color:var(--white);margin-bottom:2px}
+.wbtns button[aria-pressed="true"]{border-color:var(--yellow);background:#2a1f12;color:var(--yellow)}
+.fine{font-size:13px;color:var(--mute);margin-top:16px}
+
+/* bowl & menu */
+.menu{padding-top:12vh;padding-bottom:12vh}
+.menu h2{margin:16px 0 40px;max-width:900px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{border:1px solid var(--line);border-radius:24px;padding:24px;background:linear-gradient(180deg,#1d150e,#150f0a);min-height:280px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .4s}
+.card:hover{transform:translateY(-6px);border-color:#5a4530}
+.card .cn{font-size:36px;color:var(--yellow);line-height:1}
+.card h3{font:700 22px/1.1 var(--d);letter-spacing:-.02em;margin-top:auto}
+.card p{color:var(--soft);font-size:15px}
+.card .tag{position:absolute;top:20px;right:20px;font:600 10.5px var(--d);letter-spacing:.14em;text-transform:uppercase;color:var(--green);border:1px solid rgba(94,155,72,.45);border-radius:999px;padding:5px 9px}
+.card.hero-card{grid-column:span 2;background:radial-gradient(120% 140% at 80% 10%,rgba(215,48,31,.25),transparent 60%),linear-gradient(180deg,#22180f,#150f0a)}
+.card.hero-card .cn{font-size:64px}
+.card.cta-card{grid-column:span 2;background:var(--red);border-color:var(--red);color:#fff}
+.card.cta-card .cn{color:#ffe7c2}
+.card.cta-card p{color:#ffe7c2;font-weight:700}
+.menu-note{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.menu-note span{border:1px solid var(--line);border-radius:999px;padding:9px 15px;font-size:13px;color:var(--soft)}
+
+/* reviews */
+.reviews{padding-top:10vh;padding-bottom:12vh;overflow:hidden}
+.score{display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.score .big{font:800 clamp(110px,16vw,240px)/.8 var(--d);letter-spacing:-.06em;color:var(--yellow)}
+.stars{display:flex;gap:6px;margin-bottom:14px}
+.stars i{width:30px;height:30px;background:#3a2d20;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);position:relative;overflow:hidden}
+.stars i::after{content:"";position:absolute;inset:0;background:var(--yellow);transform:scaleX(var(--f,0));transform-origin:left;transition:transform .9s cubic-bezier(.2,.8,.2,1) var(--dl,0s)}
+.score small{display:block;color:var(--soft);font-size:15px}
+.qrow{display:flex;gap:16px;margin-top:6vh;width:max-content;animation:qmove 46s linear infinite}
+.qrow:hover{animation-play-state:paused}
+@keyframes qmove{to{transform:translateX(-50%)}}
+.q{width:min(420px,78vw);border:1px solid var(--line);border-radius:22px;padding:24px;background:#170f0a;flex:none}
+.q p{font:italic 400 22px/1.25 var(--s);color:var(--white)}
+.q span{display:block;margin-top:14px;font-size:12px;color:var(--mute);letter-spacing:.08em;text-transform:uppercase}
+
+/* visit */
+.visit{padding-top:12vh;padding-bottom:16vh}
+.visit-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:5vw;align-items:start;margin-top:5vh}
+.visit h2 em{display:inline}
+.hours{list-style:none;border-top:1px solid var(--line)}
+.hours li{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);font-size:17px;color:var(--soft)}
+.hours li.today{color:var(--white);font-weight:700}
+.hours li.today span:first-child::after{content:" ●";color:var(--yellow);font-size:10px;vertical-align:3px}
+.hours li .closed{color:var(--mute)}
+.addr{font:700 clamp(28px,3vw,44px)/1.05 var(--d);letter-spacing:-.03em}
+.addr small{display:block;font:400 16px var(--d);color:var(--soft);letter-spacing:0;margin-top:10px}
+.visit .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.mapart{margin-top:30px;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:#150f0a}
+.mapart svg{display:block;width:100%;height:auto}
+
+footer{padding:40px var(--pad) 110px;border-top:1px solid var(--line);color:var(--mute);font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:var(--soft)}
+
+/* sticky mobile bar */
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:45;display:none;gap:8px;padding:8px;border-radius:20px;background:rgba(27,20,14,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);transform:translateY(130%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.mbar.show{transform:none}
+.mbar a{flex:1;justify-content:center;padding:13px 10px;font-size:14px}
+
+.reveal{opacity:0;transform:translateY(30px)}
+
+@media (max-width:900px){
+  .nav .links,.nav .pill{display:none}
+  .brand{white-space:nowrap;font-size:14px}
+  .lang{white-space:nowrap}
+  .nav .lang{margin-left:auto}
+  .hero-copy{top:auto;bottom:86px;transform:none;max-width:none;right:var(--pad)}
+  .hero-title{font-size:clamp(46px,13.5vw,76px)}
+  .hero-cn{top:96px;transform:none;font-size:30px}
+  .hero-foot .skipwrap{display:none}
+  .five-pin{grid-template-columns:1fr;height:auto;min-height:100vh;padding:12vh 0;gap:30px}
+  .five-bowl{order:-1}
+  .five-bowl svg{width:min(360px,80vw)}
+  .cards{grid-template-columns:1fr 1fr}
+  .card.hero-card{grid-column:span 2}
+  .visit-grid{grid-template-columns:1fr}
+  .mbar{display:flex}
+  .wstage{height:220px}
+}
+@media (max-width:420px){.bname{display:none}}
+@media (max-width:520px){.cards{grid-template-columns:1fr}.card.hero-card,.card.cta-card{grid-column:auto}.card{min-height:200px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top"><span class="cn">兰州</span> <span class="bname">Lanzhou Beef Noodles</span></a>
+  <nav class="links"><a href="#bowl" data-nl="De kom">The bowl</a><a href="#menu" data-nl="Menu">Menu</a><a href="#visit" data-nl="Bezoek">Visit</a></nav>
+  <span class="pill"><i class="dot" id="nav-dot"></i><span id="nav-open">Open</span></span>
+  <button class="lang" id="lang" type="button" aria-label="Taal / language"><span data-l="en">EN</span> / <span data-l="nl">NL</span></button>
+  <a class="btn s" href="tel:+31206445377"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span data-nl="Bellen">Call</span></a>
+</header>
+
+<main id="top">
+<section class="hero" id="hero">
+  <canvas id="pull" aria-hidden="true"></canvas>
+  <div class="hero-copy">
+    <p class="eyebrow" data-nl="Rijnstraat 67 · Amsterdam-Zuid">Rijnstraat 67 · Amsterdam-Zuid</p>
+    <h1 class="hero-title" id="hero-title" data-nl="Met de hand getrokken. <em>Waar je bij staat.</em>">Pulled by hand. <em>Right in front of you.</em></h1>
+    <p class="hero-sub" data-nl="Lanzhou-runderbouillon met noedels: heldere bouillon, mals rundvlees en noedels die pas getrokken worden als jij bestelt.">Lanzhou beef noodle soup: a clear broth, tender beef and noodles stretched the moment you order.</p>
+    <div class="hero-ctas">
+      <a class="btn" href="tel:+31206445377"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>020 644 5377</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Lanzhou%20Beef%20Noodles%20Rijnstraat%2067%20Amsterdam&amp;query_place_id=ChIJi1ur4AUJxkcR2khl4wLxi8E"><span data-nl="Route plannen">Get directions</span> ↗</a>
+    </div>
+  </div>
+  <div class="hero-cn" aria-hidden="true">兰州牛肉面</div>
+  <div class="hero-foot">
+    <span class="counter" id="counter"><b id="strands">1</b><span id="strand-word">strand</span></span>
+    <span class="skipwrap"><button class="skip" id="skip" type="button" data-nl="Animatie overslaan">Skip the pull</button></span>
+    <span>★ 4.7 · <span data-nl="300+ Google-reviews">300+ Google reviews</span></span>
+  </div>
+</section>
+
+<section class="five" id="bowl">
+  <div class="five-pin">
+    <div class="five-left">
+      <p class="eyebrow" data-nl="De regel van Lanzhou">The Lanzhou rule</p>
+      <h2 data-nl="Eén kom. <em>Vijf kleuren.</em>">One bowl. <em>Five colours.</em></h2>
+      <ol class="five-list" id="five-list">
+        <li><span class="num cn" style="color:var(--broth)">一清</span><div><b data-nl="Helder">Clear</b><span data-nl="De bouillon. Lang getrokken tot hij helder is, maar vol van smaak.">The broth. Slow-simmered until it runs clear but deep.</span></div></li>
+        <li><span class="num cn" style="color:var(--white)">二白</span><div><b data-nl="Wit">White</b><span data-nl="Dunne plakjes witte radijs, zacht gegaard in de bouillon.">Thin slices of white radish, softened in the broth.</span></div></li>
+        <li><span class="num cn" style="color:var(--red)">三红</span><div><b data-nl="Rood">Red</b><span data-nl="Chili-olie bovenop. Jij roert hem erdoor, jij bepaalt de hitte.">Chili oil on top. You stir it in, you set the heat.</span></div></li>
+        <li><span class="num cn" style="color:var(--green)">四绿</span><div><b data-nl="Groen">Green</b><span data-nl="Verse koriander en knoflookscheuten.">Fresh coriander and garlic shoots.</span></div></li>
+        <li><span class="num cn" style="color:var(--yellow)">五黄</span><div><b data-nl="Geel">Yellow</b><span data-nl="De noedels zelf: met de hand getrokken, glanzend en veerkrachtig.">The noodles themselves: hand-pulled, glossy and springy.</span></div></li>
+      </ol>
+    </div>
+    <div class="five-bowl">
+      <svg viewBox="-260 -260 520 520" aria-label="A bowl filling up with the five colours">
+        <defs>
+          <radialGradient id="g-broth" cx="40%" cy="35%"><stop offset="0" stop-color="#F0D7A0"/><stop offset=".6" stop-color="#C9933F"/><stop offset="1" stop-color="#7A4A1C"/></radialGradient>
+          <radialGradient id="g-bowl" cx="50%" cy="50%"><stop offset=".78" stop-color="#1c140d"/><stop offset=".86" stop-color="#2a2018"/><stop offset="1" stop-color="#0d0906"/></radialGradient>
+          <clipPath id="c-in"><circle r="190"/></clipPath>
+        </defs>
+        <circle r="250" fill="url(#g-bowl)" stroke="#5b4530" stroke-width="2"/>
+        <circle r="232" fill="none" stroke="#3a2d20" stroke-width="1.5" stroke-dasharray="3 9"/>
+        <circle r="192" fill="#120d09"/>
+        <g clip-path="url(#c-in)">
+          <g class="layer" id="L1"><circle r="192" fill="url(#g-broth)" opacity=".92"/><circle r="192" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="30"/></g>
+          <g class="layer" id="L5"></g>
+          <g class="layer" id="L2"></g>
+          <g class="layer" id="L3"></g>
+          <g class="layer" id="L4"></g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="widths" id="widths">
+  <p class="eyebrow reveal" data-nl="Kies je dikte">Pick your width</p>
+  <h2 class="reveal" data-nl="Zelfde deeg. <em>Jouw dikte.</em>">Same dough. <em>Your width.</em></h2>
+  <p class="lead reveal" data-nl="In Lanzhou bestel je niet alleen een kom, maar ook de dikte van je noedels. Ze worden getrokken op het moment dat jij kiest.">In Lanzhou you don’t just order a bowl, you order a width. The noodles are pulled the moment you choose.</p>
+  <div class="wstage" id="wstage">
+    <svg id="wsvg" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <div class="label"><div class="cn" id="w-cn">二细</div><p id="w-desc">Erxi · second-thin, the classic choice</p></div>
+  </div>
+  <div class="wbtns" id="wbtns"></div>
+  <p class="fine" data-nl="De Lanzhou-traditie kent deze diktes. Vraag aan de balie welke er vandaag zijn.">These are the traditional Lanzhou widths. Ask at the counter which ones are on today.</p>
+</section>
+
+<section class="menu" id="menu">
+  <p class="eyebrow reveal" data-nl="Wat je krijgt">What you get</p>
+  <h2 class="reveal" data-nl="Elke kom komt met <em>een thee-ei en een bijgerecht.</em>">Every bowl comes with <em>a tea egg and a side.</em></h2>
+  <div class="cards">
+    <article class="card hero-card reveal"><span class="cn">牛肉面</span><h3 data-nl="Traditionele runderbouillon met noedels">Traditional beef noodle soup</h3><p data-nl="Heldere bouillon, mals rundvlees, verse kruiden en chili-olie. Het hart van de zaak.">Clear broth, tender beef, fresh herbs and chili oil. The heart of the house.</p></article>
+    <article class="card reveal"><span class="tag" data-nl="Vegetarisch">Vegetarian</span><span class="cn">番茄鸡蛋面</span><h3 data-nl="Tomaat-ei-noedelsoep">Tomato &amp; egg noodle soup</h3><p data-nl="Groot, warm en vol tomaat.">Big, warm and full of tomato.</p></article>
+    <article class="card reveal"><span class="cn">饺子</span><h3 data-nl="Gyoza">Gyoza</h3><p data-nl="Volgens de gasten: niet overslaan.">According to the guests: don’t skip them.</p></article>
+    <article class="card reveal"><span class="cn">茶蛋 · 凉拌</span><h3 data-nl="Thee-ei &amp; bijgerecht">Tea egg &amp; side</h3><p data-nl="Bij elke kom: een gemarineerd ei en een klein koud bijgerecht, zoals komkommer of houtoor.">With every bowl: a marinated egg and a small cold side, like cucumber or wood ear mushroom.</p></article>
+    <article class="card reveal"><span class="cn">手拉</span><h3 data-nl="Vers getrokken">Pulled fresh</h3><p data-nl="De noedels worden voor je ogen gemaakt. Elke kom opnieuw.">The noodles are made in front of you. Every single bowl.</p></article>
+    <a class="card cta-card reveal" href="tel:+31206445377"><span class="cn">饿了</span><h3 data-nl="Honger? Bel en haal op.">Hungry now? Call and pick up.</h3><p>020 644 5377 →</p></a>
+  </div>
+  <div class="menu-note reveal"><span data-nl="€10–20 per persoon">€10–20 per person</span><span data-nl="Ook om mee te nemen">Takeaway too</span><span data-nl="Volledige kaart en prijzen aan de balie">Full menu &amp; prices at the counter</span></div>
+</section>
+
+<section class="reviews" id="reviews">
+  <p class="eyebrow reveal" data-nl="Wat gasten zeggen">What guests say</p>
+  <div class="score reveal">
+    <div class="big" id="score">0.0</div>
+    <div><div class="stars" id="stars"><i></i><i></i><i></i><i></i><i></i></div><small data-nl="op Google · 300+ reviews">on Google · 300+ reviews</small></div>
+  </div>
+  <div class="qrow" id="qrow">
+    <div class="q"><p>“The noodles are fresh. Made in front of me.”</p><span data-nl="Google-review">Google review</span></div>
+    <div class="q"><p>“The beef noodles are very nice. You can choose the thickness of the noodles.”</p><span data-nl="Google-review">Google review</span></div>
+    <div class="q"><p>“Absolutely loved this spot! The beef noodle soup was next-level.”</p><span data-nl="Google-review">Google review</span></div>
+    <div class="q"><p>“You must try the gyoza.”</p><span data-nl="Google-review">Google review</span></div>
+    <div class="q"><p>“Clean restaurant serving delicious Lanzhou beef noodle soup.”</p><span data-nl="Google-review">Google review</span></div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <p class="eyebrow reveal" data-nl="Kom langs">Come by</p>
+  <h2 class="reveal" data-nl="Honger? <em>Rijnstraat 67.</em>">Hungry? <em>Rijnstraat 67.</em></h2>
+  <div class="visit-grid">
+    <div class="reveal">
+      <ul class="hours" id="hours"></ul>
+      <p class="fine" id="status-line"></p>
+    </div>
+    <div class="reveal">
+      <p class="addr">Rijnstraat 67<small>1079 GW Amsterdam · Rivierenbuurt</small></p>
+      <div class="ctas">
+        <a class="btn" href="tel:+31206445377"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>020 644 5377</a>
+        <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Lanzhou%20Beef%20Noodles%20Rijnstraat%2067%20Amsterdam&amp;query_place_id=ChIJi1ur4AUJxkcR2khl4wLxi8E"><span data-nl="Route plannen">Get directions</span> ↗</a>
+      </div>
+      <div class="mapart" aria-hidden="true">
+        <svg viewBox="0 0 600 300">
+          <rect width="600" height="300" fill="#150f0a"/>
+          <g stroke="#2a2016" stroke-width="14" fill="none" stroke-linecap="round"><path d="M-20 210 L620 150"/><path d="M120 -20 L180 320"/><path d="M420 -20 L470 320"/><path d="M-20 70 L620 40"/></g>
+          <path d="M-20 260 C150 240 300 290 620 250" stroke="#1d3440" stroke-width="22" fill="none"/>
+          <text x="300" y="196" fill="#5d4a37" font-family="Bricolage,sans-serif" font-size="13" letter-spacing="3">RIJNSTRAAT</text>
+          <g transform="translate(300 172)"><circle r="26" fill="rgba(215,48,31,.2)"><animate attributeName="r" values="12;34;12" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0;1" dur="2.4s" repeatCount="indefinite"/></circle><circle r="9" fill="#D7301F"/><circle r="3.5" fill="#F4EEE3"/></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span><b>Concept design by Dolcessi</b> · <span data-nl="niet de officiële website van Lanzhou Beef Noodles. Informatie uit openbare vermeldingen, oktober 2026.">not the official website of Lanzhou Beef Noodles. Info from public listings, October 2026.</span></span>
+  <span>Rijnstraat 67 · 1079 GW Amsterdam · 020 644 5377</span>
+</footer>
+
+<div class="mbar" id="mbar">
+  <a class="btn" href="tel:+31206445377"><span data-nl="Bellen">Call</span></a>
+  <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Lanzhou%20Beef%20Noodles%20Rijnstraat%2067%20Amsterdam&amp;query_place_id=ChIJi1ur4AUJxkcR2khl4wLxi8E">Route ↗</a>
+</div>
+
+<script defer src="vendor/gsap.min.js"></script>
+<script defer src="vendor/ScrollTrigger.min.js"></script>
+<script defer src="vendor/lenis.min.js"></script>
+<script defer src="app.js"></script>
+</body>
+</html>

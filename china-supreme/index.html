@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0E0D0B">
+<title>China Supreme · Buitenveldertselaan 114, Amsterdam (concept)</title>
+<meta name="description" content="Concept website for China Supreme, Buitenveldertselaan 114, Amsterdam. Fresh noodles from different regions of China and Beijing-style jianbing.">
+<link rel="preload" href="fonts/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/cs-brush-subset.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%23D9301C%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%229%22 fill=%22%23F2DDAE%22/%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%223.4%22 fill=%22%23F2A516%22/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:"Shoulders";font-weight:700;font-display:swap;src:url(fonts/big-shoulders-display-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Shoulders";font-weight:800;font-display:swap;src:url(fonts/big-shoulders-display-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:"Shoulders";font-weight:900;font-display:swap;src:url(fonts/big-shoulders-display-latin-900-normal.woff2) format("woff2")}
+@font-face{font-family:"Inst";font-weight:400;font-display:swap;src:url(fonts/instrument-sans-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Inst";font-weight:500;font-display:swap;src:url(fonts/instrument-sans-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Inst";font-weight:600;font-display:swap;src:url(fonts/instrument-sans-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Inst";font-weight:700;font-display:swap;src:url(fonts/instrument-sans-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"InstSerif";font-style:italic;font-display:swap;src:url(fonts/instrument-serif-latin-400-italic.woff2) format("woff2")}
+@font-face{font-family:"CS Brush";font-display:swap;src:url(fonts/cs-brush-subset.woff2) format("woff2")}
+:root{
+  --iron:#0E0D0B; --iron2:#181613; --iline:#2B2722;
+  --kraft:#EFE3CC; --kraft2:#E6D6B8; --kline:#CDB894; --ink:#1A1410; --ink2:#5A4B3C;
+  --chili:#D9301C; --chili2:#B8230F; --egg:#F2A516; --batter:#F2DDAE; --crisp:#C9852E; --scallion:#6FAE3F; --hoisin:#5C1C12;
+  --paper:#F6EEDF; --soft:#CFC3B0; --mute:#8C8172;
+  --d:"Shoulders","Arial Narrow",Impact,sans-serif; --b:"Inst",system-ui,sans-serif; --s:"InstSerif",Georgia,serif; --cn:"CS Brush","Ma Shan Zheng","STKaiti","KaiTi",serif;
+  --pad:clamp(18px,4.5vw,72px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--iron)}
+body{background:var(--iron);color:var(--paper);font:400 17px/1.55 var(--b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+em{font-family:var(--s);font-style:italic;font-weight:400;letter-spacing:0;text-transform:none}
+.cn{font-family:var(--cn);font-weight:400}
+section{position:relative;padding:0 var(--pad)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 12px/1 var(--b);letter-spacing:.22em;text-transform:uppercase}
+.eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
+h2{font:900 clamp(48px,7.4vw,124px)/.86 var(--d);letter-spacing:-.01em;text-transform:uppercase}
+h2 em{font-size:.78em;display:inline-block;transform:translateY(-.04em)}
+.seal{display:inline-grid;place-items:center;background:var(--chili);color:#FFF1DC;border-radius:6px;font-family:var(--cn);line-height:1;box-shadow:inset 0 0 0 2px rgba(255,241,220,.35)}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;gap:16px;padding:14px var(--pad);opacity:0;transition:background .4s,box-shadow .4s}
+.nav.solid{background:rgba(14,13,11,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--iline)}
+.brand{display:flex;align-items:center;gap:11px;font:900 22px/1 var(--d);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.brand .seal{width:34px;height:34px;font-size:22px}
+.nav .links{display:flex;gap:24px;margin-left:auto;font:500 14px var(--b);color:var(--soft)}
+.nav .links a:hover{color:var(--egg)}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--iline);border-radius:999px;padding:7px 12px;font:500 12px var(--b);color:var(--soft);white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:#7BD36A;box-shadow:0 0 10px #7BD36A}
+.dot.off{background:var(--mute);box-shadow:none}
+.lang{background:none;border:1px solid var(--iline);border-radius:999px;color:var(--mute);padding:7px 11px;font:600 11px var(--b);letter-spacing:.12em;cursor:pointer;white-space:nowrap}
+.lang b{color:var(--egg);font-weight:700}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:15px 24px;font:700 15px var(--b);background:var(--chili);color:#fff;box-shadow:0 12px 40px rgba(217,48,28,.35);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background .3s;white-space:nowrap;cursor:pointer;border:0}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 50px rgba(217,48,28,.5)}
+.btn.ghost{background:transparent;border:1px solid #4a4239;box-shadow:none;color:var(--paper)}
+.btn.ghost:hover{border-color:var(--egg)}
+.btn.dark{background:var(--ink);color:var(--kraft);box-shadow:0 10px 30px rgba(26,20,16,.25)}
+.btn.line{background:transparent;border:1.5px solid var(--ink);color:var(--ink);box-shadow:none}
+.btn.s{padding:10px 16px;font-size:13px}
+.btn svg{width:16px;height:16px;fill:currentColor;flex:none}
+
+/* hero */
+.hero{height:100vh;height:100svh;min-height:620px;padding:0;overflow:hidden;background:radial-gradient(90% 70% at 70% 50%,#1d1712 0%,var(--iron) 70%)}
+#griddle{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-copy{position:absolute;left:var(--pad);top:50%;transform:translateY(-50%);max-width:min(620px,46vw);z-index:2}
+.hero-copy .eyebrow{color:var(--egg);opacity:0}
+.hero-title{font:900 clamp(58px,7.6vw,132px)/.84 var(--d);text-transform:uppercase;letter-spacing:-.005em;margin:20px 0 22px}
+.hero-title em{color:var(--egg);font-size:.8em}
+.hero-title .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
+.hero-title .w>span{display:inline-block;transform:translateY(110%)}
+.hero-sub{font-size:clamp(17px,1.35vw,20px);color:var(--soft);max-width:480px;opacity:0}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px;opacity:0}
+.hero-cn{position:absolute;right:calc(var(--pad) - 6px);top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font:400 clamp(40px,4.6vw,72px)/1 var(--cn);letter-spacing:.12em;color:var(--chili);opacity:0;z-index:2;text-shadow:0 0 50px rgba(217,48,28,.35)}
+.hero-foot{position:absolute;left:var(--pad);right:var(--pad);bottom:22px;display:flex;justify-content:space-between;align-items:center;gap:14px;font:500 12px var(--b);color:var(--mute);z-index:2;letter-spacing:.05em}
+.step{display:flex;align-items:center;gap:12px;color:var(--soft)}
+.step .n{font:900 30px/1 var(--d);color:var(--egg);min-width:40px}
+.step .cn{font-size:22px;color:var(--paper);white-space:nowrap}
+.step .t{font:600 12px var(--b);letter-spacing:.14em;text-transform:uppercase}
+.bar{width:120px;height:2px;background:var(--iline);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--egg)}
+.hero-foot .rs{display:none}
+@media (max-width:900px){.hero-foot .rs{display:inline}}
+.skip{background:none;border:0;color:var(--mute);font:500 12px var(--b);letter-spacing:.06em;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.skip:hover{color:var(--paper)}
+
+/* ticker */
+.ticker{background:var(--chili);color:#FFF1DC;overflow:hidden;padding:0;border-block:1px solid #e9553f}
+.ticker .row{display:flex;gap:42px;width:max-content;padding:16px 0;animation:tick 38s linear infinite;font:900 26px/1 var(--d);text-transform:uppercase;letter-spacing:.03em;align-items:center}
+.ticker .row span{display:inline-flex;align-items:center;gap:42px}
+.ticker .row .cn{font-size:26px;color:#FFD48A}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* paper sections */
+.paper{background:var(--kraft);color:var(--ink)}
+.paper .eyebrow{color:var(--chili)}
+.paper ::selection{background:var(--egg)}
+.paper-tex{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* biang */
+.biang{padding-top:13vh;padding-bottom:12vh}
+.biang-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:5vw;align-items:center}
+.biang h2{margin:18px 0 22px}
+.biang h2 em{color:var(--chili)}
+.lead{font-size:clamp(17px,1.35vw,20px);color:var(--ink2);max-width:520px}
+.lead b{color:var(--ink)}
+.bstage{position:relative;border-radius:28px;background:linear-gradient(180deg,#d9c39b,#cbb284);box-shadow:inset 0 2px 0 rgba(255,255,255,.35),0 30px 70px rgba(70,45,15,.25);overflow:hidden;aspect-ratio:16/11;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#bcv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.bhud{position:absolute;left:20px;right:20px;bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none}
+.bhud .btn{pointer-events:auto}
+.slaps{font:800 15px var(--d);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:rgba(239,227,204,.8);border-radius:999px;padding:9px 14px;backdrop-filter:blur(6px)}
+.slaps b{font-size:20px;color:var(--chili)}
+.tops{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.tops span{border:1.5px solid var(--kline);border-radius:999px;padding:8px 14px;font:600 13px var(--b);color:var(--ink2);transition:all .4s}
+.tops span.on{background:var(--ink);border-color:var(--ink);color:var(--kraft)}
+.fine{font-size:13px;color:var(--mute);margin-top:16px}
+.paper .fine{color:#8b7a63}
+
+/* griddle steps (dark) */
+.steps{padding-top:13vh;padding-bottom:13vh;background:var(--iron)}
+.steps h2{margin:18px 0 16px;color:var(--paper)}
+.steps h2 em{color:var(--egg)}
+.steps .eyebrow{color:var(--egg)}
+.steps .lead{color:var(--soft)}
+.srow{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-top:7vh;counter-reset:s}
+.scard{opacity:0;transform:translateY(30px);border:1px solid var(--iline);border-radius:20px;padding:18px 16px 20px;background:linear-gradient(180deg,#1b1814,#131210);min-height:210px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.scard .k{font:900 40px/1 var(--d);color:#3a332b}
+.scard .cn{font-size:30px;line-height:1;color:var(--egg)}
+.scard b{font:800 22px/1 var(--d);text-transform:uppercase;letter-spacing:.02em;margin-top:auto}
+.scard p{font-size:14px;color:var(--soft);line-height:1.4}
+.scard svg{position:absolute;right:-14px;top:-14px;width:84px;height:84px;opacity:.9}
+
+/* menu */
+.menu{padding-top:13vh;padding-bottom:12vh}
+.menu-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:6vh}
+.menu h2{margin-top:18px}
+.menu h2 em{color:var(--chili)}
+.mgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.dish{grid-column:span 4;position:relative;border-radius:22px;background:#F7EDDA;border:1.5px solid var(--kline);padding:24px 24px 22px;min-height:250px;display:flex;flex-direction:column;gap:10px;overflow:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.dish:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(90,60,20,.18)}
+.dish .seal{position:absolute;top:20px;right:20px;width:58px;height:58px;font-size:30px;transform:rotate(4deg)}
+.dish .seal.w{width:auto;padding:0 10px;font-size:26px;height:52px}
+.dish .py{font:600 12px var(--b);letter-spacing:.16em;text-transform:uppercase;color:var(--chili)}
+.dish h3{font:900 34px/.92 var(--d);text-transform:uppercase;letter-spacing:.005em;margin-top:auto;max-width:80%}
+.dish p{color:var(--ink2);font-size:15px}
+.dish .tag{display:inline-flex;align-self:flex-start;gap:6px;align-items:center;font:700 11px var(--b);letter-spacing:.12em;text-transform:uppercase;color:var(--chili);border:1.5px solid rgba(217,48,28,.4);border-radius:999px;padding:4px 9px}
+.dish.big{grid-column:span 7;min-height:340px;background:var(--ink);color:var(--kraft);border-color:var(--ink)}
+.dish.big h3{font-size:clamp(44px,4.6vw,72px);max-width:62%;position:relative}
+.dish.big p{color:#cdbb9c;max-width:520px}
+.dish.big .py{color:var(--egg)}
+.dish.big .art{position:absolute;right:-50px;top:-50px;width:280px;height:280px;opacity:.95}
+.dish.tall{grid-column:span 5;min-height:340px;background:var(--egg);border-color:var(--egg)}
+.dish.tall .py{color:var(--ink)}
+.dish.tall p{color:#3d2a12}
+.dish.cta{background:var(--chili);border-color:var(--chili);color:#FFF1DC}
+.dish.cta .py{color:#FFD48A}
+.dish.cta p{color:#FFE2C2;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chips span{border:1.5px solid var(--kline);border-radius:999px;padding:9px 15px;font:500 13px var(--b);color:var(--ink2)}
+
+/* story */
+.story{padding-top:12vh;padding-bottom:12vh;background:var(--iron);overflow:hidden}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center}
+.story .eyebrow{color:var(--egg)}
+.story h2{margin:18px 0 22px}
+.story h2 em{color:var(--egg)}
+.story .lead{color:var(--soft)}
+.own{margin-top:30px;border-left:3px solid var(--chili);padding:6px 0 6px 20px}
+.own p{font:italic 400 clamp(22px,2vw,30px)/1.2 var(--s);color:var(--paper)}
+.own span{display:block;margin-top:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.cart{position:relative}
+.cart svg{width:100%;height:auto;display:block}
+
+/* reviews */
+.reviews{padding-top:12vh;padding-bottom:12vh;overflow:hidden}
+.score{display:flex;align-items:flex-end;gap:26px;flex-wrap:wrap}
+.score .big{font:900 clamp(120px,17vw,260px)/.78 var(--d);color:var(--chili);letter-spacing:-.02em}
+.stars{display:flex;gap:6px;margin-bottom:16px}
+.stars i{width:30px;height:30px;background:#d7c5a3;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);position:relative;overflow:hidden}
+.stars i::after{content:"";position:absolute;inset:0;background:var(--chili);transform:scaleX(var(--f,0));transform-origin:left;transition:transform .9s cubic-bezier(.2,.8,.2,1) var(--dl,0s)}
+.score small{display:block;color:var(--ink2);font-size:15px}
+.qrow{display:flex;gap:16px;margin-top:7vh;width:max-content;animation:qmove 52s linear infinite}
+.qrow:hover{animation-play-state:paused}
+@keyframes qmove{to{transform:translateX(-50%)}}
+.q{width:min(430px,80vw);border-radius:22px;padding:26px;background:#F7EDDA;border:1.5px solid var(--kline);flex:none;position:relative}
+.q::before{content:"“";position:absolute;right:20px;top:-6px;font:900 90px/1 var(--d);color:rgba(217,48,28,.18)}
+.q p{font:italic 400 24px/1.22 var(--s);color:var(--ink)}
+.q span{display:block;margin-top:14px;font-size:12px;color:#8b7a63;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+
+/* visit */
+.visit{padding-top:12vh;padding-bottom:16vh;background:var(--iron)}
+.visit .eyebrow{color:var(--egg)}
+.visit h2 em{color:var(--egg)}
+.visit-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:5vw;align-items:start;margin-top:5vh}
+.hours{list-style:none;border-top:1px solid var(--iline)}
+.hours li{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--iline);font-size:17px;color:var(--soft)}
+.hours li.today{color:var(--paper);font-weight:700}
+.hours li.today span:first-child::after{content:" ●";color:var(--egg);font-size:10px;vertical-align:3px}
+.hours li .closed{color:var(--mute)}
+.status{display:inline-flex;align-items:center;gap:10px;margin-top:18px;font:600 15px var(--b);color:var(--paper);border:1px solid var(--iline);border-radius:999px;padding:10px 16px}
+.addr{font:900 clamp(40px,4.4vw,68px)/.9 var(--d);text-transform:uppercase}
+.addr small{display:block;font:400 16px var(--b);color:var(--soft);letter-spacing:0;text-transform:none;margin-top:12px}
+.visit .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.mapart{margin-top:30px;border:1px solid var(--iline);border-radius:24px;overflow:hidden;background:#141210}
+.mapart svg{display:block;width:100%;height:auto}
+
+footer{padding:40px var(--pad) 110px;border-top:1px solid var(--iline);color:var(--mute);font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--iron)}
+footer b{color:var(--soft)}
+
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:45;display:none;gap:8px;padding:8px;border-radius:20px;background:rgba(24,22,19,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--iline);transform:translateY(130%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.mbar.show{transform:none}
+.mbar a{flex:1;justify-content:center;padding:13px 10px;font-size:14px}
+
+.reveal{opacity:0;transform:translateY(30px)}
+.noanim .reveal,.noanim .scard{opacity:1;transform:none}
+
+@media (max-width:1100px){
+  .srow{grid-template-columns:repeat(4,1fr)}
+  .dish{grid-column:span 6}.dish.big,.dish.tall{grid-column:span 12}
+}
+@media (max-width:900px){
+  .nav .links,.nav .pill{display:none}
+  .nav .lang{margin-left:auto}
+  .brand{font-size:19px}
+  .hero-copy{top:auto;bottom:88px;transform:none;max-width:none;right:var(--pad)}
+  .hero-title{font-size:clamp(50px,13.6vw,84px);margin:12px 0 12px}
+  .hero-sub{font-size:15.5px;line-height:1.45}
+  .hero-ctas{margin-top:18px;flex-wrap:nowrap}
+  .hero-ctas .btn{padding:13px 17px;font-size:14px}
+  .hero-foot .rt{display:none}
+  .hero-cn{top:86px;transform:none;font-size:30px;right:14px}
+  .hero-foot .skipwrap{display:none}
+  .hero-foot .bar{display:none}
+  .biang-grid,.story-grid,.visit-grid{grid-template-columns:1fr}
+  .bstage{aspect-ratio:4/3.4}
+  .srow{grid-template-columns:1fr 1fr}
+  .scard{min-height:170px}
+  .mbar{display:flex}
+  .cart{order:-1;max-width:460px}
+}
+@media (max-width:560px){
+  .dish,.dish.big,.dish.tall{grid-column:span 12;min-height:220px}
+  .dish.big .art{width:200px;height:200px;right:-60px;top:-60px;opacity:.4}
+  .dish.big h3{max-width:none}
+  .dish h3{font-size:32px}
+  .ticker .row{font-size:22px}
+}
+@media (max-width:380px){.brand .bname{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top"><span class="seal">面</span><span class="bname">China Supreme</span></a>
+  <nav class="links"><a href="#biang" data-nl="Biáng-noedels">Biáng noodles</a><a href="#menu" data-nl="Menu">Menu</a><a href="#visit" data-nl="Bezoek">Visit</a></nav>
+  <span class="pill"><i class="dot" id="nav-dot"></i><span id="nav-open">Open</span></span>
+  <button class="lang" id="lang" type="button" aria-label="Taal / language"><span data-l="en">EN</span> / <span data-l="nl">NL</span></button>
+  <a class="btn s" href="tel:+31633447933"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span data-nl="Bellen">Call</span></a>
+</header>
+
+<main id="top">
+<section class="hero" id="hero">
+  <canvas id="griddle" aria-hidden="true"></canvas>
+  <div class="hero-copy">
+    <p class="eyebrow" data-nl="Buitenveldertselaan 114 · Amsterdam">Buitenveldertselaan 114 · Amsterdam</p>
+    <h1 class="hero-title" id="hero-title" data-nl="Straateten uit Beijing. <em>Vers op de plaat.</em>">Beijing street food. <em>Fresh off the griddle.</em></h1>
+    <p class="hero-sub" data-nl="Vers gemaakte noedels uit verschillende streken van China en jianbing zoals in Beijing: een hartige pannenkoek met ei, lente-ui en een krokant laagje.">Fresh-made noodles from different regions of China and Beijing-style jianbing: a savoury pancake with egg, spring onion and a crisp, crunchy layer.</p>
+    <div class="hero-ctas">
+      <a class="btn" href="tel:+31633447933"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>06 3344 7933</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=China%20Supreme%20Buitenveldertselaan%20114%20Amsterdam"><span data-nl="Route plannen">Get directions</span> ↗</a>
+    </div>
+  </div>
+  <div class="hero-cn" aria-hidden="true">北京煎饼</div>
+  <div class="hero-foot">
+    <span class="step" id="step"><span class="n" id="step-n">01</span><span class="cn" id="step-cn">面糊</span><span class="t" id="step-t">Batter</span></span>
+    <span class="bar" aria-hidden="true"><i id="step-bar"></i></span>
+    <span class="skipwrap"><button class="skip" id="skip" type="button" data-nl="Animatie overslaan">Skip to the pancake</button></span>
+    <span>★ 4.5 <span class="rt">· <span data-nl="bijna 500 Google-reviews">almost 500 Google reviews</span></span><span class="rs">Google</span></span>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="row" id="ticker"><span>Biáng biáng <i class="cn">面</i></span><span>Jianbing <i class="cn">煎饼</i></span><span>Dan dan <i class="cn">担担面</i></span><span>Kou shui ji <i class="cn">口水鸡</i></span><span>Guo tie <i class="cn">锅贴</i></span><span data-nl="Vers gemaakt">Made fresh</span></div></div>
+
+<section class="biang paper paper-tex" id="biang">
+  <div class="biang-grid">
+    <div>
+      <p class="eyebrow reveal" data-nl="Het huisgerecht">The house noodle</p>
+      <h2 class="reveal" data-nl="Biáng! <em>Zo klinkt het.</em>">Biáng! <em>That’s the sound.</em></h2>
+      <p class="lead reveal" data-nl="Biangbiang-noedels komen uit Noordwest-China: brede, met de hand getrokken linten deeg. De naam zou het geluid zijn van het deeg dat op het werkblad klapt. Hier worden ze <b>zelf gemaakt</b>.">Biangbiang noodles come from Northwest China: wide, hand-pulled ribbons of dough. The name is said to be the sound of the dough slapping the counter. Here they are <b>made in-house</b>.</p>
+      <div class="tops reveal" id="tops"><span data-k="pork" data-nl="Gestoofde buikspek">Braised pork belly</span><span data-k="tomato" data-nl="Tomaat &amp; ei">Tomato &amp; egg</span><span data-k="bokchoy" data-nl="Paksoi">Bok choy</span><span data-k="chili" data-nl="Chili-olie">Chili oil</span></div>
+      <p class="fine reveal" data-nl="Toppings zoals beschreven door gasten. Er is ook een biang biang met runderrib. Vraag aan de balie wat er vandaag is.">Toppings as described by guests. There’s a beef rib biang biang too. Ask at the counter what’s on today.</p>
+    </div>
+    <div class="bstage reveal" id="bstage" role="button" tabindex="0" aria-label="Slap the noodle">
+      <canvas id="bcv" aria-hidden="true"></canvas>
+      <div class="bhud"><span class="slaps"><span data-nl="Klappen">Slaps</span> <b id="slapn">0</b>/3</span><button class="btn dark s" id="slap" type="button"><span id="slap-l">Slap it</span></button></div>
+    </div>
+  </div>
+</section>
+
+<section class="steps" id="griddle-steps">
+  <p class="eyebrow reveal" data-nl="Op de plaat">On the griddle</p>
+  <h2 class="reveal" data-nl="Een jianbing <em>in zeven stappen.</em>">One jianbing. <em>Seven moves.</em></h2>
+  <p class="lead reveal" data-nl="Een klassiek ontbijt van de straten van Beijing. Zo wordt hij gemaakt.">A classic street breakfast in Beijing. This is how it comes together.</p>
+  <div class="srow" id="srow"></div>
+  <p class="fine reveal" data-nl="Gebaseerd op de klassieke Beijing-jianbing. De exacte vulling kan per dag verschillen.">Based on the classic Beijing jianbing. Exact fillings can differ from day to day.</p>
+</section>
+
+<section class="menu paper paper-tex" id="menu">
+  <div class="menu-head">
+    <div><p class="eyebrow reveal" data-nl="Wat gasten bestellen">What guests order</p>
+    <h2 class="reveal" data-nl="Noedels, pannenkoek <em>&amp; alles ertussen.</em>">Noodles, pancakes <em>&amp; everything between.</em></h2></div>
+    <a class="btn dark reveal" href="tel:+31633447933"><span data-nl="Bel om te reserveren">Call to book a table</span></a>
+  </div>
+  <div class="mgrid">
+    <article class="dish big reveal">
+      <svg class="art" viewBox="-150 -150 300 300" aria-hidden="true"><circle r="128" fill="#2a1e15"/><circle r="128" fill="none" stroke="#D9301C" stroke-width="3" stroke-dasharray="2 10"/><circle r="104" fill="#7a2a14"/><g fill="none" stroke-linecap="round"><path d="M-80 -30 C-30 -60 20 10 80 -20" stroke="#F2DDAE" stroke-width="22"/><path d="M-84 10 C-20 -20 30 40 86 14" stroke="#ecd09a" stroke-width="22"/><path d="M-76 46 C-26 20 26 70 74 48" stroke="#F2DDAE" stroke-width="20"/></g><g fill="#D9301C"><circle cx="-30" cy="-58" r="10"/><circle cx="40" cy="-60" r="7"/><circle cx="58" cy="70" r="9"/><circle cx="-60" cy="70" r="6"/></g><g fill="#6FAE3F"><ellipse cx="10" cy="-78" rx="16" ry="6" transform="rotate(-20 10 -78)"/><ellipse cx="-70" cy="-6" rx="14" ry="5" transform="rotate(40 -70 -6)"/></g><g fill="#8a3a1c"><rect x="16" y="12" width="26" height="18" rx="4"/><rect x="-44" y="22" width="24" height="16" rx="4"/></g></svg>
+      <span class="py">Biáng biáng · <span data-nl="huisgemaakt">homemade</span></span>
+      <h3>Biáng biáng <span data-nl="noedels">noodles</span></h3>
+      <p data-nl="Brede, zelfgemaakte noedels. Gasten bestellen ze met runderrib, of met gestoofde buikspek, tomaat-ei-saus, paksoi en chili-olie.">Wide, homemade noodles. Guests order them with beef rib, or with braised pork belly, tomato-egg sauce, bok choy and chili oil.</p>
+    </article>
+    <article class="dish tall reveal">
+      <span class="seal w">煎饼</span>
+      <span class="py">Jianbing · <span data-nl="Beijing-stijl">Beijing style</span></span>
+      <h3>Jianbing</h3>
+      <p data-nl="De hartige pannenkoek van de straat in Beijing: dun beslag, ei, lente-ui, saus en een krokant laagje, dubbelgevouwen.">The savoury street pancake of Beijing: thin batter, egg, spring onion, sauce and a crisp layer, folded up.</p>
+    </article>
+    <article class="dish reveal"><span class="seal w">担担面</span><span class="py">Dan dan mian</span><span class="tag" data-nl="Pittig">Spicy</span><h3 data-nl="Dan dan-noedels">Dan dan noodles</h3><p data-nl="Verse noedels, pittig en nootachtig. Een favoriet in de reviews.">Fresh noodles, spicy and nutty. A favourite in the reviews.</p></article>
+    <article class="dish reveal"><span class="seal w">口水鸡</span><span class="py">Kou shui ji</span><span class="tag" data-nl="Pittig">Spicy</span><h3 data-nl="Watertandkip">Mouth-watering chicken</h3><p data-nl="Koude kip in een gekruide chili-dressing.">Cold chicken in a spiced chili dressing.</p></article>
+    <article class="dish reveal"><span class="seal w">锅贴</span><span class="py">Guo tie</span><h3 data-nl="Garnalen-guotie">Shrimp guo tie</h3><p data-nl="Gebakken dumplings met garnaal, krokant aan één kant.">Pan-fried shrimp dumplings, crisp on one side.</p></article>
+    <article class="dish reveal"><span class="seal w">虾多士</span><span class="py" data-nl="Garnalentoast">Shrimp toast</span><h3 data-nl="Garnalen&shy;toast">Shrimp toast</h3><p data-nl="Goudbruin gebakken. Gasten noemen hem bij naam.">Fried golden. Guests mention it by name.</p></article>
+    <article class="dish reveal"><span class="seal w">凉菜</span><span class="py" data-nl="Koude bijgerechten">Cold sides</span><h3 data-nl="Koude bijgerechten">Cold sides</h3><p data-nl="Ingelegde komkommer, koude spinazie, aardappelsalade, chuka wakame. “Zelfs de bijgerechten!”">Pickled cucumber, cold spinach, potato salad, chuka wakame. “Even the side dishes!”</p></article>
+    <article class="dish reveal"><span class="seal w">叉烧饭</span><span class="py" data-nl="Rijstkommen">Rice bowls</span><h3 data-nl="Char siu &amp; claypot">Char siu &amp; claypot</h3><p data-nl="Char siu-rijstkom met paksoi en gebakken ei, of claypot-rijst met Chinese worst.">Char siu rice bowl with bok choy and a fried egg, or claypot rice with Chinese sausage.</p></article>
+    <a class="dish cta reveal" href="tel:+31633447933"><span class="seal w" style="background:#FFF1DC;color:var(--chili)">饿了</span><span class="py" data-nl="Honger?">Hungry?</span><h3 data-nl="Bel en reserveer">Call and book</h3><p>06 3344 7933 →</p></a>
+  </div>
+  <div class="chips reveal"><span data-nl="Volledige kaart en prijzen aan de balie">Full menu &amp; prices at the counter</span><span data-nl="Lunch &amp; diner">Lunch &amp; dinner</span><span data-nl="Pittig is écht pittig">Spicy means spicy</span></div>
+</section>
+
+<section class="story" id="story">
+  <div class="story-grid">
+    <div class="cart reveal">
+      <svg viewBox="0 0 520 420" aria-label="Illustration of a street food stall with a griddle">
+        <defs><linearGradient id="awn" x1="0" x2="1"><stop offset="0" stop-color="#D9301C"/><stop offset="1" stop-color="#b8230f"/></linearGradient><radialGradient id="glw" cx=".5" cy=".5"><stop offset="0" stop-color="#F2A516" stop-opacity=".5"/><stop offset="1" stop-color="#F2A516" stop-opacity="0"/></radialGradient></defs>
+        <ellipse cx="260" cy="395" rx="220" ry="16" fill="#000" opacity=".45"/>
+        <circle cx="260" cy="230" r="190" fill="url(#glw)"/>
+        <rect x="90" y="70" width="8" height="250" fill="#3a3129"/><rect x="422" y="70" width="8" height="250" fill="#3a3129"/>
+        <path d="M70 70 H450 L470 120 H50 Z" fill="url(#awn)"/>
+        <g fill="#F6EEDF" opacity=".95"><path d="M50 120 q21 22 42 0 q21 22 42 0 q21 22 42 0 q21 22 42 0 q21 22 42 0 q21 22 42 0 q21 22 42 0 q21 22 42 0 q21 22 42 0 q21 22 42 0 Z" fill="#F6EEDF"/></g>
+        <g id="lanterns"><g transform="translate(130 150)"><line y1="-28" y2="0" stroke="#3a3129" stroke-width="2"/><ellipse rx="18" ry="22" cy="18" fill="#D9301C"/><rect x="-8" y="-4" width="16" height="5" fill="#F2A516"/><rect x="-8" y="37" width="16" height="5" fill="#F2A516"/></g><g transform="translate(390 150)"><line y1="-28" y2="0" stroke="#3a3129" stroke-width="2"/><ellipse rx="18" ry="22" cy="18" fill="#D9301C"/><rect x="-8" y="-4" width="16" height="5" fill="#F2A516"/><rect x="-8" y="37" width="16" height="5" fill="#F2A516"/></g></g>
+        <rect x="80" y="250" width="360" height="120" rx="10" fill="#211c17" stroke="#3a3129" stroke-width="2"/>
+        <rect x="80" y="250" width="360" height="16" rx="6" fill="#3a3129"/>
+        <ellipse cx="260" cy="250" rx="120" ry="26" fill="#121110" stroke="#4a4036" stroke-width="3"/>
+        <ellipse cx="260" cy="248" rx="96" ry="19" fill="#F2DDAE"/>
+        <ellipse cx="248" cy="246" rx="44" ry="9" fill="#F2A516" opacity=".85"/>
+        <g fill="#6FAE3F"><circle cx="230" cy="244" r="3"/><circle cx="276" cy="250" r="3"/><circle cx="292" cy="243" r="2.5"/><circle cx="214" cy="251" r="2.5"/></g>
+        <text x="260" y="330" text-anchor="middle" font-family="CS Brush, serif" font-size="46" fill="#F2A516">煎饼</text>
+        <g class="steam" fill="none" stroke="#F6EEDF" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"><path d="M230 220 c-10 -20 10 -30 0 -50"><animate attributeName="stroke-opacity" values="0;.4;0" dur="3s" repeatCount="indefinite"/></path><path d="M262 214 c-10 -20 10 -30 0 -54"><animate attributeName="stroke-opacity" values="0;.4;0" dur="3s" begin="1s" repeatCount="indefinite"/></path><path d="M294 220 c-10 -20 10 -30 0 -46"><animate attributeName="stroke-opacity" values="0;.4;0" dur="3s" begin="2s" repeatCount="indefinite"/></path></g>
+        <rect x="104" y="370" width="16" height="24" fill="#3a3129"/><rect x="400" y="370" width="16" height="24" fill="#3a3129"/>
+      </svg>
+    </div>
+    <div>
+      <p class="eyebrow reveal" data-nl="Het verhaal">The story</p>
+      <h2 class="reveal" data-nl="Begonnen als <em>een straatkraam.</em>">It started as <em>a street stall.</em></h2>
+      <p class="lead reveal" data-nl="Chef-eigenaar Mike Ng begon met een kleine streetfoodkraam en bracht het concept daarna naar de Buitenveldertselaan. Het eten is nog steeds straateten: snel, vers en vol smaak.">Chef-owner Mike Ng started with a small street-food stall, then brought the concept to Buitenveldertselaan. The food is still street food: quick, fresh and full of flavour.</p>
+      <div class="own reveal"><p data-nl="“We serve freshmade noodles from different regions of China and Beijing style JianBing.”">“We serve freshmade noodles from different regions of China and Beijing style JianBing.”</p><span data-nl="China Supreme, in hun eigen woorden">China Supreme, in their own words</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews paper paper-tex" id="reviews">
+  <p class="eyebrow reveal" data-nl="Wat gasten zeggen">What guests say</p>
+  <div class="score reveal">
+    <div class="big" id="score">0.0</div>
+    <div><div class="stars" id="stars"><i></i><i></i><i></i><i></i><i></i></div><small data-nl="op Google · bijna 500 reviews">on Google · almost 500 reviews</small></div>
+  </div>
+  <div class="qrow" id="qrow">
+    <div class="q"><p>“The jianbing tastes like it does in Beijing.”</p><span data-nl="Tripadvisor-review">Tripadvisor review</span></div>
+    <div class="q"><p>“We keep returning because of their incredible noodles.”</p><span data-nl="TheFork-review">TheFork review</span></div>
+    <div class="q"><p>“The homemade biang noodles are very tasty.”</p><span data-nl="TheFork-review">TheFork review</span></div>
+    <div class="q"><p>“Excellent fresh noodles, go for the dandan.”</p><span data-nl="Tripadvisor-review">Tripadvisor review</span></div>
+    <div class="q"><p>“This place punched wayyy above our expectations.”</p><span data-nl="TheFork-review">TheFork review</span></div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <p class="eyebrow reveal" data-nl="Kom langs">Come by</p>
+  <h2 class="reveal" data-nl="Honger? <em>Buitenveldertselaan 114.</em>">Hungry? <em>Buitenveldertselaan 114.</em></h2>
+  <div class="visit-grid">
+    <div class="reveal">
+      <ul class="hours" id="hours"></ul>
+      <p class="status"><i class="dot" id="st-dot"></i><span id="status-line"></span></p>
+    </div>
+    <div class="reveal">
+      <p class="addr">Buitenveldertselaan 114<small>1081 AB Amsterdam · Buitenveldert</small></p>
+      <div class="ctas">
+        <a class="btn" href="tel:+31633447933"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>06 3344 7933</a>
+        <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=China%20Supreme%20Buitenveldertselaan%20114%20Amsterdam"><span data-nl="Route plannen">Get directions</span> ↗</a>
+      </div>
+      <div class="mapart" aria-hidden="true">
+        <svg viewBox="0 0 600 300">
+          <rect width="600" height="300" fill="#141210"/>
+          <g fill="#1a1714"><rect x="40" y="30" width="150" height="90" rx="6"/><rect x="230" y="30" width="130" height="90" rx="6"/><rect x="400" y="30" width="170" height="90" rx="6"/><rect x="40" y="196" width="150" height="80" rx="6"/><rect x="230" y="196" width="130" height="80" rx="6"/><rect x="400" y="196" width="170" height="80" rx="6"/></g>
+          <g stroke="#2a251f" stroke-width="16" fill="none" stroke-linecap="round"><path d="M-20 158 L620 158"/><path d="M210 -20 L210 320"/><path d="M380 -20 L380 320"/></g>
+          <path d="M-20 158 L620 158" stroke="#3a3129" stroke-width="2" stroke-dasharray="10 12"/>
+          <text x="40" y="150" fill="#6a5d4e" font-family="Shoulders,sans-serif" font-weight="800" font-size="15" letter-spacing="3">BUITENVELDERTSELAAN</text>
+          <g transform="translate(300 158)"><circle r="26" fill="rgba(217,48,28,.2)"><animate attributeName="r" values="12;34;12" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0;1" dur="2.4s" repeatCount="indefinite"/></circle><circle r="10" fill="#D9301C"/><circle r="3.8" fill="#F6EEDF"/></g>
+          <text x="318" y="190" fill="#F2A516" font-family="Shoulders,sans-serif" font-weight="900" font-size="20">114</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span><b>Concept design by Dolcessi</b> · <span data-nl="niet de officiële website van China Supreme. Informatie uit openbare vermeldingen, oktober 2026.">not the official website of China Supreme. Info from public listings, October 2026.</span></span>
+  <span>Buitenveldertselaan 114 · 1081 AB Amsterdam · 06 3344 7933</span>
+</footer>
+
+<div class="mbar" id="mbar">
+  <a class="btn" href="tel:+31633447933"><span data-nl="Bellen">Call</span></a>
+  <a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=China%20Supreme%20Buitenveldertselaan%20114%20Amsterdam">Route ↗</a>
+</div>
+
+<script defer src="vendor/gsap.min.js"></script>
+<script defer src="vendor/ScrollTrigger.min.js"></script>
+<script defer src="vendor/lenis.min.js"></script>
+<script defer src="app.js"></script>
+</body>
+</html>
