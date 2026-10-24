@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Damso 담소 · Korean restaurant · Dorpsstraat 88, Amstelveen</title>
+<meta name="description" content="Damso: Korean kitchen in the old village of Amstelveen. Bibimbap, bulgogi, tteokbokki, haemul pajeon and Korean fried chicken. Dorpsstraat 88.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A0908">
+<link rel="icon" href="img/mark.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/young-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=2">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+<div id="loader" aria-hidden="true">
+  <p class="ld-kr kr">담소</p>
+  <div class="ld-bar"><i id="ld-fill"></i></div>
+</div>
+
+<canvas id="world" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Damso, top of page"><span class="brand-kr kr">담소</span><span class="brand-word">DAMSO</span></a>
+  <div class="nav-r">
+    <span class="nav-open cap"><i id="nav-dot"></i><span id="nav-open">…</span></span>
+    <button id="lang" class="cap" type="button" aria-label="Switch language"><span data-l="en">EN</span> / <span data-l="nl">NL</span></button>
+    <a class="pill" href="tel:+31206401877" data-nl="Bel">Call</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 01 five colours: the bowl builds itself -->
+  <section class="sc-hero" id="hero" aria-label="Damso">
+    <div class="pin">
+      <p class="hero-tl cap"><span data-nl="Koreaanse keuken">Korean kitchen</span> · <span>Amstelveen</span></p>
+      <div class="obang" aria-hidden="true">
+        <p class="cap ob-t" data-nl="Obangsaek · de vijf kleuren">Obangsaek · the five colours</p>
+        <ol>
+          <li style="--c:#3E7A2A"><span class="kr">청</span><i data-nl="groen">green</i></li>
+          <li style="--c:#E8781F"><span class="kr">황</span><i data-nl="geel">yellow</i></li>
+          <li style="--c:#F3EBD6"><span class="kr">백</span><i data-nl="wit">white</i></li>
+          <li style="--c:#6B4A33"><span class="kr">흑</span><i data-nl="zwart">black</i></li>
+          <li style="--c:#C4170E"><span class="kr">적</span><i data-nl="rood">red</i></li>
+        </ol>
+      </div>
+      <h1 class="hero-line"><span data-nl="Vijf kleuren,">Five colours,</span><br><em data-nl="één gloeiend hete stenen kom.">one sizzling stone bowl.</em></h1>
+      <p class="hero-br cap"><span data-nl="Scroll om de kom te vullen">Scroll to build the bowl</span> <i class="arrow">↓</i></p>
+    </div>
+  </section>
+
+  <!-- 02 the mix: signature interaction -->
+  <section class="sc-mix" id="mix" aria-label="Bibimbap">
+    <div class="pin">
+      <div class="mx-text">
+        <p class="cap mx-no"><span class="kr">비비다</span> · bibida</p>
+        <h2 data-nl="Nu alles<br><em>door elkaar.</em>">Now mix<br><em>it all in.</em></h2>
+        <p class="mx-p" data-nl="Bibimbap betekent letterlijk &lsquo;gemengde rijst&rsquo;. Groenten, vlees, ei en gochujang gaan met de lange lepel door de rijst, tot elke hap van alles heeft.">Bibimbap literally means &lsquo;mixed rice&rsquo;. Greens, meat, egg and gochujang go through the rice with the long spoon, until every bite has a bit of everything.</p>
+      </div>
+      <div class="mx-meter cap" aria-hidden="true"><span data-nl="Gemengd">Mixed</span><b id="mix-pct">0%</b><i class="mx-bar"><i id="mix-fill"></i></i></div>
+      <p class="mx-hint cap" aria-hidden="true" data-nl="Blijf scrollen om te roeren">Keep scrolling to stir</p>
+    </div>
+  </section>
+
+  <!-- 03 the name: a table full of little dishes -->
+  <section class="sc-table" id="table" aria-labelledby="name-h">
+    <div class="pin">
+      <div class="tb-text">
+        <p class="cap tb-eye">03 · <span data-nl="de naam">the name</span></p>
+        <p class="kr tb-kr" aria-hidden="true">담소</p>
+        <p class="tb-mean" id="name-h" data-nl="<i>damso</i>: in het Koreaans een ontspannen gesprek, met gelach. Precies wat er gebeurt aan een tafel vol kleine schaaltjes.">
+          <i>damso</i>: Korean for an easy conversation, with laughter. Exactly what happens at a table full of little dishes.</p>
+      </div>
+      <div class="tb-stats cap">
+        <span><b>4.6★</b> Google</span><span><b>580+</b> <span data-nl="reviews">reviews</span></span><span><b>Dorpsstraat 88</b> <span data-nl="oude dorp">old village</span></span>
+      </div>
+      <p class="tb-hint cap" aria-hidden="true"><span class="kr">반찬</span> · banchan</p>
+    </div>
+  </section>
+
+  <!-- 04 menu -->
+  <section class="sc-menu" id="menu" aria-labelledby="menu-h">
+    <div class="mn-head">
+      <p class="cap">04 · <span class="kr">차림표</span> menu</p>
+      <h2 id="menu-h" data-nl="Op<br><em>tafel.</em>">On the<br><em>table.</em></h2>
+    </div>
+    <div class="mn-grid">
+      <article class="dish" style="--c:#C4170E">
+        <p class="kr">불고기</p><h3>Bulgogi</h3>
+        <p data-nl="Gemarineerd rundvlees, of de pittige kipversie.">Marinated beef, or the spicy chicken version.</p>
+      </article>
+      <article class="dish" style="--c:#E8A317">
+        <p class="kr">돌솥비빔밥</p><h3>Dolsot bibimbap</h3>
+        <p data-nl="In een hete stenen kom, de rijst knispert aan de rand.">In a hot stone bowl, rice crackling at the edge.</p>
+      </article>
+      <article class="dish" style="--c:#D2381E">
+        <p class="kr">떡볶이</p><h3>Tteokbokki</h3>
+        <p data-nl="Rijstcakejes in rode saus, ook met zeevruchten.">Rice cakes in red sauce, also with seafood.</p>
+      </article>
+      <article class="dish" style="--c:#C99A55">
+        <p class="kr">해물파전</p><h3 data-nl="Haemul pajeon">Haemul pajeon</h3>
+        <p data-nl="Pannenkoek met lente-ui en zeevruchten.">Spring-onion pancake with seafood.</p>
+      </article>
+      <article class="dish" style="--c:#A8551E">
+        <p class="kr">치킨</p><h3 data-nl="Koreaanse kip">Korean fried chicken</h3>
+        <p data-nl="Krokant gefrituurd, om te delen.">Crisp-fried, for the table to share.</p>
+      </article>
+      <article class="dish" style="--c:#7E2A1B">
+        <p class="kr">짜장면</p><h3>Jjajangmyeon</h3>
+        <p data-nl="Noedels in een rijke zwarte-bonensaus.">Noodles in a rich black bean sauce.</p>
+      </article>
+      <article class="dish" style="--c:#8E1B14">
+        <p class="kr">육개장</p><h3>Yukgaejang</h3>
+        <p data-nl="Pittige runderbouillon, diep rood.">Spicy beef soup, deep red.</p>
+      </article>
+      <article class="dish" style="--c:#3E7A2A">
+        <p class="kr">반찬</p><h3>Banchan</h3>
+        <p data-nl="De kleine bijgerechten die de tafel vullen.">The little side dishes that fill the table.</p>
+      </article>
+    </div>
+    <p class="mn-note cap" data-nl="Prijzen aan tafel · allergenen? vraag het even">Prices at the table · allergies? just ask</p>
+  </section>
+
+  <!-- 05 voices -->
+  <section class="sc-voices" id="voices" aria-labelledby="voices-h">
+    <p class="cap vc-eye">05 · <span id="voices-h" data-nl="Wat gasten zeggen">What guests say</span></p>
+    <div class="vc-list" id="vc-list"></div>
+  </section>
+
+  <!-- 06 visit -->
+  <section class="sc-visit" id="visit" aria-labelledby="visit-h">
+    <div class="vs-head">
+      <p class="cap">06 · <span class="kr">오시는 길</span> <span data-nl="bezoek">visit</span></p>
+      <h2 id="visit-h" data-nl="Schuif<br><em>aan.</em>">Pull up<br><em>a chair.</em></h2>
+    </div>
+    <div class="vs-grid">
+      <article class="card">
+        <p class="cap c-area" data-nl="Amstelveen · oude dorp">Amstelveen · old village</p>
+        <h3>Dorpsstraat 88</h3>
+        <p class="c-txt">1182 JG Amstelveen</p>
+        <p class="status cap"><i></i><span></span></p>
+        <div class="c-btns">
+          <a class="pill pill-lg" href="tel:+31206401877" data-nl="Bel 020 640 1877">Call 020 640 1877</a>
+          <a class="pill pill-line" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Damso+Korean+Restaurant%2C+Dorpsstraat+88%2C+1182+JG+Amstelveen" data-nl="Route &rarr;">Directions &rarr;</a>
+        </div>
+        <p class="c-stats cap"><span><b>4.6★</b> Google</span><span><b>587</b> <span data-nl="reviews">reviews</span></span><span><b>4.0</b> Tripadvisor</span></p>
+      </article>
+      <article class="card card-hours">
+        <p class="cap c-area" data-nl="Openingstijden">Opening hours</p>
+        <ul class="hours" id="hours"></ul>
+        <p class="c-small" data-nl="Klein restaurant en vaak vol: bel even voor een tafel.">A small room that fills up: call ahead for a table.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="kr ft-kr" aria-hidden="true">담소</p>
+  <div class="ft-bar cap"><span>Damso · Dorpsstraat 88 · 1182 JG Amstelveen</span><a href="tel:+31206401877">+31 20 640 1877</a></div>
+  <p class="concept" data-nl="Conceptontwerp door Dolcessi · niet de officiële website van Damso. Info uit openbare vermeldingen, oktober 2026. Gerechten in 3D gerenderd.">Concept design by Dolcessi · not the official website of Damso. Info from public listings, October 2026. Dishes rendered in 3D.</p>
+</footer>
+
+<nav class="mbar" id="mbar" aria-label="Quick actions">
+  <a class="pill" href="tel:+31206401877" data-nl="Bellen">Call</a>
+  <a class="pill pill-dark" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Damso+Korean+Restaurant%2C+Dorpsstraat+88%2C+1182+JG+Amstelveen">Route</a>
+</nav>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script type="module" src="app.js?v=2"></script>
+</body>
+</html>
