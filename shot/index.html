@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SHOT Lifestyle &amp; Coffee · Matcha &amp; coffee in a clear can · Amsterdam</title>
+<meta name="description" content="SHOT Lifestyle & Coffee: matcha and coffee, poured to order and sealed in a clear can. Marathonweg 15, Amsterdam. Rotterdam, Meent 121, opening soon.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2D2220">
+<link rel="icon" href="img/mark.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/bodoni.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=1">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body class="loading">
+
+<div id="loader" aria-hidden="true">
+  <div class="ld-top"></div><div class="ld-bot"></div>
+  <div class="ld-mid">
+    <div class="ld-word"><span>S</span><span>H</span><span>O</span><span>T</span></div>
+    <div class="ld-meta"><span>Lifestyle &amp; Coffee</span><span><b id="ld-n">0</b>%</span></div>
+    <div class="ld-bar"><i id="ld-fill"></i></div>
+  </div>
+</div>
+
+<canvas id="world" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="SHOT, top of page"><span class="brand-w">SHOT</span><span class="brand-s">Lifestyle &amp; Coffee</span></a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#ritual" data-nl="Ritueel">Ritual</a>
+    <a href="#signatures">Signatures</a>
+    <a href="#menu" data-nl="Menu">Menu</a>
+    <a href="#visit" data-nl="Bezoek">Visit</a>
+  </nav>
+  <div class="nav-r">
+    <span class="nav-open"><i id="nav-dot"></i><span id="nav-open">…</span></span>
+    <button id="lang" type="button" aria-label="Switch language"><span data-l="en">EN</span><span data-l="nl">NL</span></button>
+    <a class="pill" href="https://www.thuisbezorgd.nl/en/menu/shot-lifestyle-coffee" target="_blank" rel="noopener" data-order data-nl="Bestel">Order</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 01 hero -->
+  <section class="sc-hero" id="hero" aria-label="SHOT Lifestyle &amp; Coffee">
+    <div class="pin">
+      <p class="hero-tl"><span class="dot"></span><span data-nl="Matcha &amp; koffie · Amsterdam Zuid">Matcha &amp; coffee · Amsterdam Zuid</span></p>
+      <p class="hero-tr"><span>N° 01</span><span data-nl="Iced Matcha · 330 ml">Iced Matcha · 330 ml</span></p>
+      <div class="hero-b">
+        <h1 class="hero-h"><span class="ln">Recharge yourself.</span><span class="ln"><em>Elevate your coffee.</em></span></h1>
+        <div class="hero-side">
+          <p data-nl="Matcha en koffie, vers voor je gemaakt en verzegeld in een heldere can. Aan de Marathonweg in Amsterdam, en binnenkort op de Meent in Rotterdam.">Matcha and coffee, poured to order and sealed in a clear can. On Marathonweg in Amsterdam, and soon on the Meent in Rotterdam.</p>
+          <div class="btns">
+            <a class="btn btn-solid mag" href="https://www.thuisbezorgd.nl/en/menu/shot-lifestyle-coffee" target="_blank" rel="noopener" data-order><span data-nl="Bestel via Thuisbezorgd">Order on Thuisbezorgd</span></a>
+            <a class="btn btn-line mag" href="#signatures"><span data-nl="Bekijk de cans">See the cans</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"><i></i><span>Scroll</span></div>
+    </div>
+  </section>
+
+  <!-- 02 the ritual: pour, ice, seal -->
+  <section class="sc-ritual" id="ritual" aria-labelledby="ritual-h">
+    <div class="pin">
+      <div class="rt-l">
+        <p class="eyebrow"><span>02</span><span data-nl="Het ritueel">The ritual</span></p>
+        <h2 id="ritual-h" class="rt-h" data-nl="Vers ingeschonken.<br><em>Waar je bij staat verzegeld.</em>">Poured to order.<br><em>Sealed in front of you.</em></h2>
+        <ol class="steps">
+          <li data-at="0"><b>01</b><span><strong data-nl="Fruit eerst">Fruit first</strong><i data-nl="Aardbei zakt naar de bodem.">Strawberry settles to the bottom.</i></span></li>
+          <li data-at="1"><b>02</b><span><strong data-nl="Koude melk">Cold milk</strong><i data-nl="Langzaam geschonken, zodat de lagen blijven.">Poured slowly so the layers hold.</i></span></li>
+          <li data-at="2"><b>03</b><span><strong>Matcha</strong><i data-nl="Zakt in wolken de melk in.">Sinks into the milk in clouds.</i></span></li>
+          <li data-at="3"><b>04</b><span><strong data-nl="Cheesecake-room">Cheesecake cream</strong><i data-nl="Een zachte laag bovenop.">A soft layer on top.</i></span></li>
+          <li data-at="4"><b>05</b><span><strong data-nl="IJs">Ice</strong><i data-nl="Altijd als laatste.">Always last.</i></span></li>
+          <li data-at="5"><b>06</b><span><strong data-nl="Verzegeld">Sealed</strong><i data-nl="Het deksel wordt er in seconden op gezet.">The lid is seamed on in seconds.</i></span></li>
+          <li data-at="6"><b>07</b><span><strong data-nl="Schudden. Openen.">Shake. Open.</strong><i data-nl="Klaar voor onderweg.">Ready for the road.</i></span></li>
+        </ol>
+      </div>
+      <div class="rt-hud" aria-hidden="true">
+        <div class="hud-row"><span data-nl="Inhoud">Fill</span><b><span id="ml">0</span> / 330 ml</b></div>
+        <div class="hud-bar"><i id="ml-bar"></i></div>
+        <div class="hud-row"><span data-nl="Status">Status</span><b id="hud-state">Open</b></div>
+      </div>
+      <p class="rt-stamp" aria-hidden="true"><span data-nl="Verzegeld">Sealed</span></p>
+    </div>
+  </section>
+
+  <!-- 03 signatures -->
+  <section class="sc-sig" id="signatures" aria-labelledby="sig-h">
+    <div class="pin">
+      <div class="sig-head">
+        <p class="eyebrow"><span>03</span><span id="sig-h">Signatures</span></p>
+        <p class="sig-count"><b id="sig-i">01</b> / <span id="sig-n">07</span></p>
+      </div>
+      <div class="sig-list" id="sig-list"></div>
+      <div class="sig-dots" id="sig-dots" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- 04 statement -->
+  <section class="sc-statement" id="statement">
+    <p class="eyebrow center"><span>04</span><span data-nl="Waarom een can">Why a can</span></p>
+    <p class="stm" id="stm" data-nl="Een drankje dat je meeneemt hoort net zo goed te zijn als het eerste slokje aan de bar. Daarom gaat alles in een heldere can: je ziet de lagen, het blijft koud, en er lekt niks in je tas.">A drink to go should be as good as the first sip at the bar. So everything goes into a clear can: you see the layers, it stays cold, and nothing spills in your bag.</p>
+  </section>
+
+  <!-- 05 craft, horizontal -->
+  <section class="sc-craft" id="craft" aria-labelledby="craft-h">
+    <div class="pin">
+      <div class="craft-track" id="craft-track">
+        <div class="craft-intro">
+          <p class="eyebrow"><span>05</span><span data-nl="Het werk">The craft</span></p>
+          <h2 id="craft-h" data-nl="Elke can begint<br><em>op dezelfde manier.</em>">Every can starts<br><em>the same way.</em></h2>
+          <p class="craft-sub" data-nl="Gezeefd, geklopt, getrokken, gelaagd. Met de hand, achter de bar.">Sifted, whisked, pulled, layered. By hand, behind the bar.</p>
+        </div>
+        <figure class="cr tall" data-d="1"><div class="cr-img"><img src="img/photo/matcha-sift.jpg" alt="Matcha being sifted into a cup" loading="lazy"></div><figcaption><b>Sifted</b><span data-nl="Matcha, zonder klontjes">Matcha, lump-free</span></figcaption></figure>
+        <figure class="cr wide" data-d="-1"><div class="cr-img"><img src="img/photo/whisk-foam.jpg" alt="A bamboo whisk in bright green matcha foam" loading="lazy"></div><figcaption><b data-nl="Geklopt">Whisked</b><span data-nl="Tot er een fijne schuimlaag staat">Until a fine foam forms</span></figcaption></figure>
+        <p class="cr-word" data-d="2"><em>Recharge</em></p>
+        <figure class="cr tall" data-d="-1.5"><div class="cr-img"><img src="img/photo/espresso-pour.jpg" alt="Espresso pouring from a portafilter" loading="lazy"></div><figcaption><b data-nl="Getrokken">Pulled</b><span data-nl="Espresso voor elke latte">Espresso for every latte</span></figcaption></figure>
+        <figure class="cr sq" data-d="1.2"><div class="cr-img"><img src="img/photo/ice-macro.jpg" alt="Ice cubes in an iced matcha, seen from above" loading="lazy"></div><figcaption><b data-nl="IJskoud">Iced</b><span data-nl="Altijd als laatste erin">Always the last thing in</span></figcaption></figure>
+        <figure class="cr tall" data-d="-.8"><div class="cr-img"><img src="img/photo/layered-matcha.jpg" alt="A layered iced matcha latte in a glass" loading="lazy"></div><figcaption><b data-nl="Gelaagd">Layered</b><span data-nl="Zodat je ziet wat je drinkt">So you see what you drink</span></figcaption></figure>
+        <p class="cr-word" data-d="1.6"><em>Elevate</em></p>
+        <figure class="cr tall" data-d="1"><div class="cr-img"><img src="img/photo/life-sip.jpg" alt="Someone taking a sip of an iced drink on a terrace" loading="lazy"></div><figcaption><b data-nl="Onderweg">To go</b><span data-nl="Kantoor, park, trein">Office, park, train</span></figcaption></figure>
+      </div>
+      <div class="craft-prog" aria-hidden="true"><i id="craft-prog"></i></div>
+    </div>
+  </section>
+
+  <!-- 06 menu -->
+  <section class="sc-menu" id="menu" aria-labelledby="menu-h">
+    <div class="menu-head">
+      <p class="eyebrow"><span>06</span><span data-nl="Menukaart">The menu</span></p>
+      <h2 id="menu-h" data-nl="Alles op<br><em>de kaart.</em>">Everything<br><em>on the menu.</em></h2>
+      <p class="menu-note" data-nl="Prijzen zoals op Thuisbezorgd. Specials en iced drinks komen in een verzegelde can.">Prices as listed on Thuisbezorgd. Specials and iced drinks come in a sealed can.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Menu categories" id="tabs"></div>
+    <div class="menu-body" id="menu-body"></div>
+    <div class="menu-cta">
+      <a class="btn btn-solid mag" href="https://www.thuisbezorgd.nl/en/menu/shot-lifestyle-coffee" target="_blank" rel="noopener" data-order><span data-nl="Bestel via Thuisbezorgd">Order on Thuisbezorgd</span></a>
+    </div>
+    <div class="peek" id="peek" aria-hidden="true"><img alt=""></div>
+  </section>
+
+  <!-- 07 brands -->
+  <section class="sc-brands" id="brands" aria-labelledby="brands-h">
+    <div class="br-grid">
+      <div class="br-l">
+        <p class="eyebrow light"><span>07</span><span data-nl="Voor merken">For brands</span></p>
+        <h2 id="brands-h" data-nl="Jouw launch,<br><em>in een can.</em>">Your launch,<br><em>in a can.</em></h2>
+      </div>
+      <div class="br-r">
+        <p data-nl="Cans met je eigen print, voor launches, shows en events. SHOT schonk al voor merken als Rituals, Guerlain, Max Factor en Alo. Vraag ook naar de SHOT truck.">Cans printed with your own design, for launches, shows and events. SHOT has poured for brands like Rituals, Guerlain, Max Factor and Alo. Ask about the SHOT truck, too.</p>
+        <a class="btn btn-cream mag" href="mailto:info@shot-coffee.com?subject=Custom%20cans"><span data-nl="Plan een samenwerking">Plan a collab</span></a>
+      </div>
+    </div>
+    <div class="marquee" aria-hidden="true"><div class="mq-track"><span>Rituals</span><i>✦</i><span>Guerlain</span><i>✦</i><span>Max Factor</span><i>✦</i><span>Alo</span><i>✦</i><span>BIYU</span><i>✦</i><span><em data-nl="Jouw merk">Your brand</em></span><i>✦</i></div></div>
+  </section>
+
+  <!-- 08 shop -->
+  <section class="sc-shop" id="shop" aria-labelledby="shop-h">
+    <div class="shop-head">
+      <p class="eyebrow"><span>08</span><span data-nl="Voor thuis">At home</span></p>
+      <h2 id="shop-h" data-nl="Neem SHOT<br><em>mee naar huis.</em>">Take SHOT<br><em>home.</em></h2>
+    </div>
+    <div class="shop-grid">
+      <article class="prod"><div class="prod-img"><img src="img/photo/matcha-sift.jpg" alt="Matcha being prepared with a bamboo whisk set" loading="lazy"></div><div class="prod-t"><h3 data-nl="SHOT matcha kit">Shot matcha kit</h3><b>€44,95</b></div><p data-nl="Garde, houder, kom en bamboe schepje.">Whisk, holder, bowl and bamboo scoop.</p></article>
+      <article class="prod"><div class="prod-img"><img src="img/photo/espresso-portafilter.jpg" alt="Espresso running from a portafilter" loading="lazy"></div><div class="prod-t"><h3 data-nl="SHOT koffiebonen">Shot coffee beans</h3><b>€8,50</b></div><p data-nl="250 gram arabica, voor thuis.">250 g arabica, for your own machine.</p></article>
+      <article class="prod"><div class="prod-img"><img src="img/photo/life-sip.jpg" alt="An iced drink being sipped outdoors" loading="lazy"></div><div class="prod-t"><h3 data-nl="SHOT tumbler">Shot tumbler</h3><b>€14,95</b></div><p data-nl="Voor elke dag dat je geen can neemt.">For the days you skip the can.</p></article>
+    </div>
+    <p class="shop-note" data-nl="Verkrijgbaar in de winkel en via Thuisbezorgd. Foto's ter sfeer.">Available in store and on Thuisbezorgd. Photos for mood.</p>
+  </section>
+
+  <!-- 09 visit -->
+  <section class="sc-visit" id="visit" aria-labelledby="visit-h">
+    <div class="visit-head">
+      <p class="eyebrow"><span>09</span><span data-nl="Bezoek">Visit</span></p>
+      <h2 id="visit-h" data-nl="Twee steden.<br><em>Eén can.</em>">Two cities.<br><em>One can.</em></h2>
+    </div>
+    <div class="cities">
+      <article class="city" id="ams">
+        <div class="city-img"><img src="img/photo/ams-zuid.jpg" alt="A street corner in Amsterdam Zuid" loading="lazy"></div>
+        <div class="city-b">
+          <p class="city-k">Amsterdam</p>
+          <h3>Marathonweg 15</h3>
+          <p class="status"><i></i><span>…</span></p>
+          <ul class="hours"></ul>
+          <div class="btns">
+            <a class="btn btn-solid mag" href="https://www.google.com/maps/search/?api=1&amp;query=SHOT+Lifestyle+%26+Coffee+Marathonweg+15+Amsterdam" target="_blank" rel="noopener"><span data-nl="Route">Directions</span></a>
+            <a class="btn btn-line mag" href="https://www.thuisbezorgd.nl/en/menu/shot-lifestyle-coffee" target="_blank" rel="noopener" data-order><span data-nl="Bestel">Order</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="city soon" id="rtm">
+        <div class="city-img"><img src="img/photo/rtm-erasmus.jpg" alt="The Erasmus Bridge and skyline of Rotterdam" loading="lazy"><span class="soon-tag" data-nl="Binnenkort">Opening soon</span></div>
+        <div class="city-b">
+          <p class="city-k">Rotterdam</p>
+          <h3>Meent 121</h3>
+          <p class="status"><i class="off"></i><span data-nl="Binnenkort open · datum volgt">Opening soon · date to follow</span></p>
+          <p class="city-p" data-nl="De tweede SHOT komt in het centrum van Rotterdam. Volg Instagram voor de openingsdatum.">The second SHOT is coming to the centre of Rotterdam. Follow Instagram for the opening date.</p>
+          <div class="btns">
+            <a class="btn btn-line mag" href="https://www.instagram.com/shotcoffee.official/" target="_blank" rel="noopener"><span data-nl="Volg de opening">Follow the opening</span></a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" id="foot">
+  <div class="ft-cols">
+    <div><p class="ft-k" data-nl="Bezoek">Visit</p><p>Marathonweg 15<br>Amsterdam</p><p>Meent 121<br>Rotterdam <span class="muted" data-nl="(binnenkort)">(soon)</span></p></div>
+    <div><p class="ft-k" data-nl="Open">Hours</p><p data-nl="Ma–do 08:00–18:00<br>Vr–zo 09:00–20:00">Mon–Thu 08:00–18:00<br>Fri–Sun 09:00–20:00</p></div>
+    <div><p class="ft-k" data-nl="Volg">Follow</p><p><a href="https://www.instagram.com/shotcoffee.official/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.tiktok.com/@shotcoffee.ams" target="_blank" rel="noopener">TikTok</a></p></div>
+    <div><p class="ft-k">Contact</p><p><a href="mailto:info@shot-coffee.com">info@shot-coffee.com</a><br><a href="https://www.thuisbezorgd.nl/en/menu/shot-lifestyle-coffee" target="_blank" rel="noopener" data-order data-nl="Bestellen">Order online</a></p></div>
+  </div>
+  <p class="ft-word" aria-hidden="true">SHOT</p>
+  <div class="ft-base">
+    <span>Recharge yourself, elevate your coffee.</span>
+    <span data-nl="Concept door <a href='https://dolcessi.com' target='_blank' rel='noopener'>Dolcessi</a> · niet de officiële website van SHOT">Concept by <a href="https://dolcessi.com" target="_blank" rel="noopener">Dolcessi</a> · not the official SHOT website</span>
+    <span><details class="credits"><summary data-nl="Fotografie: Unsplash">Photography: Unsplash</summary><div id="credits"></div></details></span>
+  </div>
+</footer>
+
+<nav class="mbar" aria-label="Quick actions">
+  <a href="https://www.thuisbezorgd.nl/en/menu/shot-lifestyle-coffee" target="_blank" rel="noopener" class="mb-order" data-order data-nl="Bestel">Order</a>
+  <a href="https://www.google.com/maps/search/?api=1&amp;query=SHOT+Lifestyle+%26+Coffee+Marathonweg+15+Amsterdam" target="_blank" rel="noopener" data-nl="Route">Directions</a>
+</nav>
+
+<div class="cursor" aria-hidden="true"><i></i><span id="cursor-t"></span></div>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script type="module" src="app.js?v=1"></script>
+</body>
+</html>
