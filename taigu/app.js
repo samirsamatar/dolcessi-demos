@@ -94,26 +94,36 @@ const P = k => `img/p/${k}.jpg`;
 $("#dr-list").innerHTML = DR.map((d, i) => {
   const t = NL ? d.nl : d.en;
   return `<article class="dr" style="--c:${d.c}" aria-hidden="${i ? "true" : "false"}">
-    <p class="dr-tate" aria-hidden="true">${[...d.jp].map(c => `<span>${c}</span>`).join("")}</p>
+
     <div class="dr-txt"><h2>${t[0].split(" ").map(w => `<span class="w"><span>${w}</span></span>`).join(" ")}<br><em>${t[1].split(" ").map(w => `<span class="w"><span>${w}</span></span>`).join(" ")}</em></h2><p>${NL ? d.d[1] : d.d[0]}</p></div>
-    <figure class="dr-ph" style="margin:0"><img src="${P(d.ph)}" alt="" loading="lazy"></figure>
+    <div class="dr-plate" aria-hidden="true">
+      <p class="dr-tate">${[...d.jp].map(c => `<span>${c}</span>`).join("")}</p>
+      <figure class="dr-ph"><div class="ph"><img src="${P(d.ph)}" alt="" loading="lazy"></div><figcaption><b>No. ${String(i + 1).padStart(2, "0")}</b><span>${t.join(" ").replace(/\.$/, "")}</span></figcaption></figure>
+    </div>
   </article>`;
 }).join("");
 const drEls = $$(".dr"), drDots = $$(".dr-dots i");
 
-/* ---------- menu: photo peek follows the cursor ---------- */
-if (fine) {
-  const peek = $("#peek"), [imA, imB] = $$("img", peek); let front = imA, px = 0, py = 0, tx = 0, ty = 0, on = false;
-  $$(".mn-col li").forEach(li => {
-    li.addEventListener("pointerenter", () => {
-      const src = P(li.dataset.ph); const back = front === imA ? imB : imA;
-      if (!front.src.endsWith(src)) { back.src = src; back.style.zIndex = 2; front.style.zIndex = 1; back.classList.remove("out"); gsap.fromTo(back, { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: .7, ease: "expo.out" }); front = back; }
-      peek.classList.add("on"); on = true;
-    });
-    li.addEventListener("pointerleave", () => { peek.classList.remove("on"); on = false; });
-  });
-  addEventListener("pointermove", e => { tx = e.clientX + 30; ty = e.clientY; }, { passive: true });
-  gsap.ticker.add(() => { if (!on && !peek.classList.contains("on")) return; px += (tx - px) * .12; py += (ty - py) * .12; peek.style.left = px + "px"; peek.style.top = py + "px"; });
+/* ---------- menu: a catalogue plate shows whatever you point at (or whatever is in the middle of the screen) ---------- */
+{
+  const rows = $$(".mn-group li"), frame = $(".mp-frame"), [imA, imB] = $$("img", frame);
+  let front = imA, curRow = null, hovering = false;
+  function setRow(li, anim = true) {
+    if (!li || li === curRow) return; curRow = li;
+    rows.forEach(r => r.classList.toggle("on", r === li));
+    $("#mp-no").textContent = li.dataset.no; $("#mp-en").textContent = $(".mi-name b", li).textContent; $("#mp-jp").textContent = $(".mi-name .jp", li).textContent;
+    const src = P(li.dataset.ph); if (front.getAttribute("src") === src) return;
+    const back = front === imA ? imB : imA; back.src = src; back.style.zIndex = 2; front.style.zIndex = 1; front = back;
+    if (anim && !reduce) { gsap.fromTo(back, { clipPath: "inset(100% 0 0 0)", scale: 1.12 }, { clipPath: "inset(0% 0 0 0)", scale: 1, duration: .9, ease: "expo.out" }); gsap.fromTo(".mp-cap > *", { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .7, stagger: .05, ease: "expo.out" }); }
+  }
+  rows.forEach(li => { li.addEventListener("pointerenter", () => { hovering = true; setRow(li); }); li.addEventListener("focus", () => setRow(li)); });
+  $(".mn-lists").addEventListener("pointerleave", () => { hovering = false; });
+  // without a cursor on the list, the row nearest the middle of the screen leads
+  ScrollTrigger.create({ trigger: ".mn-lists", start: "top 70%", end: "bottom 30%", onUpdate: () => {
+    if (hovering) return; const mid = innerHeight * .5; let best = null, bd = 1e9;
+    rows.forEach(r => { const b = r.getBoundingClientRect(), d = Math.abs(b.top + b.height / 2 - mid); if (d < bd) { bd = d; best = r; } }); setRow(best);
+  } });
+  setRow(rows[0], false);
 }
 
 /* ---------- voices ---------- */
@@ -220,7 +230,7 @@ function choreograph() {
   const word = 1 - ss(0, .08, f);
   // --- 二 drinks: the cup moves aside, morphs per drink, the ink takes the drink's colour
   const e = ss(0, .1, f);
-  x = lerp(x, m ? 0 : 1.15, e); y = lerp(y, m ? .3 : -.36, e); s = lerp(s, m ? .74 : 1.12, e); tilt = lerp(tilt, 0, e);
+  x = lerp(x, m ? 0 : .95, e); y = lerp(y, m ? .3 : -.36, e); s = lerp(s, m ? .74 : 1.12, e); tilt = lerp(tilt, 0, e);
   const fi = clamp(f * 5.2 - .3, 0, 4.999), i = Math.floor(fi), t = fi - i, k = ss(.6, .96, t), j = Math.min(4, i + 1);
   const A = DR[i], B = DR[j];
   st.tea = mixHex(A.tea, B.tea, k); st.milk = mixHex(A.milk, B.milk, k); st.baseCol = mixHex(A.baseCol, B.baseCol, k);
@@ -234,13 +244,14 @@ function choreograph() {
     lastDr = cur;
     drEls.forEach((el, n) => {
       const on = n === cur; el.setAttribute("aria-hidden", on ? "false" : "true");
-      gsap.killTweensOf([el, ...$$(".w > span, .dr-tate span, .dr-txt p, .dr-ph", el)]);
+      gsap.killTweensOf([el, ...$$(".w > span, .dr-tate span, .dr-txt p, .dr-ph .ph, .dr-ph figcaption", el)]);
       if (on) {
         gsap.set(el, { autoAlpha: 1 });
         gsap.fromTo($$(".w > span", el), { yPercent: 115 }, { yPercent: 0, duration: 1.1, stagger: .06, ease: "expo.out" });
         gsap.fromTo($$(".dr-tate span", el), { autoAlpha: 0, y: -30 }, { autoAlpha: 1, y: 0, duration: 1.2, stagger: .08, ease: "expo.out" });
         gsap.fromTo($(".dr-txt p", el), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 1, delay: .2, ease: "expo.out" });
-        gsap.fromTo($(".dr-ph", el), { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: 1.2, delay: .25, ease: "expo.out" });
+        gsap.fromTo($(".dr-ph .ph", el), { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: 1.2, delay: .25, ease: "expo.out" });
+        gsap.fromTo($(".dr-ph figcaption", el), { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 1, delay: .45, ease: "expo.out" });
       } else gsap.to(el, { autoAlpha: 0, duration: .35 });
     });
     drDots.forEach((d, n) => d.classList.toggle("on", n === cur));
@@ -352,7 +363,7 @@ $$(".sc-name h2, .sc-menu h2, .sc-visit h2, .wh-text h2, .or-t h2").forEach(h =>
   gsap.from($$(".reveal-line > span", h), { yPercent: 115, duration: 1.3, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: h, start: "top 86%" } });
 });
 $$(".sc-menu .eyebrow, .mn-sub, .sc-visit .eyebrow, .sc-name .eyebrow, .nm-copy > p:not(.eyebrow), .nm-stats span").forEach(el => gsap.from(el, { y: 24, autoAlpha: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
-$$(".mn-col li").forEach((li, n) => gsap.from(li, { y: 30, autoAlpha: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: li, start: "top 94%" } }));
+$$(".mn-group li").forEach((li, n) => gsap.from(li, { y: 30, autoAlpha: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: li, start: "top 94%" } }));
 $$(".house").forEach((c, i) => {
   gsap.from(c, { y: 70, autoAlpha: 0, duration: 1.3, delay: i * .1, ease: "expo.out", scrollTrigger: { trigger: ".houses", start: "top 85%" } });
   gsap.fromTo($(".h-img img", c), { yPercent: -10 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: c, start: "top bottom", end: "bottom top", scrub: true } });
