@@ -1,6 +1,7 @@
 /* Taigu · real-time 3D drink world (three.js) */
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "./vendor/RoundedBoxGeometry.js";
+import { createFluid } from "./fluid.js?v=5";
 
 const TAU = Math.PI * 2;
 
@@ -48,12 +49,15 @@ async function svgTexture(url, h, color = "#111") {
 }
 
 /* ---------- shared noise for liquids ---------- */
-const NOISE = /* glsl */`
+let FBM_OCT = 3;
+const NOISE_SRC = /* glsl */`
 vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}
 vec4 permute(vec4 x){return mod289(((x*34.)+1.)*x);}vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-.85373472095314*r;}
 float snoise(vec3 v){const vec2 C=vec2(1./6.,1./3.);const vec4 D=vec4(0.,.5,1.,2.);vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);vec3 g=step(x0.yzx,x0.xyz);vec3 l=1.-g;vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+C.yyy;vec3 x3=x0-D.yyy;i=mod289(i);vec4 p=permute(permute(permute(i.z+vec4(0.,i1.z,i2.z,1.))+i.y+vec4(0.,i1.y,i2.y,1.))+i.x+vec4(0.,i1.x,i2.x,1.));float n_=.142857142857;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.*x_);vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.-abs(x)-abs(y);vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);vec4 s0=floor(b0)*2.+1.;vec4 s1=floor(b1)*2.+1.;vec4 sh=-step(h,vec4(0.));vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.);m=m*m;return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}
-float fbm(vec3 p){float f=0.,a=.5;for(int i=0;i<3;i++){f+=a*snoise(p);p*=2.03;a*=.5;}return f;}
+float fbm(vec3 p){float f=0.,a=.5;for(int i=0;i<FBM_OCT;i++){f+=a*snoise(p);p*=2.03;a*=.5;}return f;}
 `;
+
+const noise = () => `#define FBM_OCT ${FBM_OCT}\n` + NOISE_SRC;
 
 /* liquid material: physically lit, colour comes from layered volume function */
 function liquidMaterial(U) {
@@ -64,7 +68,7 @@ function liquidMaterial(U) {
     sh.fragmentShader = sh.fragmentShader.replace("#include <common>", `#include <common>
 varying vec3 vLocal;
 uniform vec3 cMilk; uniform vec3 cTea; uniform vec3 cBase; uniform float uFill; uniform float uMix; uniform float uBase; uniform float uTime; uniform float uTop;
-${NOISE}
+${noise()}
 vec3 drinkColor(vec3 p0){
   vec3 p = uTop > .5 ? vec3(p0.x, uFill - .002, p0.y) : p0;   // the surface disk is flat: treat it as the very top
   float y = p.y / max(uFill, .001);                 // 0 bottom .. 1 surface
@@ -99,7 +103,9 @@ vec3 drinkColor(vec3 p0){
 
 /* ---------- world ---------- */
 export async function createWorld(canvas, opts = {}) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
+  FBM_OCT = opts.low ? 2 : 3;
+  const nf = () => new Promise(r => requestAnimationFrame(() => r()));
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: !opts.low, alpha: false, powerPreference: "high-performance", preserveDrawingBuffer: !!opts.keep });
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, opts.maxDpr || 2));
   if ('transmissionResolutionScale' in renderer) renderer.transmissionResolutionScale = .6;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
@@ -121,28 +127,41 @@ export async function createWorld(canvas, opts = {}) {
   scene.environmentIntensity = 1;
 
   const camera = new THREE.PerspectiveCamera(26, 1, .1, 100);
-  camera.position.set(0, 1.55, 12.5);
+  camera.position.set(0, 1.55, 12.5); scene.add(camera);
 
   // key + rim lights for sparkle on the plastic
   const key = new THREE.DirectionalLight(0xffffff, 1.4); key.position.set(-4, 6, 6); scene.add(key);
   const rimL = new THREE.DirectionalLight(0xffffff, 3.0); rimL.position.set(6, 2, -5); scene.add(rimL);
   const rimR = new THREE.DirectionalLight(0xfff4e0, 2.0); rimR.position.set(-6, 1, -4); scene.add(rimR);
 
-  /* backdrop: a soft lit card behind the cup, so the plastic has something to refract */
-  const bdC = document.createElement("canvas"); bdC.width = bdC.height = 512;
-  const bg = bdC.getContext("2d"); const grd = bg.createRadialGradient(256, 230, 10, 256, 256, 256);
-  grd.addColorStop(0, "#ffffff"); grd.addColorStop(.45, "rgba(255,255,255,.35)"); grd.addColorStop(1, "rgba(255,255,255,0)");
-  bg.fillStyle = grd; bg.fillRect(0, 0, 512, 512);
-  const backdropTex = new THREE.CanvasTexture(bdC); backdropTex.colorSpace = THREE.SRGBColorSpace;
-  // opaque (so the cup refracts it): page colour with a soft glow in the middle
-  const backdropMat = new THREE.ShaderMaterial({ toneMapped: false, uniforms: { uBg: { value: new THREE.Color(0x070707) }, uGlow: { value: new THREE.Color(0x2a2927) } },
+  /* ink: a GPU fluid that lives on the backdrop, so the cup refracts it */
+  await nf();
+  const fluid = createFluid(renderer, opts.low ? { sim: 72, dye: 320, iters: 10, curl: 22, densityDiss: 1.3, radius: .22 } : { sim: 128, dye: 640, iters: 18, curl: 28, densityDiss: 1.25, radius: .17 });
+  const bowlFluid = createFluid(renderer, opts.low ? { sim: 56, dye: 200, iters: 8, curl: 14, densityDiss: .06, velocityDiss: .6, radius: .5 } : { sim: 96, dye: 320, iters: 14, curl: 16, densityDiss: .06, velocityDiss: .6, radius: .45 });
+  await nf();
+  const BD = 30;
+  const backdropMat = new THREE.ShaderMaterial({ toneMapped: false, depthWrite: false,
+    uniforms: { uBg: { value: new THREE.Color(0x070707) }, uGlow: { value: new THREE.Color(0x2a2927) }, uDye: { value: fluid.texture }, uInk: { value: 1 }, uAspect: { value: 1 }, uLeft: { value: 1 }, uBottom: { value: 0 } },
     vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }",
-    fragmentShader: "uniform vec3 uBg; uniform vec3 uGlow; varying vec2 vUv; void main(){ float d = distance(vUv, vec2(.5,.53)); float g = exp(-d*d*14.); gl_FragColor = vec4(uBg + uGlow * g, 1.); \n#include <colorspace_fragment>\n }" });
-  const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(26, 26), backdropMat);
-  backdrop.position.set(0, 1.5, -6); scene.add(backdrop);
+    fragmentShader: `uniform vec3 uBg; uniform vec3 uGlow; uniform sampler2D uDye; uniform float uInk; uniform float uAspect; uniform float uLeft; uniform float uBottom; varying vec2 vUv;
+      float hash(vec2 p){ return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453); }
+      void main(){
+        vec2 q = (vUv - vec2(.5,.52)) * vec2(uAspect, 1.);
+        vec3 c = uBg + uGlow * exp(-dot(q,q) * 3.4);
+        vec3 d = texture2D(uDye, vUv).rgb;
+        vec3 ink = 1. - exp(-d * 1.5);
+        float keep = mix(1., .22 + .78 * smoothstep(.02, .5, vUv.x), uLeft) * mix(1., .25 + .75 * smoothstep(.05, .5, vUv.y), uBottom); // quiet where the text sits
+        c += (ink * .62 + ink * ink * .18) * uInk * keep;
+        c *= 1. - .35 * smoothstep(.45, 1.1, length((vUv - .5) * vec2(uAspect * .8, 1.)));
+        c += (hash(gl_FragCoord.xy) - .5) / 255.;
+        gl_FragColor = vec4(c, 1.);
+        #include <colorspace_fragment>
+      }` });
+  const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), backdropMat);
+  backdrop.position.z = -BD; backdrop.renderOrder = -1; camera.add(backdrop);
 
   // the wordmark lives in the scene, so the cup refracts it
-  const word = await svgTexture(opts.wordUrl || "img/word.svg", 512, "#F2EFE8");
+  const word = await svgTexture(opts.wordUrl || "img/word.svg", 512, "#1a1a18"); // a dark cut-out: the ink swirls behind the letters
   const wordMat = new THREE.MeshBasicMaterial({ map: word.tex, alphaTest: .5, toneMapped: false });
   const wordPlane = new THREE.Mesh(new THREE.PlaneGeometry(10, 10 / word.ratio), wordMat);
   wordPlane.position.set(0, 1.35, -2.4); scene.add(wordPlane);
@@ -160,7 +179,9 @@ export async function createWorld(canvas, opts = {}) {
   for (let i = 40; i >= 1; i--) { const y = H * i / 40; prof.push(new THREE.Vector2(rAt(y) - WALL, y)); }
   prof.push(new THREE.Vector2(R0 - WALL - .03, WALL + .02)); prof.push(new THREE.Vector2(0.001, WALL + .02));
   const cupGeo = new THREE.LatheGeometry(prof, 112);
-  const cond = condensationMaps(1024);
+  await nf();
+  const cond = condensationMaps(opts.low ? 512 : 1024);
+  await nf();
   cond.normal.repeat.set(3, 6.4); cond.rough.repeat.set(3, 6.4);
   const glass = new THREE.MeshPhysicalMaterial({
     color: 0xffffff, metalness: 0, roughness: .05, transmission: 1, thickness: .35, ior: 1.57, dispersion: .3,
@@ -213,7 +234,7 @@ export async function createWorld(canvas, opts = {}) {
   streamMat.onBeforeCompile = sh => {
     Object.assign(sh.uniforms, streamU);
     sh.vertexShader = sh.vertexShader.replace("#include <common>", "#include <common>\nvarying vec2 vUv2;").replace("#include <begin_vertex>", "#include <begin_vertex>\nvUv2 = uv;");
-    sh.fragmentShader = sh.fragmentShader.replace("#include <common>", `#include <common>\nvarying vec2 vUv2; uniform float uTime; uniform vec3 cTea;\n${NOISE}`)
+    sh.fragmentShader = sh.fragmentShader.replace("#include <common>", `#include <common>\nvarying vec2 vUv2; uniform float uTime; uniform vec3 cTea;\n${noise()}`)
       .replace("vec4 diffuseColor = vec4( diffuse, opacity );", "float nn = snoise(vec3(vUv2.x*18. - uTime*3.2, vUv2.y*6., 0.)); vec4 diffuseColor = vec4( cTea * (.9 + .18*nn), opacity );");
   };
   let streamMesh = null;
@@ -244,23 +265,26 @@ export async function createWorld(canvas, opts = {}) {
   for (let i = 30; i >= 0; i--) { const t = i / 30; bowlProf.push(new THREE.Vector2(.5 + Math.sin(t * Math.PI * .5) * 1.17, .08 + t * 1.17)); }
   const bowlMat = new THREE.MeshPhysicalMaterial({ color: 0x1d1c1a, roughness: .62, metalness: 0, clearcoat: .35, clearcoatRoughness: .5 });
   const bowl = new THREE.Mesh(new THREE.LatheGeometry(bowlProf, 140), bowlMat); whiskWorld.add(bowl);
-  const foamU = { uTime: { value: 0 }, uFoam: { value: 0 }, cTea: { value: new THREE.Color("#3C6414") } };
+  const foamU = { uTime: { value: 0 }, uFoam: { value: 0 }, cTea: { value: new THREE.Color("#3C6414") }, uDye: { value: bowlFluid.texture } };
   const foamMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: .42, clearcoat: .5, clearcoatRoughness: .3, sheen: .35, sheenColor: new THREE.Color(0xcfe39a), envMapIntensity: .8 });
   foamMat.onBeforeCompile = sh => {
     Object.assign(sh.uniforms, foamU);
-    sh.vertexShader = sh.vertexShader.replace("#include <common>", "#include <common>\nvarying vec3 vP; uniform float uTime; uniform float uFoam;\n" + NOISE)
+    sh.vertexShader = sh.vertexShader.replace("#include <common>", "#include <common>\nvarying vec3 vP; uniform float uTime; uniform float uFoam;\n" + noise())
       .replace("#include <begin_vertex>", "#include <begin_vertex>\nvP = position; transformed.z += (snoise(vec3(position.xy*6., uTime*.6))*.012 + snoise(vec3(position.xy*22., uTime))*.004) * uFoam;");
-    sh.fragmentShader = sh.fragmentShader.replace("#include <common>", "#include <common>\nvarying vec3 vP; uniform float uTime; uniform float uFoam; uniform vec3 cTea;\n" + NOISE)
+    sh.fragmentShader = sh.fragmentShader.replace("#include <common>", "#include <common>\nvarying vec3 vP; uniform float uTime; uniform float uFoam; uniform vec3 cTea; uniform sampler2D uDye;\n" + noise())
       .replace("vec4 diffuseColor = vec4( diffuse, opacity );", `
         float r = length(vP.xy);
         float swirl = snoise(vec3(vP.xy*3.0 + vec2(sin(uTime*.7), cos(uTime*.5))*.4, uTime*.25));
         vec3 dark = cTea * .5; vec3 foam = mix(cTea, vec3(.5,.7,.18), .38);
-        float bub = smoothstep(.55,.95, snoise(vec3(vP.xy*55., uTime*.2))) * uFoam;
-        vec3 col = mix(dark * (1. + .25*swirl), foam * (.95 + .1*swirl), smoothstep(0., 1., uFoam*1.1 - r*.25));
-        col *= 1. - bub * .18; col += smoothstep(.7,1.,snoise(vec3(vP.xy*120., 1.))) * uFoam * .05;
+        vec2 duv = vP.xy / 3.0 + .5;
+        float whip = 1. - exp(-texture2D(uDye, duv).r * 2.2);
+        float f = clamp(uFoam * .85 + whip * (.55 + .45 * uFoam), 0., 1.);
+        float bub = smoothstep(.55,.95, snoise(vec3(vP.xy*55., uTime*.2))) * f;
+        vec3 col = mix(dark * (1. + .25*swirl), foam * (.95 + .1*swirl), smoothstep(0., 1., f*1.1 - r*.18));
+        col *= 1. - bub * .18; col += smoothstep(.7,1.,snoise(vec3(vP.xy*120., 1.))) * f * .05;
         vec4 diffuseColor = vec4(col, opacity);`);
   };
-  const tea = new THREE.Mesh(new THREE.CircleGeometry(1.5, 128, 0, TAU), foamMat); tea.rotation.x = -Math.PI / 2; tea.position.y = .82; whiskWorld.add(tea);
+  const tea = new THREE.Mesh(new THREE.CircleGeometry(1.5, 128, 0, TAU), foamMat); tea.name = 'tea'; tea.rotation.x = -Math.PI / 2; tea.position.y = .82; whiskWorld.add(tea);
   // chasen: handle + ~70 bamboo tines in two rings
   const chasen = new THREE.Group(); whiskWorld.add(chasen);
   const bamboo = new THREE.MeshPhysicalMaterial({ color: 0xd8b98a, roughness: .55, clearcoat: .2 });
@@ -282,7 +306,7 @@ export async function createWorld(canvas, opts = {}) {
     cupX: 0, cupY: 0, cupZ: 0, tilt: -.12, tiltX: 0, rotY: 0, scale: 1, cupVis: 1,
     fill: 2.55, mix: 1, base: 0, milk: "#F1EEE6", tea: "#3F6A16", baseCol: "#B3122C", mochi: 0, ice: 1,
     pour: 0, word: 1, wordS: 1, bg: "#070707", glow: "#2a2927",
-    whisk: 0, foam: 0, whiskSpeed: 0, whiskX: 0, whiskS: 1, camY: 2.1, camZ: 12.5
+    whisk: 0, foam: 0, whiskSpeed: 0, whiskX: 0, whiskS: 1, camY: 2.1, camZ: 12.5, camX: 0, lookY: 1.5, ink: 1, chX: 0, chZ: 0, chLift: 0, bowlTilt: .38
   };
   const st = { ...S0, ...(opts.state || {}) };
   const cBg = new THREE.Color(), cA = new THREE.Color(), cB = new THREE.Color();
@@ -309,17 +333,17 @@ export async function createWorld(canvas, opts = {}) {
     streamU.uTime.value = t;
     wordPlane.visible = st.word > .01; wordPlane.scale.setScalar(st.wordS); wordPlane.position.y = 1.35 - (1 - st.word) * 7;
     cBg.set(st.bg); scene.background.copy(cBg);
-    backdropMat.uniforms.uBg.value.set(st.bg); backdropMat.uniforms.uGlow.value.set(st.glow);
+    backdropMat.uniforms.uBg.value.set(st.bg); backdropMat.uniforms.uGlow.value.set(st.glow); backdropMat.uniforms.uInk.value = st.ink; backdropMat.uniforms.uDye.value = fluid.texture; foamU.uDye.value = bowlFluid.texture;
     // whisk
     whiskWorld.visible = st.whisk > .01;
     if (whiskWorld.visible) {
-      whiskWorld.position.set(st.whiskX, -.1 - (1 - st.whisk) * 3, 0); whiskWorld.scale.setScalar(st.whiskS); whiskWorld.rotation.x = .38;
-      const sp = st.whiskSpeed;
-      chasen.position.set(Math.sin(t * 14 * sp + 0.3) * .42 * sp, .5 - sp * .42, Math.cos(t * 7 * sp) * .12 * sp);
-      chasen.rotation.z = Math.sin(t * 14 * sp) * .12 * sp;
+      whiskWorld.position.set(st.whiskX, -.1 - (1 - st.whisk) * 3, 0); whiskWorld.scale.setScalar(st.whiskS); whiskWorld.rotation.x = st.bowlTilt;
+      chasen.position.set(st.chX, .5 - .42 * (1 - st.chLift) + st.chLift * 1.4, st.chZ);
+      chasen.rotation.z = -st.chX * .22; chasen.rotation.x = st.chZ * .22;
       foamU.uFoam.value = st.foam; foamU.uTime.value = t;
     }
-    camera.position.y = st.camY; camera.position.z = st.camZ; camera.lookAt(0, 1.5 + (st.camY - 2.1) * .25, 0);
+    camera.position.set(st.camX, st.camY, st.camZ); camera.lookAt(st.camX * .6, st.lookY, 0);
+    const vh = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * BD; backdrop.scale.set(vh * camera.aspect * 1.04, vh * 1.04, 1); backdropMat.uniforms.uAspect.value = camera.aspect;
   }
 
   function resize() {
@@ -327,16 +351,38 @@ export async function createWorld(canvas, opts = {}) {
     renderer.setSize(w, h, false); camera.aspect = w / h;
     // keep the cup a constant size on tall phones
     camera.fov = w / h < .8 ? 36 : 26; camera.updateProjectionMatrix();
+    fluid.setAspect(w / h); backdropMat.uniforms.uLeft.value = w / h > .9 ? 1 : 0; backdropMat.uniforms.uBottom.value = w / h > .9 ? 0 : 1;
   }
   resize();
   const clock = new THREE.Clock();
   let running = true;
   let lastKey = "", idle = 0;
-  function frame() {
+  let lastT = 0;
+  let tSim = 0;
+  function frame(fixedDt) {
     if (!running) return;
-    const key = JSON.stringify(st);
-    if (key === lastKey) { idle++; if (idle > 45 && idle % 4) return; } else { idle = 0; lastKey = key; }
-    apply(clock.getElapsedTime()); renderer.render(scene, camera);
+    const t0 = clock.getElapsedTime(); let dt = Math.min(.05, t0 - lastT || .016); lastT = t0;
+    if (fixedDt) dt = fixedDt; tSim += dt; const t = fixedDt ? tSim : t0;
+    if (st.ink > .01) fluid.step(dt);
+    if (st.whisk > .01) bowlFluid.step(dt);
+    apply(t); renderer.render(scene, camera);
   }
-  return { st, renderer, scene, camera, resize, frame, setRunning(v) { running = v; }, renderOnce() { apply(clock.getElapsedTime()); renderer.render(scene, camera); } };
+  // pointer → uv on the tea surface (for whisking)
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  function bowlHit(cx, cy) {
+    if (!whiskWorld.visible) return null;
+    ndc.set(cx / innerWidth * 2 - 1, -(cy / innerHeight) * 2 + 1); ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObject(tea, false)[0]; if (!hit) return null;
+    const lp = tea.worldToLocal(hit.point.clone()); // circle local: x,y in -1.5..1.5
+    return { u: lp.x / 3 + .5, v: lp.y / 3 + .5, x: lp.x, z: -lp.y };
+  }
+  // where the cup sits on screen (uv, 0..1, y up) — the ink plumes rise from behind it
+  const _v = new THREE.Vector3();
+  function cupUV(yLocal = .4) { cup.updateMatrixWorld(); _v.set(0, yLocal, -.6); cup.localToWorld(_v); _v.project(camera); return { u: _v.x * .5 + .5, v: _v.y * .5 + .5 }; }
+  async function warm() {
+    const hidden = []; scene.traverse(o => { if ((o.isMesh || o.isGroup) && !o.visible) { hidden.push(o); o.visible = true; } });
+    try { if (renderer.compileAsync) await renderer.compileAsync(scene, camera); else renderer.compile(scene, camera); } catch (e) {}
+    hidden.forEach(o => { o.visible = false; });
+  }
+  return { st, renderer, scene, camera, resize, frame, fluid, bowlFluid, bowlHit, warm, cupUV, setRunning(v) { running = v; }, renderOnce() { apply(clock.getElapsedTime()); renderer.render(scene, camera); } };
 }

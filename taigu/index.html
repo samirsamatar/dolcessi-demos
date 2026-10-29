@@ -1,179 +1,266 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="loading">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Taigu 大愚 · Matcha bar · De Pijp & Oost, Amsterdam</title>
+<title>Taigu 大愚 · Stone-milled Uji matcha · De Pijp & Oost, Amsterdam</title>
 <meta name="description" content="Taigu: organic, stone-milled Uji matcha, Japanese sweets and sushi. Ceintuurbaan 246 (De Pijp) and Andreas Bonnstraat 36 (Oost), Amsterdam.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#070707">
 <link rel="icon" href="img/mark.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=4">
 <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+<link rel="preload" href="fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/taigu-jp.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=5">
+<link rel="modulepreload" href="vendor/three.module.js">
+<link rel="modulepreload" href="world.js?v=5">
+<link rel="modulepreload" href="fluid.js?v=5">
+<link rel="modulepreload" href="vendor/RoundedBoxGeometry.js">
 </head>
 <body>
 
+<!-- loader: an ensō draws itself as the page loads -->
 <div id="loader" aria-hidden="true">
-  <img class="ld-kanji" src="img/kanji.svg" alt="" width="58" height="100">
-  <div class="ld-bar"><i id="ld-fill"></i></div>
+  <div class="ld-enso"></div>
+  <div class="ld-mid"><span class="ld-k jp">大愚</span><span class="ld-n"><b id="ld-n">0</b></span></div>
+  <p class="ld-cap">Taigu · Amsterdam</p>
 </div>
 
 <canvas id="world" aria-hidden="true"></canvas>
 
 <header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="Taigu, top of page"><img src="img/mark.svg" alt="" width="32" height="27"><img class="brand-word" src="img/word.svg" alt="Taigu" width="92" height="22"></a>
+  <a class="brand" href="#top" aria-label="Taigu, top of page"><img src="img/mark.svg" alt="" width="30" height="25"><img class="brand-word" src="img/word.svg" alt="Taigu" width="86" height="21"></a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#drinks" data-nl="Drankjes">Drinks</a><a href="#whisk" data-nl="Klop zelf">Whisk</a><a href="#origin" data-nl="Herkomst">Origin</a><a href="#menu" data-nl="Kaart">Menu</a><a href="#visit" data-nl="Bezoek">Visit</a>
+  </nav>
   <div class="nav-r">
-    <span class="nav-open mono"><i id="nav-dot"></i><span id="nav-open">…</span></span>
-    <button id="lang" class="mono" type="button" aria-label="Switch language"><span data-l="en">EN</span> / <span data-l="nl">NL</span></button>
-    <a class="pill" href="#visit" data-nl="Bezoek">Visit</a>
+    <span class="nav-open"><i id="nav-dot"></i><span id="nav-open">…</span></span>
+    <button id="lang" type="button" aria-label="Switch language"><span data-l="en">EN</span><span data-l="nl">NL</span></button>
   </div>
 </header>
 
+<!-- chapter index, written top to bottom -->
+<nav class="chap" aria-hidden="true">
+  <a href="#top" data-c="0"><b class="jp">一</b><span>Pour</span></a>
+  <a href="#drinks" data-c="1"><b class="jp">二</b><span>Drinks</span></a>
+  <a href="#whisk" data-c="2"><b class="jp">三</b><span>Whisk</span></a>
+  <a href="#origin" data-c="3"><b class="jp">四</b><span>Uji</span></a>
+  <a href="#name" data-c="4"><b class="jp">五</b><span>Name</span></a>
+  <a href="#menu" data-c="5"><b class="jp">六</b><span>Menu</span></a>
+  <a href="#visit" data-c="6"><b class="jp">七</b><span>Visit</span></a>
+</nav>
+
 <main id="top">
 
-  <!-- 01 the pour -->
+  <!-- 一 the pour -->
   <section class="sc-hero" id="hero" aria-label="Taigu">
     <div class="pin">
-      <p class="hero-tl mono"><span class="jp">大愚</span> <span data-nl="Matchabar · Amsterdam">Matcha bar · Amsterdam</span></p>
-      <h1 class="hero-line"><span data-nl="Met steen gemalen Uji-matcha,">Stone-milled Uji matcha,</span><br><em data-nl="over koude melk gegoten.">poured over cold milk.</em></h1>
-      <p class="hero-br mono"><span data-nl="Scroll om te schenken">Scroll to pour</span> <i class="arrow">↓</i></p>
-      <div class="pour-meter mono" aria-hidden="true"><span id="pour-pct">0</span>%</div>
-    </div>
-  </section>
-
-  <!-- 02 flavours -->
-  <section class="sc-flavours" id="flavours" aria-label="Drinks">
-    <div class="pin">
-      <p class="fl-count mono"><span id="fl-i">01</span> / 05 · <span data-nl="Drankjes">Drinks</span></p>
-      <div class="fl-texts">
-        <article class="fl" data-i="0"><p class="fl-jp jp">抹茶ラテ</p><h2 data-nl="Matcha<br><em>latte.</em>">Matcha<br><em>latte.</em></h2><p data-nl="Met steen gemalen Uji-matcha over koude melk. Sterk genoeg om door de melk heen te proeven.">Stone-milled Uji matcha over cold milk. Strong enough to taste right through the milk.</p></article>
-        <article class="fl" data-i="1"><p class="fl-jp jp">苺抹茶</p><h2 data-nl="Aardbei<br><em>matcha.</em>">Strawberry<br><em>matcha.</em></h2><p data-nl="Aardbeienpuree onderin, matcha erbovenop. Roeren mag, hoeft niet.">Strawberry purée at the bottom, matcha on top. Stir it, or don't.</p></article>
-        <article class="fl" data-i="2"><p class="fl-jp jp">白玉抹茶</p><h2 data-nl="Matcha met<br><em>shiratama.</em>">Matcha with<br><em>shiratama.</em></h2><p data-nl="Zachte witte mochi-balletjes erbij. Een vaste favoriet in de reviews.">Soft white mochi dango on top. A regular favourite in the reviews.</p></article>
-        <article class="fl" data-i="3"><p class="fl-jp jp">ほうじ茶ラテ</p><h2 data-nl="Hojicha<br><em>latte.</em>">Hojicha<br><em>latte.</em></h2><p data-nl="Geroosterde groene thee: toastig, zacht, van nature minder cafeïne.">Roasted green tea: toasty, mellow, and naturally lower in caffeine.</p></article>
-        <article class="fl" data-i="4"><p class="fl-jp jp">小豆抹茶</p><h2 data-nl="Matcha met<br><em>rode boon.</em>">Matcha with<br><em>red bean.</em></h2><p data-nl="Zoete azuki onderin, diepe matcha erboven.">Sweet azuki at the bottom, deep matcha above.</p></article>
+      <p class="hero-kick"><span class="jp">大愚</span><span data-nl="Matchabar · De Pijp &amp; Oost · Amsterdam">Matcha bar · De Pijp &amp; Oost · Amsterdam</span></p>
+      <p class="hero-tate jp" aria-hidden="true">石臼挽き<br>宇治抹茶</p>
+      <h1 class="hero-h"><span class="ln"><span data-nl="Met steen gemalen Uji-matcha,">Stone-milled Uji matcha,</span></span><span class="ln"><em data-nl="over koude melk gegoten.">poured over cold milk.</em></span></h1>
+      <div class="hero-hint">
+        <p class="hint-a"><i class="hint-dot"></i><span class="fine-only" data-nl="Beweeg om de inkt te roeren">Move to stir the ink</span><span class="touch-only" data-nl="Raak aan om de inkt te roeren">Touch to stir the ink</span></p>
+        <p class="hint-b"><span data-nl="Scroll om te schenken">Scroll to pour</span><b><span id="pour-pct">0</span>%</b></p>
       </div>
-      <p class="fl-note mono" data-nl="Met melk of havermelk · minder zoet op verzoek">Milk or oat milk · less sweet on request</p>
-      <div class="fl-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
     </div>
   </section>
 
-  <!-- 03 the whisk -->
-  <section class="sc-whisk" id="whisk" aria-label="Whisked">
+  <!-- 二 drinks -->
+  <section class="sc-drinks" id="drinks" aria-labelledby="drinks-h">
+    <div class="pin">
+      <p class="dr-head"><span class="jp">二</span><span id="drinks-h" data-nl="Vijf drankjes">Five drinks</span><span class="dr-count"><b id="dr-i">01</b> / 05</span></p>
+      <div class="dr-list" id="dr-list"></div>
+      <p class="dr-note" data-nl="Met melk of havermelk · minder zoet op verzoek">Milk or oat milk · less sweet on request</p>
+      <div class="dr-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <!-- 三 whisk it yourself -->
+  <section class="sc-whisk" id="whisk" aria-labelledby="whisk-h">
     <div class="pin">
       <div class="wh-text">
-        <p class="mono wh-no"><span class="jp">茶筅</span> chasen</p>
-        <h2 data-nl="Opgeklopt,<br><em>niet geroerd.</em>">Whisked,<br><em>not stirred.</em></h2>
-        <p data-nl="Biologische matcha uit Uji, vlak bij Kyoto, tussen granieten stenen gemalen. Bamboe, een snelle zigzag, en een dicht, glanzend schuim. Gasten noemen het diep, vol en sterk geconcentreerd.">Organic matcha from Uji, just outside Kyoto, milled between granite stones. Bamboo, a quick zig-zag, a dense and glossy foam. Guests call it deep, rich and highly concentrated.</p>
+        <p class="eyebrow"><span class="jp">三 · 茶筅</span><span>chasen</span></p>
+        <h2 id="whisk-h" data-nl="Klop het<br><em>zelf.</em>">Whisk it<br><em>yourself.</em></h2>
+        <p class="fine-only" data-nl="Beweeg je cursor in snelle zigzags over de kom, zoals achter de bar. Hoe sneller, hoe fijner het schuim.">Move your cursor over the bowl in quick zig-zags, the way it's done behind the bar. The faster you go, the finer the foam.</p>
+        <p class="touch-only" data-nl="Veeg in snelle zigzags over de kom, of blijf scrollen en wij kloppen voor je.">Swipe over the bowl in quick zig-zags, or keep scrolling and we'll whisk for you.</p>
       </div>
-      <div class="foam mono" aria-hidden="true"><span data-nl="Schuim">Foam</span><b id="foam-pct">0%</b><i class="foam-bar"><i id="foam-fill"></i></i></div>
+      <div class="wh-meter" aria-live="polite">
+        <div class="wm-row"><span data-nl="Schuim">Foam</span><b id="foam-pct">0%</b></div>
+        <div class="wm-bar"><i id="foam-fill"></i></div>
+        <p class="wm-done" id="foam-done" data-nl="Mooi schuim. Die van ons is nog fijner: kom proeven.">Lovely foam. Ours is finer still: come and taste it.</p>
+      </div>
     </div>
   </section>
 
-  <!-- 04 the name -->
-  <section class="sc-brand" id="brand" aria-labelledby="brand-h">
-    <div class="br-top">
-      <img class="br-kanji" src="img/kanji.svg" alt="" width="290" height="500">
-      <div>
-        <p class="mono br-eye">04 <span class="jp">名</span> <span data-nl="de naam">the name</span></p>
-        <p class="br-meaning" id="brand-h" data-nl="<span class=&quot;jp&quot;>大愚</span> &middot; <i>taigu</i>: &lsquo;grote dwaas&rsquo;. In zen een compliment: de dichter-monnik Ry&omacr;kan nam het als naam aan.">
-          <span class="jp">大愚</span> &middot; <i>taigu</i>: &lsquo;great fool&rsquo;. In Zen, a compliment: the monk-poet Ry&omacr;kan took it as his name.</p>
+  <!-- 四 origin: Uji + the stone mill -->
+  <section class="sc-origin" id="origin" aria-labelledby="origin-h">
+    <div class="or-pin">
+      <figure class="or-field"><img src="img/p/field.jpg" alt="Rows of tea bushes on a Japanese tea farm" loading="lazy"></figure>
+      <div class="or-video">
+        <video id="mill" muted playsinline loop preload="none" poster="vid/mill.jpg" aria-label="A granite stone mill grinding matcha powder">
+          <source data-src="vid/mill.mp4" data-src-sm="vid/mill-sm.mp4" type="video/mp4">
+        </video>
       </div>
-    </div>
-    <img class="br-word" src="img/word.svg" alt="Taigu" width="977" height="236">
-    <div class="br-stats mono">
-      <span><b>4.4★</b> De Pijp</span><span><b>4.3★</b> Oost</span><span><b>740+</b> <span data-nl="Google-reviews">Google reviews</span></span><span><b>2</b> <span data-nl="adressen">houses</span></span>
+      <div class="or-t or-t1">
+        <p class="eyebrow light"><span class="jp">四 · 宇治</span><span>Uji</span></p>
+        <h2 id="origin-h" data-nl="Gekweekt in Uji,<br><em>net onder Kyoto.</em>">Grown in Uji,<br><em>just south of Kyoto.</em></h2>
+        <p data-nl="Uji maakt al zo'n achthonderd jaar thee. De bladeren groeien de laatste weken in de schaduw: zo worden ze zacht, zoet en diepgroen.">Uji has been growing tea for some eight hundred years. In the last weeks before picking, the bushes are shaded, which keeps the leaf soft, sweet and deep green.</p>
+      </div>
+      <div class="or-t or-t2">
+        <h2 data-nl="Tussen graniet<br><em>gemalen.</em>">Milled between<br><em>granite.</em></h2>
+        <p data-nl="Een stenen molen draait traag: een paar tientallen grammen per uur. Langzaam genoeg dat het blad nooit warm wordt.">A stone mill turns slowly: a few dozen grams an hour. Slow enough that the leaf never warms up.</p>
+      </div>
+      <ul class="or-facts">
+        <li><b data-nl="Biologisch">Organic</b><span>有機</span></li>
+        <li><b data-nl="Steengemalen">Stone-milled</b><span>石臼挽き</span></li>
+        <li><b>Uji, Kyoto</b><span>宇治</span></li>
+      </ul>
     </div>
   </section>
 
-  <!-- 05 menu -->
+  <!-- 五 the name -->
+  <section class="sc-name" id="name" aria-labelledby="name-h">
+    <div class="nm-bg"><img src="img/p/window.jpg" alt="" loading="lazy"></div>
+    <div class="nm-grid">
+      <div class="nm-kanji"><img src="img/kanji.svg" alt="大愚" width="290" height="500"></div>
+      <div class="nm-copy">
+        <p class="eyebrow light"><span class="jp">五 · 名</span><span data-nl="De naam">The name</span></p>
+        <h2 id="name-h" data-nl="&lsquo;Grote dwaas.&rsquo;<br><em>Een compliment.</em>">&lsquo;Great fool.&rsquo;<br><em>A compliment.</em></h2>
+        <p data-nl="In zen is <i>taigu</i> geen belediging. De dichter-monnik Ry&omacr;kan (1758&ndash;1831) nam het als naam aan: iemand die eenvoudig leeft, met kinderen speelt en niets hoeft te bewijzen.">In Zen, <i>taigu</i> is no insult. The monk-poet Ry&omacr;kan (1758&ndash;1831) took it as his name: someone who lives simply, plays with children and has nothing to prove.</p>
+        <div class="nm-verse">
+          <p class="tate jp" lang="ja">裏を見せ<br>表を見せて<br>散る紅葉</p>
+          <p class="nm-tr"><span data-nl="Zijn rug tonend, dan zijn gezicht: een esdoornblad dat valt.">Showing its back, then its face: a maple leaf, falling.</span><small data-nl="Een vers dat Ryōkan aan het eind van zijn leven zou hebben gezegd. Vertaling: Dolcessi.">A verse Ryōkan is said to have spoken at the end of his life. Translation ours.</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="nm-stats">
+      <span><b>4.4</b><i>★</i> De Pijp</span><span><b>4.3</b><i>★</i> Oost</span><span><b>740+</b> <span data-nl="Google-reviews">Google reviews</span></span><span><b>2</b> <span data-nl="adressen">houses</span></span>
+    </div>
+  </section>
+
+  <!-- 六 menu -->
   <section class="sc-menu" id="menu" aria-labelledby="menu-h">
     <div class="mn-head">
-      <p class="mono">05 <span class="jp">お品書き</span> menu</p>
+      <p class="eyebrow"><span class="jp">六 · お品書き</span><span>Menu</span></p>
       <h2 id="menu-h" data-nl="Op de<br><em>kaart.</em>">On the<br><em>menu.</em></h2>
+      <p class="mn-sub" data-nl="Dranken in beide huizen. De keuken verschilt: soba in De Pijp, sushi in Oost. Prijzen en dagspecials aan de toonbank.">Drinks in both houses. The kitchens differ: soba in De Pijp, sushi in Oost. Prices and daily specials at the counter.</p>
     </div>
     <div class="mn-cols">
       <div class="mn-col">
-        <h3 class="mono" data-nl="Drankjes">Drinks</h3>
+        <h3 data-nl="Drankjes">Drinks</h3>
         <ul>
-          <li style="--c:#5E8F27"><span class="jp">抹茶ラテ</span><b>Matcha latte</b></li>
-          <li style="--c:#D83A55"><span class="jp">苺抹茶</span><b data-nl="Aardbeien-matcha">Strawberry matcha</b></li>
-          <li style="--c:#E8E4D8"><span class="jp">白玉</span><b data-nl="+ Shiratama-mochi">+ Shiratama mochi</b></li>
-          <li style="--c:#A8683F"><span class="jp">ほうじ茶</span><b>Hojicha latte</b></li>
-          <li style="--c:#7A2C27"><span class="jp">小豆</span><b data-nl="Matcha met rode boon">Matcha with red bean</b></li>
+          <li data-ph="latte"><span class="jp">抹茶ラテ</span><b>Matcha latte</b></li>
+          <li data-ph="strawberry"><span class="jp">苺抹茶</span><b data-nl="Aardbeien-matcha">Strawberry matcha</b></li>
+          <li data-ph="dango"><span class="jp">白玉抹茶</span><b data-nl="Matcha met shiratama">Matcha with shiratama</b></li>
+          <li data-ph="hojicha"><span class="jp">ほうじ茶ラテ</span><b>Hojicha latte</b></li>
+          <li data-ph="azuki"><span class="jp">小豆抹茶</span><b data-nl="Matcha met rode boon">Matcha with red bean</b></li>
         </ul>
       </div>
       <div class="mn-col">
-        <h3 class="mono" data-nl="Zoet">Sweet</h3>
+        <h3 data-nl="Zoet">Sweet</h3>
         <ul>
-          <li><span class="jp">抹茶テリーヌ</span><b data-nl="Matcha-terrine">Matcha terrine</b></li>
-          <li><span class="jp">抹茶タルト</span><b data-nl="Matcha-taart">Matcha tart</b></li>
-          <li><span class="jp">かき氷</span><b>Matcha kakigori</b></li>
+          <li data-ph="cake"><span class="jp">抹茶テリーヌ</span><b data-nl="Matcha-terrine">Matcha terrine</b></li>
+          <li data-ph="tart"><span class="jp">抹茶タルト</span><b data-nl="Matcha-taart">Matcha tart</b></li>
+          <li data-ph="kakigori"><span class="jp">かき氷</span><b>Matcha kakigori</b></li>
         </ul>
-        <h3 class="mono mn-k" data-nl="Keuken">Kitchen</h3>
+        <h3 class="mn-k" data-nl="Keuken">Kitchen</h3>
         <ul>
-          <li><span class="jp">天ぷらそば</span><b data-nl="Tempura-soba">Tempura soba</b><i class="mono">De Pijp</i></li>
-          <li><span class="jp">寿司</span><b data-nl="Sushi, toro roll, donburi">Sushi, toro roll, donburi</b><i class="mono">Oost</i></li>
+          <li data-ph="soba"><span class="jp">天ぷらそば</span><b data-nl="Tempura-soba">Tempura soba</b><i>De Pijp</i></li>
+          <li data-ph="sushi"><span class="jp">寿司</span><b data-nl="Sushi, toro roll, donburi">Sushi, toro roll, donburi</b><i>Oost</i></li>
         </ul>
       </div>
     </div>
-    <p class="mn-note mono" data-nl="Prijzen en dagspecials aan de toonbank">Prices and specials at the counter</p>
+    <div class="mn-peek" id="peek" aria-hidden="true"><img alt=""><img alt=""></div>
   </section>
 
-  <!-- 06 voices -->
-  <section class="sc-voices" aria-label="Reviews">
-    <div class="marquee" id="marquee">
-      <div class="mq-track">
-        <p>&ldquo;Love their matcha because the concentration is very high&rdquo;<cite>De Pijp</cite></p>
-        <p>&ldquo;It actually tasted like matcha! (not those watered down ones)&rdquo;<cite>Oost</cite></p>
-        <p>&ldquo;If you truly know and appreciate a real matcha, this one is for you&rdquo;<cite>De Pijp</cite></p>
-        <p>&ldquo;Very authentic and truly lovely experience&rdquo;<cite>Oost</cite></p>
-        <p>&ldquo;Tatami-style seating that created a comfortable and authentic feel&rdquo;<cite>De Pijp</cite></p>
-      </div>
+  <!-- voices -->
+  <section class="sc-voices" id="voices" aria-label="Reviews">
+    <p class="eyebrow light"><span class="jp">声</span><span data-nl="Gasten">Guests</span></p>
+    <div class="vc-stage" id="vc">
+      <blockquote><p>&ldquo;Love their matcha because the concentration is very high.&rdquo;</p><cite>Google review · De Pijp</cite></blockquote>
+      <blockquote><p>&ldquo;It actually tasted like matcha! (not those watered down ones)&rdquo;</p><cite>Google review · Oost</cite></blockquote>
+      <blockquote><p>&ldquo;If you truly know and appreciate a real matcha, this one is for you.&rdquo;</p><cite>Google review · De Pijp</cite></blockquote>
+      <blockquote><p>&ldquo;Very authentic and truly lovely experience.&rdquo;</p><cite>Google review · Oost</cite></blockquote>
+      <blockquote><p>&ldquo;Tatami-style seating that created a comfortable and authentic feel.&rdquo;</p><cite>Google review · De Pijp</cite></blockquote>
     </div>
-    <p class="mq-src mono">Google reviews</p>
+    <div class="vc-nav"><div class="vc-bars" id="vc-bars"></div></div>
   </section>
 
-  <!-- 07 visit -->
+
+  <!-- mood: two rows of photographs that drift and lean with the scroll -->
+  <section class="sc-river" aria-label="Mood">
+    <div class="rv-row" data-dir="-1">
+      <figure><img src="img/p/tearoom.jpg" alt="" loading="lazy"></figure><figure class="w"><img src="img/p/steam.jpg" alt="" loading="lazy"></figure><figure><img src="img/p/teabowl.jpg" alt="" loading="lazy"></figure><figure class="w"><img src="img/p/shoji.jpg" alt="" loading="lazy"></figure><figure><img src="img/p/whisk2.jpg" alt="" loading="lazy"></figure>
+    </div>
+    <div class="rv-row" data-dir="1">
+      <figure class="w"><img src="img/p/table.jpg" alt="" loading="lazy"></figure><figure><img src="img/p/roll.jpg" alt="" loading="lazy"></figure><figure class="w"><img src="img/p/pickers.jpg" alt="" loading="lazy"></figure><figure><img src="img/p/kakigori2.jpg" alt="" loading="lazy"></figure><figure class="w"><img src="img/p/maple2.jpg" alt="" loading="lazy"></figure>
+    </div>
+    <p class="rv-cap"><span class="jp">一期一会</span><span data-nl="Eén ontmoeting, één keer. Foto's: Unsplash, ter sfeer.">One time, one meeting. Photos: Unsplash, for mood.</span></p>
+  </section>
+
+  <!-- 七 visit -->
   <section class="sc-visit" id="visit" aria-labelledby="visit-h">
     <div class="vs-head">
-      <p class="mono">07 <span class="jp">二店</span> <span data-nl="twee adressen">two houses</span></p>
+      <p class="eyebrow"><span class="jp">七 · 二店</span><span data-nl="Twee huizen">Two houses</span></p>
       <h2 id="visit-h" data-nl="Kom<br><em>langs.</em>">Come<br><em>by.</em></h2>
     </div>
     <div class="houses">
       <article class="house" data-house="pijp">
-        <p class="mono h-area">De Pijp</p>
-        <h3>Ceintuurbaan 246</h3>
-        <p class="h-txt" data-nl="Tatami-zitplaatsen, matcha-zoetigheden en tempura-soba.">Tatami-style seating, matcha sweets and tempura soba.</p>
-        <p class="status mono"><i></i><span></span></p>
-        <ul class="hours"></ul>
-        <a class="pill pill-lg" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Taigu%2C+Ceintuurbaan+246%2C+1072+GG+Amsterdam" data-nl="Route &rarr;">Directions &rarr;</a>
+        <div class="h-img"><img src="img/p/pijp.jpg" alt="Market street in De Pijp, Amsterdam" loading="lazy"></div>
+        <div class="h-b">
+          <p class="h-area">De Pijp</p>
+          <h3>Ceintuurbaan 246</h3>
+          <p class="h-txt" data-nl="Tatami-zitplaatsen, matcha-zoetigheden en tempura-soba.">Tatami-style seating, matcha sweets and tempura soba.</p>
+          <p class="status"><i></i><span></span></p>
+          <ul class="hours"></ul>
+          <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Taigu%2C+Ceintuurbaan+246%2C+1072+GG+Amsterdam"><span data-nl="Route">Directions</span><i>&rarr;</i></a>
+        </div>
       </article>
       <article class="house" data-house="oost">
-        <p class="mono h-area">Oost</p>
-        <h3>Andreas Bonnstraat 36</h3>
-        <p class="h-txt" data-nl="Matchabar met sushi, donburi en matcha-zoetigheden.">A matcha bar with sushi, donburi and matcha sweets.</p>
-        <p class="status mono"><i></i><span></span></p>
-        <ul class="hours"></ul>
-        <a class="pill pill-lg" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Taigu%2C+Andreas+Bonnstraat+36%2C+1091+BA+Amsterdam" data-nl="Route &rarr;">Directions &rarr;</a>
+        <div class="h-img"><img src="img/p/oost.jpg" alt="A tree-lined street in Amsterdam" loading="lazy"></div>
+        <div class="h-b">
+          <p class="h-area">Oost</p>
+          <h3>Andreas Bonnstraat 36</h3>
+          <p class="h-txt" data-nl="Matchabar met sushi, donburi en matcha-zoetigheden.">A matcha bar with sushi, donburi and matcha sweets.</p>
+          <p class="status"><i></i><span></span></p>
+          <ul class="hours"></ul>
+          <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Taigu%2C+Andreas+Bonnstraat+36%2C+1091+BA+Amsterdam"><span data-nl="Route">Directions</span><i>&rarr;</i></a>
+        </div>
       </article>
     </div>
     <div class="vs-links">
-      <a class="pill pill-line" target="_blank" rel="noopener" href="https://www.instagram.com/taigu.ams/">Instagram @taigu.ams</a>
-      <a class="pill pill-line" target="_blank" rel="noopener" href="https://www.ubereats.com/nl-en/store/taigu/55LuqIbtTqS_jn1rjGobXA" data-nl="Bestel via Uber Eats">Order on Uber Eats</a>
+      <a class="btn btn-line" target="_blank" rel="noopener" href="https://www.ubereats.com/nl-en/store/taigu/55LuqIbtTqS_jn1rjGobXA"><span data-nl="Bestel via Uber Eats">Order on Uber Eats</span><i>&rarr;</i></a>
+      <a class="btn btn-line" target="_blank" rel="noopener" href="https://www.instagram.com/taigu.ams/"><span>Instagram @taigu.ams</span><i>&rarr;</i></a>
     </div>
   </section>
 </main>
 
 <footer class="foot">
-  <img class="ft-mark" src="img/mark.svg" alt="" width="56" height="48">
-  <div class="ft-bar mono"><span>Ceintuurbaan 246 · Andreas Bonnstraat 36 · Amsterdam</span><a href="https://www.instagram.com/taigu.ams/" target="_blank" rel="noopener">@taigu.ams</a></div>
-  <p class="concept mono" data-nl="Conceptontwerp door Dolcessi · niet de officiële website van Taigu. Info uit openbare vermeldingen, oktober 2026. Logo van Taigu; drankjes in 3D gerenderd.">Concept design by Dolcessi · not the official website of Taigu. Info from public listings, October 2026. Logo by Taigu; drinks rendered in 3D.</p>
+  <div class="ft-enso"></div>
+  <div class="ft-row">
+    <img class="ft-logo" src="img/kanji.svg" alt="大愚" width="58" height="100">
+    <div class="ft-cols">
+      <p><b>De Pijp</b>Ceintuurbaan 246<br>1072 GG Amsterdam</p>
+      <p><b>Oost</b>Andreas Bonnstraat 36<br>1091 BA Amsterdam</p>
+      <p><b data-nl="Volg">Follow</b><a href="https://www.instagram.com/taigu.ams/" target="_blank" rel="noopener">@taigu.ams</a><br><a href="https://www.ubereats.com/nl-en/store/taigu/55LuqIbtTqS_jn1rjGobXA" target="_blank" rel="noopener">Uber Eats</a></p>
+    </div>
+  </div>
+  <div class="ft-base">
+    <span data-nl="Conceptontwerp door <a href='https://dolcessi.com' target='_blank' rel='noopener'>Dolcessi</a> · niet de officiële website van Taigu. Info uit openbare vermeldingen.">Concept design by <a href="https://dolcessi.com" target="_blank" rel="noopener">Dolcessi</a> · not the official website of Taigu. Info from public listings.</span>
+    <span data-nl="Logo van Taigu · drankjes in 3D gerenderd · beelden: Unsplash en AI-gegenereerde video">Logo by Taigu · drinks rendered in 3D · photos: Unsplash; mill footage AI-generated</span>
+  </div>
 </footer>
+
+<nav class="mbar" aria-label="Quick actions">
+  <a href="#visit" data-nl="Route">Directions</a>
+  <a class="mb-solid" href="https://www.ubereats.com/nl-en/store/taigu/55LuqIbtTqS_jn1rjGobXA" target="_blank" rel="noopener" data-nl="Bestellen">Order</a>
+</nav>
+
+<div class="cursor" aria-hidden="true"><i></i><span id="cursor-t"></span></div>
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
-<script type="module" src="app.js?v=4"></script>
+<script type="module" src="app.js?v=5"></script>
 </body>
 </html>
