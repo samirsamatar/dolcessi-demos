@@ -1,6 +1,6 @@
 /* SHOT · the WebGL stage: one clear can, a backdrop that carries the wordmark, photo planes, pour, ice, seal · Dolcessi */
 import * as THREE from "three";
-import { buildCan, condensationMaps, contactShadow, CAN, FLAVOURS } from "./can.js?v=1";
+import { buildCan, condensationMaps, contactShadow, CAN, FLAVOURS, QUALITY } from "./can.js?v=2";
 
 const TAU = Math.PI * 2;
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -20,12 +20,14 @@ function wordTexture(text) {
 }
 
 export async function createWorld(canvas, opts = {}) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "high-performance", preserveDrawingBuffer: !!opts.keep });
+  QUALITY.low = !!opts.low;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: !opts.low || (devicePixelRatio || 1) < 1.5, powerPreference: "high-performance", preserveDrawingBuffer: !!opts.keep });
   const dpr = () => Math.min(devicePixelRatio || 1, opts.maxDpr || 1.5);
   renderer.setPixelRatio(dpr());
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
 
+  const nf = () => new Promise(r => requestAnimationFrame(() => r())); // let the loader paint between heavy steps
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(26, 1, .1, 200);
   scene.add(camera);
@@ -46,13 +48,14 @@ export async function createWorld(canvas, opts = {}) {
     const rim = new THREE.DirectionalLight(0xffffff, 2.2); rim.position.set(6, 3, -6); scene.add(rim);
   }
 
+  await nf();
   // backdrop: opaque (the PET refracts it), rides with the camera, carries the giant wordmark
   const BD = 30;
   const wordTex = wordTexture("SHOT");
   const bdU = {
     uA: { value: new THREE.Color("#2D2220") }, uB: { value: new THREE.Color("#1E1614") }, uGlow: { value: new THREE.Color("#5a4134") },
     uInk: { value: new THREE.Color("#F9F5EE") }, uWord: { value: 1 }, uWordRect: { value: new THREE.Vector4(.5, .5, .9, .3) }, uWordTex: { value: wordTex },
-    uGlowPos: { value: new THREE.Vector2(.5, .45) }, uAspect: { value: 1 }, uTime: { value: 0 }, uGrain: { value: .035 }
+    uGlowPos: { value: new THREE.Vector2(.5, .45) }, uAspect: { value: 1 }, uTime: { value: 0 }, uGrain: { value: .006 }
   };
   const backdrop = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMaterial({
     uniforms: bdU, toneMapped: false, depthWrite: false,
@@ -65,7 +68,7 @@ export async function createWorld(canvas, opts = {}) {
         c += uGlow * exp(-dot(d,d) * 3.2) * .7;
         vec2 wu = (vUv - uWordRect.xy) / uWordRect.zw + .5;
         if (wu.x > 0. && wu.x < 1. && wu.y > 0. && wu.y < 1.) { float a = texture2D(uWordTex, wu).r; c = mix(c, uInk, a * uWord); }
-        c += (hash(vUv * 900. + fract(uTime)) - .5) * uGrain;
+        c += (hash(gl_FragCoord.xy) - .5) * uGrain; // fine static dither: kills banding, no visible grain
         gl_FragColor = vec4(c, 1.);
         #include <colorspace_fragment>
       }`
@@ -73,8 +76,11 @@ export async function createWorld(canvas, opts = {}) {
   backdrop.position.z = -BD; backdrop.renderOrder = -1; camera.add(backdrop);
 
   // the can
+  await nf();
   const cond = condensationMaps(innerWidth < 900 ? 512 : 1024);
+  await nf();
   const can = buildCan(renderer, "matcha", { cond, ice: true, printName: "Amsterdam · 330 ml" });
+  await nf();
   const rig = new THREE.Group(); rig.add(can.group); scene.add(rig);
   can.group.position.y = -1.1;              // pivot the rig around the can's middle
   const shadow = contactShadow(.62); scene.add(shadow);
@@ -114,7 +120,7 @@ export async function createWorld(canvas, opts = {}) {
 
   // state the choreography writes into
   const st = {
-    bgA: "#2D2220", bgB: "#1E1614", glow: "#5a4134", ink: "#F9F5EE", word: 1, wordY: .56, wordW: .92, glowX: .5, glowY: .5, grain: .035,
+    bgA: "#2D2220", bgB: "#1E1614", glow: "#5a4134", ink: "#F9F5EE", word: 1, wordY: .56, wordW: .92, glowX: .5, glowY: .5, grain: .006,
     x: 0, y: 0, s: 1, rotY: 0, tiltX: 0, tiltZ: 0, spin: 1,
     level: CAN.FILL, pour: 0, pourCol: "#ffffff", ripple: 0, ice: 1, iceDrop: 1, lid: 0, lidSpin: 0, cond: 1, mix: 0, shake: 0,
     layers: FLAVOURS.matcha.layers.slice(), tops: FLAVOURS.matcha.tops.slice(), soft: FLAVOURS.matcha.soft.slice(),
@@ -201,5 +207,12 @@ export async function createWorld(canvas, opts = {}) {
     renderer.render(scene, camera);
   }
 
-  return { st, frame, resize, renderer, can, photo };
+  // compile every shader (stream, ice, photo planes) during the loader so nothing hitches mid-scroll
+  async function warm() {
+    const hidden = [];
+    scene.traverse(o => { if (o.isMesh && !o.visible) { hidden.push(o); o.visible = true; } });
+    try { if (renderer.compileAsync) await renderer.compileAsync(scene, camera); else renderer.compile(scene, camera); } catch (e) {}
+    hidden.forEach(o => { o.visible = false; });
+  }
+  return { st, frame, resize, renderer, can, photo, warm };
 }

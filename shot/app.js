@@ -11,7 +11,20 @@ const TAU = Math.PI * 2;
 
 /* ---------- loader in ---------- */
 const ldN = $("#ld-n"), ldFill = $("#ld-fill");
-let ldShown = 0; const ldTo = v => { ldShown = Math.max(ldShown, v); ldFill.style.transform = `scaleX(${ldShown / 100})`; gsap.to({ n: +ldN.textContent }, { n: ldShown, duration: .6, ease: "power2.out", onUpdate() { ldN.textContent = Math.round(this.targets()[0].n); } }); };
+// smooth loader: the number always creeps forward (eased toward ~92%) while files arrive, real milestones push it, and it only finishes at 100
+let ldMile = 0, ldVal = 0, ldFinal = false, ldResolve; const ldT0 = performance.now();
+const ldDoneP = new Promise(r => (ldResolve = r));
+const ldTo = v => { if (v >= 100) ldFinal = true; else ldMile = Math.max(ldMile, v); };
+(function ldLoop() {
+  const t = (performance.now() - ldT0) / 1000;
+  const creep = 92 * (1 - Math.exp(-t / 2.6));
+  const goal = ldFinal ? 100 : Math.min(94, Math.max(ldMile, creep));
+  ldVal += Math.min((goal - ldVal) * (ldFinal ? .085 : .05), ldFinal ? 2.2 : 1.2); // capped, so it never jumps
+  if (ldFinal && goal - ldVal < .4) ldVal = 100;
+  ldN.textContent = Math.floor(ldVal); ldFill.style.transform = `scaleX(${ldVal / 100})`;
+  if (ldVal >= 100) { ldResolve(); return; }
+  requestAnimationFrame(ldLoop);
+})();
 gsap.to(".ld-word span", { yPercent: -105, y: 0, duration: 1.1, stagger: .07, ease: "expo.out", delay: .15 });
 ldTo(12);
 
@@ -127,12 +140,13 @@ fetch("img/photo/credits.json").then(r => r.json()).then(c => {
 /* ---------- world ---------- */
 await Promise.all([document.fonts.load('600 100px "Bodoni SHOT"'), document.fonts.load('500 100px "Bodoni SHOT"'), document.fonts.load('600 40px "Inter Tight"')]).catch(() => {});
 ldTo(38);
-const { createWorld } = await import("./world.js?v=1");
-const { FLAVOURS, CAN } = await import("./can.js?v=1");
+const { createWorld } = await import("./world.js?v=2");
+const { FLAVOURS, CAN } = await import("./can.js?v=2");
 ldTo(64);
 const canvas = $("#world");
 const MOB = () => innerWidth < 900;
-const world = await createWorld(canvas, { maxDpr: MOB() ? 1.6 : 1.5, keep: TEST });
+const LOW = MOB() || (navigator.hardwareConcurrency || 8) <= 4;
+const world = await createWorld(canvas, { maxDpr: MOB() ? 1.25 : 1.5, keep: TEST, low: LOW });
 const st = world.st;
 // warm the photo planes so textures start loading now
 SIGS.forEach(s => s.ph.forEach(k => world.photo(k, P(k))));
@@ -169,10 +183,10 @@ function choreograph() {
   let level = CAN.FILL, pour = 0, pourCol = "#ffffff", ripple = 0, ice = 1, iceDrop = 1, lid = 0, lidSpin = 0, cond = 1, mix = 0, shake = 0;
   let layers = FL("matcha").layers, tops = FL("matcha").tops, soft = FL("matcha").soft;
   let camY = .35, camZ = 8.6, lookY = 0, fov = 26;
-  const out = ss(.5, 1, h);
+  const out = ss(.3, 1, h);
   y += out * 4.6; spin = 1 + out * 3;
-  wordY += ss(.2, .9, h) * .12; word = 1 - ss(.35, .78, h);
-  const toCream = ss(.6, 1, h);
+  wordY += ss(.15, .85, h) * .12; word = 1 - ss(.22, .62, h);
+  const toCream = ss(.42, .95, h);
   bgA = mixHex(bgA, "#F9F5EE", toCream); bgB = mixHex(bgB, "#EAE1D3", toCream); glow = mixHex(glow, "#FFFFFF", toCream);
 
   // ===== ritual: empty can comes down, pour, ice, seal, condense, shake
@@ -279,7 +293,14 @@ track("#hero", "hero"); track("#ritual", "rt"); track("#signatures", "sig");
 let live = true;
 ScrollTrigger.create({ trigger: "#statement", start: "top top", onEnter: () => { live = false; canvas.style.visibility = "hidden"; }, onLeaveBack: () => { live = true; canvas.style.visibility = "visible"; } });
 window.__step = () => { choreograph(); world.frame(); };
-gsap.ticker.add(() => { if (!live || TEST) return; choreograph(); world.frame(); });
+// phones: full rate while scrolling, half rate when the page is still (the can only idles then)
+let lastSY = -1, idleN = 0;
+gsap.ticker.add(() => {
+  if (!live || TEST) return;
+  const y = scrollY; if (y !== lastSY) { lastSY = y; idleN = 0; } else idleN++;
+  if (LOW && idleN > 2 && (idleN & 1)) return;
+  choreograph(); world.frame();
+});
 
 // nav colour by chapter
 const nav = $("#nav");
@@ -288,7 +309,7 @@ ScrollTrigger.create({ trigger: "#statement", start: "top 60px", end: "max", tog
 ScrollTrigger.create({ trigger: "#ritual", start: "top 60%", end: "max", onToggle: s => $(".mbar").classList.toggle("on", s.isActive) });
 
 // hero text leaves, chapter text arrives
-gsap.to([".hero-b", ".hero-tl", ".hero-tr", ".scroll-cue"], { autoAlpha: 0, y: -30, ease: "none", scrollTrigger: { trigger: "#hero", start: "6% top", end: "26% top", scrub: true } });
+gsap.to([".hero-b", ".hero-tl", ".hero-tr", ".scroll-cue"], { autoAlpha: 0, y: -30, ease: "none", scrollTrigger: { trigger: "#hero", start: "4% top", end: "30% top", scrub: true } });
 gsap.fromTo(".rt-l, .rt-hud", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, ease: "none", scrollTrigger: { trigger: "#ritual", start: "top top", end: "5% top", scrub: true } });
 gsap.to(".rt-l, .rt-hud", { autoAlpha: 0, y: -30, ease: "none", scrollTrigger: { trigger: "#ritual", start: "96% bottom", end: "bottom bottom", scrub: true } });
 gsap.fromTo(".sig-head, .sig-dots", { autoAlpha: 0 }, { autoAlpha: 1, ease: "none", scrollTrigger: { trigger: "#signatures", start: "top top", end: "4% top", scrub: true } });
@@ -359,11 +380,12 @@ if (fine && !reduce) {
 }
 
 /* ---------- loader out ---------- */
-choreograph(); world.frame();
+choreograph(); await world.warm(); world.frame();
 ldTo(100);
 ScrollTrigger.refresh();
+if (!TEST) await ldDoneP;
 const heroLines = $$(".hero-h .ln").map(l => { l.innerHTML = `<span>${l.innerHTML}</span>`; return $("span", l); });
-const intro = gsap.timeline({ delay: TEST ? 0 : .7, onComplete: () => { $("#loader").remove(); document.body.classList.remove("loading"); if (lenis) lenis.start(); } });
+const intro = gsap.timeline({ delay: TEST ? 0 : .25, onComplete: () => { $("#loader").remove(); document.body.classList.remove("loading"); if (lenis) lenis.start(); } });
 intro.to(".ld-word span", { yPercent: -210, duration: .8, stagger: .05, ease: "expo.in" })
   .to(".ld-meta, .ld-bar", { autoAlpha: 0, duration: .4 }, "<")
   .to(".ld-top", { yPercent: -100, duration: 1.2, ease: "expo.inOut" }, "-=.15")
