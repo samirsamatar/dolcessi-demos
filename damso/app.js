@@ -61,7 +61,7 @@ const split = s => s.split(" ").map(w => `<span class="w"><span>${w}</span></spa
 $(".cat").style.setProperty("--n", N);
 $("#cat-n").textContent = pad(N - 1);
 $("#cat-text").innerHTML = DISHES.map(([, kr, name, kind, pr, d], i) => `<article class="ct${i ? "" : " on"}" aria-hidden="${i ? "true" : "false"}"><p class="ct-kind"><span>${kind}</span><span class="kr">${kr}</span></p><h3>${split(name)}</h3><p>${NL ? d[1] : d[0]}</p>${pr ? `<p class="pr">${pr}</p>` : ""}</article>`).join("");
-$("#cat-frame").innerHTML = DISHES.map(([img, , name], i) => `<div class="cf${i ? "" : " first"}"><img src="img/g/${img}.jpg" alt="${name} at Damso" ${i > 1 ? 'loading="lazy"' : ""}></div>`).join("") + `<p class="cf-kr" id="cf-kr" aria-hidden="true">${DISHES[0][1]}</p>`;
+$("#cat-frame").innerHTML = DISHES.map(([img, , name], i) => `<div class="cf${i ? "" : " first"}"><img src="img/g/${img}.jpg" alt="${name} at Damso" decoding="async"></div>`).join("") + `<p class="cf-kr" id="cf-kr" aria-hidden="true">${DISHES[0][1]}</p>`;
 $("#cat-index").innerHTML = DISHES.map(([, , name], i) => `<li${i ? "" : ' class="on"'}><button type="button" data-i="${i}"><small>${pad(i)}</small>${name}</button></li>`).join("");
 $("#cat-ticks").innerHTML = DISHES.map((_, i) => `<i${i ? "" : ' class="on"'}></i>`).join("");
 
@@ -142,12 +142,15 @@ $("#vc").innerHTML = REVIEWS.map(([q, c]) => `<figure class="vq"><q>${q}</q><cit
 const vqs = $$(".vq");
 if (!window.gsap) { $$(".ct, .cf").forEach(e => e.style.cssText = "visibility:visible;clip-path:none;position:relative;transform:none"); vqs[0].style.cssText = "opacity:1;visibility:visible"; return; }
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
+gsap.config({ force3D: true });
 let lenis = null;
 if (!reduce && !TEST && window.Lenis) {
-  lenis = new Lenis({ lerp: .1, smoothWheel: true });
+  lenis = new Lenis({ lerp: .085, smoothWheel: true, wheelMultiplier: .9 });
   lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
 }
 if (TEST) gsap.ticker.lagSmoothing(0);
+const SCR = lenis ? true : .35;
 const goTo = y => lenis ? lenis.scrollTo(y, { duration: 1.2 }) : scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
 $$('a[href^="#"]').forEach(a => a.addEventListener("click", e => { const id = a.getAttribute("href"); const el = id.length > 1 && $(id); if (!el) return; e.preventDefault(); goTo(id === "#top" ? 0 : el.getBoundingClientRect().top + scrollY - (id === "#table" || id === "#story" ? 0 : 40)); }));
 
@@ -165,10 +168,12 @@ ScrollTrigger.create({ trigger: ".hero", start: "60% top", end: "max", onToggle:
 
 // the sentence fills in as you read it
 const it = $("#intro-t"); it.innerHTML = it.textContent.split(" ").map(w => `<span class="w">${w}</span>`).join(" ");
-gsap.to($$(".w", it), { opacity: 1, stagger: .08, ease: "none", scrollTrigger: { trigger: it, start: "top 78%", end: "bottom 45%", scrub: true } });
+gsap.to($$(".w", it), { opacity: 1, stagger: .08, ease: "none", scrollTrigger: { trigger: it, start: "top 78%", end: "bottom 45%", scrub: SCR } });
 
 // ===== the table: one dish at a time, like turning pages
-const cts = $$(".ct"), cfs = $$(".cf"), lis = $$("#cat-index li"), ticks = $$("#cat-ticks i"), cat = $(".cat");
+const cts = $$(".ct"), cfs = $$(".cf");
+cfs.forEach(f => { const im = $("img", f); if (im.decode) im.decode().catch(() => {}); });
+const _x = 0, lis = $$("#cat-index li"), ticks = $$("#cat-ticks i"), cat = $(".cat");
 let cur = 0, z = 1;
 gsap.set(cfs[0], { zIndex: 1 });
 function show(i) {
@@ -210,7 +215,7 @@ const sy = $(".story"), trk = $("#sy-track");
 const dist = () => Math.max(0, trk.scrollWidth - innerWidth);
 const setH = () => { sy.style.height = `${dist() + innerHeight}px`; };
 setH(); ScrollTrigger.addEventListener("refreshInit", setH);
-const strip = gsap.to(trk, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: sy, start: "top top", end: "bottom bottom", scrub: .5, invalidateOnRefresh: true, onUpdate: s => { $("#sy-prog").style.transform = `scaleX(${s.progress})`; } } });
+const strip = gsap.to(trk, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: sy, start: "top top", end: "bottom bottom", scrub: SCR, invalidateOnRefresh: true, onUpdate: s => { $("#sy-prog").style.transform = `scaleX(${s.progress})`; } } });
 $$(".sy-f img").forEach(im => gsap.fromTo(im, { xPercent: 6 }, { xPercent: -6, ease: "none", scrollTrigger: { trigger: im.closest(".sy-f"), containerAnimation: strip, start: "left right", end: "right left", scrub: true } }));
 gsap.from(".yr", { y: 60, autoAlpha: 0, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".sy-year", containerAnimation: strip, start: "left 80%" } });
 
@@ -263,10 +268,10 @@ addEventListener("load", () => ScrollTrigger.refresh());
   size(); addEventListener("resize", size);
   let mx = -1, my = -1, tx = -1, ty = -1;
   addEventListener("pointermove", e => { const r = cv.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; ty = 1 - (e.clientY - r.top) / r.height; }, { passive: true });
-  let on = true, amt = 0; const ts = performance.now();
+  let on = true, amt = 0, fr = false; const ts = performance.now();
   new IntersectionObserver(es => { on = es[0].isIntersecting; }).observe(cv);
   (function loop() {
-    requestAnimationFrame(loop); if (!on) return;
+    requestAnimationFrame(loop); if (!on || scrollY > innerHeight) return; if (MOB() && (fr = !fr)) return;
     const t = (performance.now() - ts) / 1000; amt = Math.min(1, Math.max(0, (t - 1.4) / 2));
     mx += (tx - mx) * .08; my += (ty - my) * .08;
     gl.uniform2f(uR, cv.width, cv.height); gl.uniform1f(uT, t); gl.uniform2f(uM, mx, my); gl.uniform1f(uA, amt);
