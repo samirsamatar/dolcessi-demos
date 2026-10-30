@@ -72,35 +72,47 @@ const STARTERS = [
 ];
 $("#mn-list").innerHTML = STARTERS.map(([kr, n, v, d, p]) => `<li><b>${n}${v ? "<small>V</small>" : ""}</b><span class="pr">${p}</span><span class="kr">${kr}</span><span class="d">${NL ? d[1] : d[0]}</span></li>`).join("");
 
-/* ---------- pick your seat ---------- */
+/* ---------- pick your seat + book: the room, the size, the day, the time, the spot ---------- */
 const SPOTS = [
-  [tr("Tables along the wall", "Tafels langs de muur"), tr("Tables for two to four. Good for a quiet dinner.", "Tafels voor twee tot vier. Fijn voor een rustig diner.")],
-  [tr("The middle of the room", "Midden in de zaal"), tr("Where the room gets lively. Good for groups.", "Waar het gezellig druk wordt. Fijn voor groepen.")],
-  [tr("The yellow booth", "De gele bank"), tr("Bench seating along the wall, the comfiest seats in the room.", "Bankjes langs de muur, de lekkerste plekken in de zaal.")]
+  [tr("Tables along the wall", "Tafels langs de muur"), tr("Tables for two to four. Good for a quiet dinner.", "Tafels voor twee tot vier. Fijn voor een rustig diner."), tr("Wall table", "Aan de muur"), tr("by the wall", "aan de muur")],
+  [tr("The middle of the room", "Midden in de zaal"), tr("Where the room gets lively. Good for groups.", "Waar het gezellig druk wordt. Fijn voor groepen."), tr("Middle", "Midden"), tr("in the middle of the room", "midden in de zaal")],
+  [tr("The yellow booth", "De gele bank"), tr("Bench seating along the wall, the comfiest seats in the room.", "Bankjes langs de muur, de lekkerste plekken in de zaal."), tr("Yellow booth", "Gele bank"), tr("in the yellow booth", "op de gele bank")]
 ];
 const card = $("#spot-card"), spots = $$(".spot");
-function setSpot(k) { spots.forEach((s, i) => s.classList.toggle("on", i === k)); $("b", card).textContent = SPOTS[k][0]; $("span", card).textContent = SPOTS[k][1]; if (window.gsap && !reduce) gsap.fromTo(card, { y: 10, autoAlpha: .4 }, { y: 0, autoAlpha: 1, duration: .5, ease: "expo.out" }); }
-spots.forEach((s, i) => { s.addEventListener("click", () => setSpot(i)); s.addEventListener("mouseenter", () => setSpot(i)); });
-setSpot(2);
-
-// booking helper: party size + day → the right message and a call button
-const daysEl = $("#days"), sizeEl = $("#size");
+const daysEl = $("#days"), sizeEl = $("#size"), timesEl = $("#times"), areasEl = $("#areas");
 const t0 = now(); const opts = [];
-for (let k = 0; k < 7; k++) { const d = (t0.d + k) % 7; opts.push({ d, label: k === 0 ? tr("Today", "Vandaag") : k === 1 ? tr("Tomorrow", "Morgen") : SHORT[d] }); }
-daysEl.innerHTML = opts.map((o, i) => `<button type="button" data-i="${i}"${OPEN[o.d] ? "" : " disabled"}>${o.label}</button>`).join("");
-let size = "2", day = opts.findIndex(o => OPEN[o.d]);
+for (let k = 0; k < 7; k++) { const d = (t0.d + k) % 7; opts.push({ d, k, label: k === 0 ? tr("Today", "Vandaag") : k === 1 ? tr("Tomorrow", "Morgen") : SHORT[d] }); }
+const SLOTS = []; for (let m = 1050; m <= 1290; m += 30) SLOTS.push(m);   // 17:30 … 21:30
+const slotsFor = o => o.k === 0 ? SLOTS.filter(m => m >= t0.m + 30) : SLOTS;
+// a day only counts if it's open and still has a slot left
+daysEl.innerHTML = opts.map((o, i) => `<button type="button" data-i="${i}"${OPEN[o.d] && slotsFor(o).length ? "" : " disabled"}>${o.label}</button>`).join("");
+areasEl.innerHTML = SPOTS.map((sp, i) => `<button type="button" data-a="${i}">${sp[2]}</button>`).join("") + `<button type="button" data-a="-1">${tr("No preference", "Maakt niet uit")}</button>`;
+let size = "2", day = opts.findIndex(o => OPEN[o.d] && slotsFor(o).length), time = null, area = 2;
+function setSpot(k, fromRoom) {
+  area = k;
+  spots.forEach((s, i) => s.classList.toggle("on", i === k));
+  if (k >= 0) { $("b", card).textContent = SPOTS[k][0]; $("span", card).textContent = SPOTS[k][1]; if (window.gsap && !reduce && fromRoom) gsap.fromTo(card, { y: 10, autoAlpha: .4 }, { y: 0, autoAlpha: 1, duration: .5, ease: "expo.out" }); }
+  upd();
+}
+spots.forEach((s, i) => { s.addEventListener("click", () => setSpot(i, true)); s.addEventListener("mouseenter", () => setSpot(i, true)); });
 function upd() {
+  const o = opts[day], sl = slotsFor(o);
+  if (!sl.includes(time)) time = sl.includes(1140) ? 1140 : sl[0];
+  timesEl.innerHTML = sl.map(m => `<button type="button" data-t="${m}"${m === time ? ' class="on"' : ""}>${hm(m)}</button>`).join("");
   $$("button", sizeEl).forEach(b => b.classList.toggle("on", b.dataset.v === size));
   $$("button", daysEl).forEach(b => b.classList.toggle("on", +b.dataset.i === day));
-  const o = opts[day], who = { 2: tr("1–2 people", "1–2 personen"), 4: tr("3–4 people", "3–4 personen"), 6: tr("5–6 people", "5–6 personen"), 8: tr("7 or more", "7 of meer") }[size];
+  $$("button", areasEl).forEach(b => b.classList.toggle("on", +b.dataset.a === area));
+  const who = { 2: tr("1–2", "1–2"), 4: tr("3–4", "3–4"), 6: tr("5–6", "5–6"), 8: tr("7+", "7+") }[size];
   const when = day === 0 ? tr("today", "vandaag") : day === 1 ? tr("tomorrow", "morgen") : DAYS[o.d];
-  $("#bk-msg").textContent = size === "8"
-    ? tr(`A group of 7 or more, ${when}: call ahead so a table can be set up. Open 17:30–22:00.`, `Een groep van 7 of meer, ${when}: bel even vooraf, dan kan er een tafel klaargezet worden. Open 17:30–22:00.`)
-    : tr(`A table for ${who}, ${when}. Open 17:30–22:00.`, `Een tafel voor ${who}, ${when}. Open 17:30–22:00.`);
+  const where = area >= 0 ? `, ${SPOTS[area][3]}` : "";
+  $("#bk-msg").innerHTML = tr(`A table for <em>${who}</em>, <em>${when}</em> at <em>${hm(time)}</em>${where}.`, `Een tafel voor <em>${who}</em>, <em>${when}</em> om <em>${hm(time)}</em>${where}.`)
+    + (size === "8" ? `<br><small style="font:400 13px/1.4 var(--sans);opacity:.75">${tr("Groups of 7+: a quick call helps set up the table.", "Groepen van 7+: even bellen helpt om de tafel klaar te zetten.")}</small>` : "");
 }
 sizeEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b) { size = b.dataset.v; upd(); } });
 daysEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b && !b.disabled) { day = +b.dataset.i; upd(); } });
-upd();
+timesEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b) { time = +b.dataset.t; upd(); } });
+areasEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b) setSpot(+b.dataset.a, true); });
+setSpot(2);
 
 /* ---------- reviews ---------- */
 const REVIEWS = [
@@ -123,11 +135,13 @@ if (!reduce && !TEST && window.Lenis) {
 }
 if (TEST) gsap.ticker.lagSmoothing(0);
 
-// hero: the photo settles in, the lines rise
+// hero: the stone bowl opens out to fill the screen, then the words rise
 if (!reduce) {
-  gsap.fromTo(".hero-img img", { scale: 1.14 }, { scale: 1.02, duration: 2.4, ease: "expo.out" });
-  gsap.from(".hero h1 .ln, .hero .eyebrow, .hero-cta", { y: 40, autoAlpha: 0, duration: 1.3, stagger: .1, ease: "expo.out", delay: .15 });
-  gsap.from(".fact", { y: 20, autoAlpha: 0, duration: 1, stagger: .06, ease: "expo.out", delay: .5 });
+  const C = MOB() ? "50% 40%" : "62% 52%";
+  gsap.fromTo(".hero-img", { clipPath: `circle(${MOB() ? 30 : 17}% at ${C})` }, { clipPath: `circle(150% at ${C})`, duration: 2.1, ease: "expo.inOut", delay: .25 });
+  gsap.fromTo(".hero-img img", { scale: 1.32, rotate: -8 }, { scale: 1.02, rotate: 0, duration: 2.8, ease: "expo.inOut", delay: .25 });
+  gsap.from(".hero h1 .ln, .hero .eyebrow, .hero-cta", { y: 50, autoAlpha: 0, duration: 1.4, stagger: .1, ease: "expo.out", delay: 1.6 });
+  gsap.from(".fact", { y: 20, autoAlpha: 0, duration: 1, stagger: .06, ease: "expo.out", delay: 1.9 });
   gsap.to(".hero-img img", { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 }
 // nav + phone bar
@@ -144,5 +158,50 @@ ScrollTrigger.matchMedia({
 // reveals
 $$(".mn-head, .mn-list li, .st-head, .room, .book, .sy-text > *, .vs-info > *, .vs-map").forEach(el => gsap.from(el, { y: 36, autoAlpha: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
 $$(".sy-photos figure").forEach((f, i) => gsap.from(f, { y: 80 + i * 30, rotate: i === 1 ? 3 : -2, autoAlpha: 0, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".sy-photos", start: "top 85%" } }));
+// steam rising off the hot stone bowl (WebGL, light), bending away from the cursor
+(() => {
+  const cv = $("#steam"); if (!cv || reduce) return;
+  const gl = cv.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: false }); if (!gl) return;
+  const VS = "attribute vec2 p; void main(){ gl_Position = vec4(p,0.,1.); }";
+  const FS = `precision mediump float; uniform vec2 R; uniform float T; uniform vec2 M; uniform float A; uniform vec2 S;
+    float h(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
+    float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f); return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
+    float fbm(vec2 p){ float v = 0., a = .5; for (int i = 0; i < 5; i++){ v += a*n(p); p = p*2.03 + 7.1; a *= .5; } return v; }
+    void main(){
+      vec2 uv = gl_FragCoord.xy / R, asp = vec2(R.x/R.y, 1.);
+      vec2 p = uv * asp;
+      vec2 m = M * asp, d = p - m; float md = length(d);
+      p += normalize(d + 1e-4) * .16 * exp(-md*md*9.);                 // the cursor pushes the steam aside
+      float t = T * .16;
+      vec2 q = vec2(fbm(p*1.7 + vec2(0., -t*1.6)), fbm(p*1.7 + vec2(4.3, -t*1.3)));
+      float s = fbm(p*2.3 + q*2.2 + vec2(t*.2, -t*2.4));
+      vec2 src = S * asp; float dx = (p.x - src.x);
+      float col = exp(-dx*dx*2.2) * smoothstep(S.y - .25, S.y + .05, uv.y) * (1. - smoothstep(.62, 1.02, uv.y));
+      float a = smoothstep(.34, .78, s) * col * A * .9;
+      gl_FragColor = vec4(vec3(a), a);
+    }`;
+  const sh = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr);
+  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+  gl.useProgram(pr);
+  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const U = k => gl.getUniformLocation(pr, k), uR = U("R"), uT = U("T"), uM = U("M"), uA = U("A"), uS = U("S");
+  const scale = MOB() ? .35 : .5;
+  function size() { cv.width = Math.round(cv.clientWidth * scale); cv.height = Math.round(cv.clientHeight * scale); gl.viewport(0, 0, cv.width, cv.height); }
+  size(); addEventListener("resize", size);
+  let mx = -1, my = -1, tx = -1, ty = -1;
+  addEventListener("pointermove", e => { const r = cv.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; ty = 1 - (e.clientY - r.top) / r.height; }, { passive: true });
+  let on = true, amt = 0, t0s = performance.now();
+  new IntersectionObserver(es => { on = es[0].isIntersecting; }).observe(cv);
+  (function loop() {
+    requestAnimationFrame(loop); if (!on) return;
+    const t = (performance.now() - t0s) / 1000; amt = Math.min(1, Math.max(0, (t - 1.2) / 2));
+    mx += (tx - mx) * .08; my += (ty - my) * .08;
+    gl.uniform2f(uR, cv.width, cv.height); gl.uniform1f(uT, t); gl.uniform2f(uM, mx, my); gl.uniform1f(uA, amt);
+    gl.uniform2f(uS, MOB() ? .5 : .62, MOB() ? .42 : .35);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  })();
+})();
 window.__ready = true;
 })();

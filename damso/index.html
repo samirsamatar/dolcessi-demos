@@ -10,7 +10,7 @@
 <link rel="icon" href="img/mark.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/young-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="img/p/p100.jpg">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -29,7 +29,7 @@
 
   <!-- hero: the food, the facts, the buttons -->
   <section class="hero" aria-label="Damso">
-    <div class="hero-img"><img src="img/p/p100.jpg" alt="Dolsot bibimbap in a stone bowl at Damso" fetchpriority="high"></div>
+    <div class="hero-img"><img src="img/p/p100.jpg" alt="Dolsot bibimbap in a stone bowl at Damso" fetchpriority="high"><canvas id="steam" aria-hidden="true"></canvas></div>
     <div class="hero-in">
       <p class="eyebrow"><span class="kr">담소</span><span data-nl="Koreaans restaurant · Amstelveen · sinds 2008">Korean restaurant · Amstelveen · since 2008</span></p>
       <h1><span class="ln" data-nl="Koreaans eten,">Korean cooking,</span><span class="ln"><em data-nl="een thuis buiten thuis.">a home away from home.</em></span></h1>
@@ -83,17 +83,15 @@
         <button class="spot" style="--x:83%;--y:76%" data-k="2" aria-label="The yellow booth"><i></i></button>
         <figcaption class="spot-card" id="spot-card" aria-live="polite"><b></b><span></span></figcaption>
       </figure>
-      <div class="book">
-        <p class="bk-k" data-nl="Hoeveel personen?">How many people?</p>
-        <div class="chips" id="size">
-          <button type="button" data-v="2" class="on">1–2</button><button type="button" data-v="4">3–4</button><button type="button" data-v="6">5–6</button><button type="button" data-v="8">7+</button>
-        </div>
-        <p class="bk-k" data-nl="Welke dag?">Which day?</p>
-        <div class="chips" id="days"></div>
-        <p class="bk-msg" id="bk-msg"></p>
-        <a class="btn btn-wide" id="bk-call" href="tel:+31206401877"><span data-nl="Bel om te reserveren">Call to book</span> · 020 640 1877</a>
-        <a class="btn btn-ghost-d btn-wide" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Damso+Korean+Restaurant+Dorpsstraat+88+Amstelveen" data-nl="Online reserveren via Google">Book online via Google</a>
-        <p class="bk-small" data-nl="Klein restaurant dat snel vol zit, zeker in het weekend.">A small room that fills up fast, especially at weekends.</p>
+      <div class="book" id="book">
+        <div class="bk-step"><p class="bk-k"><b>1</b><span data-nl="Hoeveel personen?">How many people?</span></p>
+          <div class="chips" id="size"><button type="button" data-v="2" class="on">1–2</button><button type="button" data-v="4">3–4</button><button type="button" data-v="6">5–6</button><button type="button" data-v="8">7+</button></div></div>
+        <div class="bk-step"><p class="bk-k"><b>2</b><span data-nl="Welke dag?">Which day?</span></p><div class="chips" id="days"></div></div>
+        <div class="bk-step"><p class="bk-k"><b>3</b><span data-nl="Hoe laat?">What time?</span></p><div class="chips chips-sm" id="times"></div></div>
+        <div class="bk-step"><p class="bk-k"><b>4</b><span data-nl="Waar wil je zitten?">Where would you like to sit?</span></p><div class="chips" id="areas"></div></div>
+        <div class="bk-sum" id="bk-sum" aria-live="polite"><span class="kr">예약</span><p id="bk-msg"></p></div>
+        <a class="btn btn-wide" id="bk-go" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Damso+Korean+Restaurant+Dorpsstraat+88+Amstelveen"><span data-nl="Reserveer deze tafel">Book this table</span><i>&rarr;</i></a>
+        <p class="bk-small"><span data-nl="Reserveringen lopen via Damso&rsquo;s Guestplan. Liever bellen?">Bookings run through Damso&rsquo;s Guestplan. Rather call?</span> <a href="tel:+31206401877">020 640 1877</a></p>
       </div>
     </div>
   </section>
@@ -153,13 +151,13 @@
 
 <nav class="mbar" id="mbar" aria-label="Quick actions">
   <a href="tel:+31206401877" data-nl="Bellen">Call</a>
-  <a href="#menu">Menu</a>
-  <a class="solid" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Damso+Korean+Restaurant%2C+Dorpsstraat+88%2C+1182+JG+Amstelveen">Route</a>
+  <a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Damso+Korean+Restaurant%2C+Dorpsstraat+88%2C+1182+JG+Amstelveen">Route</a>
+  <a class="solid" href="#seats" data-nl="Reserveren">Book</a>
 </nav>
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
-<script src="app.js?v=4"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>
