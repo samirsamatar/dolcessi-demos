@@ -102,7 +102,7 @@ $("#dr-list").innerHTML = DR.map((d, i) => {
     </div>
   </article>`;
 }).join("");
-const drEls = $$(".dr"), drDots = $$(".dr-dots i");
+const drEls = $$(".dr");
 
 /* ---------- menu: a catalogue plate shows whatever you point at (or whatever is in the middle of the screen) ---------- */
 {
@@ -184,14 +184,15 @@ function inkFrame(now, dt) {
   const dx = ptr.x - ptr.px, dy = ptr.y - ptr.py, idle = now - ptr.moved > 1600;
   if (st.ink > .05 && (Math.abs(dx) + Math.abs(dy) > .0004) && !idle) {
     const sp = Math.min(1, Math.hypot(dx, dy) * 30);
-    fl.splat(ptr.x, ptr.y, dx * fl.opt.force, dy * fl.opt.force, dye.map(c => c * (.3 + sp * .7)));
+    fl.splat(ptr.x, ptr.y, dx * fl.opt.force, dy * fl.opt.force, dye.map(c => c * (.22 + sp * .5)));
   }
   ptr.px = ptr.x; ptr.py = ptr.y;
   // ink plumes rise from behind the cup (more while pouring, and on every drink change)
   plumeT -= dt;
   const pouring = st.pour > .3, inDrinks = prog.dr > 0 && prog.dr < 1;
+  fl.opt.densityDiss = inDrinks ? 1.9 : 1.25;
   if (st.ink > .05 && plumeT <= 0 && (pouring || inDrinks || idle)) {
-    plumeT = pouring ? .06 : inDrinks ? .12 : .2;
+    plumeT = pouring ? .07 : inDrinks ? .16 : .28;
     const c = world.cupUV(pouring ? 2.2 : 1.2);
     wander += .37;
     const ox = Math.sin(wander * 1.7) * (m ? .1 : .06), up = (pouring ? 520 : 300) + Math.random() * 200;
@@ -227,7 +228,7 @@ function choreograph() {
   st.pour = h < .84 ? ss(0, .04, h) : 1 - ss(.84, .94, h);
   st.ice = 1;
   let x = m ? 0 : .55, y = m ? -.2 : -.38, s = m ? 1.0 : 1.14, tilt = -.13, rotY = Math.sin(performance.now() / 4000) * .15;
-  const word = 1 - ss(0, .08, f);
+  const word = 0; // the cup carries the logo; the stage stays quiet
   // --- 二 drinks: the cup moves aside, morphs per drink, the ink takes the drink's colour
   const e = ss(0, .1, f);
   x = lerp(x, m ? 0 : .95, e); y = lerp(y, m ? .3 : -.36, e); s = lerp(s, m ? .74 : 1.12, e); tilt = lerp(tilt, 0, e);
@@ -254,14 +255,12 @@ function choreograph() {
         gsap.fromTo($(".dr-ph figcaption", el), { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 1, delay: .45, ease: "expo.out" });
       } else gsap.to(el, { autoAlpha: 0, duration: .35 });
     });
-    drDots.forEach((d, n) => d.classList.toggle("on", n === cur));
-    $("#dr-i").textContent = String(Math.max(cur, 0) + 1).padStart(2, "0");
     if (cur >= 0) {
-      root.style.setProperty("--accent", DR[cur].c); drNow = cur;
+      drNow = cur;
       // a bloom of the new colour behind the cup
       const c = world.cupUV(1.6);
       for (let n = 0; n < 5; n++) world.fluid.splat(clamp(c.u + (n - 2) * .035), c.v, (n - 2) * 160, 520 + Math.random() * 300, DR[cur].dye.map(x => x * .8), m ? .3 : .22);
-    } else root.style.setProperty("--accent", "#9CC24F");
+    }
   }
   // --- 三 whisk: the cup lifts away, the bowl rises in, camera looks down
   const out = ss(0, .14, w);
@@ -328,9 +327,11 @@ gsap.ticker.add(() => {
 // chapter text in the pinned scenes
 gsap.to([".hero-h", ".hero-hint", ".hero-tate", ".hero-kick"], { autoAlpha: 0, y: -24, ease: "none", scrollTrigger: { trigger: "#hero", start: "84% bottom", end: "bottom bottom", scrub: true } });
 gsap.set(drEls, { autoAlpha: 0 });
-gsap.fromTo([".dr-head", ".dr-note", ".dr-dots"], { autoAlpha: 0 }, { autoAlpha: 1, ease: "none", scrollTrigger: { trigger: "#drinks", start: "top top", end: "5% top", scrub: true } });
+gsap.fromTo([".dr-head", ".dr-note"], { autoAlpha: 0 }, { autoAlpha: 1, ease: "none", scrollTrigger: { trigger: "#drinks", start: "top top", end: "5% top", scrub: true } });
 gsap.to(".sc-drinks .pin", { autoAlpha: 0, ease: "none", scrollTrigger: { trigger: "#drinks", start: "bottom 108%", end: "bottom bottom", scrub: true } });
-gsap.fromTo(".wh-text, .wh-meter", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, ease: "none", scrollTrigger: { trigger: "#whisk", start: "12% top", end: "22% top", scrub: true } });
+const CY = MOB() ? 0 : -50; // keep the CSS centring when GSAP takes over the transform
+gsap.fromTo(".wh-text", { autoAlpha: 0, y: 40, yPercent: CY }, { autoAlpha: 1, y: 0, yPercent: CY, ease: "none", scrollTrigger: { trigger: "#whisk", start: "12% top", end: "22% top", scrub: true } });
+gsap.fromTo(".wh-meter", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, ease: "none", scrollTrigger: { trigger: "#whisk", start: "12% top", end: "22% top", scrub: true } });
 
 // 四 origin: the field opens up, then the mill wipes in
 {
@@ -340,11 +341,11 @@ gsap.fromTo(".wh-text, .wh-meter", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0
     onUpdate: s => { const vis = s.progress > .4 && s.progress < 1; if (vis && mill.paused) mill.play().catch(() => {}); else if (!vis && !mill.paused) mill.pause(); } } });
   tl.fromTo(".or-field", { clipPath: MOB() ? "inset(20% 12% 34% 12% round 10px)" : "inset(16% 30% 16% 30% round 10px)" }, { clipPath: "inset(0% 0% 0% 0% round 0px)", duration: .25, ease: "none" }, 0)
     .fromTo(".or-field img", { scale: 1.25 }, { scale: 1.05, duration: .5, ease: "none" }, 0)
-    .fromTo(".or-t1", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .1, ease: "none" }, .14)
-    .to(".or-t1", { autoAlpha: 0, y: -40, duration: .08, ease: "none" }, .42)
+    .fromTo(".or-t1", { autoAlpha: 0, y: 40, yPercent: CY }, { autoAlpha: 1, y: 0, yPercent: CY, duration: .1, ease: "none" }, .14)
+    .to(".or-t1", { autoAlpha: 0, y: -40, yPercent: CY, duration: .08, ease: "none" }, .42)
     .fromTo(".or-video", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: .14, ease: "none" }, .44)
     .fromTo(".or-video video", { scale: 1.2 }, { scale: 1, duration: .4, ease: "none" }, .44)
-    .fromTo(".or-t2", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: .1, ease: "none" }, .58)
+    .fromTo(".or-t2", { autoAlpha: 0, y: 40, yPercent: CY }, { autoAlpha: 1, y: 0, yPercent: CY, duration: .1, ease: "none" }, .58)
     .fromTo(".or-facts", { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: .1, ease: "none" }, .7)
     .to({}, { duration: .1 }, .9);
   ScrollTrigger.create({ trigger: "#origin", start: "top 120%", onEnter: loadMill });
@@ -390,18 +391,11 @@ const chapA = $$(".chap a");
   ScrollTrigger.create({ trigger: sel, start: "top 50%", end: "bottom 50%", onToggle: s => { if (s.isActive) chapA.forEach((a, k) => a.classList.toggle("on", k === n)); } }));
 ScrollTrigger.create({ trigger: "#drinks", start: "top 60%", end: "max", onToggle: s => $(".mbar").classList.toggle("on", s.isActive) });
 
-/* ---------- cursor ---------- */
+/* ---------- cursor: a small ring that grows over links ---------- */
 if (fine && !reduce) {
-  const cur = $(".cursor"), ct = $("#cursor-t"); let cx = innerWidth / 2, cy = innerHeight / 2;
+  const cur = $(".cursor"); let cx = innerWidth / 2, cy = innerHeight / 2;
   gsap.ticker.add(() => { cx += (ptr.cx - cx) * .22; cy += (ptr.cy - cy) * .22; cur.style.transform = `translate(${cx}px, ${cy}px)`; });
-  document.addEventListener("pointerover", e => {
-    const a = e.target.closest("a, button");
-    cur.classList.toggle("link", !!a);
-    let label = "";
-    if (!a && live) { if (prog.wh > .2 && prog.wh < .95) label = tr("Whisk", "Klop"); else if (prog.hero < .95 || (prog.dr > 0 && prog.dr < 1)) label = tr("Stir", "Roer"); }
-    cur.classList.toggle("big", !!label); ct.textContent = label;
-  });
-  addEventListener("scroll", () => { const label = live && !(prog.wh > 0 && prog.wh < .2) ? (prog.wh > .2 && prog.wh < .95 ? tr("Whisk", "Klop") : (prog.hero < .95 || (prog.dr > 0 && prog.dr < 1)) ? tr("Stir", "Roer") : "") : ""; if (!document.querySelector("a:hover, button:hover")) { cur.classList.toggle("big", !!label); ct.textContent = label; } }, { passive: true });
+  document.addEventListener("pointerover", e => cur.classList.toggle("link", !!e.target.closest("a, button, .mn-group li")));
 }
 
 /* ---------- loader out: the ensō closes, the ink opens the page ---------- */
