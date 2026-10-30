@@ -1,11 +1,9 @@
 /* Damso 담소 · concept site by Dolcessi */
-import { createWorld } from "./world.js?v=2";
+(() => {
 const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
-const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-const lerp = (a, b, t) => a + (b - a) * t;
-const ss = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); };
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const TZ = "Europe/Amsterdam";
+const MOB = () => innerWidth < 900;
+const TZ = "Europe/Amsterdam", TEL = "tel:+31206401877";
 
 /* ---------- language ---------- */
 const LANG = (() => {
@@ -20,141 +18,131 @@ if (NL) $$("[data-nl]").forEach(el => { el.innerHTML = el.dataset.nl; });
 $("#lang").querySelector(`[data-l="${LANG}"]`).outerHTML = `<b>${LANG.toUpperCase()}</b>`;
 $("#lang").addEventListener("click", () => { const to = NL ? "en" : "nl"; try { localStorage.setItem("ds-lang", to); } catch (e) {} const u = new URL(location.href); u.searchParams.set("lang", to); location.href = u.toString(); });
 
-/* ---------- reviews (verbatim, public sources) ---------- */
-const REVIEWS = [
-  { q: "This small restaurant in Amstelveen is a bit like a home away from home, always full of locals (ie Korean guests), which is always a good sign.", who: "travelwise24", src: "Tripadvisor" },
-  { q: "It was very delicious served in a hot stone bowl.", who: "KatGdny", src: "Tripadvisor" },
-  { q: "Authentic Korean food and very friendly staff.", who: "Claes", src: "Tripadvisor" },
-  { q: "…eet je hier in een low key sfeer het beste Koreaanse eten dat je buiten Korea zal proeven.", who: "Your Little Black Book", src: "NL" },
-  { q: "Best Korean I've ever had", who: "Flynn L", src: "Tripadvisor" }
-];
-$("#vc-list").innerHTML = REVIEWS.map(r => `<figure class="vc"><q>${r.q}</q><cite>${r.who} · ${r.src}</cite></figure>`).join("");
-
-/* ---------- opening hours (Google listing): Wed–Mon 17:30–22:00, Tue closed ---------- */
+/* ---------- hours: Wed–Mon 17:30–22:00, Tuesday closed ---------- */
 const DAYS = NL ? ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag"] : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const SHORT = NL ? ["ma", "di", "wo", "do", "vr", "za", "zo"] : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const OPEN = [[1050, 1320], null, [1050, 1320], [1050, 1320], [1050, 1320], [1050, 1320], [1050, 1320]];
 const hm = m => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
-function amsNow() {
-  const p = new Intl.DateTimeFormat("en-GB", { weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false, timeZone: TZ }).formatToParts(new Date());
+function now() {
+  const p = new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false, timeZone: TZ }).formatToParts(new Date());
   const g = k => p.find(x => x.type === k).value;
   return { d: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].indexOf(g("weekday")), m: (+g("hour") % 24) * 60 + +g("minute") };
 }
 function status() {
-  const { d, m } = amsNow(), o = OPEN[d];
-  if (o && m >= o[0] && m < o[1]) return { open: true, text: tr(`Open now · until ${hm(o[1])}`, `Nu open · tot ${hm(o[1])}`), short: tr("Open now", "Nu open") };
-  if (o && m < o[0]) return { open: false, text: tr(`Closed · opens today at ${hm(o[0])}`, `Gesloten · vandaag open vanaf ${hm(o[0])}`), short: tr(`Opens ${hm(o[0])}`, `Open vanaf ${hm(o[0])}`) };
+  const { d, m } = now(), o = OPEN[d];
+  if (o && m >= o[0] && m < o[1]) return { open: true, big: tr("Open now", "Nu open"), sub: tr(`Kitchen until ${hm(o[1])}`, `Tot ${hm(o[1])}`), line: tr(`Open now · until ${hm(o[1])}`, `Nu open · tot ${hm(o[1])}`) };
+  if (o && m < o[0]) return { open: false, big: tr(`Opens ${hm(o[0])}`, `Open om ${hm(o[0])}`), sub: tr("Today", "Vandaag"), line: tr(`Opens today at ${hm(o[0])}`, `Vandaag open vanaf ${hm(o[0])}`) };
   let nd = (d + 1) % 7; while (!OPEN[nd]) nd = (nd + 1) % 7;
-  const when = nd === (d + 1) % 7 ? tr("tomorrow", "morgen") : (NL ? DAYS[nd].toLowerCase() : DAYS[nd]);
-  return { open: false, text: tr(`Closed · opens ${when} at ${hm(OPEN[nd][0])}`, `Gesloten · ${when} open vanaf ${hm(OPEN[nd][0])}`), short: tr("Closed now", "Nu gesloten") };
+  const when = nd === (d + 1) % 7 ? tr("tomorrow", "morgen") : DAYS[nd].toLowerCase();
+  return { open: false, big: tr("Closed now", "Nu gesloten"), sub: tr(`Opens ${when} ${hm(OPEN[nd][0])}`, `Open ${when} ${hm(OPEN[nd][0])}`), line: tr(`Closed · opens ${when} at ${hm(OPEN[nd][0])}`, `Gesloten · ${when} open vanaf ${hm(OPEN[nd][0])}`) };
 }
 function renderHours() {
-  const { d } = amsNow(), s = status(), ul = $("#hours");
-  $(".status span").textContent = s.text; $(".status i").classList.toggle("off", !s.open);
-  $("#nav-open").textContent = s.short; $("#nav-dot").classList.toggle("off", !s.open);
-  ul.textContent = "";
-  DAYS.forEach((name, i) => {
-    const li = document.createElement("li"); if (i === d) li.className = "today";
-    const a = document.createElement("span"); a.textContent = name;
-    const b = document.createElement("span"); const o = OPEN[i];
-    if (o) b.textContent = `${hm(o[0])} – ${hm(o[1])}`; else { b.textContent = tr("Closed", "Gesloten"); b.className = "closed"; }
-    li.append(a, b); ul.appendChild(li);
-  });
+  const s = status(), { d } = now();
+  $("#now").textContent = s.big; $("#now-sub").textContent = s.sub; $("#dot").classList.toggle("off", !s.open);
+  $(".status span").textContent = s.line; $(".status i").classList.toggle("off", !s.open);
+  $("#hours").innerHTML = DAYS.map((n, i) => `<li${i === d ? ' class="today"' : ""}><span>${n}</span><span>${OPEN[i] ? `${hm(OPEN[i][0])} – ${hm(OPEN[i][1])}` : tr("Closed", "Gesloten")}</span></li>`).join("");
 }
 renderHours(); setInterval(renderHours, 60000);
 
-/* ---------- world ---------- */
-const canvas = $("#world");
-const MOB = () => innerWidth < 900;
-const lite = MOB() || (navigator.hardwareConcurrency || 8) <= 4;
-const world = await createWorld(canvas, { maxDpr: MOB() ? 1.6 : 1.4, lite });
-const st = world.st;
-addEventListener("resize", () => { world.resize(); ScrollTrigger.refresh(); });
+/* ---------- signature dishes (guest photos) ---------- */
+const DISHES = [
+  ["p100", "돌솥비빔밥", "Dolsot bibimbap", "", ["Rice, vegetables, beef and an egg in a sizzling stone bowl. Mix it at the table.", "Rijst, groenten, rundvlees en een ei in een sissende stenen kom. Aan tafel mengen."]],
+  ["p31", "해물파전", "Haemul pajeon", "€15 / €19", ["Savoury pancake with leek and seafood.", "Hartige pannenkoek met prei en zeevruchten."]],
+  ["p40", "닭강정", "Dak gangjeong", tr("from €12", "vanaf €12"), ["Fried drumsticks in honey sauce with sesame oil.", "Gefrituurde kippenboutjes in honingsaus met sesamolie."]],
+  ["p137", "육회", "Yukhoe", "€15", ["Thinly sliced beef tartare with pear and a raw egg.", "Dun gesneden rundertartaar met peer en rauw ei."]],
+  ["p27", "잡채", "Japchae", "", ["Glass noodles stir-fried with vegetables.", "Glasnoedels geroerbakt met groenten."]],
+  ["p7", "짜장면", "Jjajangmyeon", "", ["Noodles in a rich black bean sauce.", "Noedels in een rijke zwarte-bonensaus."]],
+  ["p52", "떡볶이", "Tteokbokki", "", ["Rice cakes in red chilli sauce.", "Rijstcakejes in rode pepersaus."]],
+  ["p26", "불고기", "Bulgogi", "", ["Marinated beef on a sizzling plate.", "Gemarineerd rundvlees op een sissende plaat."]],
+  ["p28", "치킨", tr("Korean fried chicken", "Koreaanse kip"), "", ["Crisp-fried, for the table to share.", "Krokant gefrituurd, om te delen."]],
+  ["p116", "반찬", "Banchan", "", ["The little side dishes on the table.", "De kleine bijgerechtjes op tafel."]]
+];
+$("#sig-track").innerHTML = DISHES.map(([ph, kr, name, pr, d]) => `<figure class="dish"><div class="ph"><img src="img/p/${ph}.jpg" alt="${name}" loading="lazy"></div><figcaption><h3>${name}</h3>${pr ? `<span class="pr">${pr}</span>` : ""}<span class="kr">${kr}</span><p>${NL ? d[1] : d[0]}</p></figcaption></figure>`).join("");
 
-const prog = { hero: 0, mix: 0, table: 0 };
-const obang = $$(".obang li");
-// which colour lights up with which ingredient: greens 청, carrot 황, sprouts 백, mushroom 흑, gochujang 적
-const LIGHT = [0, 1, 2, 3];
+/* ---------- starters with prices (Damso's current menu) ---------- */
+const STARTERS = [
+  ["치킨만두", "Chicken mandu", false, ["Fried dumplings with chicken", "Gefrituurde dumplings met kip"], "8 · €12<br>12 · €16<br>20 · €24"],
+  ["야채만두", "Yachae mandu", true, ["Fried dumplings with vegetables", "Gefrituurde dumplings met groente"], "8 · €12<br>12 · €16<br>20 · €24"],
+  ["새우튀김", "Saeu twigim", false, ["Fried prawns with house-made sauce, 4 pcs", "Gefrituurde garnalen met huisgemaakte saus, 4 st."], "€10"],
+  ["닭강정", "Dak gangjeong", false, ["Fried drumsticks in honey sauce with sesame oil", "Kippenboutjes in honingsaus met sesamolie"], "8 · €12<br>12 · €16<br>20 · €23"],
+  ["해물파전", "Haemul pajeon", false, ["Savoury pancake with leek and seafood", "Hartige pannenkoek met prei en zeevruchten"], tr("Small €15<br>Large €19", "Klein €15<br>Groot €19")],
+  ["김치전", "Kimchi jeon", true, ["Traditional kimchi pancake", "Traditionele kimchi-pannenkoek"], tr("Small €15<br>Large €19", "Klein €15<br>Groot €19")],
+  ["게살전", "Gesal jeon", false, ["Crab pancakes, 3 pcs", "Krabpannenkoekjes, 3 st."], "€12"],
+  ["육회", "Yukhoe", false, ["Beef tartare with pear and raw egg", "Rundertartaar met peer en rauw ei"], "€15"]
+];
+$("#mn-list").innerHTML = STARTERS.map(([kr, n, v, d, p]) => `<li><b>${n}${v ? "<small>V</small>" : ""}</b><span class="pr">${p}</span><span class="kr">${kr}</span><span class="d">${NL ? d[1] : d[0]}</span></li>`).join("");
 
-function choreograph(t) {
-  const m = MOB(), h = prog.hero, x = prog.mix, tt = prog.table;
-  // 01 · the bowl builds: five toppings fall into their wedges, then gochujang, egg, sesame
-  for (let k = 0; k < 5; k++) st.drop[k] = ss(.06 + k * .1, .06 + k * .1 + .2, h);
-  st.gochu = ss(.6, .72, h); st.egg = ss(.7, .84, h); st.seeds = ss(.82, .95, h);
-  st.sizzle = st.egg;
-  obang.forEach((li, i) => li.classList.toggle("on", i < 4 ? st.drop[LIGHT[i]] > .5 : st.gochu > .5));
-  // camera: low three-quarter view that rises as the bowl fills
-  const camH0 = m ? 6.2 : 4.4, camR0 = m ? 9.4 : 8.6;
-  let camH = lerp(camH0, m ? 7.6 : 6.4, ss(0, 1, h)), camR = lerp(camR0, m ? 8.2 : 7.6, ss(0, 1, h)), look = lerp(.3, .55, h);
-  let bx = 0, by = 0, bs = m ? .98 : 1;
-  st.rotY = h * 1.1 + x * .4 + tt * .5;
-  // 02 · the mix: camera swings overhead, the spoon dips in, everything is stirred through
-  const e = ss(0, .14, x);
-  camH = lerp(camH, m ? 10.6 : 9.0, e); camR = lerp(camR, m ? 2.2 : 3.6, e); look = lerp(look, .5, e);
-  bx = lerp(bx, m ? 0 : 1.7, e); st.camZ = m ? lerp(0, -1.45, e) : 0;
-  st.spoon = ss(.12, .3, x) * (1 - ss(.9, 1, x));
-  st.mix = ss(.26, .9, x);
-  st.steam = 1 - e * .4; st.exposure = lerp(1, .82, e);
-  // 03 · the table: camera climbs straight up, banchan slide in around the bowl
-  const e2 = ss(0, .4, tt);
-  camH = lerp(camH, m ? 17.5 : 13.2, e2); camR = lerp(camR, m ? .6 : 1.1, e2);
-  bx = lerp(bx, m ? 0 : 2.3, e2); st.camZ = m ? lerp(st.camZ, -2.0, e2) : 0; bs = lerp(bs, m ? .86 : 1, e2);
-  st.table = ss(.1, .78, tt); st.steam *= 1 - e2 * .5; st.exposure = lerp(st.exposure, .95, e2);
-  st.bowlX = bx; st.bowlY = by; st.bowlS = bs; st.camH = camH; st.camR = camR; st.camLook = look;
-  st.glow = x > 0 ? "#33241a" : "#2b221b";
-  $("#mix-pct").textContent = Math.round(st.mix * 100) + "%";
-  $("#mix-fill").style.transform = `scaleX(${st.mix})`;
+/* ---------- pick your seat ---------- */
+const SPOTS = [
+  [tr("Tables along the wall", "Tafels langs de muur"), tr("Tables for two to four. Good for a quiet dinner.", "Tafels voor twee tot vier. Fijn voor een rustig diner.")],
+  [tr("The middle of the room", "Midden in de zaal"), tr("Where the room gets lively. Good for groups.", "Waar het gezellig druk wordt. Fijn voor groepen.")],
+  [tr("The yellow booth", "De gele bank"), tr("Bench seating along the wall, the comfiest seats in the room.", "Bankjes langs de muur, de lekkerste plekken in de zaal.")]
+];
+const card = $("#spot-card"), spots = $$(".spot");
+function setSpot(k) { spots.forEach((s, i) => s.classList.toggle("on", i === k)); $("b", card).textContent = SPOTS[k][0]; $("span", card).textContent = SPOTS[k][1]; if (window.gsap && !reduce) gsap.fromTo(card, { y: 10, autoAlpha: .4 }, { y: 0, autoAlpha: 1, duration: .5, ease: "expo.out" }); }
+spots.forEach((s, i) => { s.addEventListener("click", () => setSpot(i)); s.addEventListener("mouseenter", () => setSpot(i)); });
+setSpot(2);
+
+// booking helper: party size + day → the right message and a call button
+const daysEl = $("#days"), sizeEl = $("#size");
+const t0 = now(); const opts = [];
+for (let k = 0; k < 7; k++) { const d = (t0.d + k) % 7; opts.push({ d, label: k === 0 ? tr("Today", "Vandaag") : k === 1 ? tr("Tomorrow", "Morgen") : SHORT[d] }); }
+daysEl.innerHTML = opts.map((o, i) => `<button type="button" data-i="${i}"${OPEN[o.d] ? "" : " disabled"}>${o.label}</button>`).join("");
+let size = "2", day = opts.findIndex(o => OPEN[o.d]);
+function upd() {
+  $$("button", sizeEl).forEach(b => b.classList.toggle("on", b.dataset.v === size));
+  $$("button", daysEl).forEach(b => b.classList.toggle("on", +b.dataset.i === day));
+  const o = opts[day], who = { 2: tr("1–2 people", "1–2 personen"), 4: tr("3–4 people", "3–4 personen"), 6: tr("5–6 people", "5–6 personen"), 8: tr("7 or more", "7 of meer") }[size];
+  const when = day === 0 ? tr("today", "vandaag") : day === 1 ? tr("tomorrow", "morgen") : DAYS[o.d];
+  $("#bk-msg").textContent = size === "8"
+    ? tr(`A group of 7 or more, ${when}: call ahead so a table can be set up. Open 17:30–22:00.`, `Een groep van 7 of meer, ${when}: bel even vooraf, dan kan er een tafel klaargezet worden. Open 17:30–22:00.`)
+    : tr(`A table for ${who}, ${when}. Open 17:30–22:00.`, `Een tafel voor ${who}, ${when}. Open 17:30–22:00.`);
 }
+sizeEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b) { size = b.dataset.v; upd(); } });
+daysEl.addEventListener("click", e => { const b = e.target.closest("button"); if (b && !b.disabled) { day = +b.dataset.i; upd(); } });
+upd();
+
+/* ---------- reviews ---------- */
+const REVIEWS = [
+  ["It was very delicious served in a hot stone bowl.", "KatGdny · Tripadvisor"],
+  ["Authentic Korean food and very friendly staff.", "Claes · Tripadvisor"],
+  ["…eet je hier in een low key sfeer het beste Koreaanse eten dat je buiten Korea zal proeven.", "Your Little Black Book"],
+  ["Best Korean I've ever had", "Flynn L · Tripadvisor"],
+  ["A bit like a home away from home, always full of locals.", "travelwise24 · Tripadvisor"]
+];
+const row = $("#vc-row"); row.innerHTML = REVIEWS.map(([q, c]) => `<figure class="vc"><q>${q}</q><cite>${c}</cite></figure>`).join(""); row.innerHTML += row.innerHTML;
 
 /* ---------- motion ---------- */
+if (!window.gsap) return;
 gsap.registerPlugin(ScrollTrigger);
-let lenis = null;
-if (!reduce && window.Lenis) {
-  lenis = new Lenis({ lerp: .085, smoothWheel: true });
-  lenis.on("scroll", ScrollTrigger.update);
-  gsap.ticker.add(tm => lenis.raf(tm * 1000)); gsap.ticker.lagSmoothing(0);
-  $$('a[href^="#"]').forEach(a => a.addEventListener("click", ev => { const id = a.getAttribute("href"); if (id.length > 1 && $(id)) { ev.preventDefault(); lenis.scrollTo(id === "#top" ? 0 : id, { duration: 1.8 }); } }));
-}
-const track = (sel, key) => ScrollTrigger.create({ trigger: sel, start: "top top", end: "bottom bottom", onUpdate: s => { prog[key] = s.progress; } });
-track("#hero", "hero"); track("#mix", "mix");
-
-// render only while the 3D chapters are on screen
-let live = true;
-track("#table", "table");
-ScrollTrigger.create({ trigger: "#menu", start: "top top", onEnter: () => { live = false; canvas.style.visibility = "hidden"; }, onLeaveBack: () => { live = true; canvas.style.visibility = "visible"; } });
-// nav turns light on the paper sections
-const nav = $("#nav"), menuEl = $("#menu"), visitEl = $("#visit");
-const navTone = () => { const a = menuEl.getBoundingClientRect().top, b = visitEl.getBoundingClientRect().bottom; nav.classList.toggle("light", a < 72 && b > 72); };
-addEventListener("scroll", navTone, { passive: true }); gsap.ticker.add(navTone);
-// phone bar appears after the first chapter
-ScrollTrigger.create({ trigger: "#mix", start: "top 80%", onEnter: () => $("#mbar").classList.add("show"), onLeaveBack: () => $("#mbar").classList.remove("show") });
-
 const TEST = /[?&]test/.test(location.search);
-window.__step = () => { choreograph(); world.frame(); };
-gsap.ticker.add(() => { if (!live || TEST) return; choreograph(); world.frame(); });
+if (!reduce && !TEST && window.Lenis) {
+  const lenis = new Lenis({ lerp: .1, smoothWheel: true });
+  lenis.on("scroll", ScrollTrigger.update); gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+  $$('a[href^="#"]').forEach(a => a.addEventListener("click", e => { const id = a.getAttribute("href"); if (id.length > 1 && $(id)) { e.preventDefault(); lenis.scrollTo(id, { offset: id === "#menu" ? 0 : -60, duration: 1.4 }); } }));
+}
+if (TEST) gsap.ticker.lagSmoothing(0);
 
-// text
-gsap.to([".hero-line", ".hero-br", ".hero-tl"], { autoAlpha: 0, y: -20, ease: "none", scrollTrigger: { trigger: "#hero", start: "88% bottom", end: "bottom bottom", scrub: true } });
-gsap.to(".obang", { autoAlpha: 0, ease: "none", scrollTrigger: { trigger: "#hero", start: "92% bottom", end: "bottom bottom", scrub: true } });
-gsap.fromTo([".mx-text", ".mx-meter", ".mx-hint"], { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, ease: "none", scrollTrigger: { trigger: "#mix", start: "6% top", end: "18% top", scrub: true } });
-gsap.fromTo([".tb-eye", ".tb-mean", ".tb-stats", ".tb-hint"], { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, ease: "none", stagger: .05, scrollTrigger: { trigger: "#table", start: "8% top", end: "26% top", scrub: true } });
-gsap.fromTo(".tb-kr", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", ease: "none", scrollTrigger: { trigger: "#table", start: "4% top", end: "24% top", scrub: true } });
-gsap.to(".sc-mix .pin", { autoAlpha: 0, ease: "none", scrollTrigger: { trigger: "#mix", start: "bottom 115%", end: "bottom bottom", scrub: true } });
+// hero: the photo settles in, the lines rise
+if (!reduce) {
+  gsap.fromTo(".hero-img img", { scale: 1.14 }, { scale: 1.02, duration: 2.4, ease: "expo.out" });
+  gsap.from(".hero h1 .ln, .hero .eyebrow, .hero-cta", { y: 40, autoAlpha: 0, duration: 1.3, stagger: .1, ease: "expo.out", delay: .15 });
+  gsap.from(".fact", { y: 20, autoAlpha: 0, duration: 1, stagger: .06, ease: "expo.out", delay: .5 });
+  gsap.to(".hero-img img", { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+}
+// nav + phone bar
+ScrollTrigger.create({ trigger: ".hero", start: "bottom 80px", end: "max", toggleClass: { targets: "#nav", className: "solid" } });
+ScrollTrigger.create({ trigger: ".hero", start: "60% top", end: "max", onToggle: s => $("#mbar").classList.toggle("on", s.isActive) });
 
-// headings reveal line by line
-$$(".sc-menu h2, .sc-visit h2").forEach(h => {
-  h.innerHTML = h.innerHTML.split(/<br\s*\/?>/i).map(l => `<span style="display:block;overflow:hidden;padding-bottom:.08em"><span style="display:inline-block">${l}</span></span>`).join("");
-  gsap.from($$("span > span", h), { yPercent: 110, duration: 1.2, stagger: .1, ease: "expo.out", scrollTrigger: { trigger: h, start: "top 85%" } });
+// signature dishes: a short sideways run on desktop (native swipe on phones)
+ScrollTrigger.matchMedia({
+  "(min-width: 900px)": () => {
+    const trk = $("#sig-track");
+    gsap.to(trk, { x: () => -(trk.scrollWidth - innerWidth), ease: "none", scrollTrigger: { trigger: ".sig", start: "top top", end: "bottom bottom", scrub: .6, invalidateOnRefresh: true, onUpdate: s => { $("#sig-prog").style.transform = `scaleX(${s.progress})`; } } });
+  }
 });
-// the name: the big hangul wipes in like a brush stroke
-gsap.utils.toArray(".dish, .vc, .card").forEach((el, i) => gsap.from(el, { y: 36, autoAlpha: 0, duration: 1, delay: (i % 4) * .06, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
-gsap.fromTo(".ft-kr", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: ".foot", start: "top 85%" } });
-
-// loader out
-choreograph(); world.frame();
-$("#ld-fill").style.transform = "scaleX(1)";
-document.documentElement.classList.remove("loading");
-gsap.timeline({ delay: .5 })
-  .to("#loader", { autoAlpha: 0, duration: .8, ease: "power2.out", onComplete: () => $("#loader").remove() })
-  .from(".hero-line, .hero-tl, .hero-br, .obang, .nav", { y: 24, autoAlpha: 0, duration: 1.2, stagger: .06, ease: "expo.out" }, "-=.3");
-ScrollTrigger.refresh();
+// reveals
+$$(".mn-head, .mn-list li, .st-head, .room, .book, .sy-text > *, .vs-info > *, .vs-map").forEach(el => gsap.from(el, { y: 36, autoAlpha: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
+$$(".sy-photos figure").forEach((f, i) => gsap.from(f, { y: 80 + i * 30, rotate: i === 1 ? 3 : -2, autoAlpha: 0, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".sy-photos", start: "top 85%" } }));
 window.__ready = true;
+})();
