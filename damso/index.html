@@ -3,161 +3,175 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Damso 담소 · Korean restaurant since 2008 · Dorpsstraat 88, Amstelveen</title>
-<meta name="description" content="Damso: Korean restaurant in the old village of Amstelveen since 2008. Dolsot bibimbap, haemul pajeon, dak gangjeong, yukhoe and more. Dorpsstraat 88. Open Wed–Mon 17:30–22:00.">
+<title>Damso 담소 · Korean kitchen since 2008 · Dorpsstraat 88, Amstelveen</title>
+<meta name="description" content="Damso: Korean kitchen in the old village of Amstelveen since 2008. Dolsot bibimbap, haemul pajeon, dak gangjeong, yukhoe and more. Dorpsstraat 88. Open Wed–Mon 17:30–22:00.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#131110">
+<meta name="theme-color" content="#0d0b0a">
 <link rel="icon" href="img/mark.svg" type="image/svg+xml">
-<link rel="preload" href="fonts/young-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="img/p/p100.jpg">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="preload" href="fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/instrument-serif-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="img/g/hero.jpg">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
 <header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="Damso, top of page"><span class="kr">담소</span><span class="brand-w">Damso</span></a>
+  <a class="brand" href="#top" aria-label="Damso, top of page"><span class="seal kr" aria-hidden="true">담<br>소</span><span class="brand-w">Damso</span></a>
   <nav class="nav-links" aria-label="Sections">
-    <a href="#menu" data-nl="Menu">Menu</a><a href="#seats" data-nl="Reserveren">Book</a><a href="#story" data-nl="Verhaal">Story</a><a href="#visit" data-nl="Route">Visit</a>
+    <a href="#table" data-nl="Gerechten">Dishes</a><a href="#menu" data-nl="Kaart">Menu</a><a href="#story" data-nl="Verhaal">Story</a><a href="#visit" data-nl="Route">Visit</a>
   </nav>
   <div class="nav-r">
     <button id="lang" type="button" aria-label="Switch language"><span data-l="en">EN</span><span data-l="nl">NL</span></button>
-    <a class="btn btn-sm" href="tel:+31206401877" data-nl="Bellen">Call</a>
+    <a class="pill" href="#reserve" data-nl="Reserveren">Reserve</a>
   </div>
 </header>
 
 <main id="top">
 
-  <!-- hero: the food, the facts, the buttons -->
+  <!-- hero -->
   <section class="hero" aria-label="Damso">
-    <div class="hero-img"><img src="img/p/p100.jpg" alt="Dolsot bibimbap in a stone bowl at Damso" fetchpriority="high"><canvas id="steam" aria-hidden="true"></canvas></div>
+    <div class="hero-img"><img src="img/g/hero.jpg" alt="Dolsot bibimbap in a hot stone bowl at Damso" fetchpriority="high"><canvas id="steam" aria-hidden="true"></canvas></div>
     <div class="hero-in">
-      <p class="eyebrow"><span class="kr">담소</span><span data-nl="Koreaans restaurant · Amstelveen · sinds 2008">Korean restaurant · Amstelveen · since 2008</span></p>
-      <h1><span class="ln" data-nl="Koreaans eten,">Korean cooking,</span><span class="ln"><em data-nl="een thuis buiten thuis.">a home away from home.</em></span></h1>
-      <div class="hero-cta">
-        <a class="btn" href="#seats" data-nl="Reserveer een tafel">Book a table</a>
-        <a class="btn btn-ghost" href="#menu" data-nl="Bekijk het menu">See the menu</a>
-      </div>
+      <p class="lbl"><span class="kr">담소</span><i></i><span data-nl="Koreaanse keuken · Amstelveen · sinds 2008">Korean kitchen · Amstelveen · Est. 2008</span></p>
+      <h1><span class="ln"><span data-nl="Koreaans koken">Korean cooking</span></span><span class="ln"><em data-nl="in het oude dorp.">in the old village.</em></span></h1>
     </div>
-    <div class="facts" aria-label="Quick facts">
-      <div class="fact"><i id="dot"></i><b id="now">…</b><span id="now-sub"></span></div>
-      <a class="fact" href="#visit"><b>Dorpsstraat 88</b><span>1182 JG Amstelveen</span></a>
-      <a class="fact" href="tel:+31206401877"><b>020 640 1877</b><span data-nl="Bel om te reserveren">Call to book</span></a>
-      <div class="fact"><b>4.6 <i class="star">★</i></b><span data-nl="599 Google-reviews">599 Google reviews</span></div>
+    <aside class="hero-side" aria-label="Today">
+      <p class="hs-row"><i class="dot" id="dot"></i><span><b id="now">…</b><small id="now-sub"></small></span></p>
+      <a class="hs-row" href="#visit"><span><b>Dorpsstraat 88</b><small>1182 JG Amstelveen</small></span></a>
+      <a class="hs-row hs-go" href="#reserve"><span><b data-nl="Reserveer een tafel">Reserve a table</b><small data-nl="Kies je plek in de zaal">Choose your spot in the room</small></span><em>&rarr;</em></a>
+    </aside>
+    <p class="scroll-cue" aria-hidden="true"><i></i></p>
+  </section>
+
+  <!-- a sentence -->
+  <section class="intro" aria-label="About Damso">
+    <p class="lbl"><span>01</span><i></i><span data-nl="Damso">Damso</span></p>
+    <p class="intro-t" id="intro-t" data-nl="Sinds 2008 kookt Damso Koreaans in het oude dorp van Amstelveen. Sissende stenen kommen, pannenkoeken zo groot als de tafel, en een muur vol briefjes van gasten.">Since 2008, Damso has cooked Korean food in the old village of Amstelveen. Sizzling stone bowls, pancakes the size of the table, and a wall full of notes from guests.</p>
+  </section>
+
+  <!-- the table: a catalogue, one dish at a time -->
+  <section class="cat" id="table" aria-labelledby="cat-h">
+    <div class="pin">
+      <div class="cat-top">
+        <p class="lbl"><span>02</span><i></i><span id="cat-h" data-nl="Aan tafel">The table</span><span class="kr">식탁</span></p>
+        <p class="cat-count"><b id="cat-i">01</b><span>/</span><span id="cat-n">08</span></p>
+      </div>
+      <div class="cat-text" id="cat-text"></div>
+      <figure class="cat-frame" id="cat-frame"></figure>
+      <ol class="cat-index" id="cat-index"></ol>
+      <div class="cat-ctl">
+        <button type="button" class="arw" id="cat-prev" aria-label="Previous dish">&larr;</button>
+        <button type="button" class="arw" id="cat-next" aria-label="Next dish">&rarr;</button>
+        <div class="ticks" id="cat-ticks" aria-hidden="true"></div>
+      </div>
     </div>
   </section>
 
-  <!-- signature dishes: a short horizontal run -->
-  <section class="sig" id="menu" aria-labelledby="sig-h">
-    <div class="sig-pin">
-      <div class="sig-head">
-        <p class="eyebrow dark"><span class="kr">대표 메뉴</span><span data-nl="Wat je hier bestelt">What people order</span></p>
-        <h2 id="sig-h" data-nl="De <br><em>favorieten.</em>">The <br><em>favourites.</em></h2>
-        <p class="sig-sub" data-nl="Echte gerechten, gefotografeerd door gasten. Scroll opzij.">Real dishes, photographed by guests. Scroll sideways.</p>
-      </div>
-      <div class="sig-track" id="sig-track"></div>
-      <div class="sig-prog"><i id="sig-prog"></i></div>
-    </div>
-  </section>
-
-  <!-- the menu, readable -->
-  <section class="menu" aria-labelledby="menu-h">
+  <!-- the menu, on paper -->
+  <section class="menu" id="menu" aria-labelledby="menu-h">
     <div class="mn-head">
-      <h2 id="menu-h" data-nl="Voorgerechten<br><em>met prijzen.</em>">Starters,<br><em>with prices.</em></h2>
-      <p data-nl="Van Damso's huidige kaart. Hoofdgerechten zoals bibimbap, bulgogi, jjajangmyeon en soepen staan op de kaart aan tafel.">From Damso's current menu. Mains like bibimbap, bulgogi, jjajangmyeon and soups are on the menu at the table.</p>
+      <p class="lbl dk"><span>03</span><i></i><span data-nl="De kaart">À la carte</span><span class="kr">메뉴</span></p>
+      <h2 id="menu-h" data-nl="Om mee <em>te beginnen.</em>">To <em>begin.</em></h2>
+      <p class="mn-sub" data-nl="Voorgerechten van Damso&rsquo;s huidige kaart, om te delen. Bibimbap, bulgogi, jjajangmyeon en stoofpotten staan op de kaart aan tafel.">Starters from Damso&rsquo;s current menu, made for sharing. Bibimbap, bulgogi, jjajangmyeon and stews are on the menu at the table.</p>
     </div>
     <ul class="mn-list" id="mn-list"></ul>
-    <p class="mn-note" data-nl="Vegetarisch gemarkeerd met V · allergieën? Vraag het gerust.">Vegetarian marked V · allergies? Just ask.</p>
+    <p class="mn-note" data-nl="<b>V</b> vegetarisch · allergieën? Vraag het gerust aan tafel. · Ook om af te halen.">
+      <b>V</b> vegetarian · allergies? Just ask at the table. · Takeaway too.</p>
   </section>
 
-  <!-- pick your seat: the real room, with hotspots + a quick booking helper -->
-  <section class="seats" id="seats" aria-labelledby="seats-h">
-    <div class="st-head">
-      <p class="eyebrow"><span class="kr">자리</span><span data-nl="Kies je plek">Pick your seat</span></p>
-      <h2 id="seats-h" data-nl="Waar wil je<br><em>zitten?</em>">Where would you<br><em>like to sit?</em></h2>
+  <!-- story: a short sideways film strip -->
+  <section class="story" id="story" aria-labelledby="story-h">
+    <div class="pin">
+      <div class="sy-track" id="sy-track">
+        <div class="sy-p sy-intro">
+          <p class="lbl"><span>04</span><i></i><span data-nl="Sinds 2008">Since 2008</span><span class="kr">이야기</span></p>
+          <h2 id="story-h" data-nl="Een goed gesprek,<br><em>met gelach.</em>">A good talk,<br><em>with laughter.</em></h2>
+          <p data-nl="Zo vertaal je <i>damso</i> (담소): een ontspannen gesprek waarin gelachen wordt. Dat is het idee van de zaal.">That is what <i>damso</i> (담소) means in Korean: an easy conversation, full of laughter. It is the whole idea of the room.</p>
+        </div>
+        <figure class="sy-p sy-f wide"><div class="ph"><img src="img/g/s-room.jpg" alt="A full dining room on an evening at Damso" loading="lazy"></div>
+          <figcaption><q>Always full of locals (ie Korean guests), which is always a good sign.</q><span>travelwise24 · Tripadvisor</span></figcaption></figure>
+        <div class="sy-p sy-year"><p class="yr">2008</p><p data-nl="Damso begint te koken in het oude dorp van Amstelveen, de stad met een van de grootste Koreaanse gemeenschappen van Nederland.">Damso starts cooking in the old village of Amstelveen, home to one of the largest Korean communities in the Netherlands.</p></div>
+        <figure class="sy-p sy-f tall"><div class="ph"><img src="img/g/s-notes.jpg" alt="A wall covered in colourful notes from guests" loading="lazy"></div>
+          <figcaption><b data-nl="De muur">The wall</b><span data-nl="Honderden briefjes, achtergelaten door gasten.">Hundreds of notes, left behind by guests.</span></figcaption></figure>
+        <figure class="sy-p sy-f mid"><div class="ph"><img src="img/g/s-table.jpg" alt="A table full of Korean dishes and banchan" loading="lazy"></div>
+          <figcaption><b data-nl="De tafel">The table</b><span data-nl="Je bestelt om te delen, en de bijgerechtjes komen vanzelf.">You order to share, and the little side dishes just arrive.</span></figcaption></figure>
+        <div class="sy-p sy-word"><p class="kr big" aria-hidden="true">담소</p><p class="sy-end" data-nl="Kom binnen.<br><em>Er is plek.</em>">Come in.<br><em>There&rsquo;s a seat.</em></p></div>
+      </div>
+      <div class="sy-prog" aria-hidden="true"><i id="sy-prog"></i></div>
     </div>
-    <div class="st-grid">
-      <figure class="room">
-        <img src="img/p/p0.jpg" alt="The dining room at Damso: tables on the left, a yellow booth bench on the right" loading="lazy">
-        <button class="spot" style="--x:15%;--y:78%" data-k="0" aria-label="Tables by the wall"><i></i></button>
-        <button class="spot" style="--x:45%;--y:60%" data-k="1" aria-label="Middle of the room"><i></i></button>
-        <button class="spot" style="--x:83%;--y:76%" data-k="2" aria-label="The yellow booth"><i></i></button>
-        <figcaption class="spot-card" id="spot-card" aria-live="polite"><b></b><span></span></figcaption>
+  </section>
+
+  <!-- reserve -->
+  <section class="reserve" id="reserve" aria-labelledby="rs-h">
+    <div class="rs-head">
+      <p class="lbl"><span>05</span><i></i><span data-nl="Reserveren">Reserve</span><span class="kr">예약</span></p>
+      <h2 id="rs-h" data-nl="Jouw tafel,<br><em>jouw hoek.</em>">Your table,<br><em>your corner.</em></h2>
+      <p data-nl="Tik een plek in de zaal aan, kies een dag en een tijd.">Tap a spot in the room, then choose a day and a time.</p>
+    </div>
+    <div class="rs-grid">
+      <figure class="room" id="room">
+        <img src="img/g/room.jpg" alt="The dining room at Damso: tables along the left wall, a yellow booth on the right, the counter at the back" loading="lazy">
+        <button type="button" class="spot" style="--x:23%;--y:71%" data-k="0"><i></i><span>01</span></button>
+        <button type="button" class="spot" style="--x:37%;--y:55%" data-k="1"><i></i><span>02</span></button>
+        <button type="button" class="spot" style="--x:79%;--y:69%" data-k="2"><i></i><span>03</span></button>
+        <button type="button" class="spot" style="--x:79%;--y:90%" data-k="3"><i></i><span>04</span></button>
+        <figcaption class="spot-card" id="spot-card" aria-live="polite"><small></small><b></b><span></span></figcaption>
       </figure>
       <div class="book" id="book">
-        <div class="bk-step"><p class="bk-k"><b>1</b><span data-nl="Hoeveel personen?">How many people?</span></p>
-          <div class="chips" id="size"><button type="button" data-v="2" class="on">1–2</button><button type="button" data-v="4">3–4</button><button type="button" data-v="6">5–6</button><button type="button" data-v="8">7+</button></div></div>
-        <div class="bk-step"><p class="bk-k"><b>2</b><span data-nl="Welke dag?">Which day?</span></p><div class="chips" id="days"></div></div>
-        <div class="bk-step"><p class="bk-k"><b>3</b><span data-nl="Hoe laat?">What time?</span></p><div class="chips chips-sm" id="times"></div></div>
-        <div class="bk-step"><p class="bk-k"><b>4</b><span data-nl="Waar wil je zitten?">Where would you like to sit?</span></p><div class="chips" id="areas"></div></div>
-        <div class="bk-sum" id="bk-sum" aria-live="polite"><span class="kr">예약</span><p id="bk-msg"></p></div>
-        <a class="btn btn-wide" id="bk-go" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Damso+Korean+Restaurant+Dorpsstraat+88+Amstelveen"><span data-nl="Reserveer deze tafel">Book this table</span><i>&rarr;</i></a>
-        <p class="bk-small"><span data-nl="Reserveringen lopen via Damso&rsquo;s Guestplan. Liever bellen?">Bookings run through Damso&rsquo;s Guestplan. Rather call?</span> <a href="tel:+31206401877">020 640 1877</a></p>
+        <div class="bk-row"><p class="bk-k" data-nl="Gasten">Guests</p><div class="nums" id="size"></div></div>
+        <div class="bk-row"><p class="bk-k" data-nl="Datum">Date</p><div class="dates" id="days"></div></div>
+        <div class="bk-row"><p class="bk-k" data-nl="Tijd">Time</p><div class="times" id="times"></div></div>
+        <div class="bk-row"><p class="bk-k" data-nl="Plek">Seating</p><div class="areas" id="areas"></div></div>
+        <div class="bk-sum" id="bk-sum" aria-live="polite"><p id="bk-msg"></p></div>
+        <a class="cta" id="bk-go" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Damso+Korean+Restaurant+Dorpsstraat+88+Amstelveen"><span data-nl="Verder naar reserveren">Continue to reservation</span><i>&rarr;</i></a>
+        <p class="bk-small"><span data-nl="Je bevestigt op Damso&rsquo;s reserveringspagina (Guestplan). Liever bellen?">You confirm on Damso&rsquo;s reservation page (Guestplan). Rather call?</span> <a href="tel:+31206401877">020 640 1877</a></p>
       </div>
     </div>
   </section>
 
-  <!-- story -->
-  <section class="story" id="story" aria-labelledby="story-h">
-    <div class="sy-grid">
-      <div class="sy-text">
-        <p class="eyebrow"><span class="kr">이야기</span><span data-nl="Sinds 2008">Since 2008</span></p>
-        <h2 id="story-h" data-nl="Een praatje,<br><em>met gelach.</em>">A good talk,<br><em>with laughter.</em></h2>
-        <p data-nl="<i>Damso</i> (담소) betekent in het Koreaans een ontspannen gesprek waarbij gelachen wordt. Sinds 2008 kookt Damso in het oude dorp van Amstelveen, de stad met een van de grootste Koreaanse gemeenschappen van Nederland.">In Korean, <i>damso</i> (담소) means an easy conversation full of laughter. Since 2008 Damso has been cooking in the old village of Amstelveen, home to one of the largest Korean communities in the Netherlands.</p>
-        <p data-nl="Je ziet het aan de muur: honderden briefjes die gasten achterlieten.">You can see it on the wall: hundreds of notes left behind by guests.</p>
-        <blockquote>&ldquo;A bit like a home away from home, always full of locals (ie Korean guests), which is always a good sign.&rdquo;<cite>travelwise24 · Tripadvisor</cite></blockquote>
-      </div>
-      <div class="sy-photos">
-        <figure class="sy-a"><img src="img/p/p146.jpg" alt="A wall covered in colourful notes from guests" loading="lazy"></figure>
-        <figure class="sy-b"><img src="img/p/p49.jpg" alt="A full dining room on an evening at Damso" loading="lazy"></figure>
-        <figure class="sy-c"><img src="img/p/p13.jpg" alt="The Damso sign above the door" loading="lazy"></figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- reviews -->
-  <section class="voices" aria-labelledby="vc-h">
-    <h2 class="vh" id="vc-h">Reviews</h2>
-    <div class="vc-row" id="vc-row"></div>
+  <!-- voices -->
+  <section class="voices" aria-label="What guests say">
+    <p class="lbl c"><span>06</span><i></i><span data-nl="Gasten">Guests</span></p>
+    <div class="vc" id="vc"></div>
+    <p class="vc-meta"><span>4.6 / 5</span><i></i><span data-nl="599 reviews op Google">599 reviews on Google</span></p>
   </section>
 
   <!-- visit -->
   <section class="visit" id="visit" aria-labelledby="visit-h">
-    <div class="vs-grid">
-      <div class="vs-info">
-        <p class="eyebrow"><span class="kr">오시는 길</span><span data-nl="Bezoek">Visit</span></p>
-        <h2 id="visit-h">Dorpsstraat 88</h2>
-        <p class="vs-addr">1182 JG Amstelveen · <span data-nl="oude dorp">old village</span></p>
-        <p class="status"><i></i><span></span></p>
-        <ul class="hours" id="hours"></ul>
-        <div class="vs-btns">
-          <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Damso+Korean+Restaurant%2C+Dorpsstraat+88%2C+1182+JG+Amstelveen" data-nl="Route">Directions</a>
-          <a class="btn btn-ghost-d" href="tel:+31206401877" data-nl="Bellen">Call</a>
-        </div>
-        <p class="vs-small" data-nl="Ook om af te halen en te bezorgen.">Takeaway and delivery too.</p>
+    <div class="vs-info">
+      <p class="lbl"><span>07</span><i></i><span data-nl="Bezoek">Visit</span><span class="kr">오시는 길</span></p>
+      <h2 id="visit-h">Dorpsstraat 88</h2>
+      <p class="vs-addr">1182 JG Amstelveen · <span data-nl="oude dorp">old village</span></p>
+      <p class="status"><i></i><span></span></p>
+      <ul class="hours" id="hours"></ul>
+      <div class="vs-links">
+        <a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Damso+Korean+Restaurant%2C+Dorpsstraat+88%2C+1182+JG+Amstelveen"><span data-nl="Route plannen">Get directions</span><i>&rarr;</i></a>
+        <a href="tel:+31206401877"><span>020 640 1877</span><i>&rarr;</i></a>
+        <a href="#reserve"><span data-nl="Reserveren">Reserve a table</span><i>&rarr;</i></a>
       </div>
-      <div class="vs-map">
-        <iframe title="Map: Damso, Dorpsstraat 88, Amstelveen" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Damso+Korean+Restaurant,+Dorpsstraat+88,+1182+JG+Amstelveen&amp;z=16&amp;output=embed"></iframe>
-        <figure class="vs-door"><img src="img/p/p71.jpg" alt="Damso's front door on Dorpsstraat" loading="lazy"></figure>
-      </div>
+    </div>
+    <div class="vs-map">
+      <iframe title="Map: Damso, Dorpsstraat 88, Amstelveen" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Damso+Korean+Restaurant,+Dorpsstraat+88,+1182+JG+Amstelveen&amp;z=16&amp;output=embed"></iframe>
+      <figure class="vs-door"><img src="img/g/s-door.jpg" alt="Damso's front door on Dorpsstraat" loading="lazy"></figure>
     </div>
   </section>
 </main>
 
 <footer class="foot">
   <p class="ft-kr kr" aria-hidden="true">담소</p>
-  <div class="ft-bar"><span>Damso · Dorpsstraat 88 · 1182 JG Amstelveen</span><a href="tel:+31206401877">+31 20 640 1877</a></div>
+  <div class="ft-bar"><span>Damso · Dorpsstraat 88 · 1182 JG Amstelveen</span><span data-nl="Wo–ma 17:30–22:00 · dinsdag gesloten">Wed–Mon 17:30–22:00 · closed Tuesday</span><a href="tel:+31206401877">+31 20 640 1877</a></div>
   <p class="concept" data-nl="Conceptontwerp door Dolcessi · niet de officiële website van Damso. Info uit openbare vermeldingen, oktober 2026. Foto's: gasten op Google Maps, alleen voor dit concept.">Concept design by Dolcessi · not the official website of Damso. Info from public listings, October 2026. Photos: guests on Google Maps, for this concept only.</p>
 </footer>
 
 <nav class="mbar" id="mbar" aria-label="Quick actions">
   <a href="tel:+31206401877" data-nl="Bellen">Call</a>
   <a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Damso+Korean+Restaurant%2C+Dorpsstraat+88%2C+1182+JG+Amstelveen">Route</a>
-  <a class="solid" href="#seats" data-nl="Reserveren">Book</a>
+  <a class="solid" href="#reserve" data-nl="Reserveren">Reserve</a>
 </nav>
 
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
-<script src="app.js?v=6"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>
