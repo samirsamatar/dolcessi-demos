@@ -115,7 +115,7 @@ $$("[data-lat]").forEach(el => {
   const px = (lng + 180) / 360 * n * 256, sn = Math.sin(lat * Math.PI / 180), py = (.5 - Math.log((1 + sn) / (1 - sn)) / (4 * Math.PI)) * n * 256;
   const draw = () => { const w = box.clientWidth, h = box.clientHeight, x0 = px - w / 2, y0 = py - h / 2; let html = "";
     for (let tx = Math.floor(x0 / 256); tx <= Math.floor((x0 + w) / 256); tx++) for (let ty = Math.floor(y0 / 256); ty <= Math.floor((y0 + h) / 256); ty++)
-      html += `<img alt="" draggable="false" loading="lazy" src="https://${"abcd"[(tx + ty) & 3]}.basemaps.cartocdn.com/rastertiles/voyager/${z}/${tx}/${ty}@2x.png" style="left:${Math.round(tx * 256 - x0)}px;top:${Math.round(ty * 256 - y0)}px">`;
+      html += `<img alt="" draggable="false" loading="lazy" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/${z}/${ty}/${tx}" style="left:${Math.round(tx * 256 - x0)}px;top:${Math.round(ty * 256 - y0)}px">`;
     box.innerHTML = html; };
   draw(); let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(draw, 200); });
 });
