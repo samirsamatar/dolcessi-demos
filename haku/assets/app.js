@@ -53,12 +53,31 @@ $("#burger").addEventListener("click", () => {
   $("#burger").setAttribute("aria-expanded", open); $("#drawer").setAttribute("aria-hidden", !open);
 });
 
-/* ---------- signature: a milk drop where you click ---------- */
-if (!reduce) addEventListener("pointerdown", e => {
-  if (e.button !== 0 || e.target.closest("a, button, input, iframe, .ticket")) return;
-  const d = document.createElement("span"); d.className = "drop"; d.style.left = e.clientX + "px"; d.style.top = e.clientY + "px";
-  d.innerHTML = "<i></i><i></i><b></b>"; document.body.appendChild(d); setTimeout(() => d.remove(), 1100);
-}, { passive: true });
+/* ---------- signature: a burst of dots on every click (links too) ---------- */
+if (!reduce) (() => {
+  const cv = document.createElement("canvas"); cv.id = "burst"; cv.setAttribute("aria-hidden", "true"); document.body.appendChild(cv);
+  const g = cv.getContext("2d"); let dpr = 1, parts = [], running = false;
+  const size = () => { dpr = Math.min(2, devicePixelRatio || 1); cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; };
+  size(); addEventListener("resize", size);
+  const col = getComputedStyle(document.documentElement).getPropertyValue("--pop").trim() || "#ff4f2b";
+  function frame(t) {
+    g.clearRect(0, 0, cv.width, cv.height);
+    parts = parts.filter(p => t - p.t0 < p.life);
+    for (const p of parts) {
+      const k = (t - p.t0) / p.life, e = 1 - Math.pow(1 - k, 3);
+      const r = (5 + p.reach * e) * dpr, s = p.s * (1 - k) * dpr;
+      g.globalAlpha = 1 - k * k; g.fillStyle = col;
+      g.beginPath(); g.arc(p.x * dpr + Math.cos(p.a) * r, p.y * dpr + Math.sin(p.a) * r, Math.max(0, s), 0, 6.283); g.fill();
+    }
+    if (parts.length) requestAnimationFrame(frame); else { running = false; g.clearRect(0, 0, cv.width, cv.height); }
+  }
+  addEventListener("pointerdown", e => {
+    if (e.button !== 0) return;
+    const n = 9, t0 = performance.now(), off = Math.random() * 6.283;
+    for (let i = 0; i < n; i++) parts.push({ x: e.clientX, y: e.clientY, a: off + i / n * 6.283 + (Math.random() - .5) * .25, reach: 20 + Math.random() * 10, s: 2.1 + Math.random() * .8, t0, life: 620 + Math.random() * 160 });
+    if (!running) { running = true; requestAnimationFrame(frame); }
+  }, { passive: true, capture: true });
+})();
 
 /* ---------- signature: cookies with your coffee? ---------- */
 (() => {
