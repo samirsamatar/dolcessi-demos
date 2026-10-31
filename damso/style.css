@@ -255,7 +255,6 @@ h2 em { color: var(--brass); }
 .vs-map { position: relative; display: block; min-height: 560px; color: inherit; }
 .vs-map .tiles { position: absolute; inset: 0; overflow: hidden; background: #ece6dc; }
 .vs-map .tiles img { position: absolute; width: 256px; height: 256px; max-width: none; filter: saturate(1.15) sepia(.08); transition: transform 1.2s var(--ease); }
-.vs-map:hover .tiles img { transform: scale(1.015); }
 .map-pin { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 2; pointer-events: none; }
 .map-pin b { position: absolute; left: -10px; top: -10px; width: 20px; height: 20px; border-radius: 50%; background: var(--seal); box-shadow: 0 0 0 4px #fff, 0 6px 18px rgba(0, 0, 0, .35); }
 .map-pin i { position: absolute; left: -60px; top: -60px; width: 120px; height: 120px; border-radius: 50%; border: 1.5px solid var(--seal); animation: mapring 3.2s var(--ease) infinite; }
@@ -265,7 +264,6 @@ h2 em { color: var(--brass); }
 .map-tag b { font: 400 24px/1 var(--serif); color: var(--brass); }
 .map-tag span { font-size: 12px; letter-spacing: .04em; color: var(--mute); }
 .map-tag u { text-decoration: none; color: var(--bone); border-bottom: 1px solid var(--faint); }
-.vs-map:hover .map-tag { transform: translateY(-4px); }
 .map-attr { position: absolute; right: 0; bottom: 0; z-index: 2; padding: 3px 8px; font-size: 10px; color: rgba(13, 11, 10, .7); background: rgba(255, 255, 255, .75); }
 .vs-door { position: absolute; left: -40px; bottom: -50px; width: 34%; aspect-ratio: 4 / 5; overflow: hidden; border: 8px solid var(--ink); }
 .vs-door img { width: 100%; height: 100%; object-fit: cover; }

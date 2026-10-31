@@ -481,7 +481,6 @@ ul, ol { list-style: none; }
 .map { display: block; color: inherit; }
 .map .tiles { position: absolute; inset: 0; overflow: hidden; background: #ece6dc; }
 .map .tiles img { position: absolute; width: 256px; height: 256px; max-width: none; filter: saturate(1.1) sepia(.06); transition: transform 1.2s var(--ease); }
-.map:hover .tiles img { transform: scale(1.015); }
 .map .pin { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 2; }
 .map .pin b { position: absolute; left: -10px; top: -10px; width: 20px; height: 20px; border-radius: 50%; background: var(--pop); box-shadow: 0 0 0 4px #fff, 0 6px 18px rgba(0, 0, 0, .3); }
 .map .pin i { position: absolute; left: -60px; top: -60px; width: 120px; height: 120px; border-radius: 50%; border: 1.5px solid var(--pop); animation: ring 3s var(--ease) infinite; }
@@ -489,7 +488,6 @@ ul, ol { list-style: none; }
 .map .tag { position: absolute; left: calc(50% + 22px); top: calc(50% - 84px); z-index: 2; display: flex; flex-direction: column; gap: 5px; padding: 12px 15px 13px; background: var(--ink); color: var(--paper); border-radius: 3px; box-shadow: 0 14px 30px -10px rgba(0, 0, 0, .45); transition: transform .5s var(--ease); }
 .map .tag b { font: 800 17px/1 var(--sans); letter-spacing: -.02em; }
 .map .tag span { font: 400 11px/1 var(--mono); letter-spacing: .06em; color: var(--pop); }
-.map:hover .tag { transform: translateY(-4px); }
 .map .attr { position: absolute; right: 0; bottom: 0; z-index: 2; padding: 3px 8px; font-size: 10px; color: rgba(18, 17, 16, .7); background: rgba(255, 255, 255, .75); }
 
 /* ===== menu as a photo grid (KYŌ-style cards) ===== */
