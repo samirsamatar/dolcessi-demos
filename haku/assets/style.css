@@ -188,7 +188,6 @@ ul, ol { list-style: none; }
 .mq { display: flex; gap: 14px; width: max-content; animation: mq 60s linear infinite; }
 .mq + .mq { margin-top: 14px; animation-direction: reverse; animation-duration: 70s; }
 .mq .ph { width: clamp(180px, 17vw, 260px); aspect-ratio: 4 / 5; flex: none; }
-.imp:hover .mq { animation-play-state: paused; }
 @keyframes mq { to { transform: translateX(-50%); } }
 
 /* reviews */
