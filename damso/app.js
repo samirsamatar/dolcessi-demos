@@ -149,13 +149,12 @@ setSpot(2);
 
 /* ---------- voices ---------- */
 const REVIEWS = [
+  ["Such a hidden gem! Food was delicious, people are so friendly there.", "Google review"],
   ["It was very delicious, served in a hot stone bowl.", "KatGdny · Tripadvisor"],
-  ["Authentic Korean food and very friendly staff.", "Claes · Tripadvisor"],
-  ["Het beste Koreaanse eten dat je buiten Korea zal proeven.", "Your Little Black Book"],
-  ["Best Korean I've ever had.", "Flynn L · Tripadvisor"],
-  ["A bit like a home away from home.", "travelwise24 · Tripadvisor"]
+  ["Nostalgic taste I missed from Korea.", "Google review"],
+  ["We loved the post-it notes on the walls, we left a couple ourselves.", "Google review"]
 ];
-$("#vc").innerHTML = REVIEWS.map(([q, c]) => `<figure class="vq"><q>${q}</q><cite>${c}</cite></figure>`).join("");
+$("#vc").innerHTML = REVIEWS.map(([q, c]) => `<figure class="vq"><span class="stars" aria-hidden="true">★★★★★</span><q>${q}</q><cite>${c}</cite></figure>`).join("");
 
 /* ---------- our own map: full colour, no other businesses, the whole thing opens Google Maps ---------- */
 $$("[data-lat]").forEach(el => {
@@ -170,7 +169,7 @@ $$("[data-lat]").forEach(el => {
 
 /* ---------- motion ---------- */
 const vqs = $$(".vq");
-if (!window.gsap) { $$(".ct, .cf").forEach(e => e.style.cssText = "visibility:visible;clip-path:none;position:relative;transform:none"); vqs[0].style.cssText = "opacity:1;visibility:visible"; return; }
+if (!window.gsap) { $$(".ct, .cf").forEach(e => e.style.cssText = "visibility:visible;clip-path:none;position:relative;transform:none"); return; }
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 gsap.config({ force3D: true });
@@ -258,9 +257,7 @@ gsap.from(".spot", { scale: 0, autoAlpha: 0, duration: .8, stagger: .1, ease: "b
 gsap.from(".ft-kr", { yPercent: 30, autoAlpha: 0, duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: ".foot", start: "top 90%" } });
 
 // voices: one at a time
-let vi = 0; gsap.set(vqs[0], { autoAlpha: 1 });
-setInterval(() => { if (document.hidden) return; const a = vqs[vi]; vi = (vi + 1) % vqs.length; const b = vqs[vi];
-  gsap.to(a, { autoAlpha: 0, y: -20, duration: .8, ease: "power2.in" }); gsap.fromTo(b, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1.2, delay: .7, ease: "expo.out" }); }, 5600);
+gsap.from(".vq", { y: 30, autoAlpha: 0, duration: 1, stagger: .08, ease: "expo.out", scrollTrigger: { trigger: "#vc", start: "top 85%" } });
 
 addEventListener("load", () => ScrollTrigger.refresh());
 
