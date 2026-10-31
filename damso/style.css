@@ -252,20 +252,21 @@ h2 em { color: var(--brass); }
 .vs-links a { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); font: 400 26px/1.1 var(--serif); }
 .vs-links a i { font-style: normal; font-size: 18px; transition: transform .5s var(--ease); }
 .vs-links a:hover i { transform: translateX(6px); }
-.vs-map { position: relative; min-height: 560px; }
-.vs-map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
-.map-base { filter: grayscale(1) invert(.9) contrast(.88) sepia(.18) brightness(.92); }
-/* Damso's block in full colour, the rest of the map stays quiet */
-.map-glow { -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0 52px, transparent 128px); mask-image: radial-gradient(circle at 50% 50%, #000 0 52px, transparent 128px); filter: saturate(1.25) sepia(.2) brightness(.8) contrast(1.05); }
+.vs-map { position: relative; display: block; min-height: 560px; color: inherit; }
+.vs-map .tiles { position: absolute; inset: 0; overflow: hidden; background: #ece6dc; }
+.vs-map .tiles img { position: absolute; width: 256px; height: 256px; max-width: none; filter: saturate(1.15) sepia(.08); transition: transform 1.2s var(--ease); }
+.vs-map:hover .tiles img { transform: scale(1.015); }
 .map-pin { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 2; pointer-events: none; }
-.map-pin i { position: absolute; left: -70px; top: -70px; width: 140px; height: 140px; border-radius: 50%; border: 1px solid var(--brass); animation: mapring 3.2s var(--ease) infinite; }
+.map-pin b { position: absolute; left: -10px; top: -10px; width: 20px; height: 20px; border-radius: 50%; background: var(--seal); box-shadow: 0 0 0 4px #fff, 0 6px 18px rgba(0, 0, 0, .35); }
+.map-pin i { position: absolute; left: -60px; top: -60px; width: 120px; height: 120px; border-radius: 50%; border: 1.5px solid var(--seal); animation: mapring 3.2s var(--ease) infinite; }
 .map-pin i + i { animation-delay: 1.6s; }
-@keyframes mapring { 0% { transform: scale(.35); opacity: .9; } 100% { transform: scale(1.25); opacity: 0; } }
-.map-tag { position: absolute; left: calc(50% + 30px); top: calc(50% - 96px); z-index: 2; display: flex; flex-direction: column; gap: 2px; padding: 10px 14px 11px; background: var(--ink); border: 1px solid rgba(198, 164, 108, .55); pointer-events: none; }
-.map-tag b { font: 400 20px/1 var(--serif); color: var(--brass); }
-.map-tag span { font-size: 11px; letter-spacing: .08em; color: var(--mute); }
-.map-open { position: absolute; right: 14px; top: 14px; z-index: 2; padding: 10px 14px; background: rgba(13, 11, 10, .9); border: 1px solid var(--line); font: 600 10.5px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; transition: background .35s, color .35s; }
-.map-open:hover { background: var(--bone); color: var(--ink); }
+@keyframes mapring { 0% { transform: scale(.25); opacity: .9; } 100% { transform: scale(1.2); opacity: 0; } }
+.map-tag { position: absolute; left: calc(50% + 24px); top: calc(50% - 86px); z-index: 2; display: flex; flex-direction: column; gap: 5px; padding: 13px 16px 14px; background: var(--ink); box-shadow: 0 14px 30px -10px rgba(0, 0, 0, .5); transition: transform .5s var(--ease); }
+.map-tag b { font: 400 24px/1 var(--serif); color: var(--brass); }
+.map-tag span { font-size: 12px; letter-spacing: .04em; color: var(--mute); }
+.map-tag u { text-decoration: none; color: var(--bone); border-bottom: 1px solid var(--faint); }
+.vs-map:hover .map-tag { transform: translateY(-4px); }
+.map-attr { position: absolute; right: 0; bottom: 0; z-index: 2; padding: 3px 8px; font-size: 10px; color: rgba(13, 11, 10, .7); background: rgba(255, 255, 255, .75); }
 .vs-door { position: absolute; left: -40px; bottom: -50px; width: 34%; aspect-ratio: 4 / 5; overflow: hidden; border: 8px solid var(--ink); }
 .vs-door img { width: 100%; height: 100%; object-fit: cover; }
 

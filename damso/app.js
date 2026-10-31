@@ -138,6 +138,17 @@ const REVIEWS = [
 ];
 $("#vc").innerHTML = REVIEWS.map(([q, c]) => `<figure class="vq"><q>${q}</q><cite>${c}</cite></figure>`).join("");
 
+/* ---------- our own map: full colour, no other businesses, the whole thing opens Google Maps ---------- */
+$$("[data-lat]").forEach(el => {
+  const lat = +el.dataset.lat, lng = +el.dataset.lng, z = +el.dataset.z || 16, box = $(".tiles", el), n = 2 ** z;
+  const px = (lng + 180) / 360 * n * 256, sn = Math.sin(lat * Math.PI / 180), py = (.5 - Math.log((1 + sn) / (1 - sn)) / (4 * Math.PI)) * n * 256;
+  const draw = () => { const w = box.clientWidth, h = box.clientHeight, x0 = px - w / 2, y0 = py - h / 2; let html = "";
+    for (let tx = Math.floor(x0 / 256); tx <= Math.floor((x0 + w) / 256); tx++) for (let ty = Math.floor(y0 / 256); ty <= Math.floor((y0 + h) / 256); ty++)
+      html += `<img alt="" draggable="false" loading="lazy" src="https://${"abcd"[(tx + ty) & 3]}.basemaps.cartocdn.com/rastertiles/voyager/${z}/${tx}/${ty}@2x.png" style="left:${Math.round(tx * 256 - x0)}px;top:${Math.round(ty * 256 - y0)}px">`;
+    box.innerHTML = html; };
+  draw(); let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(draw, 200); });
+});
+
 /* ---------- motion ---------- */
 const vqs = $$(".vq");
 if (!window.gsap) { $$(".ct, .cf").forEach(e => e.style.cssText = "visibility:visible;clip-path:none;position:relative;transform:none"); vqs[0].style.cssText = "opacity:1;visibility:visible"; return; }
@@ -222,7 +233,7 @@ gsap.from(".yr", { y: 60, autoAlpha: 0, duration: 1.4, ease: "expo.out", scrollT
 // reveals
 $$(".mn-head > *, .rs-head > *, .vs-info > *, .book, .voices .lbl, .vc-meta").forEach(el => gsap.from(el, { y: 34, autoAlpha: 0, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
 gsap.from(".mn-list li", { y: 30, autoAlpha: 0, duration: 1.1, stagger: .06, ease: "expo.out", scrollTrigger: { trigger: ".mn-list", start: "top 85%" } });
-$$(".room, .vs-map").forEach(el => gsap.from(el, { clipPath: "inset(0% 0% 100% 0%)", duration: 1.5, ease: "expo.inOut", scrollTrigger: { trigger: el, start: "top 85%" } }));
+$$(".room, .vs-map .tiles").forEach(el => gsap.from(el, { clipPath: "inset(0% 0% 100% 0%)", duration: 1.5, ease: "expo.inOut", clearProps: "clipPath", scrollTrigger: { trigger: el, start: "top 85%" } }));
 gsap.from(".room img", { scale: 1.2, duration: 2, ease: "expo.out", scrollTrigger: { trigger: ".room", start: "top 85%" } });
 gsap.from(".spot", { scale: 0, autoAlpha: 0, duration: .8, stagger: .1, ease: "back.out(2)", delay: .8, scrollTrigger: { trigger: ".room", start: "top 85%" } });
 gsap.from(".ft-kr", { yPercent: 30, autoAlpha: 0, duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: ".foot", start: "top 90%" } });

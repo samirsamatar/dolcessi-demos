@@ -109,6 +109,17 @@ const goTo = y => lenis ? lenis.scrollTo(y, { duration: 1.1 }) : scrollTo({ top:
 $$('a[href^="#"]').forEach(a => a.addEventListener("click", e => { const el = $(a.getAttribute("href")); if (!el) return; e.preventDefault(); goTo(el.getBoundingClientRect().top + scrollY - (page === "menu" ? 150 : 80)); }));
 if (location.hash && $(location.hash)) addEventListener("load", () => setTimeout(() => goTo($(location.hash).getBoundingClientRect().top + scrollY - (page === "menu" ? 150 : 80)), 300));
 
+/* ---------- our own map: full colour, no other businesses, the whole thing opens Google Maps ---------- */
+$$("[data-lat]").forEach(el => {
+  const lat = +el.dataset.lat, lng = +el.dataset.lng, z = +el.dataset.z || 16, box = $(".tiles", el), n = 2 ** z;
+  const px = (lng + 180) / 360 * n * 256, sn = Math.sin(lat * Math.PI / 180), py = (.5 - Math.log((1 + sn) / (1 - sn)) / (4 * Math.PI)) * n * 256;
+  const draw = () => { const w = box.clientWidth, h = box.clientHeight, x0 = px - w / 2, y0 = py - h / 2; let html = "";
+    for (let tx = Math.floor(x0 / 256); tx <= Math.floor((x0 + w) / 256); tx++) for (let ty = Math.floor(y0 / 256); ty <= Math.floor((y0 + h) / 256); ty++)
+      html += `<img alt="" draggable="false" loading="lazy" src="https://${"abcd"[(tx + ty) & 3]}.basemaps.cartocdn.com/rastertiles/voyager/${z}/${tx}/${ty}@2x.png" style="left:${Math.round(tx * 256 - x0)}px;top:${Math.round(ty * 256 - y0)}px">`;
+    box.innerHTML = html; };
+  draw(); let t; addEventListener("resize", () => { clearTimeout(t); t = setTimeout(draw, 200); });
+});
+
 /* ===================== HOME ===================== */
 if (page === "home") {
   // the 白 window: a hole in the plaster that the café zooms through

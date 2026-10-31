@@ -11,7 +11,7 @@
 <link rel="preload" href="fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/instrument-serif-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="img/g/hero.jpg">
-<link rel="stylesheet" href="style.css?v=12">
+<link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
 
@@ -150,14 +150,13 @@
         <a href="#reserve"><span data-nl="Reserveren">Reserve a table</span><i>&rarr;</i></a>
       </div>
     </div>
-    <div class="vs-map">
-      <iframe class="map-base" title="Map: Damso, Dorpsstraat 88, Amstelveen" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Damso+Korean+Restaurant,+Dorpsstraat+88,+1182+JG+Amstelveen&amp;z=16&amp;output=embed"></iframe>
-      <iframe class="map-glow" aria-hidden="true" tabindex="-1" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Damso+Korean+Restaurant,+Dorpsstraat+88,+1182+JG+Amstelveen&amp;z=16&amp;output=embed"></iframe>
-      <span class="map-pin" aria-hidden="true"><i></i><i></i></span>
-      <p class="map-tag" aria-hidden="true"><b>Damso</b><span>Dorpsstraat 88</span></p>
-      <a class="map-open" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Damso+Korean+Restaurant+Dorpsstraat+88+Amstelveen"><span data-nl="Open in Google Maps">Open in Google Maps</span> &nearr;</a>
+    <a class="vs-map" id="vs-map" data-lat="52.301411" data-lng="4.8463115" data-z="16" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Damso+Korean+Restaurant+Dorpsstraat+88+Amstelveen" aria-label="Open Damso in Google Maps">
+      <div class="tiles" aria-hidden="true"></div>
+      <span class="map-pin" aria-hidden="true"><i></i><i></i><b></b></span>
+      <span class="map-tag"><b>Damso</b><span>Dorpsstraat 88 · <u data-nl="Open in Maps">Open in Maps</u> &nearr;</span></span>
+      <small class="map-attr">&copy; OpenStreetMap &middot; &copy; CARTO</small>
       <figure class="vs-door"><img src="img/g/s-door.jpg" alt="Damso's front door on Dorpsstraat" loading="lazy"></figure>
-    </div>
+    </a>
   </section>
 </main>
 
@@ -176,6 +175,6 @@
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
-<script src="app.js?v=10"></script>
+<script src="app.js?v=20"></script>
 </body>
 </html>
