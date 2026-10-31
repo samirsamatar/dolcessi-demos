@@ -264,49 +264,6 @@ setInterval(() => { if (document.hidden) return; const a = vqs[vi]; vi = (vi + 1
 
 addEventListener("load", () => ScrollTrigger.refresh());
 
-// steam rising off the hot stone bowl (WebGL, light), bending away from the cursor
-(() => {
-  const cv = $("#steam"); if (!cv || reduce) return;
-  const gl = cv.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: false }); if (!gl) return;
-  const VS = "attribute vec2 p; void main(){ gl_Position = vec4(p,0.,1.); }";
-  const FS = `precision mediump float; uniform vec2 R; uniform float T; uniform vec2 M; uniform float A; uniform vec2 S;
-    float h(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }
-    float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f); return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
-    float fbm(vec2 p){ float v = 0., a = .5; for (int i = 0; i < 5; i++){ v += a*n(p); p = p*2.03 + 7.1; a *= .5; } return v; }
-    void main(){
-      vec2 uv = gl_FragCoord.xy / R, asp = vec2(R.x/R.y, 1.);
-      vec2 p = uv * asp;
-      vec2 m = M * asp, d = p - m; float md = length(d);
-      float t = T * .16;
-      vec2 q = vec2(fbm(p*1.7 + vec2(0., -t*1.6)), fbm(p*1.7 + vec2(4.3, -t*1.3)));
-      float s = fbm(p*2.3 + q*2.2 + vec2(t*.2, -t*2.4));
-      vec2 src = S * asp; float dx = (p.x - src.x);
-      float col = exp(-dx*dx*2.2) * smoothstep(S.y - .25, S.y + .05, uv.y) * (1. - smoothstep(.62, 1.02, uv.y));
-      float a = smoothstep(.34, .78, s) * col * A * .8;
-      gl_FragColor = vec4(vec3(a), a);
-    }`;
-  const sh = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
-  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr);
-  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
-  gl.useProgram(pr);
-  const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-  const loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const U = k => gl.getUniformLocation(pr, k), uR = U("R"), uT = U("T"), uM = U("M"), uA = U("A"), uS = U("S");
-  const scale = MOB() ? .35 : .5;
-  function size() { cv.width = Math.round(cv.clientWidth * scale); cv.height = Math.round(cv.clientHeight * scale); gl.viewport(0, 0, cv.width, cv.height); }
-  size(); addEventListener("resize", size);
-  let mx = -1, my = -1, tx = -1, ty = -1;
-  addEventListener("pointermove", e => { const r = cv.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; ty = 1 - (e.clientY - r.top) / r.height; }, { passive: true });
-  let on = true, amt = 0, fr = false; const ts = performance.now();
-  new IntersectionObserver(es => { on = es[0].isIntersecting; }).observe(cv);
-  (function loop() {
-    requestAnimationFrame(loop); if (!on || scrollY > innerHeight) return; if (MOB() && (fr = !fr)) return;
-    const t = (performance.now() - ts) / 1000; amt = Math.min(1, Math.max(0, (t - 1.4) / 2));
-    mx += (tx - mx) * .08; my += (ty - my) * .08;
-    gl.uniform2f(uR, cv.width, cv.height); gl.uniform1f(uT, t); gl.uniform2f(uM, mx, my); gl.uniform1f(uA, amt);
-    gl.uniform2f(uS, MOB() ? .5 : .56, MOB() ? .42 : .35);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-  })();
-})();
+
 window.__ready = true;
 })();

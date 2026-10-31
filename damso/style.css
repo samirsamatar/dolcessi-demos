@@ -380,3 +380,6 @@ h2 em { color: var(--brass); }
   .hero-sub { font-size: 14px; margin-top: 18px; }
   .hero-btns { margin-top: 24px; } .hb { padding: 15px 20px; font-size: 14px; }
 }
+
+.hero-img img { object-position: 62% 50%; }
+@media (max-width: 899px) { .hero-img img { object-position: 74% 50%; } }
