@@ -352,3 +352,31 @@ h2 em { color: var(--brass); }
   body.in-cat .mbar { transform: translateY(140%); }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .intro-t .w { opacity: 1; } .rv-img { clip-path: none; } }
+
+/* ===== hero, KYŌ-style: vivid photo, bold sans, a live pill, two clear buttons ===== */
+@font-face { font-family: "Inter Tight"; font-weight: 800; src: url(fonts/inter-tight-latin-800-normal.woff2) format("woff2"); font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; src: url(fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2"); font-display: swap; }
+.hero-img picture { display: block; width: 100%; height: 100%; }
+.hero-img::after { background: linear-gradient(to top, rgba(13, 11, 10, .8) 0, rgba(13, 11, 10, .2) 45%, rgba(13, 11, 10, 0) 65%), linear-gradient(to right, rgba(13, 11, 10, .62), rgba(13, 11, 10, .1) 60%, rgba(13, 11, 10, 0)), linear-gradient(to bottom, rgba(13, 11, 10, .45), rgba(13, 11, 10, 0) 20%); }
+.hero-in { top: 50%; bottom: auto; transform: translateY(-46%); max-width: min(980px, 86vw); }
+.hero-pill { display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px; border-radius: 99px; background: var(--bone); color: var(--ink); font: 400 12px/1 "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 28px; }
+.hero-pill b { font-weight: 400; } .hero-pill .sep { opacity: .5; }
+.hero-pill .dot { box-shadow: none; }
+.hero h1 { font: 800 clamp(58px, 8.4vw, 156px)/.86 "Inter Tight", var(--sans); letter-spacing: -.045em; text-transform: uppercase; color: #fff; }
+.hero h1 .dim { color: #d8ccb6; }
+.hero-sub { margin-top: 28px; max-width: 34ch; font: 400 clamp(15px, 1.25vw, 19px)/1.55 "JetBrains Mono", monospace; color: rgba(255, 255, 255, .88); }
+.hero-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.hb { display: inline-flex; align-items: center; gap: 10px; padding: 17px 26px; border-radius: 99px; font: 700 15px/1 var(--sans); color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .85); transition: background .35s, color .35s, box-shadow .35s; }
+.hb i { font-style: normal; transition: transform .5s var(--ease); }
+.hb:hover i { transform: translateX(4px); }
+.hb.solid { background: var(--bone); color: var(--ink); box-shadow: none; }
+.hb.solid:hover { background: var(--seal); color: #fff; }
+.hb:not(.solid):hover { background: rgba(255, 255, 255, .12); }
+#burst { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10000; }
+@media (max-width: 899px) {
+  .hero-in { top: auto; bottom: 40px; transform: none; }
+  .hero h1 { font-size: clamp(46px, 13vw, 72px); }
+  .hero-pill { font-size: 10.5px; padding: 9px 14px; margin-bottom: 20px; }
+  .hero-sub { font-size: 14px; margin-top: 18px; }
+  .hero-btns { margin-top: 24px; } .hb { padding: 15px 20px; font-size: 14px; }
+}

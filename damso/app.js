@@ -6,6 +6,25 @@ const MOB = () => innerWidth < 900;
 const TZ = "Europe/Amsterdam";
 const TEST = /[?&]test/.test(location.search);
 
+/* ---------- KYŌ-style click: a little ring of dots on every click, links too ---------- */
+if (!reduce) (() => {
+  const cv = document.createElement("canvas"); cv.id = "burst"; cv.setAttribute("aria-hidden", "true");
+  const g = cv.getContext("2d"); let dpr = 1, parts = [], running = false;
+  const size = () => { dpr = Math.min(2, devicePixelRatio || 1); cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; };
+  addEventListener("DOMContentLoaded", () => { document.body.appendChild(cv); size(); }); if (document.body) { document.body.appendChild(cv); size(); }
+  addEventListener("resize", size);
+  function frame(t) {
+    g.clearRect(0, 0, cv.width, cv.height); parts = parts.filter(p => t - p.t0 < p.life);
+    for (const p of parts) { const k = (t - p.t0) / p.life, e = 1 - Math.pow(1 - k, 3), r = (5 + p.reach * e) * dpr;
+      g.globalAlpha = 1 - k * k; g.fillStyle = p.c; g.beginPath(); g.arc(p.x * dpr + Math.cos(p.a) * r, p.y * dpr + Math.sin(p.a) * r, Math.max(0, p.s * (1 - k) * dpr), 0, 6.283); g.fill(); }
+    if (parts.length) requestAnimationFrame(frame); else { running = false; g.clearRect(0, 0, cv.width, cv.height); }
+  }
+  addEventListener("pointerdown", e => { if (e.button !== 0) return;
+    const c = "#e2412e", n = 9, t0 = performance.now(), off = Math.random() * 6.283;
+    for (let i = 0; i < n; i++) parts.push({ x: e.clientX, y: e.clientY, c, a: off + i / n * 6.283 + (Math.random() - .5) * .25, reach: 20 + Math.random() * 10, s: 2.5 + Math.random() * .8, t0, life: 640 + Math.random() * 160 });
+    if (!running) { running = true; requestAnimationFrame(frame); } }, { passive: true, capture: true });
+})();
+
 /* ---------- language ---------- */
 const LANG = (() => {
   const q = new URLSearchParams(location.search).get("lang");
@@ -171,7 +190,7 @@ if (!reduce) {
   gsap.fromTo(".hero-img", { clipPath: `circle(${MOB() ? 28 : 16}% at ${C})` }, { clipPath: `circle(150% at ${C})`, duration: 2.1, ease: "expo.inOut", delay: .2 });
   gsap.fromTo(".hero-img img", { scale: 1.35, rotate: -7 }, { scale: 1.04, rotate: 0, duration: 2.8, ease: "expo.inOut", delay: .2 });
   gsap.from(".hero h1 .ln > *", { yPercent: 110, duration: 1.5, stagger: .12, ease: "expo.out", delay: 1.55 });
-  gsap.from(".hero-in .lbl, .hero-side .hs-row, .nav", { y: 20, autoAlpha: 0, duration: 1.2, stagger: .07, ease: "expo.out", delay: 1.85 });
+  gsap.from(".hero-pill, .hero-sub, .hero-btns, .nav", { y: 20, autoAlpha: 0, duration: 1.2, stagger: .08, ease: "expo.out", delay: 1.8 });
   gsap.to(".hero-img img", { yPercent: 7, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
 }
 ScrollTrigger.create({ trigger: ".hero", start: "bottom 80px", end: "max", toggleClass: { targets: "#nav", className: "solid" } });
@@ -258,7 +277,6 @@ addEventListener("load", () => ScrollTrigger.refresh());
       vec2 uv = gl_FragCoord.xy / R, asp = vec2(R.x/R.y, 1.);
       vec2 p = uv * asp;
       vec2 m = M * asp, d = p - m; float md = length(d);
-      p += normalize(d + 1e-4) * .16 * exp(-md*md*9.);
       float t = T * .16;
       vec2 q = vec2(fbm(p*1.7 + vec2(0., -t*1.6)), fbm(p*1.7 + vec2(4.3, -t*1.3)));
       float s = fbm(p*2.3 + q*2.2 + vec2(t*.2, -t*2.4));
