@@ -186,21 +186,18 @@ if (page === "home") {
 
 /* ===================== MENU ===================== */
 if (page === "menu") {
-  const peek = $$("#peek img"), cap = $("#peek-cap");
-  const idx = {}; peek.forEach(im => { const n = im.getAttribute("src").split("/").pop().replace(".jpg", ""); idx[n] = im; });
-  const show = (n, label) => { peek.forEach(im => im.classList.toggle("on", im === idx[n])); if (label) cap.textContent = label; };
-  show("carafe", "Hover a drink");
-  $$(".it").forEach(it => it.addEventListener("mouseenter", () => show(it.dataset.ph, $("b", it).firstChild.textContent.trim())));
   // hot / iced filter
   $("#seg").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
     $$("#seg button").forEach(x => x.classList.toggle("on", x === b));
-    const f = b.dataset.f; $$(".grp:not(#pourover):not(#bakes) .it").forEach(it => it.classList.toggle("hide", f !== "all" && it.dataset.t !== f));
+    const f = b.dataset.f; $$(".grp:not(#pourover):not(#bakes) .mc").forEach(c => c.classList.toggle("hide", f !== "all" && c.dataset.t !== f));
     if (window.ScrollTrigger) ScrollTrigger.refresh(); });
   // tabs follow the section you're in
   const tabs = $$("#tabs a"), grps = tabs.map(a => $(a.getAttribute("href")));
   const spy = () => { let k = 0; grps.forEach((g, i) => { if (g && g.getBoundingClientRect().top < innerHeight * .35) k = i; });
     tabs.forEach((t, i) => t.classList.toggle("on", i === k)); };
   addEventListener("scroll", spy, { passive: true }); spy();
+  // cards rise in as you reach them
+  $$(".mc, .po").forEach((c, i) => { c.classList.add("rv"); c.style.transitionDelay = (i % 4) * 60 + "ms"; io.observe(c); });
 }
 
 /* ===================== STORY ===================== */
