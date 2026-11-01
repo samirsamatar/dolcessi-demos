@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hoi Tin Café 海天 · Matcha & coffee on the Zeedijk</title>
+<meta name="description" content="Hoi Tin Café, Zeedijk 119 Amsterdam. Japanese matcha, specialty coffee, Hong Kong milk tea and buns from the family bakery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&text=%E6%B5%B7%E5%A4%A9%E6%B8%AF%E5%BC%8F%E5%A5%B6%E8%8C%B6%E8%8F%A0%E8%98%BF%E5%8C%85&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"Hoi Tin Café","email":"contact@hoitincafe.nl","servesCuisine":["Coffee","Matcha","Hong Kong"],
+"address":{"@type":"PostalAddress","streetAddress":"Zeedijk 119","postalCode":"1012 AW","addressLocality":"Amsterdam","addressCountry":"NL"},
+"geo":{"@type":"GeoCoordinates","latitude":52.3735145,"longitude":4.9002758},
+"openingHoursSpecification":[
+{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"18:00"},
+{"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"09:00","closes":"18:00"}]}
+</script>
+<style>
+/* ── KYŌ system: one green, warm beiges, khaki, near-black. Inter heavy + JetBrains Mono. ── */
+:root{
+  --green:#004225; --green-2:#0b5a35; --matcha:#7fa64a;
+  --bg:#E8E4DC; --bg-2:#F5F3EF; --sand:#D0CABC; --khaki:#A09579; --ink:#121212;
+  --mute:rgba(18,18,18,.62);
+  --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace; --han:'Noto Serif TC',serif;
+  --pad:clamp(16px,4vw,48px); --max:1240px; --r:20px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--green);color:var(--bg-2)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.g{color:var(--green)}
+.han{font-family:var(--han);font-weight:900}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;font-weight:600;font-size:14px;transition:background .3s,color .3s,transform .3s var(--ease),border-color .3s;white-space:nowrap}
+.pill:hover{transform:translateY(-1px)}
+.pill.white{background:#fff;color:var(--ink)}
+.pill.white:hover{background:var(--bg-2)}
+.pill.ghost{border:1.5px solid rgba(255,255,255,.7);color:#fff}
+.pill.ghost:hover{background:#fff;color:var(--ink)}
+.pill.green{background:var(--green);color:var(--bg-2)}
+.pill.green:hover{background:var(--green-2)}
+.pill.line{border:1.5px solid var(--ink)}
+.pill.line:hover{background:var(--ink);color:var(--bg-2)}
+.pill .ar{transition:transform .3s var(--ease)}
+.pill:hover .ar{transform:translateX(3px)}
+.chip{display:inline-flex;align-items:center;gap:8px;height:28px;padding:0 12px;border-radius:999px;background:#fff;color:var(--ink);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* ── header ── */
+header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .4s,color .4s,box-shadow .4s;color:#fff}
+header .in{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;gap:28px}
+.logo{display:flex;align-items:baseline;gap:8px;font-weight:900;font-size:19px;letter-spacing:-.03em}
+.logo .han{font-size:17px;letter-spacing:0}
+nav.main{display:flex;gap:24px;margin-left:12px}
+nav.main a{font-size:13.5px;font-weight:500;opacity:.9;position:relative}
+nav.main a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1.5px;background:currentColor;transition:right .35s var(--ease)}
+nav.main a:hover::after,nav.main a.on::after{right:0}
+header .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+header .pill{height:34px;font-size:13px;padding:0 14px}
+header.solid{background:rgba(232,228,220,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);box-shadow:0 1px 0 rgba(18,18,18,.08)}
+header.solid .pill.ghost{border-color:var(--ink);color:var(--ink)}
+header.solid .pill.ghost:hover{background:var(--ink);color:var(--bg-2)}
+.burger{display:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18)}
+header.solid .burger{background:rgba(18,18,18,.06)}
+.burger span{display:block;width:16px;height:1.5px;background:currentColor;margin:4px auto;transition:transform .3s}
+#mnav{position:fixed;inset:0;z-index:49;background:var(--green);color:var(--bg-2);padding:110px var(--pad) 40px;display:flex;flex-direction:column;gap:6px;transform:translateY(-100%);transition:transform .6s var(--ease)}
+#mnav.open{transform:none}
+#mnav a{font-weight:900;font-size:44px;letter-spacing:-.04em;line-height:1.1}
+#mnav .mono{margin-top:auto;opacity:.7;line-height:1.8}
+@media (max-width:860px){nav.main,header .right .hide-m{display:none}.burger{display:block}}
+
+/* ── hero: living matcha swirl ── */
+.hero{position:relative;min-height:100svh;color:#fff;overflow:hidden;display:flex;align-items:flex-end;background:#08311b}
+.swirl{position:absolute;inset:-20%;filter:blur(38px) saturate(1.15);}
+.swirl i{position:absolute;border-radius:50%;mix-blend-mode:screen;opacity:.9}
+.swirl i:nth-child(1){width:60vw;height:60vw;left:5%;top:10%;background:radial-gradient(circle at 40% 40%,#7fa64a,#2f6b2c 45%,transparent 70%);animation:d1 22s ease-in-out infinite alternate}
+.swirl i:nth-child(2){width:55vw;height:55vw;right:0;top:-5%;background:radial-gradient(circle,#b9cf7a,#4f8a35 40%,transparent 70%);animation:d2 26s ease-in-out infinite alternate;opacity:.55}
+.swirl i:nth-child(3){width:50vw;height:50vw;left:30%;bottom:-10%;background:radial-gradient(circle,#e9eccf,#8fb15a 30%,transparent 65%);animation:d3 19s ease-in-out infinite alternate;opacity:.45}
+.swirl i:nth-child(4){width:70vw;height:40vw;left:-10%;bottom:5%;background:radial-gradient(ellipse,#004225,transparent 70%);animation:d2 30s ease-in-out infinite alternate-reverse;mix-blend-mode:multiply;opacity:1}
+@keyframes d1{to{transform:translate(18vw,8vh) scale(1.2) rotate(30deg)}}
+@keyframes d2{to{transform:translate(-14vw,14vh) scale(.85)}}
+@keyframes d3{to{transform:translate(-10vw,-12vh) scale(1.25)}}
+.foam{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.16;mix-blend-mode:overlay}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),transparent 30%,transparent 55%,rgba(0,30,15,.55))}
+.hero .han-mark{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);font-size:clamp(120px,22vw,340px);line-height:1;color:rgba(255,255,255,.08);z-index:1;user-select:none}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:clamp(40px,8vw,90px)}
+.hero h1{font-weight:900;font-size:clamp(46px,8.2vw,112px);line-height:.9;letter-spacing:-.045em;text-transform:uppercase;margin:18px 0 18px;max-width:11ch}
+.hero p{font-family:var(--mono);font-size:14px;line-height:1.6;max-width:430px;opacity:.92}
+.hero .btns{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.scroll-cue{position:absolute;left:50%;bottom:22px;z-index:2;width:22px;height:36px;border:1.5px solid rgba(255,255,255,.6);border-radius:20px;transform:translateX(-50%)}
+.scroll-cue::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:2px;background:#fff;transform:translateX(-50%);animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{60%{transform:translate(-50%,10px);opacity:0}100%{opacity:0}}
+@media (max-width:640px){.scroll-cue{display:none}}
+
+/* ── reveal ── */
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* ── break line ── */
+.break{padding:clamp(90px,13vw,150px) 0;text-align:center}
+.break p{font-weight:700;font-size:clamp(20px,2.4vw,30px);letter-spacing:-.025em}
+
+/* ── duo cards ── */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tile{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;color:#fff;display:flex;align-items:flex-end;isolation:isolate}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.4s var(--ease)}
+.tile:hover img{transform:scale(1.05)}
+.tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 45%,rgba(0,30,15,.78))}
+.tile .t{padding:clamp(18px,3vw,30px)}
+.tile h3{font-weight:800;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.03em}
+.tile p{font-family:var(--mono);font-size:12.5px;opacity:.88;margin:8px 0 16px;max-width:300px;line-height:1.5}
+.tile .pill{height:34px;font-size:13px}
+@media (max-width:760px){.duo{grid-template-columns:1fr}.tile{aspect-ratio:4/4.6}}
+
+/* ── reviews ── */
+.sec{padding:clamp(70px,9vw,110px) 0}
+.revs{display:grid;grid-template-columns:minmax(260px,300px) 1fr;gap:28px;align-items:center}
+.revs h2,.h2{font-weight:900;font-size:clamp(28px,3vw,38px);letter-spacing:-.04em;line-height:1}
+.stars{color:#E9A93A;letter-spacing:2px;font-size:15px;margin-top:12px}
+.revs .mono{color:var(--mute);margin-top:6px;line-height:1.6}
+.rail-wrap{position:relative;min-width:0}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth;padding-bottom:4px}
+.rail::-webkit-scrollbar{display:none}
+.rc{flex:0 0 clamp(230px,24vw,270px);scroll-snap-align:start;background:var(--bg-2);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.rc .who{display:flex;align-items:center;gap:10px}
+.rc .av{width:32px;height:32px;border-radius:50%;background:var(--green);color:var(--bg-2);display:grid;place-items:center;font-weight:700;font-size:13px}
+.rc .who b{font-size:13.5px;display:block}
+.rc .who small{font-family:var(--mono);font-size:10.5px;color:var(--mute)}
+.rc .gl{margin-left:auto;font-weight:800;font-size:15px;background:linear-gradient(90deg,#4285F4,#EA4335,#FBBC05,#34A853);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rc p{font-size:14px;line-height:1.5;color:#333}
+.arrows{display:flex;gap:8px;justify-content:flex-end;margin-bottom:12px}
+.arr{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(18,18,18,.25);display:grid;place-items:center;font-size:14px;transition:background .25s,color .25s,border-color .25s}
+.arr:hover{background:var(--ink);color:var(--bg-2);border-color:var(--ink)}
+.dark .arr{border-color:rgba(255,255,255,.35)}
+.dark .arr:hover{background:#fff;color:var(--ink)}
+@media (max-width:760px){.revs{grid-template-columns:1fr}}
+
+/* ── hello banner ── */
+.hello{position:relative;border-radius:var(--r);overflow:hidden;min-height:clamp(380px,40vw,500px);display:flex;align-items:center;color:#fff;isolation:isolate}
+.hello img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;z-index:-2}
+.hello::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,20,14,.82) 0%,rgba(10,20,14,.55) 45%,rgba(10,20,14,.05) 80%)}
+.hello .t{padding:clamp(24px,5vw,56px);max-width:520px}
+.hello h2{font-weight:900;font-size:clamp(34px,4.6vw,58px);letter-spacing:-.045em;line-height:.95;margin:16px 0 14px}
+.hello p{font-family:var(--mono);font-size:13px;line-height:1.7;opacity:.9;margin-bottom:22px}
+
+/* ── signature drinks (dark green band) ── */
+.dark{background:var(--green);color:var(--bg-2)}
+.band-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+.band-head .label{opacity:.65;display:block;margin-bottom:8px}
+.prod{flex:0 0 clamp(200px,22vw,250px);scroll-snap-align:start}
+.prod .ph{aspect-ratio:1/1.08;border-radius:14px;overflow:hidden;background:var(--sand);position:relative}
+.prod .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.prod:hover .ph img{transform:scale(1.06)}
+.prod .ph.type{display:grid;place-items:center;background:#0d4f2e}
+.prod .ph.type .han{font-size:clamp(46px,5vw,64px);color:#e9e4d6;line-height:1.1;text-align:center}
+.prod .ph.type.cream{background:var(--bg-2)}
+.prod .ph.type.cream .han{color:var(--green)}
+.prod b{display:block;font-size:14.5px;margin-top:12px}
+.prod small{font-family:var(--mono);font-size:11px;opacity:.65}
+.dark .rail{gap:14px}
+
+/* ── stamp card banner (gift card in KYŌ) ── */
+.stamp{background:var(--green);color:var(--bg-2);border-radius:var(--r);padding:22px clamp(20px,3vw,32px);display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.stamp .ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center}
+.stamp .ic svg{width:22px;height:22px}
+.stamp b{display:block;font-weight:800;font-size:clamp(18px,2vw,24px);letter-spacing:-.02em}
+.stamp small{font-family:var(--mono);font-size:12px;opacity:.75}
+.stamp .dots{display:flex;gap:6px;margin-left:auto}
+.stamp .dots i{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5)}
+.stamp .dots i.on{background:var(--bg-2);border-color:var(--bg-2)}
+.stamp .dots i:last-child{background:#E9A93A;border-color:#E9A93A}
+@media (max-width:760px){.stamp .dots{margin-left:0;width:100%}}
+
+/* ── family split (workshop in KYŌ) ── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,70px);align-items:center}
+.split .ph{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.split .ph img{width:100%;height:100%;object-fit:cover}
+.split .label{color:var(--khaki)}
+.split h2{margin:12px 0 16px}
+.split p{color:var(--mute);line-height:1.65;font-size:15.5px;max-width:460px}
+.ticks{list-style:none;margin:22px 0 26px;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;font-weight:500}
+.ticks svg{flex:0 0 18px;width:18px;height:18px;color:var(--green);margin-top:1px}
+.split .mono{color:var(--khaki);display:block;margin-bottom:16px}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+
+/* ── FAQ ── */
+.faq{max-width:720px;margin:0 auto}
+.faq .h2{text-align:center}
+.faq .sub{text-align:center;color:var(--mute);font-size:14px;margin:10px 0 28px}
+.q{background:var(--bg-2);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.q button{width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 20px;font-weight:600;font-size:15px;text-align:left;gap:16px}
+.q button span{transition:transform .4s var(--ease);font-size:18px;color:var(--green)}
+.q.open button span{transform:rotate(45deg)}
+.q .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.q.open .a{grid-template-rows:1fr}
+.q .a>div{overflow:hidden}
+.q .a p{padding:0 20px 18px;color:var(--mute);line-height:1.65;font-size:14.5px}
+
+/* ── map card ── */
+.mapcard{position:relative;border-radius:var(--r);overflow:hidden;height:clamp(300px,34vw,420px);background:var(--sand)}
+.mapcard iframe{width:100%;height:100%;border:0;filter:grayscale(1) sepia(.25) contrast(.95)}
+.mapcard .tag{position:absolute;left:18px;bottom:18px;background:var(--ink);color:var(--bg-2);border-radius:12px;padding:12px 14px}
+.mapcard .tag b{display:block;font-size:14px}
+.mapcard .tag small{font-family:var(--mono);font-size:11px;opacity:.7}
+.mapcard .go{position:absolute;right:18px;bottom:18px}
+
+/* ── footer ── */
+footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;position:relative}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:28px}
+.fgrid p{font-size:13.5px;color:var(--mute);line-height:1.6;max-width:300px}
+.fgrid h5{font-size:13px;font-weight:700;margin-bottom:12px}
+.fgrid a,.fgrid span{display:block;font-size:13.5px;color:var(--mute);line-height:2}
+.fgrid a:hover{color:var(--ink)}
+.fword{font-weight:900;letter-spacing:-.06em;line-height:.8;white-space:nowrap;color:rgba(18,18,18,.07);margin-top:40px;text-align:center;user-select:none}
+.fbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 0 22px;border-top:1px solid rgba(18,18,18,.12);font-family:var(--mono);font-size:11px;color:var(--mute)}
+@media (max-width:820px){.fgrid{grid-template-columns:1fr 1fr}}
+
+/* ── inner pages ── */
+.page{display:none}.page.active{display:block}
+.ptop{padding:clamp(120px,14vw,170px) 0 clamp(30px,4vw,50px)}
+.ptop .label{color:var(--khaki)}
+.ptop h1{font-weight:900;font-size:clamp(46px,8vw,104px);letter-spacing:-.05em;line-height:.9;text-transform:uppercase;margin-top:14px;max-width:13ch}
+.ptop p{font-family:var(--mono);font-size:13.5px;color:var(--mute);margin-top:18px;max-width:520px;line-height:1.7}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:64px;z-index:5;padding:12px 0;background:var(--bg)}
+.tab{height:36px;padding:0 16px;border-radius:999px;border:1.5px solid rgba(18,18,18,.2);font-size:13.5px;font-weight:600;transition:all .25s}
+.tab.on,.tab:hover{background:var(--green);border-color:var(--green);color:var(--bg-2)}
+.mgroup{padding:28px 0 6px}
+.mgroup h3{font-weight:900;font-size:clamp(24px,3vw,34px);letter-spacing:-.035em;margin-bottom:8px;display:flex;align-items:baseline;gap:12px}
+.mgroup h3 .han{font-size:.7em;color:var(--green)}
+.item{display:grid;grid-template-columns:1fr auto;gap:6px 20px;padding:18px 0;border-bottom:1px solid rgba(18,18,18,.12)}
+.item b{font-size:17px;font-weight:700}
+.item p{grid-column:1;font-family:var(--mono);font-size:12px;color:var(--mute);line-height:1.5}
+.item .t{grid-column:2;grid-row:1/3;align-self:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:rgba(0,66,37,.08);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.mnote{font-family:var(--mono);font-size:12px;color:var(--mute);padding:26px 0 80px}
+
+.story-block{padding:clamp(60px,8vw,100px) 0;border-top:1px solid rgba(18,18,18,.1)}
+.story-block .label{color:var(--khaki)}
+.story-block h2{font-weight:900;font-size:clamp(38px,6vw,80px);letter-spacing:-.05em;line-height:.92;margin:14px 0 20px;max-width:14ch}
+.story-block p{font-size:17px;line-height:1.65;color:var(--mute);max-width:560px}
+.story-split{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,70px);align-items:center}
+.story-split .ph{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.story-split .ph img{width:100%;height:100%;object-fit:cover}
+.meaning{display:flex;gap:clamp(20px,4vw,60px);margin-top:30px}
+.meaning div{display:flex;flex-direction:column;gap:6px}
+.meaning .han{font-size:clamp(70px,9vw,120px);line-height:1;color:var(--green)}
+.meaning .mono{color:var(--mute)}
+@media (max-width:820px){.story-split{grid-template-columns:1fr}}
+
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:start;padding-bottom:80px}
+.hours{border-top:1px solid rgba(18,18,18,.15);margin-top:20px}
+.hours div{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(18,18,18,.15);font-family:var(--mono);font-size:13.5px}
+.hours div.today{color:var(--green);font-weight:500}
+.openp{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;background:var(--bg-2);border-radius:999px;padding:8px 14px;margin-top:20px}
+.openp i{width:8px;height:8px;border-radius:50%;background:#2e9b4f;animation:pulse 1.8s infinite}
+.openp.closed i{background:#c0583b;animation:none}
+@keyframes pulse{50%{opacity:.3}}
+.addr{font-weight:800;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;line-height:1.1}
+@media (max-width:820px){.visit-grid{grid-template-columns:1fr}}
+
+/* ── cookie blob (KYŌ "Matcha Cookie?") ── */
+#cookie{position:fixed;left:20px;bottom:20px;z-index:70;width:min(300px,calc(100% - 40px));background:var(--green);color:var(--bg-2);padding:28px 26px 24px;border-radius:58% 42% 52% 48% / 46% 54% 46% 54%;box-shadow:0 18px 50px rgba(0,40,20,.35);transform:scale(.6) translateY(40px);opacity:0;pointer-events:none;transition:transform .8s var(--ease),opacity .5s;animation:blob 9s ease-in-out infinite}
+#cookie.show{transform:none;opacity:1;pointer-events:auto}
+@keyframes blob{50%{border-radius:44% 56% 48% 52% / 55% 45% 55% 45%}}
+#cookie .ico{font-size:28px;line-height:1}
+#cookie h4{font-weight:900;font-size:24px;letter-spacing:-.035em;margin:8px 0 6px}
+#cookie p{font-size:12.5px;line-height:1.5;opacity:.85;margin-bottom:14px}
+#cookie .row{display:flex;gap:8px}
+#cookie .pill{height:34px;font-size:13px;padding:0 15px}
+#cookie .pill.no{border:1.5px solid rgba(255,255,255,.55);color:#fff}
+#cookie .pill.no:hover{background:rgba(255,255,255,.12)}
+
+/* ── click puff ── */
+.puff{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;will-change:transform,opacity}
+
+/* page fade */
+#veil{position:fixed;inset:0;z-index:80;background:var(--green);pointer-events:none;opacity:0;transition:opacity .35s ease}
+#veil.on{opacity:1}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<!-- Concept demo by Dolcessi for Hoi Tin Café. Not the official site. -->
+<div id="veil"></div>
+
+<header id="hdr">
+  <div class="in">
+    <a href="#/" class="logo">HOI TIN <span class="han">海天</span></a>
+    <nav class="main">
+      <a href="#/" data-nav="home">Our Café</a>
+      <a href="#/menu" data-nav="menu">Menu</a>
+      <a href="#/story" data-nav="story">Our Story</a>
+      <a href="#/visit" data-nav="visit">Visit</a>
+    </nav>
+    <div class="right">
+      <a class="pill ghost hide-m" href="mailto:contact@hoitincafe.nl">Contact</a>
+      <a class="pill white" href="#/visit">Visit us <span class="ar">→</span></a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div id="mnav">
+  <a href="#/">Our Café</a><a href="#/menu">Menu</a><a href="#/story">Our Story</a><a href="#/visit">Visit</a>
+  <div class="mono">Zeedijk 119, Amsterdam<br>contact@hoitincafe.nl</div>
+</div>
+
+<!-- ═════════ HOME ═════════ -->
+<main class="page" data-page="home" data-hero="1">
+  <section class="hero">
+    <div class="swirl" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="foam" aria-hidden="true"></div>
+    <div class="han han-mark" aria-hidden="true">海<br>天</div>
+    <div class="wrap">
+      <span class="chip rv"><i></i>Japanese matcha · Zeedijk</span>
+      <h1 class="rv d1">Poured with a smile</h1>
+      <p class="rv d2">Come by our café at Zeedijk 119, Amsterdam. Japanese matcha, specialty coffee and Hong Kong milk tea, with buns from the family bakery.</p>
+      <div class="btns rv d3">
+        <a class="pill white" href="#/visit">Our Café <span class="ar">→</span></a>
+        <a class="pill ghost" href="#/menu">Menu <span class="ar">→</span></a>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"></div>
+  </section>
+
+  <section class="break wrap"><p class="rv">Silky, green, drawn by hand, <span class="g">every single cup.</span></p></section>
+
+  <section class="wrap">
+    <div class="duo">
+      <a href="#/menu" class="tile rv">
+        <img src="img/matcha-art.webp" alt="Matcha latte with latte art on a Hoi Tin tray" loading="lazy">
+        <div class="t"><h3>Matcha, Drawn by Hand</h3><p>Japanese matcha, whisked and finished with a little drawing on top.</p><span class="pill white">See the menu <span class="ar">→</span></span></div>
+      </a>
+      <a href="#/menu" class="tile rv d1">
+        <img src="img/latte.webp" alt="Flat white with rosetta latte art" loading="lazy">
+        <div class="t"><h3>Your Daily Coffee</h3><p>Specialty coffee with silky milk and a proper rosetta.</p><span class="pill white">Our coffee <span class="ar">→</span></span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="revs">
+      <div class="rv">
+        <h2>Loved by Our Neighbourhood</h2>
+        <div class="stars">★★★★<span style="opacity:.35">★</span></div>
+        <div class="mono">4.3 on Google<br>based on 213 reviews</div>
+      </div>
+      <div class="rail-wrap rv d1">
+        <div class="arrows"><button class="arr" data-rail="r1" data-dir="-1" aria-label="Previous">←</button><button class="arr" data-rail="r1" data-dir="1" aria-label="Next">→</button></div>
+        <div class="rail" id="r1"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="hello rv">
+      <img src="img/matcha-street.webp" alt="Matcha latte with a gingerbread man drawn in the foam, on the Zeedijk" loading="lazy">
+      <div class="t">
+        <span class="chip"><i></i>Visit us in Chinatown</span>
+        <h2>Come Say Hoi</h2>
+        <p>Zeedijk 119, Amsterdam. Two floors, a green bar,<br>and a seat for a chat or a quiet study session.</p>
+        <a class="pill white" href="#/visit">Visit our café <span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark" style="margin-top:clamp(70px,9vw,110px)">
+    <div class="wrap">
+      <div class="band-head">
+        <div><span class="label">The bar & the bakery</span><h2 class="h2">Find Your Favourite</h2></div>
+        <div style="display:flex;gap:8px;align-items:center"><a href="#/menu" class="pill ghost" style="height:34px;font-size:13px">View all</a><button class="arr" data-rail="r2" data-dir="-1" aria-label="Previous">←</button><button class="arr" data-rail="r2" data-dir="1" aria-label="Next">→</button></div>
+      </div>
+      <div class="rail" id="r2">
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/matcha-art-sq.webp" alt="" loading="lazy"></div><b>Matcha Latte</b><small>Hot · latte art on top</small></a>
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/iced-sq.webp" alt="" loading="lazy"></div><b>Iced Matcha</b><small>Add an extra matcha shot</small></a>
+        <a href="#/menu" class="prod"><div class="ph type"><span class="han">菊花<br>抹茶</span></div><b>Iced Chrysanthemum Matcha</b><small>Floral, light, not bitter</small></a>
+        <a href="#/menu" class="prod"><div class="ph type cream"><span class="han">港式<br>奶茶</span></div><b>Hong Kong Milk Tea</b><small>Hot, iced or room temp</small></a>
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/latte-sq.webp" alt="" loading="lazy"></div><b>Flat White</b><small>Specialty coffee</small></a>
+        <a href="#/menu" class="prod"><div class="ph type"><span class="han">菠蘿包</span></div><b>Bolo Bao</b><small>Crispy top, rich butter</small></a>
+        <a href="#/menu" class="prod"><div class="ph type cream"><span class="han">抹茶<br>奶黃包</span></div><b>Matcha Custard Bun</b><small>Soft, light, creamy</small></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-top:clamp(50px,6vw,70px)">
+    <div class="stamp rv">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="8" cy="12" r="1.6"/><circle cx="12.5" cy="12" r="1.6"/><path d="M16 10.5h2.5M16 13.5h2.5"/></svg></div>
+      <div><b>Your 10th drink is on us</b><small>Ask for a stamp card at the bar.</small></div>
+      <div class="dots" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="split">
+      <div class="ph rv"><img src="img/iced.webp" alt="Iced matcha in a Hoi Tin Café cup" loading="lazy"></div>
+      <div>
+        <span class="label rv">From across the street</span>
+        <h2 class="h2 rv d1" style="font-size:clamp(30px,3.6vw,46px)">A New Café From the <span class="g">Hoi Tin</span> Family</h2>
+        <p class="rv d2">Ethan, son of the Hoi Tin family, and Fiene opened this café right across from the family's restaurant on the Zeedijk. Think Hong Kong teahouse, made new.</p>
+        <ul class="ticks rv d3">
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>Japanese matcha and specialty coffee</li>
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>Hong Kong buns and monthly bakery specials</li>
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>Drinks you won't find anywhere else in Amsterdam</li>
+        </ul>
+        <span class="mono rv">Mon–Fri 08:00–18:00 · Sat–Sun 09:00–18:00</span>
+        <a class="pill green rv" href="#/story">Read our story <span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap" style="padding-top:0">
+    <div class="faq">
+      <h2 class="h2 rv">Frequently Asked Questions</h2>
+      <p class="sub rv">Everything you want to know before you drop by</p>
+      <div id="faq"></div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom:clamp(70px,9vw,110px)">
+    <div class="mapcard rv">
+      <iframe title="Map of Hoi Tin Café" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.8955%2C52.3712%2C4.9050%2C52.3758&amp;layer=mapnik&amp;marker=52.3735145%2C4.9002758"></iframe>
+      <div class="tag"><b>Hoi Tin Café</b><small>Zeedijk 119, Amsterdam</small></div>
+      <a class="pill green go" data-maps target="_blank" rel="noopener">Get directions <span class="ar">→</span></a>
+    </div>
+  </section>
+</main>
+
+<!-- ═════════ MENU ═════════ -->
+<main class="page" data-page="menu">
+  <div class="wrap">
+    <div class="ptop"><span class="label">Menu · 菜單</span><h1>Our Menu</h1><p>Matcha, coffee and Hong Kong classics at the bar, buns from the family bakery. A selection; the full menu is at the bar.</p></div>
+    <div class="tabs" id="tabs"><button class="tab on" data-f="all">All</button><button class="tab" data-f="matcha">Matcha</button><button class="tab" data-f="coffee">Coffee</button><button class="tab" data-f="tea">Hong Kong</button><button class="tab" data-f="bakery">Bakery</button></div>
+    <div id="menu"></div>
+    <p class="mnote">Prices at the bar. Menu selection for this concept, based on what guests order most.</p>
+  </div>
+</main>
+
+<!-- ═════════ STORY ═════════ -->
+<main class="page" data-page="story">
+  <div class="wrap">
+    <div class="ptop"><span class="label">Our story</span><h1>Across the Street From Where It Began</h1></div>
+    <section class="story-block story-split">
+      <div>
+        <span class="label">01 · The family</span>
+        <h2 class="rv">One Zeedijk, <span class="g">two</span> Hoi Tins.</h2>
+        <p class="rv">The Hoi Tin restaurant has fed the Zeedijk for years. Ethan, son of the family, and Fiene opened the café right across the street: their first business, and a new chapter for the name.</p>
+      </div>
+      <div class="ph rv"><img src="img/latte.webp" alt="Flat white at Hoi Tin Café" loading="lazy"></div>
+    </section>
+    <section class="story-block">
+      <span class="label">02 · The name</span>
+      <h2 class="rv">Sea and <span class="g">sky.</span></h2>
+      <p class="rv">Hoi Tin is Cantonese for 海天. Two characters you'll find on every napkin, cup and tray in the café.</p>
+      <div class="meaning rv">
+        <div><span class="han">海</span><span class="mono">hoi · sea</span></div>
+        <div><span class="han">天</span><span class="mono">tin · sky</span></div>
+      </div>
+    </section>
+    <section class="story-block story-split">
+      <div class="ph rv"><img src="img/matcha-street.webp" alt="Matcha latte with a gingerbread man in the foam" loading="lazy"></div>
+      <div>
+        <span class="label">03 · The cup</span>
+        <h2 class="rv">A Hong Kong teahouse, <span class="g">made new.</span></h2>
+        <p class="rv">Japanese matcha next to Hong Kong milk tea. Specialty coffee next to a warm bolo bao. Every latte gets a drawing on top, and sometimes it's a gingerbread man.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ═════════ VISIT ═════════ -->
+<main class="page" data-page="visit">
+  <div class="wrap">
+    <div class="ptop"><span class="label">Visit</span><h1>Come Say Hoi</h1></div>
+    <div class="visit-grid">
+      <div>
+        <div class="addr">Zeedijk 119<br>1012 AW Amsterdam</div>
+        <p class="mono" style="color:var(--mute);margin-top:10px;line-height:1.8">Chinatown · a short walk from Centraal Station<br><a href="mailto:contact@hoitincafe.nl" style="color:var(--green)">contact@hoitincafe.nl</a></p>
+        <div class="openp" id="openp"><i></i><span></span></div>
+        <div class="hours" id="hours"></div>
+        <div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap"><a class="pill green" data-maps target="_blank" rel="noopener">Get directions <span class="ar">→</span></a><a class="pill line" href="mailto:contact@hoitincafe.nl">Email us</a></div>
+      </div>
+      <div class="mapcard" style="height:clamp(320px,40vw,480px)">
+        <iframe title="Map of Hoi Tin Café" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.8955%2C52.3712%2C4.9050%2C52.3758&amp;layer=mapnik&amp;marker=52.3735145%2C4.9002758"></iframe>
+        <div class="tag"><b>Hoi Tin Café</b><small>Zeedijk 119</small></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a href="#/" class="logo" style="color:var(--ink)">HOI TIN <span class="han">海天</span></a><p style="margin-top:12px">Japanese matcha, specialty coffee and Hong Kong classics on the Zeedijk, from the family behind Hoi Tin.</p></div>
+      <div><h5>Café</h5><a href="#/menu">Menu</a><a href="#/story">Our Story</a><a href="#/visit">Visit</a></div>
+      <div><h5>Contact</h5><a href="mailto:contact@hoitincafe.nl">contact@hoitincafe.nl</a><a href="https://www.instagram.com/hoitincafe/" target="_blank" rel="noopener">Instagram</a><span>Zeedijk 119, Amsterdam</span></div>
+      <div><h5>Opening Hours</h5><span>Mon–Fri · 08:00–18:00</span><span>Sat–Sun · 09:00–18:00</span></div>
+    </div>
+    <div class="fword" id="fword">HOI TIN <span class="han">海天</span></div>
+    <div class="fbar"><span>© Hoi Tin Café · Amsterdam</span><span>Concept by dolcessi_ · not the official Hoi Tin Café site · reviews from Google</span></div>
+  </div>
+</footer>
+
+<div id="cookie" role="dialog" aria-label="Cookies">
+  <div class="ico">🍵</div>
+  <h4>Matcha with a cookie?</h4>
+  <p>We use a few cookies to keep things running smoothly, like a well-whisked matcha.</p>
+  <div class="row"><button class="pill white" data-ck="yes">Accept</button><button class="pill no" data-ck="no">Decline</button></div>
+</div>
+
+<script src="vendor/lenis.min.js"></script>
+<script>
+const MAPS="https://www.google.com/maps/search/?api=1&query=Hoi+Tin+Cafe+Zeedijk+119+Amsterdam";
+const HOURS=[["Monday","08:00","18:00"],["Tuesday","08:00","18:00"],["Wednesday","08:00","18:00"],["Thursday","08:00","18:00"],["Friday","08:00","18:00"],["Saturday","09:00","18:00"],["Sunday","09:00","18:00"]];
+const REVIEWS=[
+ ["M","Rich, intense and full of flavour. Add the extra matcha shot."],
+ ["S","Iced chrysanthemum matcha: super refreshing, and not at all bitter."],
+ ["L","Unique drink menu, most drinks not seen in many other places."],
+ ["J","Works well for chatty groups or for studying in silence."],
+ ["A","Drink options you don't really see in Amsterdam."],
+ ["N","The matcha custard bun was incredibly soft and delicate."]
+];
+const MENU=[
+ {f:"matcha",g:"Matcha",h:"抹茶",items:[
+  ["Matcha Latte","Japanese matcha, hot with latte art or over ice","Signature"],
+  ["Extra Matcha Shot","Make any matcha drink richer and more intense","Add-on"],
+  ["Iced Chrysanthemum Matcha","Floral, light and refreshing","House special"]]},
+ {f:"coffee",g:"Coffee",h:"咖啡",items:[
+  ["Espresso","Specialty coffee, straight",""],["Flat White","Double shot, silky milk, rosetta on top",""],
+  ["Cappuccino","Proper foam",""],["Latte","Long and smooth",""]]},
+ {f:"tea",g:"Hong Kong",h:"港式",items:[
+  ["Hong Kong Milk Tea","Strong black tea and milk. Hot, iced or room temperature","Classic"]]},
+ {f:"bakery",g:"Bakery",h:"包點",items:[
+  ["Matcha Custard Bun","Soft bun, light and creamy matcha custard","Popular"],
+  ["Bolo Bao","Soft bun with a crispy top and rich butter",""],
+  ["Hong Kong Buns","Classic buns from the family bakery",""],
+  ["Monthly Special","Mooncakes and other seasonal treats","Changes monthly"]]}
+];
+const FAQ=[
+ ["Where is Hoi Tin Café?","At Zeedijk 119 in Amsterdam's Chinatown, across from the Hoi Tin restaurant and a short walk from Centraal Station."],
+ ["What are your opening hours?","Monday to Friday 08:00–18:00, Saturday and Sunday 09:00–18:00."],
+ ["Is the café connected to the Hoi Tin restaurant?","Yes. The café is run by Ethan, son of the Hoi Tin family, and Fiene, right across the street from the family restaurant."],
+ ["Can I sit down to study or work?","Yes. We have two floors, so there's room for a chat at the bar or a quiet study session downstairs."],
+ ["Do you have a loyalty card?","We do. Collect a stamp with every drink and your 10th one is on us."],
+ ["How do I get in touch?","Email us at contact@hoitincafe.nl or send us a message on Instagram."]
+];
+
+/* render */
+document.getElementById('r1').innerHTML=REVIEWS.map(([i,t])=>`<div class="rc"><div class="who"><div class="av han">海</div><div><b>Google review</b><small>Hoi Tin Café</small></div><span class="gl">G</span></div><p>“${t}”</p></div>`).join('');
+document.getElementById('menu').innerHTML=MENU.map(g=>`<section class="mgroup" data-g="${g.f}"><h3>${g.g} <span class="han">${g.h}</span></h3>${g.items.map(([n,d,t])=>`<div class="item"><b>${n}</b><p>${d}</p>${t?`<span class="t">${t}</span>`:''}</div>`).join('')}</section>`).join('');
+document.getElementById('faq').innerHTML=FAQ.map(([q,a])=>`<div class="q rv"><button>${q}<span>+</span></button><div class="a"><div><p>${a}</p></div></div></div>`).join('');
+document.querySelectorAll('[data-maps]').forEach(a=>a.href=MAPS);
+document.getElementById('faq').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const q=b.parentElement;const o=q.classList.contains('open');document.querySelectorAll('.q.open').forEach(x=>x.classList.remove('open'));if(!o)q.classList.add('open');});
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t===b));document.querySelectorAll('.mgroup').forEach(g=>g.style.display=(b.dataset.f==='all'||g.dataset.g===b.dataset.f)?'':'none');});
+document.querySelectorAll('.arr[data-rail]').forEach(b=>b.addEventListener('click',()=>{const r=document.getElementById(b.dataset.rail);r.scrollBy({left:(+b.dataset.dir)*r.clientWidth*.8,behavior:'smooth'});}));
+
+/* hours + open now */
+const now=new Date(),di=(now.getDay()+6)%7,mins=now.getHours()*60+now.getMinutes(),toM=s=>+s.slice(0,2)*60+ +s.slice(3);
+document.getElementById('hours').innerHTML=HOURS.map((h,i)=>`<div class="${i===di?'today':''}"><span>${h[0]}</span><span>${h[1]}–${h[2]}</span></div>`).join('');
+const op=document.getElementById('openp'),open=mins>=toM(HOURS[di][1])&&mins<toM(HOURS[di][2]);
+if(open){op.querySelector('span').textContent=`Open now · until ${HOURS[di][2]}`}
+else{const early=mins<toM(HOURS[di][1]);const k=early?di:(di+1)%7;op.classList.add('closed');op.querySelector('span').textContent=`Closed · opens ${early?'today':'tomorrow'} ${HOURS[k][1]}`}
+
+/* footer wordmark fits width */
+function fitWord(){const f=document.getElementById('fword');f.style.fontSize='100px';const w=f.parentElement.clientWidth;f.style.fontSize=Math.min(260,100*w/f.scrollWidth)+'px';}
+addEventListener('resize',fitWord);
+
+/* header state */
+const hdr=document.getElementById('hdr');
+function hdrState(){const hero=document.querySelector('.page.active[data-hero]');hdr.classList.toggle('solid',!hero||scrollY>60);}
+
+/* reveal */
+let io;function observe(){io&&io.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});document.querySelectorAll('.page.active .rv:not(.in)').forEach(el=>io.observe(el));}
+
+/* router with a soft green veil */
+const veil=document.getElementById('veil'),mnav=document.getElementById('mnav');
+function show(p){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===p));document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===p));window.lenis?lenis.scrollTo(0,{immediate:true}):scrollTo(0,0);hdrState();requestAnimationFrame(()=>{observe();fitWord();});}
+function route(first){const n=location.hash.replace('#/','')||'home';const p=['home','menu','story','visit'].includes(n)?n:'home';mnav.classList.remove('open');if(first)return show(p);veil.classList.add('on');setTimeout(()=>{show(p);veil.classList.remove('on')},360);}
+addEventListener('hashchange',()=>route(false));
+document.getElementById('burger').addEventListener('click',()=>mnav.classList.toggle('open'));
+
+/* smooth scroll */
+try{if(window.Lenis&&!matchMedia('(prefers-reduced-motion:reduce)').matches){window.lenis=new Lenis({lerp:.085,smoothWheel:true});lenis.on('scroll',hdrState);(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);}}catch(e){}
+addEventListener('scroll',hdrState,{passive:true});
+
+/* click puff: a soft ring of matcha dots on every click */
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+document.addEventListener('pointerdown',e=>{
+  if(reduce)return;
+  const el=document.elementFromPoint(e.clientX,e.clientY);
+  const onGreen=el&&el.closest('.dark,#cookie,.hero,.stamp,.pill.green,#mnav,.hello,.tile');
+  const cols=onGreen?['#F5F3EF','#cfe0a6','#E8E4DC']:['#004225','#3d7a3a','#7fa64a'];
+  const n=14;
+  for(let i=0;i<n;i++){
+    const d=document.createElement('i'),s=3+Math.random()*5,a=(i/n)*Math.PI*2+(Math.random()-.5)*.5,r=22+Math.random()*30;
+    d.className='puff';d.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-s/2}px;top:${e.clientY-s/2}px;background:${cols[i%3]}`;
+    document.body.appendChild(d);
+    const dx=Math.cos(a)*r,dy=Math.sin(a)*r;
+    d.animate([{transform:'translate(0,0) scale(.4)',opacity:0},{transform:`translate(${dx*.55}px,${dy*.55}px) scale(1)`,opacity:1,offset:.25},{transform:`translate(${dx}px,${dy+8}px) scale(.2)`,opacity:0}],{duration:700+Math.random()*250,easing:'cubic-bezier(.22,1,.36,1)'}).onfinish=()=>d.remove();
+  }
+},{passive:true});
+
+/* cookie */
+const ck=document.getElementById('cookie');let ckd=null;try{ckd=localStorage.getItem('hoitin-ck')}catch(e){}
+if(!ckd)setTimeout(()=>ck.classList.add('show'),1600);
+ck.querySelectorAll('[data-ck]').forEach(b=>b.addEventListener('click',()=>{try{localStorage.setItem('hoitin-ck',b.dataset.ck)}catch(e){}ck.classList.remove('show')}));
+
+route(true);
+document.fonts&&document.fonts.ready.then(fitWord);
+requestAnimationFrame(()=>document.querySelectorAll('.hero .rv').forEach(el=>el.classList.add('in')));
+</script>
+</body>
+</html>
