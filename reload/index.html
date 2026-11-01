@@ -131,19 +131,6 @@ nav a:hover::after,nav a.on::after{right:0}
 .charge svg{width:min(360px,90%);height:auto;justify-self:center}
 @media (max-width:820px){.charge .stick{grid-template-columns:1fr;align-content:center;gap:10px;text-align:left}.charge svg{width:min(210px,60%);order:-1}}
 
-/* ───────── Window block ───────── */
-.window{position:relative;border-radius:26px;overflow:hidden;min-height:clamp(340px,52vw,620px);background:
-  linear-gradient(115deg,#2a2622 0%,#5a4636 32%,#8b6b4c 48%,#3b332c 64%,#151311 100%);display:flex;align-items:flex-end;padding:clamp(20px,4vw,48px)}
-.window::before{content:"";position:absolute;inset:0;background:
-  repeating-linear-gradient(90deg,transparent 0 9%,rgba(255,255,255,.08) 9% 9.4%,transparent 9.4% 18%),
-  repeating-linear-gradient(0deg,transparent 0 12%,rgba(255,255,255,.06) 12% 12.5%,transparent 12.5% 24%);opacity:.8}
-.window::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.22),transparent 40%,transparent 70%,rgba(255,255,255,.08))}
-.window .glass{position:relative;z-index:2;color:#F3F3F0;width:100%}
-.window .glass .w{font-weight:900;font-size:clamp(70px,15vw,220px);letter-spacing:-.055em;line-height:.8;opacity:.94}
-.window .glass .c{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:12px;flex-wrap:wrap}
-.window .glass .c span:last-child{font-weight:500;font-size:clamp(16px,2vw,26px);letter-spacing:.03em}
-.window .menu-ghost{position:absolute;left:clamp(20px,4vw,48px);top:clamp(20px,4vw,48px);z-index:2;color:rgba(255,255,255,.6);line-height:1.9}
-
 /* ───────── Visit strip / footer ───────── */
 .visit-strip{display:grid;grid-template-columns:repeat(3,1fr);border-top:1.5px solid var(--ink)}
 .visit-strip>div{padding:28px var(--pad);border-right:1.5px solid var(--ink)}
@@ -194,6 +181,59 @@ footer .fb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;ma
 @keyframes pulse{50%{opacity:.25}}
 @media (max-width:820px){.visit{grid-template-columns:1fr;align-items:start}}
 
+
+/* ───────── Break line (Kyō-style) ───────── */
+.break{padding:clamp(90px,14vw,190px) var(--pad);text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px}
+.break .mono{opacity:.5}
+.lit{font-weight:800;font-size:clamp(28px,4.6vw,68px);line-height:1.05;letter-spacing:-.04em;max-width:16ch;text-transform:uppercase}
+.lit em{font-style:normal}
+.lit .w{opacity:.14;transition:opacity .35s}
+.lit .w.on{opacity:1}
+.lit em .w.on{background:var(--volt);box-shadow:.12em 0 0 var(--volt),-.06em 0 0 var(--volt)}
+
+/* ───────── Photos ───────── */
+.ph{position:relative;overflow:hidden;border-radius:22px;background:#e8e8e4}
+.ph img{display:block;width:100%;height:115%;object-fit:cover;margin-top:-7.5%;will-change:transform;transition:scale 1.2s var(--ease)}
+.ph:hover img{scale:1.04}
+.ph.rv{opacity:1;transform:none;clip-path:inset(18% 8% 18% 8% round 22px);transition:clip-path 1.3s var(--ease)}
+.ph.rv.in{clip-path:inset(0 0 0 0 round 22px)}
+.ph figcaption{position:absolute;left:14px;bottom:14px;background:var(--paper);color:var(--ink);padding:7px 11px;border-radius:999px;font-size:11px}
+.feed{padding:0 var(--pad) clamp(80px,12vw,160px)}
+.collage{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;align-items:start}
+.ph-a{grid-column:1/6;aspect-ratio:3/4}
+.ph-b{grid-column:6/10;aspect-ratio:3/4;margin-top:clamp(60px,12vw,180px)}
+.ph-c{grid-column:10/13;aspect-ratio:1/1;margin-top:clamp(10px,3vw,40px)}
+.collage-note{grid-column:10/13;align-self:end;font-weight:800;font-size:clamp(18px,1.8vw,26px);letter-spacing:-.03em;line-height:1.1;text-transform:uppercase}
+@media (max-width:820px){
+  .collage{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1*var(--pad));padding:0 var(--pad) 10px;scrollbar-width:none}
+  .collage::-webkit-scrollbar{display:none}
+  .collage .ph{flex:0 0 78%;scroll-snap-align:center;margin-top:0;aspect-ratio:3/4}
+  .collage-note{flex:0 0 60%;align-self:center;scroll-snap-align:center}
+}
+
+/* ───────── Blend ───────── */
+.blend{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,80px);align-items:center}
+.blend-ph{aspect-ratio:4/5}
+.blend-ph .tag{position:absolute;top:16px;left:16px;background:var(--volt);padding:8px 12px;border-radius:999px}
+.blend h2{font-weight:900;font-size:clamp(40px,6vw,96px);line-height:.88;letter-spacing:-.05em;text-transform:uppercase;margin:14px 0 22px}
+.blend p{font-weight:500;font-size:17px;line-height:1.55;color:var(--mute);max-width:460px}
+.specs{margin-top:28px;border-top:1.5px solid var(--ink)}
+.specs div{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:13px 0;border-bottom:1.5px solid var(--line)}
+.specs dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.55;padding-top:3px}
+.specs dd{font-weight:700;font-size:16px}
+@media (max-width:820px){.blend{grid-template-columns:1fr}}
+
+/* ───────── Hello card ───────── */
+.hello{position:relative;border-radius:26px;overflow:hidden;min-height:clamp(440px,48vw,640px);display:flex;align-items:flex-end;color:var(--paper)}
+.hello img{position:absolute;inset:-8% 0;width:100%;height:116%;object-fit:cover;will-change:transform}
+.hello::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,.82),rgba(10,10,10,.35) 60%,rgba(10,10,10,.1))}
+.hello-in{position:relative;z-index:2;padding:clamp(22px,4vw,56px)}
+.hello h2{font-weight:900;font-size:clamp(46px,7vw,110px);line-height:.86;letter-spacing:-.05em;text-transform:uppercase;margin:18px 0}
+.hello .hl{color:var(--ink)}
+.pill{display:inline-block;border:1.5px solid rgba(246,246,243,.6);border-radius:999px;padding:7px 12px}
+.hello .btn.line{border-color:var(--paper)}
+.hello .btn.line:hover{background:var(--paper);color:var(--ink)}
+
 /* ───────── Cookie ───────── */
 #cookie{position:fixed;left:var(--pad);bottom:var(--pad);z-index:50;width:min(340px,calc(100% - 2*var(--pad)));background:var(--volt);color:var(--ink);border-radius:26px 26px 26px 6px;padding:22px;transform:translateY(140%) rotate(-4deg);transition:transform .8s var(--ease);box-shadow:0 20px 50px rgba(0,0,0,.18)}
 #cookie.show{transform:none}
@@ -228,7 +268,7 @@ footer .fb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;ma
   <div class="row"><div class="pct" id="pct">0</div><div class="mono" style="text-align:right">Reloading<br>Amsterdam</div></div>
   <div class="bar"><i id="bar"></i></div>
 </div>
-<div id="wipe"><span>RELOAD</span></div>
+<div id="wipe"><span id="wipeTxt">HOME</span></div>
 
 <header>
   <a href="#/" class="logo">RELOAD <small>COFFEE</small></a>
@@ -260,7 +300,7 @@ footer .fb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;ma
         <svg class="badge" viewBox="0 0 120 120" aria-hidden="true">
           <defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
           <circle cx="60" cy="60" r="34" fill="var(--volt)"/>
-          <text><textPath href="#circ">FRESH DAILY • RELOAD • AMSTERDAM •</textPath></text>
+          <text><textPath href="#circ">FRESH DAILY • DE PIJP • AMSTERDAM •</textPath></text>
           <path d="M53 52 l14 8 -14 8z" fill="var(--ink)"/>
         </svg>
         <svg class="cup" id="heroCup" viewBox="0 0 220 330" aria-label="RELOAD hot cup"></svg>
@@ -268,11 +308,32 @@ footer .fb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;ma
     </div>
   </section>
 
+  
+  <!-- quiet break, Kyō-style: one line, lights up word by word -->
+  <section class="break" id="break">
+    <span class="mono">The house blend, in one line</span>
+    <p class="lit" id="lit">Smooth, chocolatey, a little floral. <em>Exactly on time.</em></p>
+  </section>
+
+  <!-- their Instagram, editorial collage with parallax -->
+  <section class="feed">
+    <div class="sec-head">
+      <h2 class="rv">On the<br><span class="hl">street.</span></h2>
+      <span class="mono rv">From the feed · Saenredamstraat</span>
+    </div>
+    <div class="collage">
+      <figure class="ph ph-a rv"><img src="img/street.webp" alt="Flat white to go, on Saenredamstraat" data-speed=".06" loading="lazy"><figcaption class="mono">01 · To go, always</figcaption></figure>
+      <figure class="ph ph-b rv"><img src="img/cup.webp" alt="A cup inside the café" data-speed="-.05" loading="lazy"><figcaption class="mono">02 · Inside</figcaption></figure>
+      <figure class="ph ph-c rv"><img src="img/matcha.webp" alt="Iced matcha on the street" data-speed=".09" loading="lazy"><figcaption class="mono">03 · Iced matcha</figcaption></figure>
+      <p class="collage-note rv">White cup. Black letters.<br>The rest is up to the coffee.</p>
+    </div>
+  </section>
+
   <div class="marquee" aria-hidden="true"><div class="track" id="mq"></div></div>
 
   <section class="sec">
     <div class="sec-head">
-      <h2 class="rv">Pick your<br><span class="hl">reload.</span></h2>
+      <h2 class="rv">Pick your<br><span class="hl">cup.</span></h2>
       <span class="mono rv">03 house favourites</span>
     </div>
     <div class="cards">
@@ -306,12 +367,33 @@ footer .fb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;ma
     </div>
   </section>
 
-  <section class="sec">
-    <div class="window rv">
-      <div class="menu-ghost mono">Iced latte<br>Matcha<br>Sparkling water<br>Lemonades<br>Alternative milks</div>
-      <div class="glass">
-        <div class="w">RELOAD</div>
-        <div class="c"><span class="mono">You've seen the window. Now come in.</span><span>COFFEE</span></div>
+  <!-- House Blend for home -->
+  <section class="sec blend">
+    <figure class="ph blend-ph rv"><img src="img/blend.webp" alt="House Blend 250 g bags" data-speed="-.04" loading="lazy"><span class="tag mono">New · 250 g</span></figure>
+    <div class="blend-txt">
+      <span class="mono rv" style="opacity:.55">For home</span>
+      <h2 class="rv">The House<br>Blend. <span class="hl">Now 250&nbsp;g.</span></h2>
+      <p class="rv">The coffee behind every cup at the bar, now in 250 g bags to take home. The chocolatey sweetness of Brazil, lifted by the bright, floral side of Ethiopia.</p>
+      <dl class="specs rv">
+        <div><dt>Origin</dt><dd>90% Brazil · 10% Ethiopia</dd></div>
+        <div><dt>Process</dt><dd>Pulped natural</dd></div>
+        <div><dt>Body</dt><dd>Medium to full</dd></div>
+        <div><dt>Notes</dt><dd>Dried raisin · almond · milky chocolate</dd></div>
+        <div><dt>Size</dt><dd>250 g · whole bean</dd></div>
+      </dl>
+      <div class="btns rv"><a class="btn solid" href="#/visit">Pick one up at the bar →</a></div>
+    </div>
+  </section>
+
+  <!-- come say hello -->
+  <section class="sec" style="padding-top:0">
+    <div class="hello rv">
+      <img src="img/window.webp" alt="The café window on Saenredamstraat" data-speed=".05" loading="lazy">
+      <div class="hello-in">
+        <span class="pill mono">Saenredamstraat · De Pijp</span>
+        <h2>Pull up<br>a <span class="hl">bench.</span></h2>
+        <p class="mono" style="opacity:.8;line-height:1.8"><span data-cfg="address"></span>, <span data-cfg-city></span><br>Today: <span class="todayH"></span></p>
+        <div class="btns"><a class="btn volt" data-cfg-href="maps" target="_blank" rel="noopener">Directions →</a><a class="btn line" href="#/menu">See the menu</a></div>
       </div>
     </div>
   </section>
@@ -347,8 +429,8 @@ footer .fb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;ma
     <p class="rv">Most of our coffee leaves the building. Down the street, onto a bench, through the canal ring. So we build every drink to taste just as good at the next corner.</p>
   </section>
   <section class="story-line">
-    <div class="k mono">03 — The name</div>
-    <h2 class="rv">Everyone needs a <span class="hl">reload.</span></h2>
+    <div class="k mono">03 — The stop</div>
+    <h2 class="rv">Five minutes. <span class="hl">Back on.</span></h2>
     <p class="rv">Before class, between meetings, after the gym. A short stop, a full cup, and you're back on.</p>
     <div class="palette rv">
       <div class="sw" style="background:var(--ink);color:var(--paper)"><span class="mono">01</span><b>Ink</b></div>
@@ -363,7 +445,7 @@ footer .fb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;ma
   <section class="visit">
     <div>
       <span class="mono" style="opacity:.55">Visit</span>
-      <h1 class="rv">Come<br><span class="hl">reload.</span></h1>
+      <h1 class="rv">Pull<br><span class="hl">up.</span></h1>
       <div class="open-pill mono" id="openPill"><i></i><span>Open now</span></div>
     </div>
     <div>
@@ -394,7 +476,7 @@ footer .fb{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;ma
   <h4>Cookie with<br>that coffee?</h4>
   <p>We use a few small ones to keep this site fully loaded. No crumbs, promise.</p>
   <div class="btns">
-    <button class="btn solid" data-cookie="yes">Reload me</button>
+    <button class="btn solid" data-cookie="yes">Yes please</button>
     <button class="btn line" data-cookie="no">Black, no cookie</button>
   </div>
 </div>
@@ -462,7 +544,7 @@ function espressoCup(id){return `
   <path d="M42 150 H178 L166 272 Q164 290 146 290 H74 Q56 290 54 272Z" fill="url(#e${id})"/>
   <ellipse cx="110" cy="150" rx="68" ry="12" fill="#2b1a10"/>
   <ellipse cx="110" cy="150" rx="56" ry="8" fill="#a4683a"/>
-  <text x="110" y="232" text-anchor="middle" font-family="Montserrat, Helvetica, Arial, sans-serif" font-weight="900" font-size="22" letter-spacing="-1" fill="#0A0A0A">RELOAD</text>`}
+`}
 
 document.getElementById('heroCup').innerHTML = hotCup('h');
 document.querySelectorAll('[data-cup]').forEach((s,i)=>{
@@ -477,8 +559,7 @@ document.getElementById('fillCup').innerHTML = `
     <rect id="liquid" x="30" y="330" width="160" height="260" fill="#3a2214"/>
     <rect id="crema" x="30" y="330" width="160" height="12" fill="#C6FF1F"/>
   </g>
-  <rect x="38" y="62" width="144" height="18" rx="6" fill="#F6F6F3" opacity=".15"/>
-  <text x="110" y="200" text-anchor="middle" font-family="Montserrat, Helvetica, Arial, sans-serif" font-weight="900" font-size="26" letter-spacing="-1.2" fill="#fff" style="mix-blend-mode:difference">RELOAD</text>`;
+  <rect x="38" y="62" width="144" height="18" rx="6" fill="#F6F6F3" opacity=".15"/>`;
 
 /* ───────── marquee ───────── */
 const words=["Espresso","Flat white","Iced matcha","Iced latte","Lemonades","Sparkling water","Oat · almond · soy"];
@@ -538,6 +619,7 @@ function route(first){
   const name=(location.hash.replace('#/','')||'home');
   const page=['home','menu','story','visit'].includes(name)?name:'home';
   if(first){show(page);return;}
+  document.getElementById('wipeTxt').textContent=page.toUpperCase();
   wipe.className='in';
   setTimeout(()=>{show(page);wipe.className='out';setTimeout(()=>wipe.className='',520);},520);
 }
@@ -556,7 +638,8 @@ const meter=document.getElementById('meter');
 meter.innerHTML='<i></i>'.repeat(10);
 const bars=[...meter.children], charge=document.getElementById('charge');
 const states=[[0,"07:58 — running on empty."],[25,"08:01 — order in."],[55,"08:03 — reloading…"],[85,"08:04 — almost there."],[100,"08:05 — fully loaded. Go."]];
-function onScroll(){
+let onScroll;
+onScroll=function(){
   if(!charge.offsetParent) return;
   const r=charge.getBoundingClientRect(), total=charge.offsetHeight-innerHeight;
   const p=Math.min(1,Math.max(0,-r.top/total)), pct=Math.round(p*100);
@@ -567,12 +650,47 @@ function onScroll(){
   bars.forEach((b,i)=>b.classList.toggle('on',pct>=(i+1)*10));
   let s=states[0][1]; states.forEach(([t,txt])=>{if(pct>=t)s=txt});
   document.getElementById('chargeState').textContent=s;
+};
+/* ───────── today's hours in the hello card ───────── */
+document.querySelectorAll('.todayH').forEach(el=>el.textContent=H[di][1]?`${H[di][1]}–${H[di][2]}`:'closed');
+
+/* ───────── break line: words light up as you scroll ───────── */
+const lit=document.getElementById('lit');
+lit.querySelectorAll('em').forEach(()=>{});
+(function split(node){
+  [...node.childNodes].forEach(n=>{
+    if(n.nodeType===3){
+      const f=document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(t=>{ if(!t)return; if(/^\s+$/.test(t)){f.appendChild(document.createTextNode(t))} else {const sp=document.createElement('span');sp.className='w';sp.textContent=t;f.appendChild(sp)} });
+      n.replaceWith(f);
+    } else split(n);
+  });
+})(lit);
+const litWords=[...lit.querySelectorAll('.w')];
+function onLit(){
+  if(!lit.offsetParent) return;
+  const r=lit.getBoundingClientRect(), vh=innerHeight;
+  const p=Math.min(1,Math.max(0,(vh*.85-r.top)/(vh*.55)));
+  const k=Math.round(p*litWords.length);
+  litWords.forEach((w,i)=>w.classList.toggle('on',i<k));
 }
-addEventListener('scroll',onScroll,{passive:true});
+
+/* ───────── gentle parallax on photos ───────── */
+function onPar(){
+  document.querySelectorAll('.page.active [data-speed]').forEach(img=>{
+    const r=img.parentElement.getBoundingClientRect();
+    const c=r.top+r.height/2-innerHeight/2;
+    img.style.transform=`translateY(${(-c*parseFloat(img.dataset.speed)).toFixed(1)}px)`;
+  });
+}
+const _onScroll=onScroll;
+onScroll=function(){_onScroll();onLit();onPar();};
+
+addEventListener('scroll',()=>onScroll(),{passive:true});
 
 /* ───────── smooth scroll ───────── */
 try{ if(window.Lenis && !matchMedia('(prefers-reduced-motion:reduce)').matches){
-  window.lenis=new Lenis({lerp:.09}); lenis.on('scroll',onScroll);
+  window.lenis=new Lenis({lerp:.09}); lenis.on('scroll',()=>onScroll());
   (function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);
 }}catch(e){}
 
