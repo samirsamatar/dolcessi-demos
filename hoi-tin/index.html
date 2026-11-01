@@ -6,6 +6,8 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Hoi Tin Café 海天 · Matcha & coffee on the Zeedijk</title>
 <meta name="description" content="Hoi Tin Café, Zeedijk 119 Amsterdam. Japanese matcha, specialty coffee, Hong Kong milk tea and buns from the family bakery.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%23004225%22/%3E%3Ctext x=%2232%22 y=%2245%22 font-size=%2236%22 text-anchor=%22middle%22 fill=%22%23F5F3EF%22 font-family=%22serif%22%3E%E6%B5%B7%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#004225">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -54,7 +56,7 @@ img{display:block;max-width:100%}
 .pill.line:hover{background:var(--ink);color:var(--bg-2)}
 .pill .ar{transition:transform .3s var(--ease)}
 .pill:hover .ar{transform:translateX(3px)}
-.chip{display:inline-flex;align-items:center;gap:8px;height:28px;padding:0 12px;border-radius:999px;background:#fff;color:var(--ink);font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase}
+.chip{display:inline-flex;align-items:center;gap:8px;height:28px;padding:0 12px;border-radius:999px;background:#fff;color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 .chip i{width:6px;height:6px;border-radius:50%;background:var(--green)}
 
 /* ── header ── */
@@ -73,7 +75,19 @@ header.solid .pill.ghost{border-color:var(--ink);color:var(--ink)}
 header.solid .pill.ghost:hover{background:var(--ink);color:var(--bg-2)}
 .burger{display:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18)}
 header.solid .burger{background:rgba(18,18,18,.06)}
-.burger span{display:block;width:16px;height:1.5px;background:currentColor;margin:4px auto;transition:transform .3s}
+.burger span{display:block;width:16px;height:1.5px;background:currentColor;margin:4px auto;transition:transform .45s var(--ease)}
+body.menu-open .burger span:first-child{transform:translateY(2.75px) rotate(45deg)}
+body.menu-open .burger span:last-child{transform:translateY(-2.75px) rotate(-45deg)}
+body.menu-open header,body.menu-open header.solid{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;color:var(--bg-2)}
+body.menu-open header .burger{background:rgba(255,255,255,.14)}
+body.menu-open header .lang{border-color:rgba(255,255,255,.4)}
+body.menu-open header .lang::before{background:#fff}
+body.menu-open header .lang button.on{color:var(--ink)}
+body.menu-open #ckwrap{opacity:0;pointer-events:none}
+#mnav a{opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+#mnav.open a{opacity:1;transform:none}
+#mnav.open a:nth-child(2){transition-delay:.05s}#mnav.open a:nth-child(3){transition-delay:.1s}#mnav.open a:nth-child(4){transition-delay:.15s}
+#mnav a.on{color:#b9cf7a}
 #mnav{position:fixed;inset:0;z-index:49;background:var(--green);color:var(--bg-2);padding:110px var(--pad) 40px;display:flex;flex-direction:column;gap:6px;transform:translateY(-100%);transition:transform .6s var(--ease)}
 #mnav.open{transform:none}
 #mnav a{font-weight:900;font-size:44px;letter-spacing:-.04em;line-height:1.1}
@@ -210,6 +224,7 @@ header.solid .burger{background:rgba(18,18,18,.06)}
 /* ── map card ── */
 .mapcard{position:relative;border-radius:var(--r);overflow:hidden;height:clamp(300px,34vw,420px);background:var(--sand)}
 .mapcard iframe{width:100%;height:100%;border:0;filter:grayscale(1) sepia(.25) contrast(.95)}
+@media (hover:none){.mapcard iframe{pointer-events:none}}
 .mapcard .tag{position:absolute;left:18px;bottom:18px;background:var(--ink);color:var(--bg-2);border-radius:12px;padding:12px 14px}
 .mapcard .tag b{display:block;font-size:14px}
 .mapcard .tag small{font-family:var(--mono);font-size:11px;opacity:.7}
@@ -291,10 +306,11 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
 .ptop .label{color:var(--khaki)}
 .ptop h1{font-weight:900;font-size:clamp(46px,8vw,104px);letter-spacing:-.05em;line-height:.9;text-transform:uppercase;margin-top:14px;max-width:13ch}
 .ptop p{font-family:var(--mono);font-size:13.5px;color:var(--mute);margin-top:18px;max-width:520px;line-height:1.7}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:64px;z-index:5;padding:12px 0;background:var(--bg)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:var(--hh,64px);z-index:5;padding:12px 0;background:var(--bg)}
 .tab{height:36px;padding:0 16px;border-radius:999px;border:1.5px solid rgba(18,18,18,.2);font-size:13.5px;font-weight:600;transition:all .25s}
 .tab.on,.tab:hover{background:var(--green);border-color:var(--green);color:var(--bg-2)}
-.mgroup{padding:28px 0 6px}
+.mgroup{padding:28px 0 6px;scroll-margin-top:130px}
+@media (max-width:640px){.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1*var(--pad));padding:10px var(--pad)}.tabs::-webkit-scrollbar{display:none}.tab{flex:0 0 auto}}
 .mgroup h3{font-weight:900;font-size:clamp(24px,3vw,34px);letter-spacing:-.035em;margin-bottom:8px;display:flex;align-items:baseline;gap:12px}
 .mgroup h3 .han{font-size:.7em;color:var(--green)}
 .item{display:grid;grid-template-columns:1fr auto;gap:6px 20px;padding:18px 0;border-bottom:1px solid rgba(18,18,18,.12)}
@@ -374,6 +390,7 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
 /* ── language switch ── */
 .lang{position:relative;display:flex;height:34px;padding:3px;border-radius:999px;border:1.5px solid rgba(255,255,255,.55);font-family:var(--mono);font-size:11.5px;letter-spacing:.06em}
 .lang button{position:relative;z-index:1;width:34px;border-radius:999px;transition:color .35s}
+@media (hover:none){.lang{height:38px}}
 .lang::before{content:"";position:absolute;top:3px;left:3px;width:34px;height:calc(100% - 6px);border-radius:999px;background:#fff;transition:transform .45s var(--ease)}
 .lang.nl::before{transform:translateX(34px)}
 .lang button.on{color:var(--ink)}
@@ -410,7 +427,7 @@ body.switching main.page.active{animation:langfade .45s var(--ease)}
       <div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on" aria-pressed="true">EN</button><button data-lang="nl" aria-pressed="false">NL</button></div>
       <a class="pill ghost hide-m" href="mailto:contact@hoitincafe.nl">Contact</a>
       <a class="pill white" href="#/visit">Visit us <span class="ar">→</span></a>
-      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
     </div>
   </div>
 </header>
@@ -422,7 +439,7 @@ body.switching main.page.active{animation:langfade .45s var(--ease)}
 <!-- ═════════ HOME ═════════ -->
 <main class="page" data-page="home" data-hero="1">
   <section class="hero">
-    <div class="hero-bg" aria-hidden="true"><img src="img/hero-matcha.webp" alt="" fetchpriority="high"></div>
+    <div class="hero-bg" aria-hidden="true"><img src="img/hero-matcha.webp" srcset="img/hero-matcha-1280.webp 1280w, img/hero-matcha.webp 2560w" sizes="100vw" alt="" fetchpriority="high" decoding="async"></div>
     <div class="foam" aria-hidden="true"></div>
     <div class="han han-mark" aria-hidden="true">海<br>天</div>
     <div class="wrap">
@@ -741,6 +758,7 @@ addEventListener('resize',fitWord);
 
 /* header state */
 const hdr=document.getElementById('hdr');
+function setHH(){document.documentElement.style.setProperty('--hh',hdr.offsetHeight+'px')}addEventListener('resize',setHH);setTimeout(setHH,0);
 function hdrState(){const hero=document.querySelector('.page.active[data-hero]');hdr.classList.toggle('solid',!hero||scrollY>60);}
 
 /* reveal */
@@ -749,9 +767,12 @@ let io;function observe(){io&&io.disconnect();io=new IntersectionObserver(es=>es
 /* router with a soft green veil */
 const veil=document.getElementById('veil'),mnav=document.getElementById('mnav');
 function show(p){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===p));document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===p));window.lenis?lenis.scrollTo(0,{immediate:true}):scrollTo(0,0);hdrState();requestAnimationFrame(()=>{observe();fitWord();});}
-function route(first){const n=location.hash.replace('#/','')||'home';const p=['home','menu','story','visit'].includes(n)?n:'home';mnav.classList.remove('open');if(first)return show(p);veil.classList.add('on');setTimeout(()=>{show(p);veil.classList.remove('on')},360);}
+function route(first){const n=location.hash.replace('#/','')||'home';const p=['home','menu','story','visit'].includes(n)?n:'home';setMenu(false);mnav.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===(p==='home'?'#/':'#/'+p)));if(first)return show(p);veil.classList.add('on');setTimeout(()=>{show(p);veil.classList.remove('on')},360);}
 addEventListener('hashchange',()=>route(false));
-document.getElementById('burger').addEventListener('click',()=>mnav.classList.toggle('open'));
+function setMenu(o){mnav.classList.toggle('open',o);document.body.classList.toggle('menu-open',o);document.getElementById('burger').setAttribute('aria-expanded',o);if(window.lenis)o?lenis.stop():lenis.start();document.documentElement.style.overflow=o?'hidden':'';}
+document.getElementById('burger').addEventListener('click',()=>setMenu(!mnav.classList.contains('open')));
+mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
 
 /* smooth scroll */
 try{if(window.Lenis&&!matchMedia('(prefers-reduced-motion:reduce)').matches){window.lenis=new Lenis({lerp:.085,smoothWheel:true});lenis.on('scroll',hdrState);(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);}}catch(e){}
@@ -759,8 +780,8 @@ addEventListener('scroll',hdrState,{passive:true});
 
 /* click puff: a soft ring of matcha dots on every click */
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-document.addEventListener('pointerdown',e=>{
-  if(reduce)return;
+let lastPtr='mouse';
+function puff(e){
   const el=document.elementFromPoint(e.clientX,e.clientY);
   const onGreen=el&&el.closest('.dark,#ckwrap,.hero,.stamp,.pill.green,#mnav,.hello,.tile');
   const cols=onGreen?['#F5F3EF','#cfe0a6','#E8E4DC']:['#004225','#3d7a3a','#7fa64a'];
@@ -772,7 +793,9 @@ document.addEventListener('pointerdown',e=>{
     const dx=Math.cos(a)*r,dy=Math.sin(a)*r;
     d.animate([{transform:'translate(0,0) scale(.4)',opacity:0},{transform:`translate(${dx*.55}px,${dy*.55}px) scale(1)`,opacity:1,offset:.25},{transform:`translate(${dx}px,${dy+8}px) scale(.2)`,opacity:0}],{duration:700+Math.random()*250,easing:'cubic-bezier(.22,1,.36,1)'}).onfinish=()=>d.remove();
   }
-},{passive:true});
+}
+document.addEventListener('pointerdown',e=>{lastPtr=e.pointerType;if(!reduce&&e.pointerType==='mouse')puff(e)},{passive:true});
+document.addEventListener('click',e=>{if(!reduce&&lastPtr!=='mouse'&&e.detail)puff(e)},{passive:true});
 
 /* ── cookies, for real: consent + preferences stored as browser cookies ── */
 const CK={
