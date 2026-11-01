@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&text=%E6%B5%B7%E5%A4%A9%E6%B8%AF%E5%BC%8F%E5%A5%B6%E8%8C%B6%E8%8F%A0%E8%98%BF%E5%8C%85&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&text=%E4%B8%89%E5%80%92%E5%8C%85%E5%92%96%E5%95%A1%E5%96%AE%E5%A4%A9%E5%A5%B6%E5%BC%8F%E6%89%93%E6%8A%B9%E6%96%87%E6%B2%BB%E6%B5%B7%E6%B8%AF%E7%95%AB%E7%AF%A9%E8%8A%B1%E8%8C%B6%E8%8F%8A%E8%8F%9C%E9%BB%83%E9%BB%9E&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"Hoi Tin Café","email":"contact@hoitincafe.nl","servesCuisine":["Coffee","Matcha","Hong Kong"],
 "address":{"@type":"PostalAddress","streetAddress":"Zeedijk 119","postalCode":"1012 AW","addressLocality":"Amsterdam","addressCountry":"NL"},
@@ -82,17 +82,13 @@ header.solid .burger{background:rgba(18,18,18,.06)}
 
 /* ── hero: living matcha swirl ── */
 .hero{position:relative;min-height:100svh;color:#fff;overflow:hidden;display:flex;align-items:flex-end;background:#08311b}
-.swirl{position:absolute;inset:-20%;filter:blur(38px) saturate(1.15);}
-.swirl i{position:absolute;border-radius:50%;mix-blend-mode:screen;opacity:.9}
-.swirl i:nth-child(1){width:60vw;height:60vw;left:5%;top:10%;background:radial-gradient(circle at 40% 40%,#7fa64a,#2f6b2c 45%,transparent 70%);animation:d1 22s ease-in-out infinite alternate}
-.swirl i:nth-child(2){width:55vw;height:55vw;right:0;top:-5%;background:radial-gradient(circle,#b9cf7a,#4f8a35 40%,transparent 70%);animation:d2 26s ease-in-out infinite alternate;opacity:.55}
-.swirl i:nth-child(3){width:50vw;height:50vw;left:30%;bottom:-10%;background:radial-gradient(circle,#e9eccf,#8fb15a 30%,transparent 65%);animation:d3 19s ease-in-out infinite alternate;opacity:.45}
-.swirl i:nth-child(4){width:70vw;height:40vw;left:-10%;bottom:5%;background:radial-gradient(ellipse,#004225,transparent 70%);animation:d2 30s ease-in-out infinite alternate-reverse;mix-blend-mode:multiply;opacity:1}
-@keyframes d1{to{transform:translate(18vw,8vh) scale(1.2) rotate(30deg)}}
-@keyframes d2{to{transform:translate(-14vw,14vh) scale(.85)}}
-@keyframes d3{to{transform:translate(-10vw,-12vh) scale(1.25)}}
-.foam{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.16;mix-blend-mode:overlay}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),transparent 30%,transparent 55%,rgba(0,30,15,.55))}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);animation:push 26s ease-in-out infinite alternate;will-change:transform}
+@keyframes push{0%{transform:scale(1.12) translate(0,0)}100%{transform:scale(1.22) translate(-2%,-1.5%)}}
+.hero-meta{position:absolute;right:var(--pad);bottom:clamp(40px,8vw,90px);z-index:2;display:flex;flex-direction:column;gap:4px;text-align:right;opacity:.7;font-size:11px}
+@media (max-width:760px){.hero-meta{display:none}}
+.foam{position:absolute;inset:0;z-index:1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.16;mix-blend-mode:overlay}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 28%,transparent 50%,rgba(0,20,10,.7)),linear-gradient(90deg,rgba(0,20,10,.45),transparent 60%)}
 .hero .han-mark{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);font-size:clamp(120px,22vw,340px);line-height:1;color:rgba(255,255,255,.08);z-index:1;user-select:none}
 .hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:clamp(40px,8vw,90px)}
 .hero h1{font-weight:900;font-size:clamp(46px,8.2vw,112px);line-height:.9;letter-spacing:-.045em;text-transform:uppercase;margin:18px 0 18px;max-width:11ch}
@@ -228,6 +224,65 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
 .fbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 0 22px;border-top:1px solid rgba(18,18,18,.12);font-family:var(--mono);font-size:11px;color:var(--mute)}
 @media (max-width:820px){.fgrid{grid-template-columns:1fr 1fr}}
 
+
+/* ── new detail sections ── */
+.chip.light{background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(6px);margin-bottom:10px}
+.art{padding:clamp(80px,10vw,120px) 0 0;overflow:hidden}
+.art-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.art-head .label{color:var(--khaki);display:block;margin-bottom:10px}
+.art-head p{max-width:380px;color:var(--mute);font-size:15px;line-height:1.6}
+.art-track{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.art-row{display:flex;gap:14px;width:max-content;animation:artmq 60s linear infinite}
+.art-track:hover .art-row{animation-play-state:paused}
+.art-row figure{flex:0 0 clamp(200px,20vw,260px);aspect-ratio:1/1;border-radius:50%;overflow:hidden;background:var(--sand);transition:transform .6s var(--ease)}
+.art-row figure:nth-child(even){margin-top:36px}
+.art-row figure:hover{transform:scale(1.04) rotate(-3deg)}
+.art-row img{width:100%;height:100%;object-fit:cover}
+@keyframes artmq{to{transform:translateX(-50%)}}
+.badge{position:absolute;top:10px;left:10px;background:var(--bg-2);color:var(--green);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:999px}
+.prod .ph.type .badge{background:#E9A93A;color:var(--ink)}
+.pair-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.pair-head .label{color:var(--khaki);display:block;margin-bottom:10px}
+.pair-head p{max-width:360px;color:var(--mute);font-size:15px;line-height:1.6}
+.pairs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pair{background:var(--bg-2);border-radius:var(--r);padding:16px 16px 22px;transition:transform .5s var(--ease),box-shadow .5s}
+.pair:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,40,20,.10)}
+.pair .pics{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.pair .pics img,.tilemini{flex:1;aspect-ratio:1/1;border-radius:14px;object-fit:cover;min-width:0}
+.tilemini{display:grid;place-items:center;background:var(--green)}
+.tilemini .han{color:#e9e4d6;font-size:clamp(26px,2.6vw,34px);line-height:1.1;text-align:center}
+.tilemini.cream{background:var(--sand)}
+.tilemini.cream .han{color:var(--green)}
+.pair .plus{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg-2);display:grid;place-items:center;font-weight:700}
+.pair .label{color:var(--khaki)}
+.pair h3{font-weight:800;font-size:20px;letter-spacing:-.03em;margin:6px 0 8px}
+.pair p{font-size:14px;color:var(--mute);line-height:1.55}
+.tip{margin-top:14px;display:flex;gap:12px;align-items:center;border:1.5px dashed rgba(0,66,37,.35);border-radius:14px;padding:14px 18px;font-size:14px}
+.tip-ic{color:var(--green);font-size:16px}
+@media (max-width:860px){.pairs{grid-template-columns:1fr}}
+.steps-head{text-align:center;margin-bottom:34px}
+.steps-head .label{color:var(--khaki);display:block;margin-bottom:10px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:s}
+.step{position:relative;background:var(--bg-2);border-radius:var(--r);padding:22px;min-height:230px;display:flex;flex-direction:column;overflow:hidden}
+.step .n{font-family:var(--mono);font-size:11px;color:var(--khaki)}
+.step .han{position:absolute;right:-6px;bottom:-22px;font-size:120px;color:rgba(0,66,37,.07);line-height:1}
+.step b{font-weight:800;font-size:24px;letter-spacing:-.03em;margin:auto 0 8px}
+.step p{font-size:14px;color:var(--mute);line-height:1.55;position:relative}
+.step:last-child{background:var(--green);color:var(--bg-2)}
+.step:last-child p{color:rgba(245,243,239,.75)}
+.step:last-child .han{color:rgba(255,255,255,.08)}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+.split .ph.bw img{filter:grayscale(1) contrast(1.05)}
+.floors{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.floor{border-radius:var(--r);padding:clamp(24px,3vw,36px);background:var(--sand);min-height:220px;display:flex;flex-direction:column}
+.floor.dark{background:var(--green);color:var(--bg-2)}
+.floor .label{color:var(--khaki)}
+.floor.dark .label{color:rgba(245,243,239,.6)}
+.floor h3{font-weight:900;font-size:clamp(26px,3vw,36px);letter-spacing:-.04em;margin:10px 0 10px}
+.floor p{font-size:15px;line-height:1.6;opacity:.8;max-width:360px}
+.floor .mono{margin-top:auto;padding-top:18px;opacity:.7}
+@media (max-width:760px){.floors{grid-template-columns:1fr}}
+
 /* ── inner pages ── */
 .page{display:none}.page.active{display:block}
 .ptop{padding:clamp(120px,14vw,170px) 0 clamp(30px,4vw,50px)}
@@ -352,7 +407,7 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
 <!-- ═════════ HOME ═════════ -->
 <main class="page" data-page="home" data-hero="1">
   <section class="hero">
-    <div class="swirl" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="hero-bg" aria-hidden="true"><img src="img/hero-matcha.webp" alt="" fetchpriority="high"></div>
     <div class="foam" aria-hidden="true"></div>
     <div class="han han-mark" aria-hidden="true">海<br>天</div>
     <div class="wrap">
@@ -364,6 +419,7 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
         <a class="pill ghost" href="#/menu">Menu <span class="ar">→</span></a>
       </div>
     </div>
+    <div class="hero-meta mono rv d3" aria-hidden="true"><span>52.3735° N</span><span>4.9003° E</span><span>Zeedijk 119</span></div>
     <div class="scroll-cue" aria-hidden="true"></div>
   </section>
 
@@ -372,14 +428,23 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
   <section class="wrap">
     <div class="duo">
       <a href="#/menu" class="tile rv">
-        <img src="img/matcha-art.webp" alt="Matcha latte with latte art on a Hoi Tin tray" loading="lazy">
-        <div class="t"><h3>Matcha, Drawn by Hand</h3><p>Japanese matcha, whisked and finished with a little drawing on top.</p><span class="pill white">See the menu <span class="ar">→</span></span></div>
+        <img src="img/matcha-two.webp" alt="Two matcha lattes with stacked faces drawn in the foam" loading="lazy">
+        <div class="t"><span class="chip light">Signature</span><h3>Matcha, Drawn by Hand</h3><p>Japanese matcha, whisked to order and finished with a little face on top.</p><span class="pill white">See the menu <span class="ar">→</span></span></div>
       </a>
       <a href="#/menu" class="tile rv d1">
-        <img src="img/latte.webp" alt="Flat white with rosetta latte art" loading="lazy">
-        <div class="t"><h3>Your Daily Coffee</h3><p>Specialty coffee with silky milk and a proper rosetta.</p><span class="pill white">Our coffee <span class="ar">→</span></span></div>
+        <img src="img/buns.webp" alt="Bolo bao with butter, a twisted bun and an iced matcha latte" loading="lazy">
+        <div class="t"><span class="chip light">From the bakery</span><h3>Fresh Hong Kong Buns</h3><p>Bolo bao with a cold slab of butter, matcha custard buns and monthly specials.</p><span class="pill white">See the bakery <span class="ar">→</span></span></div>
       </a>
     </div>
+  </section>
+
+  <!-- latte-art strip -->
+  <section class="art">
+    <div class="wrap art-head">
+      <div><span class="label">@hoitincafe</span><h2 class="h2 rv">Every Cup Gets <span class="g">a Face</span></h2></div>
+      <p class="rv d1">No two lattes look the same. Our baristas draw a little character on every hot drink, so don't be surprised if yours winks back.</p>
+    </div>
+    <div class="art-track" aria-hidden="true"><div class="art-row" id="artRow"></div></div>
   </section>
 
   <section class="sec wrap">
@@ -398,11 +463,11 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
 
   <section class="wrap">
     <div class="hello rv">
-      <img src="img/matcha-street.webp" alt="Matcha latte with a gingerbread man drawn in the foam, on the Zeedijk" loading="lazy">
+      <img src="img/door.webp" alt="A French bulldog waiting at the door of Hoi Tin Café, the green bar behind" loading="lazy">
       <div class="t">
         <span class="chip"><i></i>Visit us in Chinatown</span>
         <h2>Come Say Hoi</h2>
-        <p>Zeedijk 119, Amsterdam. Two floors, a green bar,<br>and a seat for a chat or a quiet study session.</p>
+        <p>Zeedijk 119, Amsterdam. Look for the green bar<br>and, if you're lucky, a very good boy at the door.</p>
         <a class="pill white" href="#/visit">Visit our café <span class="ar">→</span></a>
       </div>
     </div>
@@ -415,18 +480,33 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
         <div style="display:flex;gap:8px;align-items:center"><a href="#/menu" class="pill ghost" style="height:34px;font-size:13px">View all</a><button class="arr" data-rail="r2" data-dir="-1" aria-label="Previous">←</button><button class="arr" data-rail="r2" data-dir="1" aria-label="Next">→</button></div>
       </div>
       <div class="rail" id="r2">
-        <a href="#/menu" class="prod"><div class="ph"><img src="img/matcha-art-sq.webp" alt="" loading="lazy"></div><b>Matcha Latte</b><small>Hot · latte art on top</small></a>
-        <a href="#/menu" class="prod"><div class="ph"><img src="img/iced-sq.webp" alt="" loading="lazy"></div><b>Iced Matcha</b><small>Add an extra matcha shot</small></a>
-        <a href="#/menu" class="prod"><div class="ph type"><span class="han">菊花<br>抹茶</span></div><b>Iced Chrysanthemum Matcha</b><small>Floral, light, not bitter</small></a>
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/matcha-face-sq.webp" alt="" loading="lazy"><span class="badge">Bestseller</span></div><b>Matcha Latte</b><small>Hot · a face on top</small></a>
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/iced-sq.webp" alt="" loading="lazy"></div><b>Iced Matcha Latte</b><small>+ extra matcha shot</small></a>
+        <a href="#/menu" class="prod"><div class="ph type"><span class="han">菊花<br>抹茶</span><span class="badge">Only here</span></div><b>Iced Chrysanthemum Matcha</b><small>Floral, light, not bitter</small></a>
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/latte-face-sq.webp" alt="" loading="lazy"></div><b>Flat White</b><small>Specialty coffee</small></a>
         <a href="#/menu" class="prod"><div class="ph type cream"><span class="han">港式<br>奶茶</span></div><b>Hong Kong Milk Tea</b><small>Hot, iced or room temp</small></a>
-        <a href="#/menu" class="prod"><div class="ph"><img src="img/latte-sq.webp" alt="" loading="lazy"></div><b>Flat White</b><small>Specialty coffee</small></a>
-        <a href="#/menu" class="prod"><div class="ph type"><span class="han">菠蘿包</span></div><b>Bolo Bao</b><small>Crispy top, rich butter</small></a>
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/bolo-sq.webp" alt="" loading="lazy"></div><b>Bolo Bao with Butter</b><small>Crispy top, cold butter</small></a>
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/sandwich-sq.webp" alt="" loading="lazy"></div><b>Egg & Luncheon Meat Sandwich</b><small>Hong Kong café classic</small></a>
         <a href="#/menu" class="prod"><div class="ph type cream"><span class="han">抹茶<br>奶黃包</span></div><b>Matcha Custard Bun</b><small>Soft, light, creamy</small></a>
       </div>
     </div>
   </section>
 
-  <section class="wrap" style="padding-top:clamp(50px,6vw,70px)">
+  <!-- upsell: pairings -->
+  <section class="sec wrap">
+    <div class="pair-head">
+      <div><span class="label">Perfect pairings</span><h2 class="h2 rv">Never Order a Drink <span class="g">Alone</span></h2></div>
+      <p class="rv d1">Our favourite combinations from the bar and the bakery. Ask for one at the counter.</p>
+    </div>
+    <div class="pairs">
+      <div class="pair rv"><div class="pics"><img src="img/matcha-face-sq.webp" alt="" loading="lazy"><span class="plus">+</span><img src="img/bolo-sq.webp" alt="" loading="lazy"></div><span class="label">The morning</span><h3>Matcha Latte + Bolo Bao</h3><p>Creamy matcha, crackly sweet top, cold butter melting in. The Zeedijk breakfast.</p></div>
+      <div class="pair rv d1"><div class="pics"><div class="tilemini cream"><span class="han">港式<br>奶茶</span></div><span class="plus">+</span><img src="img/sandwich-sq.webp" alt="" loading="lazy"></div><span class="label">The cha chaan teng</span><h3>Milk Tea + Egg Sandwich</h3><p>Strong Hong Kong milk tea with egg and luncheon meat on soft white bread. A classic for a reason.</p></div>
+      <div class="pair rv d2"><div class="pics"><img src="img/iced-sq.webp" alt="" loading="lazy"><span class="plus">+</span><div class="tilemini"><span class="han">奶黃包</span></div></div><span class="label">The afternoon</span><h3>Iced Matcha + Custard Bun</h3><p>Double down on matcha. Add an extra shot to the latte, it's worth it.</p></div>
+    </div>
+    <div class="tip rv"><span class="tip-ic">✦</span><span><b>Barista tip:</b> add an extra matcha shot to any matcha drink for a richer, more intense cup.</span></div>
+  </section>
+
+  <section class="wrap">
     <div class="stamp rv">
       <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="8" cy="12" r="1.6"/><circle cx="12.5" cy="12" r="1.6"/><path d="M16 10.5h2.5M16 13.5h2.5"/></svg></div>
       <div><b>Your 10th drink is on us</b><small>Ask for a stamp card at the bar.</small></div>
@@ -434,9 +514,20 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
     </div>
   </section>
 
+  <!-- how we make it -->
   <section class="sec wrap">
+    <div class="steps-head"><span class="label">How we make it</span><h2 class="h2 rv">From Powder to <span class="g">Portrait</span></h2></div>
+    <div class="steps">
+      <div class="step rv"><span class="n">01</span><span class="han">篩</span><b>Sift</b><p>Japanese matcha goes through a fine sieve, so there's not a single lump.</p></div>
+      <div class="step rv d1"><span class="n">02</span><span class="han">打</span><b>Whisk</b><p>Whisked with hot water until it's smooth and frothy on top.</p></div>
+      <div class="step rv d2"><span class="n">03</span><span class="han">倒</span><b>Pour</b><p>Steamed milk goes in, slowly, until the cup is almost full.</p></div>
+      <div class="step rv d3"><span class="n">04</span><span class="han">畫</span><b>Draw</b><p>The finishing touch: a little face, drawn by hand in the foam.</p></div>
+    </div>
+  </section>
+
+  <section class="sec wrap" style="padding-top:0">
     <div class="split">
-      <div class="ph rv"><img src="img/iced.webp" alt="Iced matcha in a Hoi Tin Café cup" loading="lazy"></div>
+      <div class="ph rv bw"><img src="img/kitchen.webp" alt="In the Hoi Tin kitchen" loading="lazy"></div>
       <div>
         <span class="label rv">From across the street</span>
         <h2 class="h2 rv d1" style="font-size:clamp(30px,3.6vw,46px)">A New Café From the <span class="g">Hoi Tin</span> Family</h2>
@@ -452,7 +543,15 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
     </div>
   </section>
 
-  <section class="sec wrap" style="padding-top:0">
+  <!-- two floors -->
+  <section class="wrap">
+    <div class="floors">
+      <div class="floor rv"><span class="label">Ground floor</span><h3>At the Green Bar</h3><p>Grab a stool, watch your latte get its face, and chat with the baristas.</p><span class="mono">Best for · catching up</span></div>
+      <div class="floor dark rv d1"><span class="label">Downstairs</span><h3>The Quiet Floor</h3><p>Low stools, soft light and a bit of calm. Bring a book or your laptop.</p><span class="mono">Best for · studying</span></div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
     <div class="faq">
       <h2 class="h2 rv">Frequently Asked Questions</h2>
       <p class="sub rv">Everything you want to know before you drop by</p>
@@ -473,7 +572,7 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
 <main class="page" data-page="menu">
   <div class="wrap">
     <div class="ptop"><span class="label">Menu · 菜單</span><h1>Our Menu</h1><p>Matcha, coffee and Hong Kong classics at the bar, buns from the family bakery. A selection; the full menu is at the bar.</p></div>
-    <div class="tabs" id="tabs"><button class="tab on" data-f="all">All</button><button class="tab" data-f="matcha">Matcha</button><button class="tab" data-f="coffee">Coffee</button><button class="tab" data-f="tea">Hong Kong</button><button class="tab" data-f="bakery">Bakery</button></div>
+    <div class="tabs" id="tabs"><button class="tab on" data-f="all">All</button><button class="tab" data-f="matcha">Matcha</button><button class="tab" data-f="coffee">Coffee</button><button class="tab" data-f="tea">Hong Kong</button><button class="tab" data-f="food">Sandwiches</button><button class="tab" data-f="bakery">Bakery</button></div>
     <div id="menu"></div>
     <p class="mnote">Prices at the bar. Menu selection for this concept, based on what guests order most.</p>
   </div>
@@ -489,7 +588,7 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
         <h2 class="rv">One Zeedijk, <span class="g">two</span> Hoi Tins.</h2>
         <p class="rv">The Hoi Tin restaurant has fed the Zeedijk for years. Ethan, son of the family, and Fiene opened the café right across the street: their first business, and a new chapter for the name.</p>
       </div>
-      <div class="ph rv"><img src="img/latte.webp" alt="Flat white at Hoi Tin Café" loading="lazy"></div>
+      <div class="ph rv"><img src="img/latte.webp" alt="Flat white with rosetta latte art" loading="lazy"></div>
     </section>
     <section class="story-block">
       <span class="label">02 · The name</span>
@@ -501,7 +600,7 @@ footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;p
       </div>
     </section>
     <section class="story-block story-split">
-      <div class="ph rv"><img src="img/matcha-street.webp" alt="Matcha latte with a gingerbread man in the foam" loading="lazy"></div>
+      <div class="ph rv"><img src="img/matcha-street.webp" alt="Matcha latte with a gingerbread man in the foam, on the Zeedijk" loading="lazy"></div>
       <div>
         <span class="label">03 · The cup</span>
         <h2 class="rv">A Hong Kong teahouse, <span class="g">made new.</span></h2>
@@ -584,9 +683,12 @@ const MENU=[
   ["Cappuccino","Proper foam",""],["Latte","Long and smooth",""]]},
  {f:"tea",g:"Hong Kong",h:"港式",items:[
   ["Hong Kong Milk Tea","Strong black tea and milk. Hot, iced or room temperature","Classic"]]},
+ {f:"food",g:"Sandwiches",h:"三文治",items:[
+  ["Egg & Luncheon Meat Sandwich","Soft scrambled egg and seared luncheon meat on white bread","HK classic"]]},
  {f:"bakery",g:"Bakery",h:"包點",items:[
   ["Matcha Custard Bun","Soft bun, light and creamy matcha custard","Popular"],
   ["Bolo Bao","Soft bun with a crispy top and rich butter",""],
+  ["Bolo Bao with Butter","Pineapple bun with a thick slice of cold butter","Must try"],
   ["Hong Kong Buns","Classic buns from the family bakery",""],
   ["Monthly Special","Mooncakes and other seasonal treats","Changes monthly"]]}
 ];
@@ -599,6 +701,9 @@ const FAQ=[
  ["How do I get in touch?","Email us at contact@hoitincafe.nl or send us a message on Instagram."]
 ];
 
+/* latte-art strip */
+const ART=['matcha-face-sq','latte-face-sq','matcha-art-sq','matcha-two-sq','latte-sq','matcha-street-sq'];
+document.getElementById('artRow').innerHTML=[...ART,...ART].map(k=>`<figure><img src="img/${k}.webp" alt="" loading="lazy"></figure>`).join('');
 /* render */
 document.getElementById('r1').innerHTML=REVIEWS.map(([i,t])=>`<div class="rc"><div class="who"><div class="av han">海</div><div><b>Google review</b><small>Hoi Tin Café</small></div><span class="gl">G</span></div><p>“${t}”</p></div>`).join('');
 document.getElementById('menu').innerHTML=MENU.map(g=>`<section class="mgroup" data-g="${g.f}"><h3>${g.g} <span class="han">${g.h}</span></h3>${g.items.map(([n,d,t])=>`<div class="item"><b>${n}</b><p>${d}</p>${t?`<span class="t">${t}</span>`:''}</div>`).join('')}</section>`).join('');
