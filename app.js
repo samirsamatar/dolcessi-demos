@@ -655,7 +655,10 @@ function setupScroll() {
   });
 
   /* ---- 06 bento micro-animations ---- */
-  gsap.from(".tile", { y: 80, opacity: 0, scale: 0.94, stagger: 0.07, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: "#bento", start: "top 80%" } });
+  // tiles rise in; transforms are cleared at the end so nothing can be left half-moved.
+  // phones stack the tiles in one tall column, so each tile gets its own trigger there.
+  if (!mobile) gsap.from(".tile", { y: 80, opacity: 0, scale: 0.94, stagger: 0.07, duration: 1.2, ease: "expo.out", clearProps: "transform", scrollTrigger: { trigger: "#bento", start: "top 80%" } });
+  else $$(".tile").forEach(t => gsap.from(t, { y: 40, opacity: 0, duration: 0.9, ease: "expo.out", clearProps: "transform", scrollTrigger: { trigger: t, start: "top 92%" } }));
   ScrollTrigger.create({ trigger: ".t-speed", start: "top 80%", once: true, onEnter: () => {
     const o = { a: 0, b: 0 };
     gsap.to(".r-ours", { width: "100%", duration: 0.9, ease: "power2.out" });

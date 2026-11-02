@@ -42,6 +42,9 @@
   .more-work{line-height:2}
 }
 @keyframes nudge{50%{transform:translateX(5px)}}
+/* v2.2: tiles animate with GSAP only (a CSS transform transition fought it and left tiles stuck low) */
+.tile{transition:border-color .4s}
+.chips{position:relative;z-index:1}
 /* v2.1 phones: step ticks on the pinned crowd card */
 .crowd-steps{display:none}
 @media (max-width:900px){
