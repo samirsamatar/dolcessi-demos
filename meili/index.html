@@ -10,7 +10,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%23AFC6E4%22/%3E%3Ctext x=%2232%22 y=%2245%22 font-size=%2236%22 text-anchor=%22middle%22%3E%F0%9F%90%98%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&text=%E4%BD%A0%E5%A5%BD%E5%B1%85%E5%BA%86%E9%82%BB%E9%87%8D%EF%BC%8C&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&text=%E4%BD%A0%E5%8D%95%E5%8F%96%E5%A5%BD%E5%B1%85%E5%BA%86%E6%8A%B9%E7%82%B9%E8%8C%B6%E9%82%BB%E9%87%8D%E9%A4%90%EF%BC%8C&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/hero.webp">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Bakery", "name": "Meili Bakery", "address": {"@type": "PostalAddress", "streetAddress": "Haarlemmerdijk 113", "postalCode": "1013 KD", "addressLocality": "Amsterdam", "addressCountry": "NL"}, "geo": {"@type": "GeoCoordinates", "latitude": 52.38321, "longitude": 4.8859861}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": 4.7, "reviewCount": 164}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "11:00", "closes": "17:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "11:00", "closes": "17:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "11:00", "closes": "17:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "11:00", "closes": "17:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "11:00", "closes": "17:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "11:00", "closes": "17:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "11:00", "closes": "17:00"}], "sameAs": ["https://www.instagram.com/meili.bakery/"]}</script>
 <style>
@@ -61,6 +61,10 @@ img{display:block;max-width:100%}
 /* ── header ── */
 #hdr{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;pointer-events:none}
 #hdr>*{pointer-events:auto}
+.logo{display:flex;align-items:center;gap:8px;height:46px;padding:0 16px 0 10px;border-radius:999px;background:rgba(255,252,246,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 4px 18px rgba(43,29,23,.08);color:var(--cocoa)}
+.logo svg{width:40px;height:28px}
+.logo .hand{font-size:23px;line-height:1;white-space:nowrap;padding-top:2px}
+.hnav{position:absolute;left:50%;transform:translateX(-50%)}
 .hnav{display:flex;gap:4px;background:rgba(255,252,246,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:4px;border-radius:999px;box-shadow:0 4px 18px rgba(43,29,23,.08)}
 .hnav a{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;padding:9px 14px;border-radius:999px;transition:background .3s}
 .hnav a:hover,.hnav a.on{background:var(--blue-p)}
@@ -70,29 +74,73 @@ img{display:block;max-width:100%}
 .lang.nl::before{transform:translateX(36px)}
 .lang button.on{color:var(--paper)}
 
-/* ── the card (TUKU's centre sign) ── */
-#card{position:fixed;z-index:55;left:50%;top:50%;width:var(--cw);height:var(--ch);transform:translate(-50%,-50%) rotate(-2deg);background:var(--paper);border-radius:26px;box-shadow:0 30px 60px -20px rgba(43,29,23,.45),0 2px 0 rgba(43,29,23,.06);
-  transition:top .8s var(--ease),width .8s var(--ease),height .8s var(--ease),border-radius .8s var(--ease),transform .8s var(--ease),box-shadow .5s;overflow:hidden;color:var(--cocoa)}
-#card:hover{transform:translate(-50%,-50%) rotate(0deg) scale(1.02)}
-.c-full{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;transition:opacity .4s .25s}
+/* ── flip card (get to know meili) ── */
+.flip{position:absolute;z-index:5;left:50%;top:50%;width:var(--cw);height:var(--ch);transform:translate(-50%,-50%) rotate(-2deg);perspective:1200px;cursor:pointer;transition:transform .6s var(--ease),opacity .6s;outline:none}
+.flip:hover{transform:translate(-50%,-50%) rotate(0) scale(1.02)}
+.flip:focus-visible .f-face{box-shadow:0 0 0 3px var(--blue-d,#6F8FBF),0 30px 60px -20px rgba(43,29,23,.45)}
+.f-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .9s var(--ease)}
+.flip.on .f-in{transform:rotateY(180deg)}
+.f-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:26px;background:var(--paper);color:var(--cocoa);box-shadow:0 30px 60px -20px rgba(43,29,23,.45);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px}
+.f-back{transform:rotateY(180deg);background:var(--blue-p)}
 .c-k{font-size:10px;opacity:.6}
 .c-ele{width:128px;height:90px;margin:14px 0 6px}
 .c-word{font-size:50px;line-height:.82;letter-spacing:.02em}
 .c-word b{position:relative;display:inline-block}
 .c-word b::after{content:"";position:absolute;left:50%;top:.02em;width:.16em;height:.16em;margin-left:-.08em;border-radius:50%;background:var(--paper);box-shadow:0 .3em 0 var(--paper)}
 .c-cta{margin-top:18px;font-size:10.5px;border-top:1.5px dashed rgba(75,47,37,.3);padding-top:12px;width:100%}
-.c-mini{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;opacity:0;transition:opacity .3s}
-.c-mini svg{width:38px;height:27px}
-.c-mini .hand{font-size:22px;line-height:1;white-space:nowrap}
-body.cmin #card{top:16px;width:200px;height:48px;border-radius:999px;transform:translate(-50%,0) rotate(0);box-shadow:0 6px 20px rgba(43,29,23,.14)}
-body.cmin #card .c-full{opacity:0;transition-delay:0s}
-body.cmin #card .c-mini{opacity:1;transition:opacity .4s .35s}
-body.intro-on #card{opacity:0}
+.flip:hover .c-cta .ar{transform:rotate(180deg)}
+.fb-t{font-size:30px;line-height:1;margin:10px 0 14px}
+.fb-l{list-style:none;display:grid;gap:6px;width:100%}
+.fb-l li{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1.5px dashed rgba(75,47,37,.25);padding-bottom:4px}
+.fb-l b{font-size:30px;line-height:1}.fb-l span{font-size:10px}
+.flip.still{pointer-events:none}
+.wiggle{animation:wig 1.1s var(--ease)}
+@keyframes wig{0%,100%{rotate:0deg}20%{rotate:-4deg}45%{rotate:3deg}70%{rotate:-1.5deg}}
+
+/* ── the bar ── */
+.bar{background:#F1E9DC;padding:130px 0 0;position:relative}
+.bar-head{text-align:center;padding:0 24px 40px}
+.bar-hint{margin-top:16px;opacity:.6}
+.show-touch{display:none}
+@media (hover:none){.show-touch{display:block}.hide-touch{display:none}}
+.bar-scroll{overflow:hidden}
+.bar-stage{position:relative;width:100%;transition:transform 1s cubic-bezier(.7,0,.2,1);transform-origin:50.6% 21%}
+.bar-stage.zoom{transform:scale(3.2)}
+#barSvg{display:block;width:100%;height:auto;user-select:none;-webkit-user-select:none}
+#barSvg .sg{font-size:30px;fill:#FBF8F2}
+#barSvg .sg.cjk{font-size:28px}
+#barSvg .bd-t{font-size:40px;fill:#3A2418}
+#barSvg .bd text{font-size:24px;fill:#3A2418}
+#barSvg .bd-c{font-size:22px;fill:#C2553B}
+#barSvg .tg text{font-size:15px;fill:#3A2418}
+#barSvg .cf{font-size:44px;fill:#6A4029;letter-spacing:.06em}
+#barSvg .mm{font-size:13px;fill:#2B1D17;letter-spacing:.2em}
+#barSvg .mt2{font-size:16px;fill:#FFFCF6}
+.hot{cursor:pointer;transition:opacity .3s}
+.hot:focus{outline:none}
+.hot:hover,.hot.on{filter:url(#glow)}
+#barSvg.hovering .hot:not(:hover):not(.on){opacity:.82}
+.board{cursor:zoom-in}
+.lamp .pool{opacity:.45;transition:opacity .5s}
+.lamp .bulb{transition:fill .4s}
+.lamp.lit .pool{opacity:1}
+.lamp.lit .bulb{fill:#FFF4CC}
+.hot:hover .steam,.hot.on .steam{animation:steam 1.4s ease-in-out infinite}
+@keyframes steam{0%{opacity:0;transform:translateY(0)}40%{opacity:.9}100%{opacity:0;transform:translateY(-16px)}}
+#wave{transform-origin:66px 520px;animation:wave 2.4s ease-in-out infinite;transform-box:view-box}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}70%{transform:rotate(-14deg)}80%{transform:rotate(10deg)}90%{transform:rotate(-8deg)}}
+.tip{position:absolute;z-index:3;left:0;top:0;width:250px;background:var(--paper);border-radius:16px;padding:14px 16px 15px;box-shadow:0 20px 40px -14px rgba(43,29,23,.45);pointer-events:none;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .25s,transform .35s var(--ease)}
+.tip.on{opacity:1;transform:none}
+.tip span{display:block;font-size:9.5px;opacity:.55}
+.tip b{display:block;font-size:25px;line-height:1.05;margin:4px 0 6px;color:var(--cocoa)}
+.tip p{font-size:13px;line-height:1.45;opacity:.85}
+#veil{position:fixed;inset:0;z-index:120;background:#C9A577;opacity:0;pointer-events:none;transition:opacity .45s}
+#veil.on{opacity:1}
 
 /* ── split sections ── */
 .split{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;min-height:100svh;position:relative}
-.panel{position:relative;display:flex;flex-direction:column;justify-content:center;padding:120px calc(var(--cw)/2 + 64px) 110px max(48px,6vw)}
-.split.rev .panel{padding:120px max(48px,6vw) 110px calc(var(--cw)/2 + 64px)}
+.panel{position:relative;display:flex;flex-direction:column;justify-content:center;padding:120px max(48px,6vw) 110px}
+#top .panel,#loop .panel{padding-right:calc(var(--cw)/2 + 64px)}
 .panel.tan{background:var(--tan)}
 .panel.blue{background:var(--blue)}
 .panel.cocoa{background:var(--cocoa);color:var(--cream)}
@@ -217,7 +265,7 @@ body.intro-on #card{opacity:0}
 .bbar a{padding:9px 14px;border-radius:999px;transition:background .3s}
 .bbar a:hover{background:var(--blue-p)}
 .bbar i{font-style:normal;opacity:.4}
-body.intro-on .bbar,body.intro-on #hdr{opacity:0}
+body.intro-on .bbar,body.intro-on #hdr,body.intro-on .flip{opacity:0}
 .bbar,#hdr{transition:opacity .6s}
 
 /* ── cookie (bitten, bottom right) ── */
@@ -270,8 +318,6 @@ body.switching main{animation:langfade .45s var(--ease)}
   #hdr{padding:12px 12px}
   .hide-m{display:none}
   .hnav a{padding:9px 12px}
-  body.cmin #card{top:12px;width:164px;height:44px}
-  .c-mini svg{width:32px;height:23px}.c-mini .hand{font-size:19px}
   .split{grid-template-columns:1fr;min-height:0}
   .split .ph{order:-1;height:62svh;min-height:380px}
   .split .panel,.split.rev .panel{padding:56px 22px 64px}
@@ -307,9 +353,20 @@ body.switching main{animation:langfade .45s var(--ease)}
   .foot{padding-bottom:110px}
   .bbar{bottom:12px;font-size:10.5px}.bbar a{padding:9px 11px}
   #ckwrap{right:12px;bottom:72px;width:calc(100% - 24px)}
-  #card:hover{transform:translate(-50%,-50%) rotate(-2deg)}
 }
-@media (max-width:820px){body:not(.cmin) #card{top:51svh}}
+@media (max-width:820px){
+  .logo{height:42px;padding:0 12px 0 8px}.logo svg{width:32px;height:23px}.logo .hand{font-size:19px}
+  .hnav{position:static;transform:none;margin-left:auto;margin-right:8px}
+  #top .panel{padding-top:170px}
+  #top .flip{top:calc(78svh - 40px)}
+  #top .ph figcaption{display:none}
+  .flip:hover{transform:translate(-50%,-50%) rotate(-2deg)}
+  .bar{padding-top:90px}
+  .bar-scroll{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .bar-scroll::-webkit-scrollbar{display:none}
+  .bar-stage{width:960px}
+  .tip{width:220px}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 </style>
@@ -349,6 +406,7 @@ body.switching main{animation:langfade .45s var(--ease)}
 </div>
 
 <header id="hdr">
+  <a class="logo" href="#top" data-go aria-label="Meili Bakery, back to top"><svg><use href="#ele"/></svg><span class="hand">MEILI BAKERY</span></a>
   <nav class="hnav">
     <a href="#menu" data-go>Menu</a>
     <a href="#story" data-go class="hide-m">Story</a>
@@ -357,21 +415,12 @@ body.switching main{animation:langfade .45s var(--ease)}
   <div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on" aria-pressed="true">EN</button><button data-lang="nl" aria-pressed="false">NL</button></div>
 </header>
 
-<!-- the card everything scrolls behind -->
-<a id="card" href="#story" data-go aria-label="Meili Bakery: get to know us">
-  <span class="c-full">
-    <span class="mono c-k">Asian creative bakery</span>
-    <svg class="c-ele"><use href="#ele"/></svg>
-    <span class="c-word hand">ME<b>I</b>LI<br>BAKERY</span>
-    <span class="mono c-cta">Get to know Meili <span class="ar">↓</span></span>
-  </span>
-  <span class="c-mini"><svg><use href="#ele"/></svg><span class="hand">MEILI BAKERY</span></span>
-</a>
+
 
 <main>
 
   <!-- 1 · hero -->
-  <section class="split" data-card="full" id="top">
+  <section class="split" id="top">
     <div class="panel tan">
       <span class="mono kick" id="heroKick">Haarlemmerdijk 113 · open every day 11–17</span>
       <h1 class="hand big">Soft buns,<br>bold flavours.</h1>
@@ -380,10 +429,255 @@ body.switching main{animation:langfade .45s var(--ease)}
       <span class="doodle d1"><svg><use href="#flower"/></svg></span>
     </div>
     <figure class="ph"><img src="img/hero.webp" srcset="img/hero-1280.webp 1280w, img/hero.webp 1600w" sizes="(max-width:820px) 100vw, 50vw" alt="Freshly baked buns on a tray, held up in front of the Meili Bakery window" style="object-position:50% 30%"><figcaption class="mono">Today’s tray · fresh at 11:00</figcaption></figure>
+    <div class="flip" id="flip" tabindex="0" role="button" aria-label="Flip the card: get to know Meili">
+      <div class="f-in">
+        <div class="f-face f-front">
+          <span class="mono c-k">Asian creative bakery</span>
+          <svg class="c-ele"><use href="#ele"/></svg>
+          <span class="c-word hand">ME<b>I</b>LI<br>BAKERY</span>
+          <span class="mono c-cta">Get to know Meili <span class="ar">↻</span></span>
+        </div>
+        <div class="f-face f-back">
+          <span class="mono c-k">Get to know Meili</span>
+          <b class="hand fb-t">From Chongqing, with love</b>
+          <ul class="fb-l">
+            <li><b class="hand">8,200</b><span class="mono">km from home</span></li>
+            <li><b class="hand">274</b><span class="mono">days to open</span></li>
+            <li><b class="hand">100%</b><span class="mono">hand-shaped</span></li>
+          </ul>
+          <a class="mono c-cta" href="#story" data-go>Read our story <span class="ar">↓</span></a>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- 2 · matcha -->
-  <section class="split rev" data-card="full" id="matcha">
+  <!-- 2 · the bar: hover the counter, the baker follows you, click the board for the menu -->
+  <section class="bar" id="bar">
+    <div class="bar-head">
+      <span class="mono kick">Haarlemmerdijk 113, inside</span>
+      <h2 class="hand big">Come say hi at the counter</h2>
+      <p class="mono bar-hint hide-touch">Hover over the bar · click the menu board</p>
+      <p class="mono bar-hint show-touch">Swipe along the bar · tap anything</p>
+    </div>
+    <div class="bar-scroll" id="barScroll">
+      <div class="bar-stage" id="barStage">
+        <svg id="barSvg" viewBox="0 0 1600 820" role="img" aria-label="Illustrated Meili Bakery counter with a baker behind the bar">
+          <defs>
+            <pattern id="tiles" width="28" height="28" patternUnits="userSpaceOnUse"><rect width="28" height="28" fill="#FBF8F2"/><path d="M28 0H0V28" fill="none" stroke="#E2DACB" stroke-width="2"/></pattern>
+            <radialGradient id="lightg"><stop offset="0" stop-color="#FFE9B0" stop-opacity=".75"/><stop offset="1" stop-color="#FFE9B0" stop-opacity="0"/></radialGradient>
+            <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDE1E5"/><stop offset="1" stop-color="#AEB5BC"/></linearGradient>
+            <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#94603F"/><stop offset="1" stop-color="#7A4C30"/></linearGradient>
+            <filter id="glow" x="-25%" y="-25%" width="150%" height="150%">
+              <feMorphology in="SourceAlpha" operator="dilate" radius="3.5" result="d"/>
+              <feFlood flood-color="#FFE29A"/><feComposite in2="d" operator="in" result="o"/>
+              <feGaussianBlur in="o" stdDeviation="9" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- wall -->
+          <rect width="1600" height="820" fill="#F1E9DC"/>
+          <rect x="520" y="300" width="800" height="290" fill="url(#tiles)"/>
+
+          <!-- mural: the window elephant -->
+          <g class="hot" data-tip="mural" data-lamp="0" style="color:#2B1D17">
+            <use href="#ele" x="0" y="300" width="220" height="154"/>
+          </g>
+
+          <!-- shelf -->
+          <g>
+            <rect x="540" y="326" width="760" height="12" rx="3" fill="#7A4C30"/>
+            <g stroke="#2B1D17" stroke-width="3">
+              <rect x="570" y="276" width="40" height="50" rx="6" fill="#E9E1D2"/><rect x="570" y="296" width="40" height="30" fill="#8E9B5C"/>
+              <rect x="622" y="286" width="40" height="40" rx="6" fill="#E9E1D2"/><rect x="622" y="302" width="40" height="24" fill="#5C3A2A"/>
+              <rect x="674" y="270" width="40" height="56" rx="6" fill="#E9E1D2"/><rect x="674" y="294" width="40" height="32" fill="#C98E4E"/>
+              <path d="M1190 326 L1196 286 H1244 L1250 326 Z" fill="#C7744A"/>
+            </g>
+            <path d="M1220 288 C1200 250 1180 246 1170 230 M1220 288 C1222 246 1236 232 1246 214 M1220 288 C1240 262 1262 258 1276 250" stroke="#5F7D3A" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <g stroke="#2B1D17" stroke-width="3" fill="#D8C29A"><path d="M1060 326 V270 H1110 V326Z"/><path d="M1118 326 V282 H1160 V326Z"/></g>
+            <use href="#ele" x="1066" y="290" width="38" height="27" style="color:#2B1D17"/>
+          </g>
+
+          <!-- the cardboard menu board -->
+          <g class="hot board" data-tip="board" data-lamp="1" id="board" tabindex="0" role="button" aria-label="Open the menu">
+            <path d="M650 0V64M970 0V64" stroke="#2B1D17" stroke-width="2.5"/>
+            <path d="M604 66 L1016 60 L1020 286 L600 292 Z" fill="#C9A577" stroke="#8C6A45" stroke-width="3"/>
+            <path d="M612 78 L1008 72" stroke="#B48F60" stroke-width="3" stroke-dasharray="6 7"/>
+            <rect x="620" y="52" width="60" height="22" fill="#B3CAE6" opacity=".85" transform="rotate(-6 650 63)"/>
+            <rect x="940" y="48" width="60" height="22" fill="#B3CAE6" opacity=".85" transform="rotate(5 970 59)"/>
+            <text x="810" y="122" class="bd-t hand" text-anchor="middle">Meili’s menu</text>
+            <g class="bd hand">
+              <text x="640" y="166">mochi lava bun</text>
+              <text x="640" y="196">rose bergamot bun</text>
+              <text x="640" y="226">mala beef ciabatta</text>
+              <text x="640" y="256">kimchi pretzel</text>
+              <text x="830" y="166">dirty coffee</text>
+              <text x="830" y="196">vienna coffee</text>
+              <text x="830" y="226">hojicha banana</text>
+              <text x="830" y="256">lemon tea</text>
+            </g>
+            <g transform="rotate(7 962 300)"><rect x="904" y="278" width="116" height="44" rx="4" fill="#FFF6D9" stroke="#2B1D17" stroke-width="2"/><text x="962" y="307" class="bd-c hand" text-anchor="middle">click me!</text></g>
+          </g>
+
+          <!-- the baker (behind the counter, follows you) -->
+          <g id="emp" transform="translate(900 0)">
+            <g id="empIn"><g transform="translate(0 -150) scale(1.2)">
+              <g stroke="#2B1D17" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M-84 640 C-84 540 -62 492 0 492 C62 492 84 540 84 640 Z" fill="#8C8F93"/>
+                <path d="M-46 640 V528 C-46 518 46 518 46 528 V640 Z" fill="#EADBC0"/>
+                <path d="M-40 522 L-24 494 M40 522 L24 494" fill="none"/>
+                <rect x="-14" y="466" width="28" height="30" fill="#F3CBAA"/>
+                <ellipse cx="0" cy="424" rx="54" ry="58" fill="#F3CBAA"/>
+                <circle cx="0" cy="356" r="22" fill="#2B1D17"/>
+                <path d="M-56 424 C-64 356 -10 350 8 364 C42 352 70 382 56 424 C48 402 30 394 10 398 C-12 388 -42 398 -56 424Z" fill="#2B1D17"/>
+                <g id="wave">
+                  <path d="M54 504 C74 498 88 506 94 524 L72 538 C66 528 60 520 46 516Z" fill="#8C8F93"/>
+                  <path d="M86 518 C100 494 110 470 116 446 L134 452 C128 480 116 508 100 532 Z" fill="#F3CBAA"/>
+                  <path d="M112 450 C104 432 108 410 116 404 C120 400 126 404 124 412 L124 398 C124 390 134 390 134 398 L134 396 C134 388 144 388 144 398 L144 404 C146 398 154 400 152 410 C152 426 148 440 138 452 Z" fill="#F3CBAA"/>
+                </g>
+                <path d="M-54 504 C-74 498 -88 506 -94 524 L-72 538 C-66 528 -60 520 -46 516Z" fill="#8C8F93"/>
+                <path d="M-86 520 C-96 544 -96 566 -86 584 L-68 578 C-76 562 -74 544 -66 530Z" fill="#F3CBAA"/>
+                <path d="M-110 552 H-66 L-70 600 H-106 Z" fill="#FFFCF6"/>
+                <path d="M-112 552 H-64" stroke-width="5"/>
+              </g>
+              <use href="#ele" x="-20" y="540" width="40" height="28" style="color:#2B1D17"/>
+              <g id="face">
+                <circle cx="-19" cy="428" r="5" fill="#2B1D17"/><circle cx="19" cy="428" r="5" fill="#2B1D17"/>
+                <ellipse cx="-34" cy="448" rx="11" ry="6.5" fill="#EE9393" opacity=".75"/><ellipse cx="34" cy="448" rx="11" ry="6.5" fill="#EE9393" opacity=".75"/>
+                <path d="M-14 454 Q0 470 14 454" fill="none" stroke="#2B1D17" stroke-width="4" stroke-linecap="round"/>
+              </g>
+            </g></g>
+          </g>
+
+          <!-- lamps (light pools first, shades on top) -->
+          <g class="lamps">
+            <g class="lamp" data-i="0"><ellipse class="pool" cx="470" cy="390" rx="230" ry="190" fill="url(#lightg)"/><path d="M470 0V196" stroke="#2B1D17" stroke-width="2.5"/><path d="M420 250 L452 200 H488 L520 250 Z" fill="#FBF8F2" stroke="#2B1D17" stroke-width="3"/><ellipse class="bulb" cx="470" cy="252" rx="22" ry="6" fill="#FFE9A8"/></g>
+            <g class="lamp" data-i="1"><ellipse class="pool" cx="1110" cy="420" rx="230" ry="190" fill="url(#lightg)"/><path d="M1110 0V176" stroke="#2B1D17" stroke-width="2.5"/><path d="M1060 230 L1092 180 H1128 L1160 230 Z" fill="#FBF8F2" stroke="#2B1D17" stroke-width="3"/><ellipse class="bulb" cx="1110" cy="232" rx="22" ry="6" fill="#FFE9A8"/></g>
+            <g class="lamp" data-i="2"><ellipse class="pool" cx="1250" cy="400" rx="200" ry="170" fill="url(#lightg)"/><path d="M1250 0V136" stroke="#2B1D17" stroke-width="2.5"/><path d="M1200 190 L1232 140 H1268 L1300 190 Z" fill="#FBF8F2" stroke="#2B1D17" stroke-width="3"/><ellipse class="bulb" cx="1250" cy="192" rx="22" ry="6" fill="#FFE9A8"/></g>
+          </g>
+
+          <!-- hanging signs -->
+          <g class="hot" data-tip="order" data-lamp="0">
+            <path d="M232 0V178M392 0V178" stroke="#2B1D17" stroke-width="2.5"/>
+            <rect x="216" y="176" width="192" height="104" rx="8" fill="#211B18"/>
+            <text x="312" y="222" class="sg hand" text-anchor="middle">ORDER HERE</text>
+            <text x="312" y="262" class="sg cjk" text-anchor="middle">点单</text>
+          </g>
+          <g class="hot" data-tip="pickup" data-lamp="2">
+            <path d="M1352 0V178M1512 0V178" stroke="#2B1D17" stroke-width="2.5"/>
+            <rect x="1336" y="176" width="192" height="104" rx="8" fill="#211B18"/>
+            <text x="1432" y="222" class="sg hand" text-anchor="middle">PICK UP</text>
+            <text x="1432" y="262" class="sg cjk" text-anchor="middle">取餐</text>
+          </g>
+
+          <!-- counter -->
+          <rect x="0" y="586" width="1600" height="24" fill="#5E3925"/>
+          <rect x="0" y="610" width="1600" height="210" fill="url(#wood)"/>
+          <g stroke="#6A4029" stroke-width="3" fill="none"><rect x="30" y="636" width="360" height="160" rx="4"/><rect x="420" y="636" width="360" height="160" rx="4"/><rect x="820" y="636" width="360" height="160" rx="4"/><rect x="1210" y="636" width="360" height="160" rx="4"/></g>
+          <g transform="translate(560 680)"><circle r="44" fill="#F1E9DC" stroke="#2B1D17" stroke-width="3"/><use href="#ele" x="-34" y="-26" width="68" height="48" style="color:#2B1D17"/></g>
+          <text x="1000" y="730" class="cf hand" text-anchor="middle">MEILI BAKERY</text>
+
+          <!-- bun case -->
+          <g class="hot" data-tip="buns" data-lamp="0">
+            <rect x="130" y="424" width="440" height="164" rx="8" fill="#FFFFFF" fill-opacity=".35" stroke="#2B1D17" stroke-width="3.5"/>
+            <path d="M134 506 H566" stroke="#2B1D17" stroke-width="3"/>
+            <path d="M170 436 L220 500 M196 436 L236 488 M440 516 L490 580" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+            <g stroke="#2B1D17" stroke-width="3">
+              <ellipse cx="180" cy="486" rx="30" ry="19" fill="#9DB25A"/><ellipse cx="248" cy="486" rx="30" ry="19" fill="#9DB25A"/>
+              <ellipse cx="320" cy="486" rx="30" ry="19" fill="#3B3431"/><ellipse cx="392" cy="486" rx="30" ry="19" fill="#E7A8B0"/>
+              <ellipse cx="464" cy="486" rx="30" ry="19" fill="#E7A8B0"/><ellipse cx="530" cy="486" rx="26" ry="18" fill="#D9963F"/>
+              <ellipse cx="184" cy="566" rx="32" ry="19" fill="#D9963F"/><ellipse cx="256" cy="566" rx="32" ry="19" fill="#EAD9B4"/>
+              <ellipse cx="330" cy="566" rx="32" ry="19" fill="#EAD9B4"/><ellipse cx="410" cy="566" rx="36" ry="17" fill="#8B4A22"/>
+              <ellipse cx="490" cy="566" rx="36" ry="17" fill="#8B4A22"/>
+            </g>
+            <g fill="#FFFFFF" opacity=".45"><ellipse cx="172" cy="479" rx="10" ry="5"/><ellipse cx="240" cy="479" rx="10" ry="5"/><ellipse cx="384" cy="479" rx="10" ry="5"/><ellipse cx="456" cy="479" rx="10" ry="5"/><ellipse cx="176" cy="559" rx="10" ry="5"/><ellipse cx="248" cy="559" rx="10" ry="5"/></g>
+            <g class="tg hand"><rect x="190" y="440" width="96" height="22" rx="3" fill="#D8C29A"/><text x="238" y="456" text-anchor="middle">mochi lava</text>
+              <rect x="372" y="440" width="112" height="22" rx="3" fill="#D8C29A"/><text x="428" y="456" text-anchor="middle">rose bergamot</text></g>
+          </g>
+
+          <!-- grinder -->
+          <g class="hot" data-tip="grinder" data-lamp="1">
+            <g stroke="#2B1D17" stroke-width="3.5" stroke-linejoin="round">
+              <path d="M650 404 H738 L724 468 H664 Z" fill="#E9DCCB" fill-opacity=".6"/>
+              <path d="M660 430 H728 L722 466 H666 Z" fill="#5C3A2A"/>
+              <rect x="670" y="468" width="48" height="90" rx="6" fill="#2B1D17"/>
+              <rect x="656" y="556" width="76" height="32" rx="5" fill="#3A3330"/>
+              <path d="M718 500 h18 v14 h-18" fill="#3A3330"/>
+            </g>
+            <circle cx="694" cy="512" r="12" fill="#C9CED4"/>
+          </g>
+
+          <!-- espresso machine -->
+          <g class="hot" data-tip="machine" data-lamp="1">
+            <g stroke="#2B1D17" stroke-width="3.5" stroke-linejoin="round">
+              <rect x="780" y="430" width="320" height="22" rx="4" fill="#AEB5BC"/>
+              <path d="M800 430 v-22 h26 v22 M840 430 v-22 h26 v22 M880 430 v-22 h26 v22" fill="#FFFCF6"/>
+              <rect x="776" y="452" width="328" height="120" rx="10" fill="url(#steel)"/>
+              <rect x="796" y="466" width="288" height="34" rx="5" fill="#2B1D17"/>
+              <rect x="842" y="508" width="40" height="18" rx="3" fill="#3A3330"/><path d="M882 516 h44" stroke-width="7"/>
+              <rect x="992" y="508" width="40" height="18" rx="3" fill="#3A3330"/><path d="M1032 516 h44" stroke-width="7"/>
+              <path d="M1096 488 C1118 492 1118 520 1110 560" fill="none" stroke-width="5"/>
+              <rect x="794" y="572" width="292" height="14" rx="3" fill="#8F969D"/>
+              <path d="M850 572 v-26 h22 v26 M1000 572 v-26 h22 v26" fill="#FFFCF6"/>
+            </g>
+            <circle cx="860" cy="483" r="10" fill="#FFFCF6"/><circle cx="1020" cy="483" r="10" fill="#FFFCF6"/>
+            <path d="M940 468 l12 22 h-24z" fill="#F2C230" stroke="#2B1D17" stroke-width="2"/>
+            <text x="940" y="555" class="mm mono" text-anchor="middle">MEILI</text>
+            <path class="steam" d="M861 540 c-6 -10 6 -14 0 -24 M1011 540 c-6 -10 6 -14 0 -24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".0"/>
+          </g>
+
+          <!-- matcha corner -->
+          <g class="hot" data-tip="matcha" data-lamp="2">
+            <g stroke="#2B1D17" stroke-width="3.5" stroke-linejoin="round">
+              <rect x="1128" y="572" width="196" height="14" rx="3" fill="#D7C08A"/>
+              <rect x="1136" y="508" width="38" height="64" rx="5" fill="#7C9A4E"/>
+              <path d="M1186 534 Q1186 572 1232 572 Q1278 572 1278 534 Z" fill="#F1E9DC"/>
+              <ellipse cx="1232" cy="534" rx="46" ry="9" fill="#9DB25A"/>
+              <rect x="1294" y="500" width="14" height="40" rx="3" fill="#E1C48C"/>
+              <path d="M1286 540 H1316 L1322 568 Q1301 580 1280 568 Z" fill="#EAD3A0"/>
+            </g>
+            <text x="1155" y="546" class="mt2 cjk" text-anchor="middle">抹茶</text>
+            <path d="M1290 546 l-3 20 M1298 546 v22 M1306 546 v22 M1314 546 l3 20" stroke="#B9965C" stroke-width="2"/>
+          </g>
+
+          <!-- cups -->
+          <g stroke="#2B1D17" stroke-width="3" fill="#D8C29A">
+            <path d="M1340 588 L1344 548 H1378 L1382 588Z"/><path d="M1344 548 L1348 508 H1374 L1378 548"/><path d="M1348 508 L1352 470 H1370 L1374 508"/>
+          </g>
+
+          <!-- lemon tea -->
+          <g class="hot" data-tip="lemon" data-lamp="2">
+            <g stroke="#2B1D17" stroke-width="3.5" stroke-linejoin="round">
+              <path d="M1430 470 L1470 380" fill="none" stroke-width="5"/>
+              <path d="M1498 476 L1520 392" fill="none" stroke-width="5"/>
+              <path d="M1404 472 H1468 L1460 588 H1412 Z" fill="#FFFFFF" fill-opacity=".4"/>
+              <path d="M1408 500 H1465 L1460 588 H1412 Z" fill="#E9952F"/>
+              <path d="M1476 478 H1540 L1532 588 H1484 Z" fill="#FFFFFF" fill-opacity=".4"/>
+              <path d="M1480 506 H1537 L1532 588 H1484 Z" fill="#D7B04A"/>
+              <circle cx="1436" cy="530" r="16" fill="#F7DA55"/><circle cx="1510" cy="540" r="16" fill="#F7DA55"/>
+            </g>
+            <path d="M1436 516 v28 M1422 530 h28 M1510 526 v28 M1496 540 h28" stroke="#E8B930" stroke-width="2.5"/>
+            <g fill="#FFFFFF" opacity=".6"><rect x="1418" y="560" width="14" height="14" rx="3"/><rect x="1440" y="566" width="12" height="12" rx="3"/><rect x="1494" y="566" width="14" height="14" rx="3"/></g>
+          </g>
+        </svg>
+        <div id="tip" class="tip" aria-live="polite"></div>
+      </div>
+    </div>
+    <div class="tips" hidden>
+      <div data-k="buns"><span class="mono">Bun counter</span><b class="hand">Hand-shaped every morning</b><p>Matcha mochi lava, rose bergamot, garlic potato, kimchi pretzel. Come early: by late afternoon most are gone.</p></div>
+      <div data-k="board"><span class="mono">Meili’s menu</span><b class="hand">Click to open the menu</b><p>Buns, sandwiches, cakes and drinks. It changes with the seasons.</p></div>
+      <div data-k="grinder"><span class="mono">Grinder</span><b class="hand">Ground fresh for every shot</b><p>The base of every dirty coffee and Vienna coffee we make.</p></div>
+      <div data-k="machine"><span class="mono">Espresso bar</span><b class="hand">Dirty coffee, done right</b><p>A hot shot over cold milk: genmaicha, jasmine or red bean. Or Vienna-style with homemade sea salt cream.</p></div>
+      <div data-k="matcha"><span class="mono">Matcha corner</span><b class="hand">Whisked to order</b><p>For the matcha latte, matcha Vienna coffee and the iced matcha mango latte.</p></div>
+      <div data-k="lemon"><span class="mono">Iced tea</span><b class="hand">Hand-smashed lemon tea</b><p>Thai green, black or duck-shit oolong. Yes, that’s really its name.</p></div>
+      <div data-k="mural"><span class="mono">The Meili elephant</span><b class="hand">Same doodle as our window</b><p>Our signboard is hand-lettered, just like our bread is hand-shaped.</p></div>
+      <div data-k="order"><span class="mono">点单 · Order</span><b class="hand">Say hi, pick a bun</b><p>Not sure? Ask what just came out of the oven.</p></div>
+      <div data-k="pickup"><span class="mono">取餐 · Pick up</span><b class="hand">Your drink lands here</b><p>Taking it with you? Ask for a Meili tote bag.</p></div>
+    </div>
+  </section>
+
+  <!-- 3 · matcha -->
+  <section class="split rev" id="matcha">
     <figure class="ph"><img src="img/basque.webp" alt="Black sesame and matcha Basque cheesecakes in baking paper" loading="lazy"></figure>
     <div class="panel blue">
       <span class="mono kick">The green stuff</span>
@@ -400,7 +694,7 @@ body.switching main{animation:langfade .45s var(--ease)}
   </section>
 
   <!-- 3 · the wall -->
-  <section class="wall" data-card="min" id="oven">
+  <section class="wall" id="oven">
     <div class="marq hand" aria-hidden="true"><div class="mt">
       <span>mochi lava bun <i>✿</i> mala beef ciabatta <i>✿</i> genmaicha dirty coffee <i>✿</i> rose bergamot cheese bun <i>✿</i> kimchi pretzel bun <i>✿</i> hojicha banana latte <i>✿</i> </span><span>mochi lava bun <i>✿</i> mala beef ciabatta <i>✿</i> genmaicha dirty coffee <i>✿</i> rose bergamot cheese bun <i>✿</i> kimchi pretzel bun <i>✿</i> hojicha banana latte <i>✿</i> </span>
     </div></div>
@@ -416,7 +710,7 @@ body.switching main{animation:langfade .45s var(--ease)}
   </section>
 
   <!-- 4 · menu -->
-  <section class="menu" data-card="min" id="menu">
+  <section class="menu" id="menu">
     <div class="wrap">
       <div class="m-head">
         <span class="mono kick">Meili’s menu</span>
@@ -459,7 +753,7 @@ body.switching main{animation:langfade .45s var(--ease)}
   </section>
 
   <!-- 5 · coffee -->
-  <section class="split" data-card="full" id="coffee">
+  <section class="split" id="coffee">
     <div class="panel cocoa">
       <span class="mono kick">Asian specialty coffee</span>
       <h2 class="hand big">Dirty coffee,<br>Vienna-style.</h2>
@@ -470,7 +764,7 @@ body.switching main{animation:langfade .45s var(--ease)}
   </section>
 
   <!-- 6 · journey -->
-  <section class="journey" data-card="min" id="story">
+  <section class="journey" id="story">
     <div class="wrap">
       <span class="mono kick">Get to know Meili</span>
       <svg class="trip" viewBox="0 0 1200 380" role="img" aria-label="Line drawing: from the stilt houses of Chongqing to the shopfront on the Haarlemmerdijk">
@@ -507,7 +801,7 @@ body.switching main{animation:langfade .45s var(--ease)}
   </section>
 
   <!-- 7 · notes -->
-  <section class="notes" data-card="min" id="reviews">
+  <section class="notes" id="reviews">
     <div class="wrap">
       <div class="n-head"><span class="mono kick">Notes from the neighbours</span><h2 class="hand big"><span class="stars">★★★★★</span> 4.7 <small class="mono">· 164 Google reviews</small></h2></div>
       <div class="n-grid">
@@ -518,7 +812,7 @@ body.switching main{animation:langfade .45s var(--ease)}
   </section>
 
   <!-- 8 · visit -->
-  <section class="split" data-card="full" id="visit">
+  <section class="split" id="visit">
     <div class="panel tan">
       <span class="mono kick">Come say hi</span>
       <h2 class="hand big">Haarlemmerdijk 113</h2>
@@ -531,7 +825,7 @@ body.switching main{animation:langfade .45s var(--ease)}
     <figure class="ph map"><iframe title="Map: Meili Bakery, Haarlemmerdijk 113" src="https://www.openstreetmap.org/export/embed.html?bbox=4.8813661%2C52.38111%2C4.8906061%2C52.38531&amp;layer=mapnik&amp;marker=52.38321%2C4.8859861" loading="lazy" tabindex="-1"></iframe><a class="mono map-pin" href="https://www.google.com/maps/search/?api=1&query=Meili+Bakery+Haarlemmerdijk+113+Amsterdam" target="_blank" rel="noopener">🐘 Meili Bakery</a></figure>
   </section>
 
-  <footer class="foot" data-card="min">
+  <footer class="foot">
     <div class="wrap">
       <div class="f-word hand">MEILI BAKERY</div>
       <div class="f-cols">
@@ -545,7 +839,7 @@ body.switching main{animation:langfade .45s var(--ease)}
   </footer>
 
   <!-- the loop: a twin of the first screen. when it lands, we're back at the start -->
-  <section class="split loop" data-card="full" id="loop" aria-hidden="true">
+  <section class="split loop" id="loop" aria-hidden="true">
     <div class="panel tan">
       <span class="mono kick">Haarlemmerdijk 113 · open every day 11–17</span>
       <div class="hand big h1like">Soft buns,<br>bold flavours.</div>
@@ -554,7 +848,28 @@ body.switching main{animation:langfade .45s var(--ease)}
       <span class="doodle d1"><svg><use href="#flower"/></svg></span>
     </div>
     <figure class="ph"><img src="img/hero.webp" alt="" loading="lazy" style="object-position:50% 30%"><figcaption class="mono">Today’s tray · fresh at 11:00</figcaption></figure>
+    <div class="flip still" aria-hidden="true">
+      <div class="f-in">
+        <div class="f-face f-front">
+          <span class="mono c-k">Asian creative bakery</span>
+          <svg class="c-ele"><use href="#ele"/></svg>
+          <span class="c-word hand">ME<b>I</b>LI<br>BAKERY</span>
+          <span class="mono c-cta">Get to know Meili <span class="ar">↻</span></span>
+        </div>
+        <div class="f-face f-back">
+          <span class="mono c-k">Get to know Meili</span>
+          <b class="hand fb-t">From Chongqing, with love</b>
+          <ul class="fb-l">
+            <li><b class="hand">8,200</b><span class="mono">km from home</span></li>
+            <li><b class="hand">274</b><span class="mono">days to open</span></li>
+            <li><b class="hand">100%</b><span class="mono">hand-shaped</span></li>
+          </ul>
+          <a class="mono c-cta" href="#story" data-go>Read our story <span class="ar">↓</span></a>
+        </div>
+      </div>
+    </div>
   </section>
+  <div id="veil"></div>
 </main>
 
 <!-- fixed bottom bar -->
@@ -587,12 +902,12 @@ body.switching main{animation:langfade .45s var(--ease)}
 const SLUG='meili';
 const HOURS=[["11:00", "17:00"], ["11:00", "17:00"], ["11:00", "17:00"], ["11:00", "17:00"], ["11:00", "17:00"], ["11:00", "17:00"], ["11:00", "17:00"]];
 const YES_TXT='Take a bite';
-const NL={"Asian creative bakery": "Aziatische creatieve bakkerij", "Asian specialty coffee": "Aziatische specialty koffie", "Baked in the back, every day": "Elke dag achterin gebakken", "Bakery": "Bakkerij", "Banana Caramel Tart": "Banaan-karameltaart", "Black Forest Cake": "Black Forest-taart", "Black Sesame Basque": "Zwarte sesam Basque", "Black Sesame Mochi Lava Bun": "Zwarte sesam mochi lava bun", "Black sesame": "Zwarte sesam", "Buns": "Broodjes", "Burnt top, soft and green inside": "Verbrande bovenkant, zacht en groen van binnen", "Cakes \u0026 puffs": "Taart \u0026 soesjes", "Caramelised on top": "Gekarameliseerd bovenop", "Cherry cream meets chocolate cream": "Kersenroom ontmoet chocoladeroom", "Choose my cookies": "Kies mijn cookies", "Classic, Black Sesame or Matcha, with homemade sea salt cream": "Klassiek, zwarte sesam of matcha, met huisgemaakte zeezoutroom", "Cocoa choux, matcha cream": "Cacaosoes, matcharoom", "Cold milk, a hot shot of espresso on top, and flavours you won\u2019t find at a typical bakery: genmaicha, jasmine, red bean. Or go Vienna: Classic, Black Sesame or Matcha, topped with our homemade sea salt cream.": "Koude melk, een hete shot espresso erop, en smaken die je bij een gewone bakkerij niet vindt: genmaicha, jasmijn, rode bonen. Of kies Vienna: klassiek, zwarte sesam of matcha, met onze huisgemaakte zeezoutroom.", "Cold-brewed overnight, zero bitterness": "Een nacht koud getrokken, nul bitterheid", "Come say hi": "Kom even langs", "Concept by dolcessi_ \u00b7 not the official Meili Bakery site \u00b7 reviews from Google": "Concept door dolcessi_ \u00b7 niet de offici\u00eble site van Meili Bakery \u00b7 reviews via Google", "Cookie settings": "Cookie-instellingen", "Creamy, smooth, easy to drink": "Romig, zacht, makkelijk te drinken", "Cr\u00e8me Br\u00fbl\u00e9e Latte": "Cr\u00e8me br\u00fbl\u00e9e latte", "Cute little bakery with a really interesting menu and very friendly staff.": "Schattige kleine bakkerij met een heel interessant menu en heel vriendelijk personeel.", "Drinks": "Drankjes", "Essential": "Noodzakelijk", "Essentials only": "Alleen noodzakelijk", "Every day \u00b7 11:00\u201317:00": "Elke dag \u00b7 11:00\u201317:00", "Find us": "Vind ons", "Floral cream cheese filling": "Bloemige roomkaasvulling", "Fresh from the oven": "Vers uit de oven", "From Chongqing": "Van Chongqing", "From drinks to unique snacks, this place never fails to surprise me.": "Van drankjes tot unieke snacks, deze plek verrast me elke keer weer.", "Fun fact: our signboard is hand-lettered, just like our bread is hand-shaped. And if you\u2019re craving something you saw somewhere on the internet, DM us. It might end up on the menu one day.": "Leuk weetje: ons uithangbord is met de hand beletterd, net zoals ons brood met de hand gevormd is. En heb je trek in iets dat je ergens online zag? Stuur ons een DM. Misschien staat het ooit op het menu.", "Garlic Mashed Potato Bun": "Knoflook-aardappelpuree broodje", "Genmaicha Dirty Coffee": "Genmaicha dirty coffee", "Get directions": "Route plannen", "Get to know Meili": "Leer Meili kennen", "Google reviews": "Google-reviews", "Haarlemmerdijk 113 \u00b7 open every day 11\u201317": "Haarlemmerdijk 113 \u00b7 elke dag open 11\u201317", "Hand-shaped Asian buns, Sichuan-spiced ciabattas, matcha everything and dirty coffee. A little bakery from Chongqing, on the Haarlemmerdijk.": "Met de hand gevormde Aziatische broodjes, ciabatta\u2019s met Sichuan-kruiden, overal matcha en dirty coffee. Een kleine bakkerij uit Chongqing, aan de Haarlemmerdijk.", "Hand-smashed Lemon Tea": "Handgestampte citroenthee", "Hojicha Banana Latte": "Hojicha banana latte", "If you want to try something special, you have to come here.": "Als je iets bijzonders wilt proberen, moet je hier komen.", "It could be a good idea": "Misschien moeten we het menu", "Italian ciabatta, Sichuan mala beef. It all just works.": "Italiaanse ciabatta, Sichuan mala beef. Het klopt gewoon.", "Jasmine": "Jasmijn", "Jasmine \u00b7 Red Bean Dirty Coffee": "Jasmijn \u00b7 rode bonen dirty coffee", "Kimchi \u0026 Mala Beef Pretzel Bun": "Kimchi \u0026 mala beef pretzelbroodje", "Light, floral, wobbly": "Licht, bloemig, wiebelig", "Matcha Basque Cheesecake": "Matcha Basque cheesecake", "Matcha Blueberry Cream Puff": "Matcha-bosbes soesje", "Matcha Mochi Lava Bun": "Matcha mochi lava bun", "Matcha blueberry cream puffs": "Matcha-bosbes soesjes", "Notes from the neighbours": "Briefjes van de buren", "Nutty, molten, a little bit addictive": "Nootachtig, vloeibaar, een beetje verslavend", "Opening hours": "Openingstijden", "Our cosy one": "Onze knusse", "Our story": "Ons verhaal", "Peach \u00b7 Osmanthus Oolong": "Perzik \u00b7 osmanthus-oolong", "Peppercorn Chicken Ciabatta": "Ciabatta met peperkorrelkip", "Preferences": "Voorkeuren", "Pretzel crust, Sichuan heat": "Pretzelkorst, Sichuan-pit", "Prices on the board inside. Menu selection for this concept, based on Meili\u2019s own posts; it changes with the seasons.": "Prijzen op het bord binnen. Menuselectie voor dit concept, gebaseerd op Meili\u2019s eigen posts; het wisselt met de seizoenen.", "Red bean": "Rode bonen", "Remembers this choice for 6 months.": "Onthoudt deze keuze 6 maanden.", "Roasted Pepper \u0026 Eggplant Focaccia": "Focaccia met geroosterde paprika \u0026 aubergine", "Rose Bergamot Cheese Bun": "Rozen-bergamot kaasbroodje", "Rose Lychee Coconut Jelly Cake": "Rozen-lychee-kokos jellytaart", "Savoury, buttery, warm": "Hartig, boterig, warm", "Say hello": "Zeg hallo", "Sesame cookie?": "Sesamkoekje?", "Shaped like a drum, straight from Japan": "In de vorm van een trommel, recht uit Japan", "Sichuan Mala Beef Ciabatta": "Sichuan mala beef ciabatta", "Soft bun, chewy mochi, a molten matcha centre": "Zacht broodje, taaie mochi, een vloeibaar matcha-hart", "Soft buns,": "Zachte broodjes,", "Story": "Verhaal", "Take a bite": "Neem een hap", "Thai green, black, or duck-shit oolong (yes, that\u2019s really its name)": "Thaise groene, zwarte of duck-shit oolong (ja, zo heet hij echt)", "The ciabatta was definitely the highlight. Super tasty and such a unique combo.": "De ciabatta was echt het hoogtepunt. Superlekker en zo\u2019n unieke combinatie.", "The dark twin": "De donkere tweeling", "The green stuff": "Het groene spul", "The jasmine dirty coffee: creamy, smooth and easy to drink.": "De jasmijn dirty coffee: romig, zacht en makkelijk te drinken.", "The journey from our hometown, Chongqing, to Amsterdam is around 8,200 kilometres. Starting from zero, it took us 274 days to turn our dream into a little Asian bakery on the Haarlemmerdijk.": "De reis van onze geboortestad Chongqing naar Amsterdam is zo\u2019n 8.200 kilometer. Vanaf nul kostte het ons 274 dagen om van onze droom een kleine Aziatische bakkerij aan de Haarlemmerdijk te maken.", "Tingly Sichuan peppercorn chicken": "Tintelende kip met Sichuan-peper", "Tip: come early. By late afternoon most buns are sold out.": "Tip: kom op tijd. Aan het eind van de middag zijn de meeste broodjes op.", "Toasted rice tea milk, cold, espresso on top": "Melk met geroosterde rijstthee, koud, espresso erop", "Toasty hojicha, natural banana sweetness": "Geroosterde hojicha, natuurlijke zoetheid van banaan", "Today\u2019s tray \u00b7 fresh at 11:00": "Het blik van vandaag \u00b7 vers om 11:00", "Tuna Corn Nori Drum Bread": "Tonijn-mais-nori trommelbrood", "Vegetarian, generously filled": "Vegetarisch, rijkelijk belegd", "Very tasty! We tried the dirty coffee and both were delicious.": "Heel lekker! We probeerden de dirty coffee en ze waren allebei heerlijk.", "Vienna Coffee": "Vienna coffee", "Visit": "Bezoek", "We bake a couple of small cookies: one to remember your choice, one for your language, favourite menu tab and a welcome back. No ads, no tracking.": "We bakken een paar kleine cookies: \u00e9\u00e9n om je keuze te onthouden, en \u00e9\u00e9n voor je taal, je favoriete menutab en een welkom terug. Geen advertenties, geen tracking.", "We have quite": "We hebben best", "What\u2019s in the oven": "Wat zit er in de oven", "Which one would you try first?": "Welke zou jij als eerste proberen?", "Your language, last menu tab and a welcome back.": "Je taal, laatste menutab en een welkom terug.", "a lot of matcha.": "wel veel matcha.", "back to the start": "terug naar het begin", "between Haarlemmerplein and the Brouwersgracht": "tussen het Haarlemmerplein en de Brouwersgracht", "black forest, cherry season": "black forest, kersenseizoen", "bold flavours.": "gedurfde smaken.", "days from zero to opening day": "dagen van nul tot openingsdag", "fan favourite": "favoriet", "hand-lettered signboard": "met de hand beletterd uithangbord", "keep scrolling, it starts again": "blijf scrollen, het begint opnieuw", "kilometres from our hometown": "kilometer van onze geboortestad", "matcha latte + matcha bun": "matcha latte + matchabroodje", "new": "nieuw", "peach \u0026 osmanthus oolong": "perzik- \u0026 osmanthus-oolong", "rose bergamot cheese bun": "rozen-bergamot kaasbroodje", "seasonal": "seizoen", "spicy": "pittig", "summer": "zomer", "tap a poster to zoom": "tik op een poster om te zoomen", "to cut down the menu\u2026": "wat korter maken\u2026", "to the Haarlemmerdijk, Amsterdam": "naar de Haarlemmerdijk, Amsterdam", "today\u2019s buns": "de broodjes van vandaag", "tuna corn nori drum bread": "tonijn-mais-nori trommelbrood", "yes, we have tote bags": "ja, we hebben tassen", "\u2026but we just can\u2019t help it. A selection of what\u2019s usually on the counter; the board inside has today\u2019s full line-up.": "\u2026maar we kunnen het gewoon niet laten. Een selectie van wat meestal op de toonbank ligt; op het bord binnen staat alles van vandaag.", "\u2193 drag the photos around": "\u2193 sleep de foto\u2019s rond"};
+const NL={"A hot shot over cold milk: genmaicha, jasmine or red bean. Or Vienna-style with homemade sea salt cream.": "Een hete shot over koude melk: genmaicha, jasmijn of rode bonen. Of Vienna-style met huisgemaakte zeezoutroom.", "Asian creative bakery": "Aziatische creatieve bakkerij", "Asian specialty coffee": "Aziatische specialty koffie", "Baked in the back, every day": "Elke dag achterin gebakken", "Bakery": "Bakkerij", "Banana Caramel Tart": "Banaan-karameltaart", "Black Forest Cake": "Black Forest-taart", "Black Sesame Basque": "Zwarte sesam Basque", "Black Sesame Mochi Lava Bun": "Zwarte sesam mochi lava bun", "Black sesame": "Zwarte sesam", "Bun counter": "Broodjesvitrine", "Buns": "Broodjes", "Buns, sandwiches, cakes and drinks. It changes with the seasons.": "Broodjes, sandwiches, taart en drankjes. Het wisselt met de seizoenen.", "Burnt top, soft and green inside": "Verbrande bovenkant, zacht en groen van binnen", "Cakes \u0026 puffs": "Taart \u0026 soesjes", "Caramelised on top": "Gekarameliseerd bovenop", "Cherry cream meets chocolate cream": "Kersenroom ontmoet chocoladeroom", "Choose my cookies": "Kies mijn cookies", "Classic, Black Sesame or Matcha, with homemade sea salt cream": "Klassiek, zwarte sesam of matcha, met huisgemaakte zeezoutroom", "Click to open the menu": "Klik om het menu te openen", "Cocoa choux, matcha cream": "Cacaosoes, matcharoom", "Cold milk, a hot shot of espresso on top, and flavours you won\u2019t find at a typical bakery: genmaicha, jasmine, red bean. Or go Vienna: Classic, Black Sesame or Matcha, topped with our homemade sea salt cream.": "Koude melk, een hete shot espresso erop, en smaken die je bij een gewone bakkerij niet vindt: genmaicha, jasmijn, rode bonen. Of kies Vienna: klassiek, zwarte sesam of matcha, met onze huisgemaakte zeezoutroom.", "Cold-brewed overnight, zero bitterness": "Een nacht koud getrokken, nul bitterheid", "Come say hi": "Kom even langs", "Come say hi at the counter": "Kom even hallo zeggen aan de bar", "Concept by dolcessi_ \u00b7 not the official Meili Bakery site \u00b7 reviews from Google": "Concept door dolcessi_ \u00b7 niet de offici\u00eble site van Meili Bakery \u00b7 reviews via Google", "Cookie settings": "Cookie-instellingen", "Creamy, smooth, easy to drink": "Romig, zacht, makkelijk te drinken", "Cr\u00e8me Br\u00fbl\u00e9e Latte": "Cr\u00e8me br\u00fbl\u00e9e latte", "Cute little bakery with a really interesting menu and very friendly staff.": "Schattige kleine bakkerij met een heel interessant menu en heel vriendelijk personeel.", "Dirty coffee, done right": "Dirty coffee, zoals het hoort", "Drinks": "Drankjes", "Espresso bar": "Espressobar", "Essential": "Noodzakelijk", "Essentials only": "Alleen noodzakelijk", "Every day \u00b7 11:00\u201317:00": "Elke dag \u00b7 11:00\u201317:00", "Find us": "Vind ons", "Floral cream cheese filling": "Bloemige roomkaasvulling", "For the matcha latte, matcha Vienna coffee and the iced matcha mango latte.": "Voor de matcha latte, matcha Vienna coffee en de iced matcha mango latte.", "Fresh from the oven": "Vers uit de oven", "From Chongqing": "Van Chongqing", "From Chongqing, with love": "Uit Chongqing, met liefde", "From drinks to unique snacks, this place never fails to surprise me.": "Van drankjes tot unieke snacks, deze plek verrast me elke keer weer.", "Fun fact: our signboard is hand-lettered, just like our bread is hand-shaped. And if you\u2019re craving something you saw somewhere on the internet, DM us. It might end up on the menu one day.": "Leuk weetje: ons uithangbord is met de hand beletterd, net zoals ons brood met de hand gevormd is. En heb je trek in iets dat je ergens online zag? Stuur ons een DM. Misschien staat het ooit op het menu.", "Garlic Mashed Potato Bun": "Knoflook-aardappelpuree broodje", "Genmaicha Dirty Coffee": "Genmaicha dirty coffee", "Get directions": "Route plannen", "Get to know Meili": "Leer Meili kennen", "Google reviews": "Google-reviews", "Grinder": "Molen", "Ground fresh for every shot": "Vers gemalen voor elke shot", "Haarlemmerdijk 113 \u00b7 open every day 11\u201317": "Haarlemmerdijk 113 \u00b7 elke dag open 11\u201317", "Haarlemmerdijk 113, inside": "Haarlemmerdijk 113, binnen", "Hand-shaped Asian buns, Sichuan-spiced ciabattas, matcha everything and dirty coffee. A little bakery from Chongqing, on the Haarlemmerdijk.": "Met de hand gevormde Aziatische broodjes, ciabatta\u2019s met Sichuan-kruiden, overal matcha en dirty coffee. Een kleine bakkerij uit Chongqing, aan de Haarlemmerdijk.", "Hand-shaped every morning": "Elke ochtend met de hand gevormd", "Hand-smashed Lemon Tea": "Handgestampte citroenthee", "Hand-smashed lemon tea": "Handgestampte citroenthee", "Hojicha Banana Latte": "Hojicha banana latte", "Hover over the bar \u00b7 click the menu board": "Beweeg over de bar \u00b7 klik op het menubord", "Iced tea": "IJsthee", "If you want to try something special, you have to come here.": "Als je iets bijzonders wilt proberen, moet je hier komen.", "It could be a good idea": "Misschien moeten we het menu", "Italian ciabatta, Sichuan mala beef. It all just works.": "Italiaanse ciabatta, Sichuan mala beef. Het klopt gewoon.", "Jasmine": "Jasmijn", "Jasmine \u00b7 Red Bean Dirty Coffee": "Jasmijn \u00b7 rode bonen dirty coffee", "Kimchi \u0026 Mala Beef Pretzel Bun": "Kimchi \u0026 mala beef pretzelbroodje", "Light, floral, wobbly": "Licht, bloemig, wiebelig", "Matcha Basque Cheesecake": "Matcha Basque cheesecake", "Matcha Blueberry Cream Puff": "Matcha-bosbes soesje", "Matcha Mochi Lava Bun": "Matcha mochi lava bun", "Matcha blueberry cream puffs": "Matcha-bosbes soesjes", "Matcha corner": "Matchahoek", "Matcha mochi lava, rose bergamot, garlic potato, kimchi pretzel. Come early: by late afternoon most are gone.": "Matcha mochi lava, roos-bergamot, knoflook-aardappel, kimchi pretzel. Kom op tijd: aan het eind van de middag zijn de meeste op.", "Not sure? Ask what just came out of the oven.": "Twijfel je? Vraag wat er net uit de oven komt.", "Notes from the neighbours": "Briefjes van de buren", "Nutty, molten, a little bit addictive": "Nootachtig, vloeibaar, een beetje verslavend", "ORDER HERE": "HIER BESTELLEN", "Opening hours": "Openingstijden", "Order": "Bestellen", "Our cosy one": "Onze knusse", "Our signboard is hand-lettered, just like our bread is hand-shaped.": "Ons uithangbord is met de hand beletterd, net zoals ons brood met de hand gevormd is.", "Our story": "Ons verhaal", "PICK UP": "AFHALEN", "Peach \u00b7 Osmanthus Oolong": "Perzik \u00b7 osmanthus-oolong", "Peppercorn Chicken Ciabatta": "Ciabatta met peperkorrelkip", "Pick up": "Afhalen", "Preferences": "Voorkeuren", "Pretzel crust, Sichuan heat": "Pretzelkorst, Sichuan-pit", "Prices on the board inside. Menu selection for this concept, based on Meili\u2019s own posts; it changes with the seasons.": "Prijzen op het bord binnen. Menuselectie voor dit concept, gebaseerd op Meili\u2019s eigen posts; het wisselt met de seizoenen.", "Read our story": "Lees ons verhaal", "Red bean": "Rode bonen", "Remembers this choice for 6 months.": "Onthoudt deze keuze 6 maanden.", "Roasted Pepper \u0026 Eggplant Focaccia": "Focaccia met geroosterde paprika \u0026 aubergine", "Rose Bergamot Cheese Bun": "Rozen-bergamot kaasbroodje", "Rose Lychee Coconut Jelly Cake": "Rozen-lychee-kokos jellytaart", "Same doodle as our window": "Dezelfde tekening als op ons raam", "Savoury, buttery, warm": "Hartig, boterig, warm", "Say hello": "Zeg hallo", "Say hi, pick a bun": "Zeg hallo, kies een broodje", "Sesame cookie?": "Sesamkoekje?", "Shaped like a drum, straight from Japan": "In de vorm van een trommel, recht uit Japan", "Sichuan Mala Beef Ciabatta": "Sichuan mala beef ciabatta", "Soft bun, chewy mochi, a molten matcha centre": "Zacht broodje, taaie mochi, een vloeibaar matcha-hart", "Soft buns,": "Zachte broodjes,", "Story": "Verhaal", "Swipe along the bar \u00b7 tap anything": "Swipe langs de bar \u00b7 tik op alles", "Take a bite": "Neem een hap", "Taking it with you? Ask for a Meili tote bag.": "Neem je het mee? Vraag naar een Meili-tas.", "Thai green, black or duck-shit oolong. Yes, that\u2019s really its name.": "Thaise groene, zwarte of duck-shit oolong. Ja, zo heet hij echt.", "Thai green, black, or duck-shit oolong (yes, that\u2019s really its name)": "Thaise groene, zwarte of duck-shit oolong (ja, zo heet hij echt)", "The Meili elephant": "De Meili-olifant", "The base of every dirty coffee and Vienna coffee we make.": "De basis van elke dirty coffee en Vienna coffee die we maken.", "The ciabatta was definitely the highlight. Super tasty and such a unique combo.": "De ciabatta was echt het hoogtepunt. Superlekker en zo\u2019n unieke combinatie.", "The dark twin": "De donkere tweeling", "The green stuff": "Het groene spul", "The jasmine dirty coffee: creamy, smooth and easy to drink.": "De jasmijn dirty coffee: romig, zacht en makkelijk te drinken.", "The journey from our hometown, Chongqing, to Amsterdam is around 8,200 kilometres. Starting from zero, it took us 274 days to turn our dream into a little Asian bakery on the Haarlemmerdijk.": "De reis van onze geboortestad Chongqing naar Amsterdam is zo\u2019n 8.200 kilometer. Vanaf nul kostte het ons 274 dagen om van onze droom een kleine Aziatische bakkerij aan de Haarlemmerdijk te maken.", "Tingly Sichuan peppercorn chicken": "Tintelende kip met Sichuan-peper", "Tip: come early. By late afternoon most buns are sold out.": "Tip: kom op tijd. Aan het eind van de middag zijn de meeste broodjes op.", "Toasted rice tea milk, cold, espresso on top": "Melk met geroosterde rijstthee, koud, espresso erop", "Toasty hojicha, natural banana sweetness": "Geroosterde hojicha, natuurlijke zoetheid van banaan", "Today\u2019s tray \u00b7 fresh at 11:00": "Het blik van vandaag \u00b7 vers om 11:00", "Tuna Corn Nori Drum Bread": "Tonijn-mais-nori trommelbrood", "Vegetarian, generously filled": "Vegetarisch, rijkelijk belegd", "Very tasty! We tried the dirty coffee and both were delicious.": "Heel lekker! We probeerden de dirty coffee en ze waren allebei heerlijk.", "Vienna Coffee": "Vienna coffee", "Visit": "Bezoek", "We bake a couple of small cookies: one to remember your choice, one for your language, favourite menu tab and a welcome back. No ads, no tracking.": "We bakken een paar kleine cookies: \u00e9\u00e9n om je keuze te onthouden, en \u00e9\u00e9n voor je taal, je favoriete menutab en een welkom terug. Geen advertenties, geen tracking.", "We have quite": "We hebben best", "What\u2019s in the oven": "Wat zit er in de oven", "Which one would you try first?": "Welke zou jij als eerste proberen?", "Whisked to order": "Vers opgeklopt", "Your drink lands here": "Hier komt je drankje", "Your language, last menu tab and a welcome back.": "Je taal, laatste menutab en een welkom terug.", "a lot of matcha.": "wel veel matcha.", "back to the start": "terug naar het begin", "between Haarlemmerplein and the Brouwersgracht": "tussen het Haarlemmerplein en de Brouwersgracht", "black forest, cherry season": "black forest, kersenseizoen", "bold flavours.": "gedurfde smaken.", "click me!": "klik mij!", "days from zero to opening day": "dagen van nul tot openingsdag", "days to open": "dagen tot opening", "fan favourite": "favoriet", "hand-lettered signboard": "met de hand beletterd uithangbord", "hand-shaped": "met de hand gevormd", "keep scrolling, it starts again": "blijf scrollen, het begint opnieuw", "kilometres from our hometown": "kilometer van onze geboortestad", "km from home": "km van huis", "lemon tea": "citroenthee", "matcha latte + matcha bun": "matcha latte + matchabroodje", "new": "nieuw", "peach \u0026 osmanthus oolong": "perzik- \u0026 osmanthus-oolong", "rose bergamot": "roos-bergamot", "rose bergamot bun": "rozen-bergamot bun", "rose bergamot cheese bun": "rozen-bergamot kaasbroodje", "seasonal": "seizoen", "spicy": "pittig", "summer": "zomer", "tap a poster to zoom": "tik op een poster om te zoomen", "to cut down the menu\u2026": "wat korter maken\u2026", "to the Haarlemmerdijk, Amsterdam": "naar de Haarlemmerdijk, Amsterdam", "today\u2019s buns": "de broodjes van vandaag", "tuna corn nori drum bread": "tonijn-mais-nori trommelbrood", "yes, we have tote bags": "ja, we hebben tassen", "\u2026but we just can\u2019t help it. A selection of what\u2019s usually on the counter; the board inside has today\u2019s full line-up.": "\u2026maar we kunnen het gewoon niet laten. Een selectie van wat meestal op de toonbank ligt; op het bord binnen staat alles van vandaag.", "\u2193 drag the photos around": "\u2193 sleep de foto\u2019s rond"};
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 const touch=matchMedia('(hover:none)').matches;
 const mob=()=>innerWidth<=820;
-let LANG='en';
+let LANG='en';let lastPtr='mouse';
 
 /* ── smooth scroll ── */
 try{if(window.Lenis&&!reduce){window.lenis=new Lenis({lerp:.085,smoothWheel:true});(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);}}catch(e){}
@@ -603,18 +918,69 @@ function go(target,immediate){
 }
 $$('[data-go]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');if(h&&h[0]==='#'){e.preventDefault();go(h==='#top'?0:h);history.replaceState(null,'',h==='#top'?location.pathname:h)}}));
 
-/* ── the card: big in the middle on split screens, a little pill everywhere else ── */
-const secs=$$('[data-card]');
+/* ── active nav ── */
 function cardState(){
-  let min;
-  if(mob()){min=scrollY>innerHeight*.32 && !nearLoop();}
-  else{const mid=innerHeight/2;let cur=null;for(const s of secs){const r=s.getBoundingClientRect();if(r.top<=mid&&r.bottom>mid){cur=s;break}}min=cur?cur.dataset.card==='min':false;}
-  document.body.classList.toggle('cmin',min);
-  // active nav
   const ids=['menu','story','visit'];let act=null;for(const id of ids){const r=$('#'+id).getBoundingClientRect();if(r.top<innerHeight*.5&&r.bottom>innerHeight*.5)act=id}
   $$('.hnav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+act));
 }
-function nearLoop(){return false}
+
+/* ── flip card: get to know Meili ── */
+const flip=$('#flip');
+flip.addEventListener('click',e=>{if(e.target.closest('a'))return;flip.classList.toggle('on')});
+flip.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip.classList.toggle('on')}});
+
+/* ── the bar ── */
+const svg=$('#barSvg'),stage=$('#barStage'),tip=$('#tip'),bscroll=$('#barScroll'),emp=$('#emp'),empIn=$('#empIn'),face=$('#face');
+const TIPS={};$$('.tips [data-k]').forEach(d=>TIPS[d.dataset.k]=d);
+const lamps=$$('.lamp');
+function toSvg(cx){const r=svg.getBoundingClientRect();return (cx-r.left)/r.width*1600}
+let ex=900,tx=900,t0=0,activeHot=null;
+function showTip(h,cx,cy){
+  activeHot=h;$$('.hot.on').forEach(x=>x!==h&&x.classList.remove('on'));h.classList.add('on');svg.classList.add('hovering');
+  lamps.forEach(l=>l.classList.toggle('lit',l.dataset.i===h.dataset.lamp));
+  const src=TIPS[h.dataset.tip];if(src&&tip.dataset.k!==h.dataset.tip){tip.innerHTML=src.innerHTML;tip.dataset.k=h.dataset.tip}
+  placeTip(cx,cy);tip.classList.add('on');
+}
+function placeTip(cx,cy){const r=stage.getBoundingClientRect(),v=bscroll.getBoundingClientRect();let x=cx-r.left+18,y=cy-r.top+18;const w=tip.offsetWidth,h=tip.offsetHeight;
+  const minX=Math.max(0,v.left-r.left)+8,maxX=Math.min(r.width,v.right-r.left)-w-8;
+  if(x>maxX)x=cx-r.left-w-18;x=Math.max(minX,Math.min(maxX,x));if(y+h>r.height-10)y=cy-r.top-h-18;tip.style.left=x+'px';tip.style.top=Math.max(8,y)+'px'}
+function hideTip(){activeHot=null;tip.classList.remove('on');svg.classList.remove('hovering');$$('.hot.on').forEach(x=>x.classList.remove('on'));lamps.forEach(l=>l.classList.remove('lit'))}
+$$('.hot').forEach(h=>{
+  h.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')showTip(h,e.clientX,e.clientY)});
+  h.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')hideTip()});
+  h.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&activeHot===h)placeTip(e.clientX,e.clientY)});
+  h.addEventListener('click',e=>{if(h.id==='board'){openMenu();return}
+    if(activeHot===h&&lastPtr!=='mouse'){hideTip();return}
+    const b=h.getBoundingClientRect();showTip(h,lastPtr==='mouse'?e.clientX:b.left+b.width/2,lastPtr==='mouse'?e.clientY:b.top+b.height*.3)});
+});
+$('#board').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openMenu()}});
+document.addEventListener('click',e=>{if(lastPtr!=='mouse'&&activeHot&&!e.target.closest('.hot'))hideTip()});
+// the baker follows you along the bar
+stage.addEventListener('pointermove',e=>{tx=toSvg(e.clientX)});
+stage.addEventListener('pointerdown',e=>{tx=toSvg(e.clientX)});
+bscroll.addEventListener('scroll',()=>{if(!mob())return;const r=bscroll.getBoundingClientRect();tx=toSvg(r.left+r.width/2)},{passive:true});
+let barVis=false;new IntersectionObserver(es=>{barVis=es[0].isIntersecting},{rootMargin:'100px'}).observe(stage);
+(function step(t){
+  requestAnimationFrame(step);if(!barVis)return;
+  const T=Math.max(250,Math.min(1450,tx)),d=T-ex;ex+=d*.06;
+  const moving=Math.abs(d)>3,dir=Math.sign(d);if(moving)t0+=.22;
+  const bob=moving?Math.sin(t0)*3:0,lean=moving?Math.max(-6,Math.min(6,d*.04)):0;
+  emp.setAttribute('transform',`translate(${ex.toFixed(1)} ${bob.toFixed(1)})`);
+  empIn.setAttribute('transform',`rotate(${lean.toFixed(2)} 0 600)`);
+  face.setAttribute('transform',`translate(${moving?dir*6:0} 0)`);
+})();
+if(mob())requestAnimationFrame(()=>{bscroll.scrollLeft=(stage.offsetWidth-bscroll.clientWidth)*.42});
+// click the board: zoom in, land on the menu
+let zooming=false;
+function openMenu(){
+  if(zooming)return;zooming=true;hideTip();
+  const r=stage.getBoundingClientRect(),vis=bscroll.getBoundingClientRect();
+  if(mob()){bscroll.scrollTo({left:(stage.offsetWidth*.506)-bscroll.clientWidth/2,behavior:'smooth'})}
+  stage.classList.add('zoom');
+  setTimeout(()=>$('#veil').classList.add('on'),650);
+  setTimeout(()=>{go('#menu',true);stage.classList.remove('zoom');stage.style.transition='none';requestAnimationFrame(()=>stage.style.transition='')},1150);
+  setTimeout(()=>{$('#veil').classList.remove('on');zooming=false},1350);
+}
 
 /* ── the loop: hit the twin of the first screen and you're back at the start (desktop) ── */
 const loopEl=$('#loop');let looping=false;
@@ -678,7 +1044,6 @@ hours();
 if(touch)$('.map iframe').style.pointerEvents='none';
 
 /* ── click puff ── */
-let lastPtr='mouse';
 function puff(e){
   const el=document.elementFromPoint(e.clientX,e.clientY);
   const dark=el&&el.closest('.cocoa,.journey,.foot,#ckwrap,#lb');
