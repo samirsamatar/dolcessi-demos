@@ -1,0 +1,336 @@
+{% layout none %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070707">
+<title>Dolcessi — websites for Amsterdam restaurants</title>
+<meta name="description" content="Dolcessi builds high-end websites that make people hungry before they walk in. We build yours before you even ask.">
+<link rel="canonical" href="{{ canonical_url }}">
+<meta property="og:title" content="Dolcessi — websites for Amsterdam restaurants">
+<meta property="og:description" content="Hungry people Google first. We build the website that makes them come in.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ canonical_url }}">
+<link rel="preload" href="{{ 'inter-tight-latin-600-normal.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'instrument-serif-latin-400-italic.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<meta property="og:image" content="{{ 'og.jpg' | asset_url | prepend: 'https:' }}">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Dolcessi","description":"High-end websites for independent restaurants in Amsterdam.","url":"https://dolcessi.com","email":"info@dolcessi.com","areaServed":{"@type":"City","name":"Amsterdam"},"address":{"@type":"PostalAddress","addressLocality":"Amstelveen","addressCountry":"NL"},"knowsLanguage":["nl","en"]}</script>
+<link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ 'favicon-192.png' | asset_url }}"><link rel="icon" type="image/png" sizes="48x48" href="{{ 'favicon-48.png' | asset_url }}"><link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | asset_url }}">
+<style>
+/* v2.0 work cards: live pill, client-colour glow, feature line, more-work row */
+.card-live{position:absolute;z-index:3;top:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:5px 10px 5px 8px;border-radius:999px;background:rgba(7,7,7,.82);border:1px solid rgba(255,255,255,.08);font-size:9px;letter-spacing:.2em;color:var(--bone);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.card-live .live-dot{width:6px;height:6px}
+.card:hover .card-phone,.card:focus-visible .card-phone{border-color:var(--acc,#3a3a3a);box-shadow:0 40px 90px rgba(0,0,0,.65),0 0 80px color-mix(in srgb,var(--acc,#FF5A1F) 32%,transparent)}
+.card:focus-visible{outline:none}
+.card:focus-visible .card-phone img.alt{opacity:1}
+.card-meta b{white-space:nowrap}
+.card-feat{grid-column:1/-1;margin-top:6px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);display:flex;align-items:center;gap:8px}
+.card-feat::before{content:"";width:14px;height:1px;background:var(--acc,var(--ember))}
+.more-work{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);margin:-1vh 0 14px}
+.more-work a{color:var(--bone);border-bottom:1px solid var(--line2);padding-bottom:2px;transition:color .25s,border-color .25s}
+.more-work a:hover{color:var(--ember);border-color:var(--ember)}
+.swipe-hint{display:none}
+@media (max-width:900px){
+  .swipe-hint{display:flex;justify-content:flex-end;gap:8px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ash);margin:-3vh 0 4vh}
+  .swipe-hint span{color:var(--ember);animation:nudge 1.6s ease-in-out infinite}
+  .card-phone{width:min(68vw,280px)}
+  .more-work{line-height:2}
+}
+@keyframes nudge{50%{transform:translateX(5px)}}
+</style>
+{{ content_for_header }}
+</head>
+<body class="is-loading">
+
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><div class="cur-dot"></div><div class="cur-ring"><span class="cur-label"></span></div></div>
+
+<!-- Preloader -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-count"><span id="count">00</span></div>
+  <div class="loader-line"><i id="loadbar"></i></div>
+  <div class="loader-word">DOLCESSI<span class="blink">_</span></div>
+</div>
+
+<header class="nav" id="nav">
+  <a href="#top" class="word" data-cursor="TOP">DOLCESSI<span class="e blink">_</span></a>
+  <nav class="links" aria-label="Sections">
+    <a href="#work" data-cursor="GO">Work</a><a href="#how" data-cursor="GO">How</a><a href="#proof" data-cursor="GO">Proof</a><a href="#faq" data-cursor="GO">FAQ</a>
+  </nav>
+  <button type="button" class="lang mono" id="lang" aria-label="Switch language"><span data-l="en">EN</span><i>/</i><span data-l="nl">NL</span></button>
+  <div class="clock mono"><span class="live-dot"></span><span id="clock">AMS --:--</span><span class="kitchen" id="kitchen"></span></div>
+  <a class="btn btn-s magnetic" href="#ask" data-open-ask data-cursor="HI">Show me my site</a>
+</header>
+
+<main id="top">
+
+<!-- 01 HERO -->
+<section class="hero" id="hero">
+  <div class="hero-anchor" id="a-hero"></div>
+  <div class="hero-copy">
+    <p class="label type">High-end websites for Amsterdam restaurants</p>
+    <h1 class="split hero-title" data-nl="Wie honger heeft, &lt;em&gt;googlet&lt;/em&gt; eerst.">Hungry people <em>Google</em> first.</h1>
+    <p class="hero-sub reveal" data-nl="Voordat iemand binnenloopt, zoeken ze je op. Wij bouwen de website die ze over de drempel haalt, en die van jou bouwen we &lt;b&gt;voordat je erom vraagt.&lt;/b&gt;">Before anyone walks in, they look you up. We build the kind of website that makes them come in, and we build yours <b>before you even ask.</b></p>
+    <div class="hero-ctas reveal">
+      <a class="btn magnetic" href="#ask" data-open-ask data-cursor="HI">Show me my site <span class="arr">→</span></a>
+      <a class="btn btn-o magnetic" href="#work" data-cursor="LOOK">See the work ↓</a>
+    </div>
+  </div>
+  <div class="hero-foot mono">
+    <span><span class="live-dot"></span> 3 concepts live</span>
+    <span>Built in Amsterdam</span>
+    <span class="scroll-hint">Scroll <i></i></span>
+  </div>
+</section>
+
+<!-- 02 PROBLEM -->
+<section class="problem" id="why">
+  <div class="problem-inner">
+    <div class="problem-left">
+      <p class="label type">02 · Why it matters</p>
+      <h2 class="scrub-words" data-nl="Je eten doet het werk. Je website &lt;em&gt;verpest het.&lt;/em&gt;">Your food is doing the work. Your website is <em>undoing it.</em></h2>
+      <div class="stats">
+        <div class="stat" data-step="0"><div class="num mono-num"><span data-to="77">0</span>%</div><p>of diners check a restaurant’s website before they come.</p></div>
+        <div class="stat" data-step="1"><div class="num mono-num">~<span data-to="70">0</span>%</div><p>of them say a website has put them off a restaurant.</p></div>
+        <div class="stat" data-step="2"><div class="num mono-num"><span data-to="53">0</span>%</div><p>of phone visitors leave if a page takes over 3 seconds.</p></div>
+      </div>
+      <p class="kicker" data-nl="Verouderd. Onleesbaar op je telefoon. Menukaart als wazige PDF. &lt;span class=&quot;e&quot;&gt;Elk daarvan kost je een tafel.&lt;/span&gt;">Outdated. Unreadable on a phone. Menu as a blurry PDF. <span class="e">Every one of those costs you a table.</span></p>
+      <p class="src mono">MGH survey of 1,101 US diners, 2019 · Google mobile speed research, 2016</p>
+    </div>
+    <div class="problem-right">
+      <div class="crowd" id="crowd" data-state="0">
+        <div class="crowd-top mono"><span id="crowd-tag">100 hungry people nearby</span><span class="crowd-n"><b id="crowd-n">100</b><small>/100</small></span></div>
+        <div class="crowd-grid" id="crowd-grid" aria-hidden="true"></div>
+        <div class="crowd-load" aria-hidden="true"><i></i><span class="mono">3.0s</span></div>
+        <p class="crowd-cap" id="crowd-cap">Every dot is someone deciding where to eat tonight.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 TAKEOFF -->
+<section class="takeoff" id="takeoff">
+  <div class="takeoff-inner">
+    <div class="takeoff-copy">
+      <p class="label type">03 · What a good site does</p>
+      <h2 class="split" data-nl="Goede sites staan niet stil. &lt;em&gt;Ze stijgen op.&lt;/em&gt;">Good sites don’t sit there. <em>They take off.</em></h2>
+    </div>
+    <div class="chart-box" id="chart-box">
+      <div class="axis-y"></div><div class="axis-x"></div>
+      <div class="milestones">
+        <div class="ms" data-at="0.1"><b>Found</b><span>on Google, at last</span></div>
+        <div class="ms" data-at="0.24"><b>Clicked</b><span>because it looks the part</span></div>
+        <div class="ms" data-at="0.38"><b>Called</b><span>one tap, no hunting</span></div>
+        <div class="ms" data-at="0.5"><b>Booked</b><span>“table for four, Friday?”</span></div>
+      </div>
+    </div>
+    <p class="liftoff split" id="liftoff" data-nl="Je restaurant, eindelijk net zo goed online als &lt;em&gt;aan tafel.&lt;/em&gt;">Your restaurant, finally as good online as it is <em>at the table.</em></p>
+  </div>
+</section>
+
+<!-- 04 HOW -->
+<section class="how" id="how">
+  <div class="how-pin">
+    <div class="how-head">
+      <p class="label type">04 · How it works</p>
+      <h2 class="split" data-nl="Geen pitchdecks. &lt;em&gt;Gewoon je site.&lt;/em&gt;">No pitch decks. <em>Just your site.</em></h2>
+    </div>
+    <div class="how-track" id="how-track">
+      <article class="step" data-n="01">
+        <div class="step-num" aria-hidden="true">01</div>
+        <div class="mini mini-build" aria-hidden="true">
+          <span class="mb mb-nav"></span><span class="mb mb-hero"><em>Your place</em></span><span class="mb mb-l1"></span><span class="mb mb-l2"></span><span class="mb mb-btn"></span><span class="mb mb-c1"></span><span class="mb mb-c2"></span>
+          <span class="mb-cursor"><svg viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z"/></svg></span><span class="mini-tag mono">Designing…</span>
+        </div>
+        <h3>We build it first.</h3>
+        <p>A real concept of your restaurant: your menu, your hours, your street. We walk in and show it to you on a phone.</p>
+      </article>
+      <article class="step" data-n="02">
+        <div class="step-num" aria-hidden="true">02</div>
+        <div class="mini mini-yes" aria-hidden="true">
+          <div class="my-hero"><span class="my-dish"></span><b>Your restaurant</b><small class="mono">Est. today</small></div>
+          <span class="my-l"></span><span class="my-l s"></span>
+          <span class="my-btn"><span class="t1">Make it mine</span><span class="t2">✓ It’s yours</span></span>
+          <span class="my-tap"></span>
+        </div>
+        <h3>You say yes. Or you don’t.</h3>
+        <p>Like it? It’s yours. Don’t? You lost five minutes and got a free look at your own restaurant.</p>
+      </article>
+      <article class="step" data-n="03">
+        <div class="step-num" aria-hidden="true">03</div>
+        <div class="mini mini-go" aria-hidden="true">
+          <span class="mg-url mono"><i>jouwrestaurant.nl</i></span>
+          <span class="mg-live mono"><span class="live-dot"></span> LIVE</span>
+          <span class="mg-n n1"><b>☎</b>Incoming call</span>
+          <span class="mg-n n2"><b>➚</b>Route to you</span>
+          <span class="mg-n n3"><b>✓</b>Table for 4 · Fri</span>
+        </div>
+        <h3>Live within days.</h3>
+        <p>Domain, Google, call and route buttons, all connected. You keep cooking.</p>
+      </article>
+    </div>
+    <div class="how-progress"><i id="how-bar"></i></div>
+  </div>
+  <div class="marquee" aria-hidden="true"><div class="marquee-inner" id="marq">
+    <span>Fast</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Found on Google</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Made for phones</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Fully booked</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Yours in days</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Built in Amsterdam</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b>
+    <span>Fast</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Found on Google</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Made for phones</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Fully booked</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Yours in days</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b><span>Built in Amsterdam</span><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/></svg></b>
+  </div></div>
+</section>
+
+<!-- 05 WORK -->
+<section class="work" id="work">
+  <div class="work-head">
+    <p class="label type">05 · Work</p>
+    <h2 class="split" data-nl="Gebouwd &lt;em&gt;voordat&lt;/em&gt; iemand erom vroeg.">Built <em>before</em> anyone asked.</h2>
+    <p class="reveal sub">We pick restaurants we love and design the site they deserve. Tap one. It’s live.</p>
+  </div>
+  <div class="deck" id="deck">
+    <a class="card" href="https://demo.dolcessi.com/hoi-tin/" data-cursor="VIEW ↗" target="_blank" rel="noopener" style="--acc:#3FAF73">
+      <div class="card-phone"><span class="card-live mono" aria-hidden="true"><span class="live-dot"></span>LIVE</span><img src="{{ 'hoi-tin.webp' | asset_url }}" alt="Concept site for Hoi Tin Café, home screen" loading="lazy" width="390" height="844"><img class="alt" src="{{ 'hoi-tin-2.webp' | asset_url }}" alt="" loading="lazy" width="390" height="844"></div>
+      <div class="card-meta"><b>Hoi Tin Café</b><span class="mono">Zeedijk</span><i data-nl="Een gezichtje op elke latte">A face on every latte</i><small class="mono card-feat" data-nl="4 pagina’s · NL/EN">4 pages · EN/NL</small></div>
+    </a>
+    <a class="card" href="https://demo.dolcessi.com/taigu/" data-cursor="VIEW ↗" target="_blank" rel="noopener" style="--acc:#A4D65E">
+      <div class="card-phone"><span class="card-live mono" aria-hidden="true"><span class="live-dot"></span>LIVE</span><img src="{{ 'taigu.webp' | asset_url }}" alt="Concept site for Taigu, matcha being poured" loading="lazy" width="390" height="844"><img class="alt" src="{{ 'taigu-2.webp' | asset_url }}" alt="" loading="lazy" width="390" height="844"></div>
+      <div class="card-meta"><b>Taigu 大愚</b><span class="mono">De Pijp &amp; Oost</span><i data-nl="Matcha die je inschenkt door te scrollen">Matcha you pour by scrolling</i><small class="mono card-feat" data-nl="Live 3D-inschenken · NL/EN">Live 3D pour · EN/NL</small></div>
+    </a>
+    <a class="card" href="https://demo.dolcessi.com/reload/" data-cursor="VIEW ↗" target="_blank" rel="noopener" style="--acc:#C6FF1F">
+      <div class="card-phone"><span class="card-live mono" aria-hidden="true"><span class="live-dot"></span>LIVE</span><img src="{{ 'reload.webp' | asset_url }}" alt="Concept site for RELOAD Coffee, home screen" loading="lazy" width="390" height="844"><img class="alt" src="{{ 'reload-2.webp' | asset_url }}" alt="" loading="lazy" width="390" height="844"></div>
+      <div class="card-meta"><b>RELOAD Coffee</b><span class="mono">De Pijp</span><i data-nl="Zwart, wit, helemaal opgeladen">Black, white, fully charged</i><small class="mono card-feat" data-nl="4 pagina’s · Lighthouse 96">4 pages · Lighthouse 96</small></div>
+    </a>
+  </div>
+  <p class="swipe-hint mono" aria-hidden="true">Swipe <span>→</span></p>
+  <p class="more-work mono center" data-nl="Ook live: &lt;a href=&quot;https://demo.dolcessi.com/haku/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Haku&lt;/a&gt; · &lt;a href=&quot;https://demo.dolcessi.com/shot/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;SHOT&lt;/a&gt; · &lt;a href=&quot;https://demo.dolcessi.com/lanzhou-beef-noodles/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Lanzhou Beef Noodles&lt;/a&gt;">Also live: <a href="https://demo.dolcessi.com/haku/" target="_blank" rel="noopener" data-cursor="VIEW ↗">Haku</a> · <a href="https://demo.dolcessi.com/shot/" target="_blank" rel="noopener" data-cursor="VIEW ↗">SHOT</a> · <a href="https://demo.dolcessi.com/lanzhou-beef-noodles/" target="_blank" rel="noopener" data-cursor="VIEW ↗">Lanzhou Beef Noodles</a></p>
+  <p class="src mono center">Unofficial concept designs. Not the restaurants’ own websites.</p>
+</section>
+
+<!-- 06 INSIDE -->
+<section class="inside" id="inside">
+  <div class="inside-head">
+    <p class="label type">06 · What’s inside</p>
+    <h2 class="split" data-nl="Alles wat iemand met honger nodig heeft. &lt;em&gt;Niets wat niet hoeft.&lt;/em&gt;">Everything a hungry person needs. <em>Nothing they don’t.</em></h2>
+  </div>
+  <div class="bento" id="bento">
+    <div class="tile t-menu"><span class="tag mono">Menu</span><h3>A menu you can read with one thumb.</h3><p>Not a PDF. Prices, allergens, photos.</p>
+      <div class="menu-roll"><div class="menu-list mono">
+        <div><span>Matcha latte · stone-milled</span><b>€5.20</b></div><div><span>Hong Kong milk tea</span><b>€4.50</b></div><div><span>Bolo bao · cold butter</span><b>€3.80</b></div><div><span>Flat white · double shot</span><b>€4.20</b></div><div><span>Iced chrysanthemum matcha</span><b>€5.80</b></div><div><span>House blend · 250 g</span><b>€14.50</b></div>
+        <div><span>Matcha latte · stone-milled</span><b>€5.20</b></div><div><span>Hong Kong milk tea</span><b>€4.50</b></div><div><span>Bolo bao · cold butter</span><b>€3.80</b></div><div><span>Flat white · double shot</span><b>€4.20</b></div><div><span>Iced chrysanthemum matcha</span><b>€5.80</b></div><div><span>House blend · 250 g</span><b>€14.50</b></div>
+      </div></div></div>
+    <div class="tile t-tap"><span class="tag mono">Tap</span><h3>Call. Route. Book.</h3><div class="taps"><span class="tap tap-call" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span><span class="tap"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg></span><span class="tap"><svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V9h14v11z"/></svg></span></div><p>One tap each.</p></div>
+    <div class="tile t-hours"><span class="tag mono live-c"><span class="live-dot" id="open-dot"></span> <span id="open-word">Open now</span></span><h3>Hours that are actually right.</h3><p class="mono small" id="open-line">Kitchen 17:00–22:00</p></div>
+    <div class="tile t-speed"><span class="tag mono">Speed</span><h3>Fast on a phone.</h3>
+      <div class="race"><div class="race-row"><span class="mono">Ours</span><div class="race-bar"><i class="r-ours"></i></div><b class="mono" id="race-ours">0.0s</b></div>
+      <div class="race-row old"><span class="mono">Old site</span><div class="race-bar"><i class="r-old"></i></div><b class="mono" id="race-old">0.0s</b></div></div></div>
+    <div class="tile t-lang"><span class="tag mono">NL / EN</span><h3><span class="flip" id="flip">Welkom.</span></h3><p>Dutch and English. Locals and tourists.</p></div>
+    <div class="tile t-google"><span class="tag mono">Google</span><h3>Found when they search.</h3><div class="search mono"><span id="typed"></span><i class="caret"></i></div></div>
+  </div>
+  <div class="chips mono reveal"><span>Your own domain</span><span>Changes by WhatsApp</span><span>Your photos, your story</span><span>Made for phones first</span><span>Google profile set up</span><span>Allergens clearly marked</span></div>
+</section>
+
+<!-- 07 PROOF -->
+<section class="proof" id="proof">
+  <div class="proof-head">
+    <p class="label type">07 · Proof</p>
+    <h2 class="split" data-nl="Geloof ons niet op ons woord. &lt;em&gt;Kijk zelf.&lt;/em&gt;">Don’t take our word for it. <em>Look.</em></h2>
+  </div>
+  <div class="proof-grid">
+    <div class="ba" id="ba" data-cursor="DRAG">
+      <div class="ba-old"><div class="old-site"><div class="os-h">RESTAURANT<br><small>since 1998</small></div><div class="os-nav">Home | Menu | Contact | Gastenboek</div><div class="os-img">foto.jpg</div><p>Welkom op onze website. Klik <u>hier</u> voor de menukaart (PDF).</p><div class="os-count">Bezoekers: 004213</div></div><span class="ba-tag mono">Typical restaurant site</span></div>
+      <div class="ba-new" id="ba-new"><img src="{{ 'hoi-tin.webp' | asset_url }}" alt="Our concept for Hoi Tin Café" loading="lazy" width="390" height="844"><span class="ba-tag mono e">Ours</span></div>
+      <div class="ba-seam" id="ba-seam"><i>↔</i></div>
+    </div>
+    <div class="proof-side">
+      <div class="score"><div class="score-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle cx="60" cy="60" r="52" class="ring-fg" id="ring"/></svg><div class="score-num mono" id="score" data-to="0">0</div></div><div><b>Mobile performance</b><p class="mono small" id="score-src">Lighthouse, our concept sites</p></div></div>
+      <div class="quotes" aria-label="Client words">
+        <div class="qcol"><div class="q"><p>“This spot is saved for our first client’s words.”</p><span class="mono">Could be you · Amsterdam</span></div><div class="q q-ghost"><span class="mono gh-tag">Next on the wall</span><p class="gh-name"><span class="ghost-name">Your restaurant</span><i class="caret"></i></p><span class="mono">This spot is waiting for a name</span></div><div class="q"><p>“We only publish real quotes. Every one will be checkable.”</p><span class="mono">Dolcessi house rule</span></div><div class="qdup" aria-hidden="true"><div class="q"><p>“This spot is saved for our first client’s words.”</p><span class="mono">Could be you · Amsterdam</span></div><div class="q q-ghost"><span class="mono gh-tag">Next on the wall</span><p class="gh-name"><span class="ghost-name">Your restaurant</span><i class="caret"></i></p><span class="mono">This spot is waiting for a name</span></div><div class="q"><p>“We only publish real quotes. Every one will be checkable.”</p><span class="mono">Dolcessi house rule</span></div></div></div>
+        <div class="qcol rev"><div class="q"><p>“Your Google review about your new site goes here.”</p><span class="mono">Linked to Google</span></div><div class="q q-map"><svg viewBox="0 0 200 130" class="ams"><path class="ij" d="M0 18 C40 10 80 22 120 14 S180 10 200 16"/><path class="cn" d="M70 24 A30 26 0 0 0 130 24"/><path class="cn" d="M58 24 A42 37 0 0 0 142 24"/><path class="cn" d="M46 24 A54 48 0 0 0 154 24"/><path class="cn" d="M34 24 A66 59 0 0 0 166 24"/><path class="amstel" d="M100 24 C104 60 118 82 150 130"/><g class="pin p1" transform="translate(113 33)"><circle r="9" class="halo"/><circle r="3.2"/></g><g class="pin p2" transform="translate(110 96)"><circle r="9" class="halo"/><circle r="3.2"/></g><g class="pin p3" transform="translate(150 74)"><circle r="9" class="halo"/><circle r="3.2"/></g></svg><span class="mono">3 concepts built · Zeedijk · De Pijp · Oost</span></div><div class="q"><p>“First three restaurants get the front row.”</p><span class="mono">Ask us how</span></div><div class="qdup" aria-hidden="true"><div class="q"><p>“Your Google review about your new site goes here.”</p><span class="mono">Linked to Google</span></div><div class="q q-map"><svg viewBox="0 0 200 130" class="ams"><path class="ij" d="M0 18 C40 10 80 22 120 14 S180 10 200 16"/><path class="cn" d="M70 24 A30 26 0 0 0 130 24"/><path class="cn" d="M58 24 A42 37 0 0 0 142 24"/><path class="cn" d="M46 24 A54 48 0 0 0 154 24"/><path class="cn" d="M34 24 A66 59 0 0 0 166 24"/><path class="amstel" d="M100 24 C104 60 118 82 150 130"/><g class="pin p1" transform="translate(113 33)"><circle r="9" class="halo"/><circle r="3.2"/></g><g class="pin p2" transform="translate(110 96)"><circle r="9" class="halo"/><circle r="3.2"/></g><g class="pin p3" transform="translate(150 74)"><circle r="9" class="halo"/><circle r="3.2"/></g></svg><span class="mono">3 concepts built · Zeedijk · De Pijp · Oost</span></div><div class="q"><p>“First three restaurants get the front row.”</p><span class="mono">Ask us how</span></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="founders">
+    <div class="f-left"><p class="label">Founding clients</p><p class="f-title" data-nl="We nemen onze eerste drie restaurants aan. &lt;em&gt;Eerste rij, volle aandacht.&lt;/em&gt;">We’re taking on our first three restaurants. <em>Front row, full attention.</em></p></div>
+    <div class="f-seats" aria-label="3 of 3 spots open"><span class="seat"><i></i><b class="mono">01</b></span><span class="seat"><i></i><b class="mono">02</b></span><span class="seat"><i></i><b class="mono">03</b></span><p class="mono f-count"><span class="live-dot"></span> 3 of 3 spots open</p></div>
+    <a class="btn magnetic" href="#ask" data-open-ask data-cursor="HI">Claim a spot <span class="arr">→</span></a>
+  </div>
+</section>
+
+<!-- 08 FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-head"><p class="label type">08 · Questions</p><h2 class="split" data-nl="Korte antwoorden. &lt;em&gt;Eerlijke ook.&lt;/em&gt;">Short answers. <em>Honest ones.</em></h2></div>
+  <div class="acc" id="acc">
+    <details open><summary>Do I have to do anything?<i></i></summary><p>Send us your menu and a few photos. We do the rest.</p></details>
+    <details><summary>Who owns it?<i></i></summary><p>You. Your domain, your content, always.</p></details>
+    <details><summary>How fast is it live?<i></i></summary><p>Days, not months.</p></details>
+    <details><summary>I already have a website.<i></i></summary><p>Then let us show you a better one. Free.</p></details>
+    <details><summary>Reservations or delivery?<i></i></summary><p>We link the system you already use, so nothing changes in your kitchen.</p></details>
+    <details><summary>What does it cost?<i></i></summary><p>Less than you think. We show you your site first, then we talk. No surprises.</p></details>
+  </div>
+</section>
+
+<!-- 09 ASK -->
+<section class="ask" id="ask">
+  <div class="sun-anchor" id="a-sun"></div>
+  <div class="ask-copy">
+    <h2 class="split ask-title" data-nl="Laten we die hongerige mensen &lt;em&gt;binnenhalen.&lt;/em&gt;">Let’s make the hungry people <em>come in.</em></h2>
+    <p class="reveal">Send us your restaurant’s name. We’ll send you its new site.</p>
+    <div class="reveal ask-ctas">
+      <a class="btn btn-xl magnetic" id="ask-btn" data-open-ask data-cursor="HI" href="#ask">Show me my site <span class="arr">→</span></a>
+    </div>
+  </div>
+  <footer class="foot mono">
+    <span>DOLCESSI<span class="e">_</span> · Amsterdam</span>
+    <span><span class="live-dot"></span> <span id="foot-clock">AMS --:--</span> · <span id="foot-kitchen">most kitchens are open</span></span>
+    <span>KvK 99514168 · © 2026</span>
+  </footer>
+</section>
+
+</main>
+
+<!-- Show me my site: two-step form -->
+<div class="askm" id="askm" role="dialog" aria-modal="true" aria-labelledby="askm-title" hidden>
+  <div class="askm-bg" data-close></div>
+  <div class="askm-panel">
+    <button type="button" class="askm-x" data-close aria-label="Close">×</button>
+    <div class="askm-prog"><i id="askm-bar"></i></div>
+    {% form 'contact', id: 'ask-form', class: 'ask-form', data-mode: 'shopify', novalidate: 'novalidate' %}{% if form.posted_successfully? %}<i hidden data-sent></i>{% endif %}{% if form.errors %}<i hidden data-err>{{ form.errors | default_errors | strip_html | escape }}</i>{% endif %}
+      <input type="hidden" name="contact[subject]" value="Show me my site">
+      <div class="fstep is-on" data-step="1">
+        <p class="label">Step 1 of 2</p>
+        <h3 id="askm-title" data-nl="Hoe heet je &lt;em&gt;restaurant?&lt;/em&gt;">What’s your restaurant <em>called?</em></h3>
+        <label class="fld"><span class="mono">Restaurant</span><input name="contact[restaurant]" id="f-rest" autocomplete="organization" placeholder="e.g. Hoi Tin Café" maxlength="80"></label>
+        <label class="fld"><span class="mono">Neighbourhood <i>optional</i></span><input name="contact[neighbourhood]" id="f-area" placeholder="e.g. De Pijp" maxlength="60"></label>
+        <div class="askm-row"><button type="button" class="btn" id="to2">Next <span class="arr">→</span></button></div>
+      </div>
+      <div class="fstep" data-step="2">
+        <p class="label">Step 2 of 2</p>
+        <h3 data-nl="Bijna klaar. &lt;em&gt;Waar sturen we hem heen?&lt;/em&gt;">Almost there. <em>Where do we send it?</em></h3>
+        <p class="askm-hint" id="askm-hint">We’ll start sketching right away.</p>
+        <label class="fld"><span class="mono">Your name</span><input name="contact[name]" id="f-name" autocomplete="name" placeholder="First name is fine" maxlength="60"></label>
+        <label class="fld"><span class="mono">Email</span><input type="email" name="contact[email]" id="f-email" autocomplete="email" placeholder="you@restaurant.nl" maxlength="120"></label>
+        <label class="fld"><span class="mono">WhatsApp / phone <i>optional</i></span><input type="tel" name="contact[phone]" id="f-phone" autocomplete="tel" placeholder="+31 6 …" maxlength="30"></label>
+        <input type="hidden" name="contact[body]" id="f-body">
+        <div class="askm-row"><button type="button" class="btn btn-o" id="back1">← Back</button><button type="submit" class="btn" id="send">Send it <span class="arr">→</span></button></div>
+        <p class="askm-fine mono">We only use this to send you your site. No spam, no newsletter. <a href="https://dolcessi.com/policies/privacy-policy" target="_blank" rel="noopener" data-nl-skip>Privacy</a></p>
+      </div>
+      <div class="fstep" data-step="3">
+        <p class="label live-c"><span class="live-dot"></span> Received</p>
+        <h3 data-nl="Het staat op het vuur. &lt;em&gt;We gaan ervoor.&lt;/em&gt;">It’s on the stove. <em>We’re on it.</em></h3>
+        <p class="askm-hint" id="askm-done">We’ll get back to you soon with your concept. Keep an eye on your inbox.</p>
+        <div class="askm-row"><button type="button" class="btn" data-close>Back to the site</button></div>
+      </div>
+      <p class="askm-err mono" id="askm-err" role="alert" hidden></p>
+    {% endform %}
+  </div>
+</div>
+
+<script>window.DOLCESSI_SCORE={value:96,label:"Lighthouse mobile · lab test of our RELOAD concept · Nov 2026"};</script>
+<script defer src="{{ 'gsap.min.js' | asset_url }}"></script>
+<script defer src="{{ 'ScrollTrigger.min.js' | asset_url }}"></script>
+<script defer src="{{ 'lenis.min.js' | asset_url }}"></script>
+<script defer src="{{ 'app.js' | asset_url }}"></script>
+</body>
+</html>
+
