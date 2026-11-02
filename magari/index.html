@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Café Magari 마가리 · Matcha, coffee & vintage on the Singel</title>
+<meta name="description" content="Café Magari, Singel 379A Amsterdam. Ceremonial matcha, good coffee, homemade cakes and vintage finds by the canal. Open daily 09:00–19:00.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%237a3a4c%22/%3E%3Ctext x=%2232%22 y=%2244%22 font-size=%2234%22 text-anchor=%22middle%22 fill=%22%23FBF7F4%22 font-family=%22serif%22 font-weight=%22700%22%3E%EB%A7%88%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#7a3a4c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&text=%E3%81%8C%E3%81%BE%E3%82%8A%EA%B0%80%EB%89%B4%EB%A6%AC%EB%A7%88%EB%A9%94%EB%B9%B5%EC%8A%A4%EC%9C%A0%EC%9D%B4%EC%9E%90%EC%9E%94%EC%A7%80%EC%A7%91%EC%B0%A8%EC%BB%A4%EC%BC%80%ED%81%AC%ED%86%A0%ED%8A%B8%ED%94%BC%ED%98%B8&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CafeOrCoffeeShop", "name": "Café Magari", "address": {"@type": "PostalAddress", "streetAddress": "Singel 379A", "postalCode": "1012 WL", "addressLocality": "Amsterdam", "addressCountry": "NL"}, "geo": {"@type": "GeoCoordinates", "latitude": 52.3689865, "longitude": 4.8883166}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": 4.8, "reviewCount": 732}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "09:00", "closes": "19:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "09:00", "closes": "19:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "09:00", "closes": "19:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "09:00", "closes": "19:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "19:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "19:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "19:00"}], "sameAs": ["https://www.instagram.com/magari_amsterdam/"]}</script>
+<style>
+:root{
+  --green:#7a3a4c; --green-2:#9a5064; --green-3:#3e1a25; --matcha:#d48da0; --accent-l:#f2c9d3;
+  --g-rgb:122,58,76; --d-rgb:62,26,37; --bg-rgb:243,236,231;
+  --bg:#F3ECE7; --bg-2:#FBF7F4; --sand:#E7D7CF; --khaki:#A68577; --ink:#1d1416; --on-green:#F6E7EA; --pop:<built-in method pop of dict object at 0x7fe65e27f600>;
+  --mute:rgba(18,18,18,.62);
+  --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace; --han:'Noto Serif KR',serif;
+  --pad:clamp(16px,4vw,48px); --max:1240px; --r:20px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+/* ── KYŌ system: one green, warm beiges, khaki, near-black. Inter heavy + JetBrains Mono. ── */
+/*ROOT*/
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--green);color:var(--bg-2)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.g{color:var(--green)}
+.han{font-family:var(--han);font-weight:900}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;font-weight:600;font-size:14px;transition:background .3s,color .3s,transform .3s var(--ease),border-color .3s;white-space:nowrap}
+.pill:hover{transform:translateY(-1px)}
+.pill.white{background:#fff;color:var(--ink)}
+.pill.white:hover{background:var(--bg-2)}
+.pill.ghost{border:1.5px solid rgba(255,255,255,.7);color:#fff}
+.pill.ghost:hover{background:#fff;color:var(--ink)}
+.pill.green{background:var(--green);color:var(--bg-2)}
+.pill.green:hover{background:var(--green-2)}
+.pill.line{border:1.5px solid var(--ink)}
+.pill.line:hover{background:var(--ink);color:var(--bg-2)}
+.pill .ar{transition:transform .3s var(--ease)}
+.pill:hover .ar{transform:translateX(3px)}
+.chip{display:inline-flex;align-items:center;gap:8px;height:28px;padding:0 12px;border-radius:999px;background:#fff;color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* ── header ── */
+header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .4s,color .4s,box-shadow .4s;color:#fff}
+header .in{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;gap:28px}
+.logo{display:flex;align-items:baseline;gap:8px;font-weight:900;font-size:19px;letter-spacing:-.03em}
+.logo .han{font-size:17px;letter-spacing:0}
+nav.main{display:flex;gap:24px;margin-left:12px}
+nav.main a{font-size:13.5px;font-weight:500;opacity:.9;position:relative}
+nav.main a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1.5px;background:currentColor;transition:right .35s var(--ease)}
+nav.main a:hover::after,nav.main a.on::after{right:0}
+header .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+header .pill{height:34px;font-size:13px;padding:0 14px}
+header.solid{background:rgba(var(--bg-rgb),.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);box-shadow:0 1px 0 rgba(18,18,18,.08)}
+header.solid .pill.ghost{border-color:var(--ink);color:var(--ink)}
+header.solid .pill.ghost:hover{background:var(--ink);color:var(--bg-2)}
+.burger{display:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18)}
+header.solid .burger{background:rgba(18,18,18,.06)}
+.burger span{display:block;width:16px;height:1.5px;background:currentColor;margin:4px auto;transition:transform .45s var(--ease)}
+body.menu-open .burger span:first-child{transform:translateY(2.75px) rotate(45deg)}
+body.menu-open .burger span:last-child{transform:translateY(-2.75px) rotate(-45deg)}
+body.menu-open header,body.menu-open header.solid{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;color:var(--bg-2)}
+body.menu-open header .burger{background:rgba(255,255,255,.14)}
+body.menu-open header .lang{border-color:rgba(255,255,255,.4)}
+body.menu-open header .lang::before{background:#fff}
+body.menu-open header .lang button.on{color:var(--ink)}
+body.menu-open #ckwrap{opacity:0;pointer-events:none}
+#mnav a{opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+#mnav.open a{opacity:1;transform:none}
+#mnav.open a:nth-child(2){transition-delay:.05s}#mnav.open a:nth-child(3){transition-delay:.1s}#mnav.open a:nth-child(4){transition-delay:.15s}
+#mnav a.on{color:var(--accent-l)}
+#mnav{position:fixed;inset:0;z-index:49;background:var(--green);color:var(--bg-2);padding:110px var(--pad) 40px;display:flex;flex-direction:column;gap:6px;transform:translateY(-100%);transition:transform .6s var(--ease)}
+#mnav.open{transform:none}
+#mnav a{font-weight:900;font-size:44px;letter-spacing:-.04em;line-height:1.1}
+#mnav .mono{margin-top:auto;opacity:.7;line-height:1.8}
+@media (max-width:860px){nav.main,header .right .hide-m{display:none}.burger{display:block}}
+.logo{white-space:nowrap}
+@media (max-width:520px){header .right>.pill.white{display:none}}
+
+/* ── hero: living matcha swirl ── */
+.hero{position:relative;min-height:100svh;color:#fff;overflow:hidden;display:flex;align-items:flex-end;background:var(--green-3)}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);animation:push 26s ease-in-out infinite alternate;will-change:transform}
+@keyframes push{0%{transform:scale(1.12) translate(0,0)}100%{transform:scale(1.22) translate(-2%,-1.5%)}}
+.hero-meta{position:absolute;right:var(--pad);bottom:clamp(40px,8vw,90px);z-index:2;display:flex;flex-direction:column;gap:4px;text-align:right;opacity:.7;font-size:11px}
+@media (max-width:760px){.hero-meta{display:none}}
+.foam{position:absolute;inset:0;z-index:1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.16;mix-blend-mode:overlay}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 28%,transparent 50%,rgba(var(--d-rgb),.7)),linear-gradient(90deg,rgba(var(--d-rgb),.45),transparent 60%)}
+.hero .han-mark{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);font-size:clamp(120px,22vw,340px);line-height:1;color:rgba(255,255,255,.08);z-index:1;user-select:none}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:clamp(40px,8vw,90px)}
+.hero h1{font-weight:900;font-size:clamp(46px,8.2vw,112px);line-height:.9;letter-spacing:-.045em;text-transform:uppercase;margin:18px 0 18px;max-width:11ch}
+.hero p{font-family:var(--mono);font-size:14px;line-height:1.6;max-width:430px;opacity:.92}
+.hero .btns{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.scroll-cue{position:absolute;left:50%;bottom:22px;z-index:2;width:22px;height:36px;border:1.5px solid rgba(255,255,255,.6);border-radius:20px;transform:translateX(-50%)}
+.scroll-cue::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:2px;background:#fff;transform:translateX(-50%);animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{60%{transform:translate(-50%,10px);opacity:0}100%{opacity:0}}
+@media (max-width:640px){.scroll-cue{display:none}}
+
+/* ── reveal ── */
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* ── break line ── */
+.break{padding:clamp(90px,13vw,150px) 0;text-align:center}
+.break p{font-weight:700;font-size:clamp(20px,2.4vw,30px);letter-spacing:-.025em}
+
+/* ── duo cards ── */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tile{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;color:#fff;display:flex;align-items:flex-end;isolation:isolate}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.4s var(--ease)}
+.tile:hover img{transform:scale(1.05)}
+.tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 45%,rgba(var(--d-rgb),.78))}
+.tile .t{padding:clamp(18px,3vw,30px)}
+.tile h3{font-weight:800;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.03em}
+.tile p{font-family:var(--mono);font-size:12.5px;opacity:.88;margin:8px 0 16px;max-width:300px;line-height:1.5}
+.tile .pill{height:34px;font-size:13px}
+@media (max-width:760px){.duo{grid-template-columns:1fr}.tile{aspect-ratio:4/4.6}}
+
+/* ── reviews ── */
+.sec{padding:clamp(70px,9vw,110px) 0}
+.revs{display:grid;grid-template-columns:minmax(260px,300px) 1fr;gap:28px;align-items:center}
+.revs h2,.h2{font-weight:900;font-size:clamp(28px,3vw,38px);letter-spacing:-.04em;line-height:1}
+.stars{color:var(--pop);letter-spacing:2px;font-size:15px;margin-top:12px}
+.revs .mono{color:var(--mute);margin-top:6px;line-height:1.6}
+.rail-wrap{position:relative;min-width:0}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth;padding-bottom:4px}
+.rail::-webkit-scrollbar{display:none}
+.rc{flex:0 0 clamp(230px,24vw,270px);scroll-snap-align:start;background:var(--bg-2);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.rc .who{display:flex;align-items:center;gap:10px}
+.rc .av{width:32px;height:32px;border-radius:50%;background:var(--green);color:var(--bg-2);display:grid;place-items:center;font-weight:700;font-size:13px}
+.rc .who b{font-size:13.5px;display:block}
+.rc .who small{font-family:var(--mono);font-size:10.5px;color:var(--mute)}
+.rc .gl{margin-left:auto;font-weight:800;font-size:15px;background:linear-gradient(90deg,#4285F4,#EA4335,#FBBC05,#34A853);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rc p{font-size:14px;line-height:1.5;color:#333}
+.arrows{display:flex;gap:8px;justify-content:flex-end;margin-bottom:12px}
+.arr{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(18,18,18,.25);display:grid;place-items:center;font-size:14px;transition:background .25s,color .25s,border-color .25s}
+.arr:hover{background:var(--ink);color:var(--bg-2);border-color:var(--ink)}
+.dark .arr{border-color:rgba(255,255,255,.35)}
+.dark .arr:hover{background:#fff;color:var(--ink)}
+@media (max-width:760px){.revs{grid-template-columns:1fr}}
+
+/* ── hello banner ── */
+.hello{position:relative;border-radius:var(--r);overflow:hidden;min-height:clamp(380px,40vw,500px);display:flex;align-items:center;color:#fff;isolation:isolate}
+.hello img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;z-index:-2}
+.hello::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(var(--d-rgb),.82) 0%,rgba(var(--d-rgb),.55) 45%,rgba(var(--d-rgb),.05) 80%)}
+.hello .t{padding:clamp(24px,5vw,56px);max-width:520px}
+.hello h2{font-weight:900;font-size:clamp(34px,4.6vw,58px);letter-spacing:-.045em;line-height:.95;margin:16px 0 14px}
+.hello p{font-family:var(--mono);font-size:13px;line-height:1.7;opacity:.9;margin-bottom:22px}
+
+/* ── signature drinks (dark green band) ── */
+.dark{background:var(--green);color:var(--bg-2)}
+.band-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+.band-head .label{opacity:.65;display:block;margin-bottom:8px}
+.prod{flex:0 0 clamp(200px,22vw,250px);scroll-snap-align:start}
+.prod .ph{aspect-ratio:1/1.08;border-radius:14px;overflow:hidden;background:var(--sand);position:relative}
+.prod .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.prod:hover .ph img{transform:scale(1.06)}
+.prod .ph.type{display:grid;place-items:center;background:var(--green-2)}
+.prod .ph.type .han{font-size:clamp(46px,5vw,64px);color:var(--on-green);line-height:1.1;text-align:center}
+.prod .ph.type.cream{background:var(--bg-2)}
+.prod .ph.type.cream .han{color:var(--green)}
+.prod b{display:block;font-size:14.5px;margin-top:12px}
+.prod small{font-family:var(--mono);font-size:11px;opacity:.65}
+.dark .rail{gap:14px}
+
+/* ── stamp card banner (gift card in KYŌ) ── */
+.stamp{background:var(--green);color:var(--bg-2);border-radius:var(--r);padding:22px clamp(20px,3vw,32px);display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.stamp .ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center}
+.stamp .ic svg{width:22px;height:22px}
+.stamp b{display:block;font-weight:800;font-size:clamp(18px,2vw,24px);letter-spacing:-.02em}
+.stamp small{font-family:var(--mono);font-size:12px;opacity:.75}
+.stamp .dots{display:flex;gap:6px;margin-left:auto}
+.stamp .dots i{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5)}
+.stamp .dots i.on{background:var(--bg-2);border-color:var(--bg-2)}
+.stamp .dots i:last-child{background:var(--pop);border-color:var(--pop)}
+@media (max-width:760px){.stamp .dots{margin-left:0;width:100%}}
+
+/* ── family split (workshop in KYŌ) ── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,70px);align-items:center}
+.split .ph{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.split .ph img{width:100%;height:100%;object-fit:cover}
+.split .label{color:var(--khaki)}
+.split h2{margin:12px 0 16px}
+.split p{color:var(--mute);line-height:1.65;font-size:15.5px;max-width:460px}
+.ticks{list-style:none;margin:22px 0 26px;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;font-weight:500}
+.ticks svg{flex:0 0 18px;width:18px;height:18px;color:var(--green);margin-top:1px}
+.split .mono{color:var(--khaki);display:block;margin-bottom:16px}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+
+/* ── FAQ ── */
+.faq{max-width:720px;margin:0 auto}
+.faq .h2{text-align:center}
+.faq .sub{text-align:center;color:var(--mute);font-size:14px;margin:10px 0 28px}
+.q{background:var(--bg-2);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.q button{width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 20px;font-weight:600;font-size:15px;text-align:left;gap:16px}
+.q button span{transition:transform .4s var(--ease);font-size:18px;color:var(--green)}
+.q.open button span{transform:rotate(45deg)}
+.q .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.q.open .a{grid-template-rows:1fr}
+.q .a>div{overflow:hidden}
+.q .a p{padding:0 20px 18px;color:var(--mute);line-height:1.65;font-size:14.5px}
+
+/* ── map card ── */
+.mapcard{position:relative;border-radius:var(--r);overflow:hidden;height:clamp(300px,34vw,420px);background:var(--sand)}
+.mapcard iframe{width:100%;height:100%;border:0;filter:grayscale(1) sepia(.25) contrast(.95)}
+@media (hover:none){.mapcard iframe{pointer-events:none}}
+.mapcard .tag{position:absolute;left:18px;bottom:18px;background:var(--ink);color:var(--bg-2);border-radius:12px;padding:12px 14px}
+.mapcard .tag b{display:block;font-size:14px}
+.mapcard .tag small{font-family:var(--mono);font-size:11px;opacity:.7}
+.mapcard .go{position:absolute;right:18px;bottom:18px}
+
+/* ── footer ── */
+footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;position:relative}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:28px}
+.fgrid p{font-size:13.5px;color:var(--mute);line-height:1.6;max-width:300px}
+.fgrid h5{font-size:13px;font-weight:700;margin-bottom:12px}
+.fgrid a,.fgrid span{display:block;font-size:13.5px;color:var(--mute);line-height:2}
+.fgrid a:hover{color:var(--ink)}
+.fword{font-weight:900;letter-spacing:-.06em;line-height:.8;white-space:nowrap;color:rgba(18,18,18,.07);margin-top:40px;text-align:center;user-select:none}
+.fbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 0 22px;border-top:1px solid rgba(18,18,18,.12);font-family:var(--mono);font-size:11px;color:var(--mute)}
+@media (max-width:820px){.fgrid{grid-template-columns:1fr 1fr}}
+
+
+/* ── new detail sections ── */
+.chip.light{background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(6px);margin-bottom:10px}
+.art{padding:clamp(80px,10vw,120px) 0 0;overflow:hidden}
+.art-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.art-head .label{color:var(--khaki);display:block;margin-bottom:10px}
+.art-head p{max-width:380px;color:var(--mute);font-size:15px;line-height:1.6}
+.art-track{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.art-row{display:flex;gap:14px;width:max-content;animation:artmq 60s linear infinite}
+.art-track:hover .art-row{animation-play-state:paused}
+.art-row figure{flex:0 0 clamp(200px,20vw,260px);aspect-ratio:1/1;border-radius:50%;overflow:hidden;background:var(--sand);transition:transform .6s var(--ease)}
+.art-row figure:nth-child(even){margin-top:36px}
+.art-row figure:hover{transform:scale(1.04) rotate(-3deg)}
+.art-row img{width:100%;height:100%;object-fit:cover}
+@keyframes artmq{to{transform:translateX(-50%)}}
+.badge{position:absolute;top:10px;left:10px;background:var(--bg-2);color:var(--green);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:999px}
+.prod .ph.type .badge{background:var(--pop);color:var(--ink)}
+.pair-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.pair-head .label{color:var(--khaki);display:block;margin-bottom:10px}
+.pair-head p{max-width:360px;color:var(--mute);font-size:15px;line-height:1.6}
+.pairs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pair{background:var(--bg-2);border-radius:var(--r);padding:16px 16px 22px;transition:transform .5s var(--ease),box-shadow .5s}
+.pair:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(var(--d-rgb),.10)}
+.pair .pics{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.pair .pics img,.tilemini{flex:1;aspect-ratio:1/1;border-radius:14px;object-fit:cover;min-width:0}
+.tilemini{display:grid;place-items:center;background:var(--green)}
+.tilemini .han{color:var(--on-green);font-size:clamp(26px,2.6vw,34px);line-height:1.1;text-align:center}
+.tilemini.cream{background:var(--sand)}
+.tilemini.cream .han{color:var(--green)}
+.pair .plus{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg-2);display:grid;place-items:center;font-weight:700}
+.pair .label{color:var(--khaki)}
+.pair h3{font-weight:800;font-size:20px;letter-spacing:-.03em;margin:6px 0 8px}
+.pair p{font-size:14px;color:var(--mute);line-height:1.55}
+.tip{margin-top:14px;display:flex;gap:12px;align-items:center;border:1.5px dashed rgba(var(--g-rgb),.35);border-radius:14px;padding:14px 18px;font-size:14px}
+.tip-ic{color:var(--green);font-size:16px}
+@media (max-width:860px){.pairs{grid-template-columns:1fr}}
+.steps-head{text-align:center;margin-bottom:34px}
+.steps-head .label{color:var(--khaki);display:block;margin-bottom:10px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:s}
+.step{position:relative;background:var(--bg-2);border-radius:var(--r);padding:22px;min-height:230px;display:flex;flex-direction:column;overflow:hidden}
+.step .n{font-family:var(--mono);font-size:11px;color:var(--khaki)}
+.step .han{position:absolute;right:-6px;bottom:-22px;font-size:120px;color:rgba(var(--g-rgb),.07);line-height:1}
+.step b{font-weight:800;font-size:24px;letter-spacing:-.03em;margin:auto 0 8px}
+.step p{font-size:14px;color:var(--mute);line-height:1.55;position:relative}
+.step:last-child{background:var(--green);color:var(--bg-2)}
+.step:last-child p{color:rgba(245,243,239,.75)}
+.step:last-child .han{color:rgba(255,255,255,.08)}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+.split .ph.bw img{filter:grayscale(1) contrast(1.05)}
+.floors{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.floor{border-radius:var(--r);padding:clamp(24px,3vw,36px);background:var(--sand);min-height:220px;display:flex;flex-direction:column}
+.floor.dark{background:var(--green);color:var(--bg-2)}
+.floor .label{color:var(--khaki)}
+.floor.dark .label{color:rgba(245,243,239,.6)}
+.floor h3{font-weight:900;font-size:clamp(26px,3vw,36px);letter-spacing:-.04em;margin:10px 0 10px}
+.floor p{font-size:15px;line-height:1.6;opacity:.8;max-width:360px}
+.floor .mono{margin-top:auto;padding-top:18px;opacity:.7}
+@media (max-width:760px){.floors{grid-template-columns:1fr}}
+
+/* ── inner pages ── */
+.page{display:none}.page.active{display:block}
+.ptop{padding:clamp(120px,14vw,170px) 0 clamp(30px,4vw,50px)}
+.ptop .label{color:var(--khaki)}
+.ptop h1{font-weight:900;font-size:clamp(46px,8vw,104px);letter-spacing:-.05em;line-height:.9;text-transform:uppercase;margin-top:14px;max-width:13ch}
+.ptop p{font-family:var(--mono);font-size:13.5px;color:var(--mute);margin-top:18px;max-width:520px;line-height:1.7}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:var(--hh,64px);z-index:5;padding:12px 0;background:var(--bg)}
+.tab{height:36px;padding:0 16px;border-radius:999px;border:1.5px solid rgba(18,18,18,.2);font-size:13.5px;font-weight:600;transition:all .25s}
+.tab.on,.tab:hover{background:var(--green);border-color:var(--green);color:var(--bg-2)}
+.mgroup{padding:28px 0 6px;scroll-margin-top:130px}
+@media (max-width:640px){.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1*var(--pad));padding:10px var(--pad)}.tabs::-webkit-scrollbar{display:none}.tab{flex:0 0 auto}}
+.mgroup h3{font-weight:900;font-size:clamp(24px,3vw,34px);letter-spacing:-.035em;margin-bottom:8px;display:flex;align-items:baseline;gap:12px}
+.mgroup h3 .han{font-size:.7em;color:var(--green)}
+.item{display:grid;grid-template-columns:1fr auto;gap:6px 20px;padding:18px 0;border-bottom:1px solid rgba(18,18,18,.12)}
+.item b{font-size:17px;font-weight:700}
+.item p{grid-column:1;font-family:var(--mono);font-size:12px;color:var(--mute);line-height:1.5}
+.item .t{grid-column:2;grid-row:1/3;align-self:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:rgba(var(--g-rgb),.08);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.mnote{font-family:var(--mono);font-size:12px;color:var(--mute);padding:26px 0 80px}
+
+.story-block{padding:clamp(60px,8vw,100px) 0;border-top:1px solid rgba(18,18,18,.1)}
+.story-block .label{color:var(--khaki)}
+.story-block h2{font-weight:900;font-size:clamp(38px,6vw,80px);letter-spacing:-.05em;line-height:.92;margin:14px 0 20px;max-width:14ch}
+.story-block p{font-size:17px;line-height:1.65;color:var(--mute);max-width:560px}
+.story-split{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,70px);align-items:center}
+.story-split .ph{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.story-split .ph img{width:100%;height:100%;object-fit:cover}
+.meaning{display:flex;gap:clamp(20px,4vw,60px);margin-top:30px}
+.meaning div{display:flex;flex-direction:column;gap:6px}
+.meaning .han{font-size:clamp(70px,9vw,120px);line-height:1;color:var(--green)}
+.meaning .mono{color:var(--mute)}
+@media (max-width:820px){.story-split{grid-template-columns:1fr}}
+
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:start;padding-bottom:80px}
+.hours{border-top:1px solid rgba(18,18,18,.15);margin-top:20px}
+.hours div{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(18,18,18,.15);font-family:var(--mono);font-size:13.5px}
+.hours div.today{color:var(--green);font-weight:500}
+.openp{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;background:var(--bg-2);border-radius:999px;padding:8px 14px;margin-top:20px}
+.openp i{width:8px;height:8px;border-radius:50%;background:#2e9b4f;animation:pulse 1.8s infinite}
+.openp.closed i{background:#c0583b;animation:none}
+@keyframes pulse{50%{opacity:.3}}
+.addr{font-weight:800;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;line-height:1.1}
+@media (max-width:820px){.visit-grid{grid-template-columns:1fr}}
+
+/* ── cookie: a matcha cookie with a bite out of it, bottom right ── */
+#ckwrap{position:fixed;right:20px;bottom:20px;z-index:70;width:min(340px,calc(100% - 40px));filter:drop-shadow(0 18px 34px rgba(var(--d-rgb),.32));transform:translateY(30px) rotate(3deg) scale(.92);opacity:0;pointer-events:none;transition:transform .8s var(--ease),opacity .5s}
+#ckwrap.show{transform:none;opacity:1;pointer-events:auto}
+#ckwrap.eaten{transition:transform .6s var(--ease),opacity .45s;transform:translateY(16px) scale(.6) rotate(-8deg);opacity:0}
+#cookie{position:relative;background:
+  radial-gradient(circle at 18% 72%,var(--green-3) 0 3px,transparent 3.5px),
+  radial-gradient(circle at 74% 84%,var(--green-3) 0 2.5px,transparent 3px),
+  radial-gradient(circle at 88% 58%,var(--green-2) 0 3.5px,transparent 4px),
+  radial-gradient(circle at 40% 92%,var(--green-2) 0 2px,transparent 2.5px),
+  radial-gradient(circle at 60% 66%,rgba(255,255,255,.08) 0 2px,transparent 2.5px),
+  linear-gradient(160deg,var(--green-2),var(--green) 60%);
+  color:var(--bg-2);border-radius:26px;padding:24px 24px 20px;
+  -webkit-mask:radial-gradient(circle 34px at calc(100% - 4px) 4px,transparent 97%,#000),radial-gradient(circle 20px at calc(100% - 46px) -2px,transparent 97%,#000),radial-gradient(circle 20px at calc(100% + 2px) 46px,transparent 97%,#000);
+  -webkit-mask-composite:source-in;mask:radial-gradient(circle 34px at calc(100% - 4px) 4px,transparent 97%,#000),radial-gradient(circle 20px at calc(100% - 46px) -2px,transparent 97%,#000),radial-gradient(circle 20px at calc(100% + 2px) 46px,transparent 97%,#000);mask-composite:intersect}
+.crumbs{position:absolute;right:30px;top:52px;width:40px;height:40px;pointer-events:none}
+.crumbs i{position:absolute;width:5px;height:5px;border-radius:2px;background:var(--green-2);opacity:0}
+#ckwrap.show .crumbs i{animation:crumb 1.1s var(--ease) .5s both}
+.crumbs i:nth-child(2){left:12px;width:4px;height:4px;animation-delay:.6s!important}
+.crumbs i:nth-child(3){left:22px;width:3px;height:3px;animation-delay:.7s!important}
+@keyframes crumb{0%{opacity:1;transform:translateY(-20px) rotate(0)}100%{opacity:0;transform:translateY(40px) rotate(160deg)}}
+#cookie .kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+#cookie h4{font-weight:900;font-size:26px;letter-spacing:-.04em;line-height:1;margin:8px 0 8px;max-width:9ch}
+#cookie p{font-size:12.5px;line-height:1.5;opacity:.85;margin-bottom:14px;max-width:270px}
+#cookie .row{display:flex;gap:8px;flex-wrap:wrap}
+#cookie .pill{height:34px;font-size:13px;padding:0 14px}
+#cookie .pill.no{border:1.5px solid rgba(255,255,255,.55);color:#fff}
+#cookie .pill.no:hover{background:rgba(255,255,255,.12)}
+#cookie .link{font-size:12px;text-decoration:underline;text-underline-offset:3px;opacity:.75;margin-top:12px;display:inline-block}
+#cookie .link:hover{opacity:1}
+.prefs{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.prefs.open{grid-template-rows:1fr}
+.prefs>div{overflow:hidden}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:12.5px}
+.opt b{display:block;font-size:13px}
+.opt small{opacity:.7;line-height:1.4;display:block}
+.sw{position:relative;flex:0 0 38px;height:22px;border-radius:999px;background:rgba(255,255,255,.22);transition:background .3s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .35s var(--ease)}
+.sw.on{background:var(--matcha)}
+.sw.on::after{transform:translateX(16px)}
+.sw.locked{opacity:.55;cursor:not-allowed}
+.welcome{display:none}
+.welcome.show{display:inline-flex}
+@media (max-width:520px){#ckwrap{right:12px;bottom:12px;width:calc(100% - 24px)}}
+
+/* ── language switch ── */
+.lang{position:relative;display:flex;height:34px;padding:3px;border-radius:999px;border:1.5px solid rgba(255,255,255,.55);font-family:var(--mono);font-size:11.5px;letter-spacing:.06em}
+.lang button{position:relative;z-index:1;width:34px;border-radius:999px;transition:color .35s}
+@media (hover:none){.lang{height:38px}}
+.lang::before{content:"";position:absolute;top:3px;left:3px;width:34px;height:calc(100% - 6px);border-radius:999px;background:#fff;transition:transform .45s var(--ease)}
+.lang.nl::before{transform:translateX(34px)}
+.lang button.on{color:var(--ink)}
+header.solid .lang{border-color:rgba(18,18,18,.25)}
+header.solid .lang::before{background:var(--green)}
+header.solid .lang button.on{color:var(--bg-2)}
+body.switching main.page.active{animation:langfade .45s var(--ease)}
+@keyframes langfade{0%{opacity:.35}100%{opacity:1}}
+
+/* ── click puff ── */
+.puff{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;will-change:transform,opacity}
+
+/* page fade */
+#veil{position:fixed;inset:0;z-index:80;background:var(--green);pointer-events:none;opacity:0;transition:opacity .35s ease}
+#veil.on{opacity:1}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+
+/* ── kit additions ── */
+.hero-bg img{object-position:50% 55%}
+.hero .han-mark{font-size:clamp(90px,15vw,240px);}
+.prod .ph.type .han,.tilemini .han{font-size:clamp(30px,3.4vw,46px)}
+.step .han{font-size:110px}
+.meaning .han{font-size:clamp(56px,8vw,110px)}
+.photo-note{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:14px}
+</style>
+</head>
+<body>
+<!-- Concept demo by Dolcessi for Café Magari. Not the official site. -->
+<div id="veil"></div>
+
+<header id="hdr">
+  <div class="in">
+    <a href="#/" class="logo">MAGARI <span class="han">마가리</span></a>
+    <nav class="main">
+      <a href="#/" data-nav="home">Our Café</a>
+      <a href="#/menu" data-nav="menu">Menu</a>
+      <a href="#/story" data-nav="story">Our Story</a>
+      <a href="#/visit" data-nav="visit">Visit</a>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on" aria-pressed="true">EN</button><button data-lang="nl" aria-pressed="false">NL</button></div>
+      <a class="pill ghost hide-m" href="https://www.instagram.com/magari_amsterdam/" target="_blank" rel="noopener">Contact</a>
+      <a class="pill white" href="#/visit">Visit us <span class="ar">→</span></a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div id="mnav">
+  <a href="#/">Our Café</a><a href="#/menu">Menu</a><a href="#/story">Our Story</a><a href="#/visit">Visit</a>
+  <div class="mono">Singel 379A, Amsterdam<br>+31 6 42 90 48 65</div>
+</div>
+
+<!-- ═════════ HOME ═════════ -->
+<main class="page" data-page="home" data-hero="1">
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"><img src="img/hero.webp" srcset="img/hero-1280.webp 1280w, img/hero.webp 2400w" sizes="100vw" alt="" fetchpriority="high" decoding="async"></div>
+    <div class="foam" aria-hidden="true"></div>
+    <div class="han han-mark" aria-hidden="true">마<br>가<br>리</div>
+    <div class="wrap">
+      <span class="chip rv" id="heroChip"><i></i>Matcha · coffee · vintage</span>
+      <h1 class="rv d1">Your little boutique café</h1>
+      <p class="rv d2">Ceremonial matcha, good coffee and homemade cake, surrounded by vintage finds. Right on the Singel, open every day.</p>
+      <div class="btns rv d3">
+        <a class="pill white" href="#/visit">Our Café <span class="ar">→</span></a>
+        <a class="pill ghost" href="#/menu">Menu <span class="ar">→</span></a>
+      </div>
+    </div>
+    <div class="hero-meta mono rv d3" aria-hidden="true"><span>52.3690° N</span><span>4.8883° E</span><span>Singel 379A</span></div>
+    <div class="scroll-cue" aria-hidden="true"></div>
+  </section>
+
+  <section class="break wrap"><p class="rv">Soft as a cloud, poured with love, <span class="g">by the canal.</span></p></section>
+
+  <section class="wrap">
+    <div class="duo">
+      
+      <a href="#/menu" class="tile rv">
+        <img src="img/heart.webp" alt="" loading="lazy">
+        <div class="t"><span class="chip light">Ceremonial matcha</span><h3>A Matcha Like a Cloud</h3><p>Green tea from Japan or Jeju Island, whisked airy and light.</p><span class="pill white">See the menu <span class="ar">→</span></span></div>
+      </a>
+      
+      <a href="#/story" class="tile rv d1">
+        <img src="img/inside.webp" alt="" loading="lazy">
+        <div class="t"><span class="chip light">Vintage & interior</span><h3>Everything Here Is Cute</h3><p>Antique cups, vintage pieces and interior goods. Some of them you can take home.</p><span class="pill white">Our story <span class="ar">→</span></span></div>
+      </a>
+      
+    </div>
+  </section>
+
+  <section class="art">
+    <div class="wrap art-head">
+      <div><span class="label">@magari_amsterdam</span><h2 class="h2 rv">Little Things <span class="g">Matter Here</span></h2></div>
+      <p class="rv d1">Antique cups, fresh flowers and a heart in every latte. We care about the small details.</p>
+    </div>
+    <div class="art-track" aria-hidden="true"><div class="art-row"><figure><img src="img/latte-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/vase-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/croissant-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/shelf-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/matcha-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/swing-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/brownie-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/teatime-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/latte-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/vase-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/croissant-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/shelf-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/matcha-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/swing-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/brownie-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/teatime-sq.webp" alt="" loading="lazy"></figure></div></div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="revs">
+      <div class="rv">
+        <h2>Loved by Our Neighbourhood</h2>
+        <div class="stars">★★★★★</div>
+        <div class="mono">4.8 on Google<br>based on 732 reviews</div>
+      </div>
+      <div class="rail-wrap rv d1">
+        <div class="arrows"><button class="arr" data-rail="r1" data-dir="-1" aria-label="Previous">←</button><button class="arr" data-rail="r1" data-dir="1" aria-label="Next">→</button></div>
+        <div class="rail" id="r1">
+          <div class="rc"><div class="who"><div class="av han">마</div><div><b>Google review</b><small>Café Magari</small></div><span class="gl">G</span></div><p>“This is probably one of the best matchas I have ever had.”</p></div><div class="rc"><div class="who"><div class="av han">마</div><div><b>Google review</b><small>Café Magari</small></div><span class="gl">G</span></div><p>“The matcha was like drinking a cloud, super airy and light.”</p></div><div class="rc"><div class="who"><div class="av han">마</div><div><b>Google review</b><small>Café Magari</small></div><span class="gl">G</span></div><p>“The cheesecake was phenomenal, with a black sesame base that combined perfectly with the yuzu.”</p></div><div class="rc"><div class="who"><div class="av han">마</div><div><b>Google review</b><small>Café Magari</small></div><span class="gl">G</span></div><p>“A charming little café facing the canal, with romantic, quirky décor.”</p></div><div class="rc"><div class="who"><div class="av han">마</div><div><b>Google review</b><small>Café Magari</small></div><span class="gl">G</span></div><p>“The interior is so adorable, like being part of a slice-of-life indie game.”</p></div><div class="rc"><div class="who"><div class="av han">마</div><div><b>Google review</b><small>Café Magari</small></div><span class="gl">G</span></div><p>“The kind of place that makes you want to come back again and again.”</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="hello rv">
+      <img src="img/street.webp" alt="" loading="lazy" style="object-position:50% 50%">
+      <div class="t">
+        <span class="chip"><i></i>On the Singel</span>
+        <h2>Come Sit by the Canal</h2>
+        <p>Singel 379A, between the Spui and the Nine Streets. Look for the flowers and the striped umbrella.</p>
+        <a class="pill white" href="#/visit">Visit us <span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark" style="margin-top:clamp(70px,9vw,110px)">
+    <div class="wrap">
+      <div class="band-head">
+        <div><span class="label">From the bar & the oven</span><h2 class="h2">Find Your Favourite</h2></div>
+        <div style="display:flex;gap:8px;align-items:center"><a href="#/menu" class="pill ghost" style="height:34px;font-size:13px">View all</a><button class="arr" data-rail="r2" data-dir="-1" aria-label="Previous">←</button><button class="arr" data-rail="r2" data-dir="1" aria-label="Next">→</button></div>
+      </div>
+      <div class="rail" id="r2">
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/heart-sq.webp" alt="" loading="lazy"><span class="badge">Bestseller</span></div><b>Matcha Latte</b><small>Ceremonial, airy & light</small></a><a href="#/menu" class="prod"><div class="ph type cream"><span class="han">호지차</span></div><b>Hojicha Latte</b><small>Roasted green tea, cosy & warm</small></a><a href="#/menu" class="prod"><div class="ph"><img src="img/latte-sq.webp" alt="" loading="lazy"></div><b>Café Latte</b><small>With a heart on top</small></a><a href="#/menu" class="prod"><div class="ph type"><span class="han">토스트</span><span class="badge">Only here</span></div><b>Korean Signature Toast</b><small>With gochujang sauce</small></a><a href="#/menu" class="prod"><div class="ph type cream"><span class="han">유자</span></div><b>Yuzu Cheesecake</b><small>On a black sesame base</small></a><a href="#/menu" class="prod"><div class="ph"><img src="img/croissant-sq.webp" alt="" loading="lazy"></div><b>Chocolate Croissant</b><small>Baked every morning</small></a><a href="#/menu" class="prod"><div class="ph"><img src="img/brownie-sq.webp" alt="" loading="lazy"></div><b>Homemade Brownie</b><small>Gooey, with coffee</small></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="pair-head">
+      <div><span class="label">Perfect pairings</span><h2 class="h2 rv">Never Have a Coffee <span class="g">Alone</span></h2></div>
+      <p class="rv d1">Our favourite combinations from the bar and the cake counter. Ask for one when you order.</p>
+    </div>
+    <div class="pairs">
+      <div class="pair rv"><div class="pics"><img src="img/heart-sq.webp" alt="" loading="lazy"><span class="plus">+</span><div class="tilemini cream"><span class="han">유자</span></div></div><span class="label">The Magari</span><h3>Matcha Latte + Yuzu Cheesecake</h3><p>Light matcha, bright yuzu, a nutty black sesame base.</p></div><div class="pair rv d1"><div class="pics"><img src="img/latte-sq.webp" alt="" loading="lazy"><span class="plus">+</span><img src="img/brownie-sq.webp" alt="" loading="lazy"></div><span class="label">The afternoon</span><h3>Café Latte + Brownie</h3><p>Can’t go wrong. Take a window seat and watch the boats.</p></div><div class="pair rv d2"><div class="pics"><div class="tilemini cream"><span class="han">호지차</span></div><span class="plus">+</span><div class="tilemini"><span class="han">토스트</span></div></div><span class="label">The brunch</span><h3>Hojicha Latte + Korean Toast</h3><p>Toasty tea and a spicy, savoury toast. Our favourite way to start the day.</p></div>
+    </div>
+    <div class="tip rv"><span class="tip-ic">✦</span><span><b>Magari tip:</b> come early for a croissant fresh from the oven, they don’t last long.</span></div>
+  </section>
+
+  <section class="wrap">
+    <div class="stamp rv">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg></div>
+      <div><b>Paw friends are always welcome</b><small>Dogs and cats are part of the family here. Bring yours along.</small></div>
+      <a class="pill white" href="#/visit" style="margin-left:auto">Plan a visit <span class="ar">→</span></a>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="steps-head"><span class="label">A day at Magari</span><h2 class="h2 rv">From First Croissant to <span class="g">Last Latte</span></h2></div>
+    <div class="steps">
+      <div class="step rv"><span class="n">01</span><span class="han">빵</span><b>Bake</b><p>Every morning starts with fresh pastries out of the oven.</p></div><div class="step rv d1"><span class="n">02</span><span class="han">차</span><b>Whisk</b><p>Ceremonial matcha from Japan or Jeju, whisked light and airy.</p></div><div class="step rv d2"><span class="n">03</span><span class="han">잔</span><b>Pour</b><p>A heart on every latte, served in one of our vintage cups.</p></div><div class="step rv d3"><span class="n">04</span><span class="han">집</span><b>Stay</b><p>Take a seat by the window, or out on the terrace by the water.</p></div>
+    </div>
+  </section>
+
+  <section class="sec wrap" style="padding-top:0">
+    <div class="split">
+      <div class="ph rv"><img src="img/inside.webp" alt="" loading="lazy"></div>
+      <div>
+        <span class="label rv">Renewed Magari</span>
+        <h2 class="h2 rv d1" style="font-size:clamp(30px,3.6vw,46px)">Good Coffee, <span class="g">Lovely People</span></h2>
+        <p class="rv d2">Magari is a little boutique café on the Singel: vintage items and interior goods, good coffee, ceremonial matcha and lovely people. Everything here is cute.</p>
+        <ul class="ticks rv d3">
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>Green tea from Japan or Jeju Island</li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>Fresh pastries every morning, homemade cakes</li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>Vintage finds and antique cups</li>
+        </ul>
+        <span class="mono rv">Open every day · 09:00–19:00</span>
+        <a class="pill green rv" href="#/story">Read our story <span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="floors">
+      <div class="floor rv"><span class="label">Inside</span><h3>The Vintage Room</h3><p>Flowers, antique cups and a cat or two. Cosy, small, and full of little details.</p><span class="mono">Best for · slow mornings</span></div><div class="floor rv dark d1"><span class="label">Outside</span><h3>The Canal Terrace</h3><p>A few tables under the trees, right next to the water. Watch Amsterdam float by.</p><span class="mono">Best for · sunny afternoons</span></div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="faq">
+      <h2 class="h2 rv">Frequently Asked Questions</h2>
+      <p class="sub rv">Everything you want to know before you drop by</p>
+      <div id="faq"><div class="q rv"><button>Where is Café Magari?<span>+</span></button><div class="a"><div><p>At Singel 379A, on the canal between the Spui and the Nine Streets.</p></div></div></div><div class="q rv"><button>What are your opening hours?<span>+</span></button><div class="a"><div><p>Every day from 09:00 to 19:00.</p></div></div></div><div class="q rv"><button>Can I bring my dog?<span>+</span></button><div class="a"><div><p>Of course. Paw friends are always welcome at Magari.</p></div></div></div><div class="q rv"><button>Where does your matcha come from?<span>+</span></button><div class="a"><div><p>We only use high-quality green tea from Japan or from Jeju Island in South Korea.</p></div></div></div><div class="q rv"><button>Can I buy the vintage pieces?<span>+</span></button><div class="a"><div><p>Some of our vintage items and interior goods are for sale. Just ask at the bar.</p></div></div></div><div class="q rv"><button>Is it busy?<span>+</span></button><div class="a"><div><p>We are a small spot, so on sunny weekends it fills up fast. Mornings are the calmest.</p></div></div></div></div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom:clamp(70px,9vw,110px)">
+    <div class="mapcard rv">
+      <iframe title="Map of Café Magari" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.8833666%2C52.3667365%2C4.8932666%2C52.371236499999995&amp;layer=mapnik&amp;marker=52.3689865%2C4.8883166"></iframe>
+      <div class="tag"><b>Café Magari</b><small>Singel 379A, Amsterdam</small></div>
+      <a class="pill green go" data-maps target="_blank" rel="noopener">Get directions <span class="ar">→</span></a>
+    </div>
+  </section>
+</main>
+
+<!-- ═════════ MENU ═════════ -->
+<main class="page" data-page="menu">
+  <div class="wrap">
+    <div class="ptop"><span class="label">Menu · 메뉴</span><h1>Our Menu</h1><p>Matcha, coffee, Korean toast and homemade cakes. A selection; the full menu is on the board at the bar.</p></div>
+    <div class="tabs" id="tabs"><button class="tab on" data-f="all">All</button><button class="tab" data-f="tea">Matcha & Tea</button><button class="tab" data-f="coffee">Coffee</button><button class="tab" data-f="food">Food</button><button class="tab" data-f="cakes">Bakes & Cakes</button></div>
+    <div id="menu"><section class="mgroup" data-g="tea"><h3>Matcha & Tea <span class="han">차</span></h3><div class="item"><b>Matcha Latte</b><p>Ceremonial matcha, airy and light</p><span class="t">Bestseller</span></div><div class="item"><b>Hojicha Latte</b><p>Roasted green tea with milk</p></div><div class="item"><b>Organic Tea</b><p>Served in a vintage teapot</p></div></section><section class="mgroup" data-g="coffee"><h3>Coffee <span class="han">커피</span></h3><div class="item"><b>Café Latte</b><p>With a heart on top</p></div><div class="item"><b>Cappuccino</b><p>Proper foam</p></div><div class="item"><b>Doppio</b><p>Double espresso</p></div></section><section class="mgroup" data-g="food"><h3>Food <span class="han">토스트</span></h3><div class="item"><b>Korean Signature Toast</b><p>With authentic Korean gochujang spicy sauce</p><span class="t">Only here</span></div></section><section class="mgroup" data-g="cakes"><h3>Bakes & Cakes <span class="han">케이크</span></h3><div class="item"><b>Yuzu Cheesecake</b><p>On a black sesame base</p><span class="t">Favourite</span></div><div class="item"><b>Chocolate Croissant</b><p>Fresh every morning</p></div><div class="item"><b>Homemade Brownie</b><p>Gooey, perfect with coffee</p></div><div class="item"><b>Cake of the Day</b><p>Ask what’s fresh today</p><span class="t">Changes daily</span></div></section></div>
+    <p class="mnote">Prices at the bar. Menu selection for this concept, based on what guests order most.</p>
+  </div>
+</main>
+
+<!-- ═════════ STORY ═════════ -->
+<main class="page" data-page="story">
+  <div class="wrap">
+    <div class="ptop"><span class="label">Our story</span><h1>A Little Boutique on the Singel</h1></div>
+    
+    <section class="story-block story-split">
+      
+      <div>
+        <span class="label">01 · The place</span>
+        <h2 class="rv">Small, cosy, <span class="g">by the water.</span></h2>
+        <p class="rv">Magari sits on one of the prettiest stretches of the Singel. A few tables inside, a terrace by the canal, and fresh flowers at the door.</p>
+        
+      </div>
+      <div class="ph rv"><img src="img/street.webp" alt="" loading="lazy"></div>
+    </section>
+    
+    <section class="story-block">
+      
+      <div>
+        <span class="label">02 · The name</span>
+        <h2 class="rv">마가리 · まがり <span class="g">· Magari</span></h2>
+        <p class="rv">Our name is written in Korean, Japanese and Italian, just like the café brings a little of each to Amsterdam.</p>
+        <div class="meaning rv"><div><span class="han">마가리</span><span class="mono">Korean</span></div><div><span class="han">まがり</span><span class="mono">Japanese</span></div></div>
+      </div>
+      
+    </section>
+    
+    <section class="story-block story-split">
+      <div class="ph rv"><img src="img/shelf.webp" alt="" loading="lazy"></div>
+      <div>
+        <span class="label">03 · The details</span>
+        <h2 class="rv">Little things <span class="g">matter.</span></h2>
+        <p class="rv">Antique cups, vintage interior pieces, a cat on the windowsill and a dog swinging over the counter. Everything here is chosen with care.</p>
+        
+      </div>
+      
+    </section>
+    
+  </div>
+</main>
+
+<!-- ═════════ VISIT ═════════ -->
+<main class="page" data-page="visit">
+  <div class="wrap">
+    <div class="ptop"><span class="label">Visit</span><h1>Come Sit by the Canal</h1></div>
+    <div class="visit-grid">
+      <div>
+        <div class="addr">Singel 379A<br>1012 WL Amsterdam</div>
+        <p class="mono" style="color:var(--mute);margin-top:10px;line-height:1.8">Grachtengordel · between the Spui and the Nine Streets<br><a href="tel:+31642904865" style="color:var(--green)">+31 6 42 90 48 65</a></p>
+        <div class="openp" id="openp"><i></i><span></span></div>
+        <div class="hours" id="hours"></div>
+        <div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap"><a class="pill green" data-maps target="_blank" rel="noopener">Get directions <span class="ar">→</span></a><a class="pill line" href="https://www.instagram.com/magari_amsterdam/" target="_blank" rel="noopener">Instagram</a></div>
+      </div>
+      <div class="mapcard" style="height:clamp(320px,40vw,480px)">
+        <iframe title="Map of Café Magari" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.8833666%2C52.3667365%2C4.8932666%2C52.371236499999995&amp;layer=mapnik&amp;marker=52.3689865%2C4.8883166"></iframe>
+        <div class="tag"><b>Café Magari</b><small>Singel 379A</small></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a href="#/" class="logo" style="color:var(--ink)">MAGARI <span class="han">마가리</span></a><p style="margin-top:12px">A little boutique café on the Singel: ceremonial matcha, good coffee, homemade cakes and vintage finds.</p></div>
+      <div><h5>Café</h5><a href="#/menu">Menu</a><a href="#/story">Our Story</a><a href="#/visit">Visit</a></div>
+      <div><h5>Contact</h5><a href="tel:+31642904865">+31 6 42 90 48 65</a><a href="https://www.instagram.com/magari_amsterdam/" target="_blank" rel="noopener">Instagram</a><span>Singel 379A, Amsterdam</span></div>
+      <div><h5>Opening Hours</h5><span>Mon–Sun · 09:00–19:00</span><a href="#" data-cookie-settings>Cookie settings</a></div>
+    </div>
+    <div class="fword" id="fword">MAGARI <span class="han">마가리</span></div>
+    <div class="fbar"><span>© Café Magari · Amsterdam</span><span>Concept by dolcessi_ · not the official Café Magari site · reviews from Google</span></div>
+  </div>
+</footer>
+
+<div id="ckwrap" role="dialog" aria-label="Cookies">
+  <div id="cookie">
+    <div class="crumbs" aria-hidden="true"><i></i><i></i><i></i></div>
+    <span class="kick">Baked this morning</span>
+    <h4>Matcha cookie?</h4>
+    <p>We bake a couple of small cookies: one to remember your choice, one for your language, favourite menu tab and a welcome back. No ads, no tracking.</p>
+    <div class="prefs" id="ckprefs"><div>
+      <div class="opt"><div><b>Essential</b><small>Remembers this choice for 6 months.</small></div><span class="sw on locked" aria-label="Essential cookies, always on"></span></div>
+      <div class="opt"><div><b>Preferences</b><small>Your language, last menu tab and a welcome back.</small></div><button class="sw on" id="swPref" role="switch" aria-checked="true" aria-label="Preference cookies"></button></div>
+    </div></div>
+    <div class="row" style="margin-top:12px">
+      <button class="pill white" id="ckYes">Take a bite</button>
+      <button class="pill no" id="ckNo">Essentials only</button>
+    </div>
+    <button class="link" id="ckMore">Choose my cookies</button>
+  </div>
+</div>
+
+<script src="vendor/lenis.min.js"></script>
+<script>
+const SLUG="magari";
+const MAPS="https://www.google.com/maps/search/?api=1\u0026query=Caf%C3%A9+Magari+Singel+379A+Amsterdam";
+const HOURS=[["09:00", "19:00"], ["09:00", "19:00"], ["09:00", "19:00"], ["09:00", "19:00"], ["09:00", "19:00"], ["09:00", "19:00"], ["09:00", "19:00"]];
+const YES_TXT="Take a bite";
+const TITLES=["Caf\u00e9 Magari \ub9c8\uac00\ub9ac \u00b7 Matcha, coffee \u0026 vintage on the Singel", "Caf\u00e9 Magari \ub9c8\uac00\ub9ac \u00b7 Matcha, koffie \u0026 vintage aan de Singel"];
+const NL={"4.8 on Google": "4,8 op Google", "A Little Boutique on the Singel": "Een klein boetiekje aan de Singel", "A Matcha Like a Cloud": "Matcha als een wolkje", "A day at Magari": "Een dag bij Magari", "A few tables under the trees, right next to the water. Watch Amsterdam float by.": "Een paar tafeltjes onder de bomen, direct aan het water. Kijk hoe Amsterdam voorbij drijft.", "A heart on every latte, served in one of our vintage cups.": "Een hartje op elke latte, geserveerd in een van onze vintage kopjes.", "A little boutique caf\u00e9 on the Singel: ceremonial matcha, good coffee, homemade cakes and vintage finds.": "Een klein boetiekcaf\u00e9 aan de Singel: ceremoni\u00eble matcha, goede koffie, huisgemaakte taart en vintage vondsten.", "All": "Alles", "Alone": "alleen", "Antique cups, fresh flowers and a heart in every latte. We care about the small details.": "Antieke kopjes, verse bloemen en een hartje in elke latte. Wij letten op de kleine details.", "Antique cups, vintage interior pieces, a cat on the windowsill and a dog swinging over the counter. Everything here is chosen with care.": "Antieke kopjes, vintage interieurstukken, een kat in de vensterbank en een hondje dat boven de toonbank schommelt. Alles hier is met zorg gekozen.", "Antique cups, vintage pieces and interior goods. Some of them you can take home.": "Antieke kopjes, vintage stukken en interieurspullen. Sommige mag je mee naar huis nemen.", "Ask what\u2019s fresh today": "Vraag wat er vandaag vers is", "At Singel 379A, on the canal between the Spui and the Nine Streets.": "Op de Singel 379A, aan de gracht tussen het Spui en de Negen Straatjes.", "Bake": "Bakken", "Baked every morning": "Elke ochtend vers", "Baked this morning": "Vanochtend gebakken", "Bakes \u0026 Cakes": "Gebak \u0026 taart", "Best for \u00b7 slow mornings": "Ideaal voor \u00b7 rustige ochtenden", "Best for \u00b7 sunny afternoons": "Ideaal voor \u00b7 zonnige middagen", "Caf\u00e9 Latte": "Koffie latte", "Caf\u00e9 Latte + Brownie": "Koffie latte + brownie", "Cake of the Day": "Taart van de dag", "Can I bring my dog?": "Mag mijn hond mee?", "Can I buy the vintage pieces?": "Kan ik de vintage spullen kopen?", "Can\u2019t go wrong. Take a window seat and watch the boats.": "Kan niet misgaan. Pak een plekje bij het raam en kijk naar de bootjes.", "Ceremonial matcha": "Ceremoni\u00eble matcha", "Ceremonial matcha from Japan or Jeju, whisked light and airy.": "Ceremoni\u00eble matcha uit Japan of van Jeju, licht en luchtig opgeklopt.", "Ceremonial matcha, airy and light": "Ceremoni\u00eble matcha, luchtig en licht", "Ceremonial matcha, good coffee and homemade cake, surrounded by vintage finds. Right on the Singel, open every day.": "Ceremoni\u00eble matcha, goede koffie en huisgemaakte taart, tussen vintage vondsten. Direct aan de Singel, elke dag open.", "Ceremonial, airy \u0026 light": "Ceremonieel, luchtig \u0026 licht", "Changes daily": "Wisselt dagelijks", "Chocolate Croissant": "Chocoladecroissant", "Choose my cookies": "Kies mijn cookies", "Coffee": "Koffie", "Come Sit by the Canal": "Kom zitten aan de gracht", "Concept by dolcessi_ \u00b7 not the official Caf\u00e9 Magari site \u00b7 reviews from Google": "Concept door dolcessi_ \u00b7 niet de offici\u00eble site van Caf\u00e9 Magari \u00b7 reviews van Google", "Cookie settings": "Cookie-instellingen", "Dogs and cats are part of the family here. Bring yours along.": "Honden en katten horen hier bij de familie. Neem de jouwe gerust mee.", "Double espresso": "Dubbele espresso", "Essential": "Noodzakelijk", "Essentials only": "Alleen noodzakelijk", "Every day from 09:00 to 19:00.": "Elke dag van 09:00 tot 19:00.", "Every morning starts with fresh pastries out of the oven.": "Elke ochtend begint met verse broodjes uit de oven.", "Everything Here Is Cute": "Alles hier is schattig", "Everything you want to know before you drop by": "Alles wat je wilt weten voordat je langskomt", "Favourite": "Favoriet", "Find Your Favourite": "Vind jouw favoriet", "Flowers, antique cups and a cat or two. Cosy, small, and full of little details.": "Bloemen, antieke kopjes en een kat of twee. Knus, klein en vol kleine details.", "Food": "Eten", "Frequently Asked Questions": "Veelgestelde vragen", "Fresh every morning": "Elke ochtend vers", "Fresh pastries every morning, homemade cakes": "Elke ochtend verse broodjes, huisgemaakte taart", "From First Croissant to": "Van eerste croissant tot", "From the bar \u0026 the oven": "Van de bar \u0026 uit de oven", "Get directions": "Routebeschrijving", "Good Coffee,": "Goede koffie,", "Gooey, perfect with coffee": "Smeu\u00efg, perfect bij koffie", "Gooey, with coffee": "Smeu\u00efg, bij de koffie", "Google review": "Google-review", "Grachtengordel \u00b7 between the Spui and the Nine Streets": "Grachtengordel \u00b7 tussen het Spui en de Negen Straatjes", "Green tea from Japan or Jeju Island": "Groene thee uit Japan of van Jeju", "Green tea from Japan or Jeju Island, whisked airy and light.": "Groene thee uit Japan of van het Koreaanse Jeju, luchtig en licht opgeklopt.", "Hojicha Latte + Korean Toast": "Hojicha latte + Koreaanse toast", "Homemade Brownie": "Huisgemaakte brownie", "Inside": "Binnen", "Is it busy?": "Is het druk?", "Japanese": "Japans", "Korean": "Koreaans", "Korean Signature Toast": "Koreaanse signature toast", "Last Latte": "laatste latte", "Light matcha, bright yuzu, a nutty black sesame base.": "Lichte matcha, frisse yuzu en een nootachtige bodem van zwarte sesam.", "Little Things": "Kleine dingen", "Little things": "Kleine dingen", "Loved by Our Neighbourhood": "Geliefd in de buurt", "Lovely People": "lieve mensen", "Magari is a little boutique caf\u00e9 on the Singel: vintage items and interior goods, good coffee, ceremonial matcha and lovely people. Everything here is cute.": "Magari is een klein boetiekcaf\u00e9 aan de Singel: vintage spullen en interieur, goede koffie, ceremoni\u00eble matcha en lieve mensen. Alles hier is schattig.", "Magari sits on one of the prettiest stretches of the Singel. A few tables inside, a terrace by the canal, and fresh flowers at the door.": "Magari ligt aan een van de mooiste stukjes van de Singel. Een paar tafels binnen, een terras aan de gracht en verse bloemen bij de deur.", "Magari tip:": "Magari-tip:", "Matcha \u0026 Tea": "Matcha \u0026 thee", "Matcha Latte + Yuzu Cheesecake": "Matcha latte + yuzu-cheesecake", "Matcha \u00b7 coffee \u00b7 vintage": "Matcha \u00b7 koffie \u00b7 vintage", "Matcha, coffee, Korean toast and homemade cakes. A selection; the full menu is on the board at the bar.": "Matcha, koffie, Koreaanse toast en huisgemaakte taart. Een selectie; het volledige menu staat op het bord bij de bar.", "Matter Here": "tellen hier", "Mon\u2013Sun \u00b7 09:00\u201319:00": "Ma\u2013zo \u00b7 09:00\u201319:00", "Never Have a Coffee": "Neem nooit een koffie", "Of course. Paw friends are always welcome at Magari.": "Natuurlijk. Viervoeters zijn altijd welkom bij Magari.", "On a black sesame base": "Op een bodem van zwarte sesam", "On the Singel": "Aan de Singel", "Only here": "Alleen hier", "Open every day \u00b7 09:00\u201319:00": "Elke dag open \u00b7 09:00\u201319:00", "Opening Hours": "Openingstijden", "Organic Tea": "Biologische thee", "Our Caf\u00e9": "Ons caf\u00e9", "Our Menu": "Ons menu", "Our Story": "Ons verhaal", "Our favourite combinations from the bar and the cake counter. Ask for one when you order.": "Onze favoriete combinaties van de bar en de taartvitrine. Vraag ernaar als je bestelt.", "Our name is written in Korean, Japanese and Italian, just like the caf\u00e9 brings a little of each to Amsterdam.": "Onze naam schrijven we in het Koreaans, Japans en Italiaans, net zoals het caf\u00e9 van elk een beetje naar Amsterdam brengt.", "Our story": "Ons verhaal", "Outside": "Buiten", "Paw friends are always welcome": "Viervoeters zijn altijd welkom", "Perfect pairings": "Perfecte combinaties", "Plan a visit": "Plan een bezoek", "Pour": "Schenken", "Preferences": "Voorkeuren", "Prices at the bar. Menu selection for this concept, based on what guests order most.": "Prijzen aan de bar. Menuselectie voor dit concept, gebaseerd op wat gasten het vaakst bestellen.", "Proper foam": "Echt goed schuim", "Read our story": "Lees ons verhaal", "Remembers this choice for 6 months.": "Onthoudt deze keuze 6 maanden.", "Renewed Magari": "Het vernieuwde Magari", "Roasted green tea with milk": "Geroosterde groene thee met melk", "Roasted green tea, cosy \u0026 warm": "Geroosterde groene thee, warm \u0026 knus", "See the menu": "Bekijk het menu", "Served in a vintage teapot": "Geserveerd in een vintage theepot", "Singel 379A, between the Spui and the Nine Streets. Look for the flowers and the striped umbrella.": "Singel 379A, tussen het Spui en de Negen Straatjes. Zoek de bloemen en de gestreepte parasol.", "Small, cosy,": "Klein, knus,", "Soft as a cloud, poured with love,": "Zacht als een wolkje, met liefde geschonken,", "Some of our vintage items and interior goods are for sale. Just ask at the bar.": "Een deel van onze vintage spullen en interieurartikelen is te koop. Vraag het gerust aan de bar.", "Stay": "Blijven", "Take a bite": "Neem een hap", "Take a seat by the window, or out on the terrace by the water.": "Neem plaats bij het raam, of buiten op het terras aan het water.", "The Canal Terrace": "Het grachtenterras", "The Magari": "De Magari", "The Vintage Room": "De vintagekamer", "The afternoon": "De middag", "The brunch": "De brunch", "The details": "De details", "The name": "De naam", "The place": "De plek", "Toasty tea and a spicy, savoury toast. Our favourite way to start the day.": "Geroosterde thee en een pittige, hartige toast. Onze favoriete manier om de dag te beginnen.", "View all": "Bekijk alles", "Vintage \u0026 interior": "Vintage \u0026 interieur", "Vintage finds and antique cups": "Vintage vondsten en antieke kopjes", "Visit": "Bezoek", "Visit us": "Kom langs", "We are a small spot, so on sunny weekends it fills up fast. Mornings are the calmest.": "We zijn klein, dus op zonnige weekenden zit het snel vol. \u2019s Ochtends is het het rustigst.", "We bake a couple of small cookies: one to remember your choice, one for your language, favourite menu tab and a welcome back. No ads, no tracking.": "We bakken een paar kleine cookies: \u00e9\u00e9n om je keuze te onthouden, en \u00e9\u00e9n voor je taal, je favoriete menutab en een welkom terug. Geen advertenties, geen tracking.", "We only use high-quality green tea from Japan or from Jeju Island in South Korea.": "We gebruiken alleen hoogwaardige groene thee uit Japan of van het Zuid-Koreaanse eiland Jeju.", "What are your opening hours?": "Wat zijn jullie openingstijden?", "Where does your matcha come from?": "Waar komt jullie matcha vandaan?", "Where is Caf\u00e9 Magari?": "Waar zit Caf\u00e9 Magari?", "Whisk": "Kloppen", "With a heart on top": "Met een hartje erop", "With authentic Korean gochujang spicy sauce": "Met authentieke pittige Koreaanse gochujangsaus", "With gochujang sauce": "Met gochujangsaus", "Your language, last menu tab and a welcome back.": "Je taal, laatste menutab en een welkom terug.", "Your little boutique caf\u00e9": "Jouw kleine boetiekcaf\u00e9", "Yuzu Cheesecake": "Yuzu-cheesecake", "based on 732 reviews": "op basis van 732 reviews", "by the canal.": "aan de gracht.", "by the water.": "aan het water.", "come early for a croissant fresh from the oven, they don\u2019t last long.": "kom vroeg voor een croissant vers uit de oven, ze zijn snel op.", "matter.": "tellen.", "\u201cA charming little caf\u00e9 facing the canal, with romantic, quirky d\u00e9cor.\u201d": "\u201cEen charmant klein caf\u00e9 aan de gracht, met een romantisch, eigenzinnig interieur.\u201d", "\u201cThe cheesecake was phenomenal, with a black sesame base that combined perfectly with the yuzu.\u201d": "\u201cDe cheesecake was fenomenaal, met een bodem van zwarte sesam die perfect samenging met de yuzu.\u201d", "\u201cThe interior is so adorable, like being part of a slice-of-life indie game.\u201d": "\u201cHet interieur is zo schattig, alsof je in een knusse indiegame zit.\u201d", "\u201cThe kind of place that makes you want to come back again and again.\u201d": "\u201cHet soort plek waar je steeds weer naar terug wilt.\u201d", "\u201cThe matcha was like drinking a cloud, super airy and light.\u201d": "\u201cDe matcha was als een wolkje drinken, superluchtig en licht.\u201d", "\u201cThis is probably one of the best matchas I have ever had.\u201d": "\u201cDit is waarschijnlijk een van de beste matcha\u2019s die ik ooit heb gehad.\u201d"};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const CSSV=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+document.querySelectorAll('[data-maps]').forEach(a=>a.href=MAPS);
+$('#faq').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const q=b.parentElement;const o=q.classList.contains('open');$$('.q.open').forEach(x=>x.classList.remove('open'));if(!o)q.classList.add('open');});
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;$$('.tab').forEach(t=>t.classList.toggle('on',t===b));$$('.mgroup').forEach(g=>g.style.display=(b.dataset.f==='all'||g.dataset.g===b.dataset.f)?'':'none');});
+$$('.arr[data-rail]').forEach(b=>b.addEventListener('click',()=>{const r=document.getElementById(b.dataset.rail);r.scrollBy({left:(+b.dataset.dir)*r.clientWidth*.8,behavior:'smooth'});}));
+
+/* hours + open now (null = closed) */
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const now=new Date(),di=(now.getDay()+6)%7,mins=now.getHours()*60+now.getMinutes(),toM=s=>+s.slice(0,2)*60+ +s.slice(3);
+$('#hours').innerHTML=HOURS.map((h,i)=>`<div class="${i===di?'today':''}"><span>${DAYS[i]}</span><span>${h?h[0]+'–'+h[1]:'Closed'}</span></div>`).join('');
+(function(){const op=$('#openp'),h=HOURS[di],open=h&&mins>=toM(h[0])&&mins<toM(h[1]);
+  if(open){op.querySelector('span').textContent=`Open now · until ${h[1]}`;return}
+  op.classList.add('closed');
+  if(h&&mins<toM(h[0])){op.querySelector('span').textContent=`Closed · opens today ${h[0]}`;return}
+  let k=(di+1)%7,steps=1;while(!HOURS[k]&&steps<7){k=(k+1)%7;steps++}
+  op.querySelector('span').textContent=steps===1?`Closed · opens tomorrow ${HOURS[k][0]}`:`Closed · opens ${DAYS[k]} ${HOURS[k][0]}`;})();
+
+/* footer wordmark fits width */
+function fitWord(){const f=$('#fword');f.style.fontSize='100px';const w=f.parentElement.clientWidth;f.style.fontSize=Math.min(260,100*w/f.scrollWidth)+'px';}
+addEventListener('resize',fitWord);
+
+/* header */
+const hdr=$('#hdr');
+function setHH(){document.documentElement.style.setProperty('--hh',hdr.offsetHeight+'px')}addEventListener('resize',setHH);setTimeout(setHH,0);
+function hdrState(){const hero=$('.page.active[data-hero]');hdr.classList.toggle('solid',!hero||scrollY>60);}
+
+/* reveal */
+let io;function observe(){io&&io.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});$$('.page.active .rv:not(.in)').forEach(el=>io.observe(el));}
+
+/* router */
+const veil=$('#veil'),mnav=$('#mnav');
+function show(p){$$('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===p));$$('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===p));window.lenis?lenis.scrollTo(0,{immediate:true}):scrollTo(0,0);hdrState();requestAnimationFrame(()=>{observe();fitWord();});}
+function setMenu(o){mnav.classList.toggle('open',o);document.body.classList.toggle('menu-open',o);$('#burger').setAttribute('aria-expanded',o);if(window.lenis)o?lenis.stop():lenis.start();document.documentElement.style.overflow=o?'hidden':'';}
+function route(first){const n=location.hash.replace('#/','')||'home';const p=['home','menu','story','visit'].includes(n)?n:'home';setMenu(false);mnav.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===(p==='home'?'#/':'#/'+p)));if(first)return show(p);veil.classList.add('on');setTimeout(()=>{show(p);veil.classList.remove('on')},360);}
+addEventListener('hashchange',()=>route(false));
+$('#burger').addEventListener('click',()=>setMenu(!mnav.classList.contains('open')));
+mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+/* smooth scroll */
+try{if(window.Lenis&&!matchMedia('(prefers-reduced-motion:reduce)').matches){window.lenis=new Lenis({lerp:.085,smoothWheel:true});lenis.on('scroll',hdrState);(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);}}catch(e){}
+addEventListener('scroll',hdrState,{passive:true});
+
+/* click puff in the brand colours */
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;let lastPtr='mouse';
+function puff(e){
+  const el=document.elementFromPoint(e.clientX,e.clientY);
+  const onDark=el&&el.closest('.dark,#ckwrap,.hero,.stamp,.pill.green,#mnav,.hello,.tile');
+  const cols=onDark?[CSSV('--bg-2'),CSSV('--accent-l'),CSSV('--bg')]:[CSSV('--green'),CSSV('--green-2'),CSSV('--matcha')];
+  const n=14;
+  for(let i=0;i<n;i++){
+    const d=document.createElement('i'),s=3+Math.random()*5,a=(i/n)*Math.PI*2+(Math.random()-.5)*.5,r=22+Math.random()*30;
+    d.className='puff';d.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-s/2}px;top:${e.clientY-s/2}px;background:${cols[i%3]}`;
+    document.body.appendChild(d);
+    const dx=Math.cos(a)*r,dy=Math.sin(a)*r;
+    d.animate([{transform:'translate(0,0) scale(.4)',opacity:0},{transform:`translate(${dx*.55}px,${dy*.55}px) scale(1)`,opacity:1,offset:.25},{transform:`translate(${dx}px,${dy+8}px) scale(.2)`,opacity:0}],{duration:700+Math.random()*250,easing:'cubic-bezier(.22,1,.36,1)'}).onfinish=()=>d.remove();
+  }
+}
+document.addEventListener('pointerdown',e=>{lastPtr=e.pointerType;if(!reduce&&e.pointerType==='mouse')puff(e)},{passive:true});
+document.addEventListener('click',e=>{if(!reduce&&lastPtr!=='mouse'&&e.detail)puff(e)},{passive:true});
+
+/* cookies, for real */
+const P=SLUG.replace(/[^a-z]/g,'').slice(0,6)+'_';
+const CK={get(n){const m=document.cookie.match('(?:^|; )'+P+n+'=([^;]*)');return m?decodeURIComponent(m[1]):null},
+  set(n,v,days=180){document.cookie=`${P+n}=${encodeURIComponent(v)}; max-age=${days*86400}; path=/; SameSite=Lax${location.protocol==='https:'?'; Secure':''}`},
+  del(n){document.cookie=`${P+n}=; max-age=0; path=/`}};
+const ckw=$('#ckwrap'),swPref=$('#swPref'),ckPrefs=$('#ckprefs');
+const prefsOK=()=>CK.get('consent')==='all';
+function applyConsent(){
+  if(prefsOK()){const v=(+CK.get('visits')||0)+1;CK.set('visits',v);
+    if(v>1){$('#heroChip').innerHTML='<i></i>Welcome back · nice to see you again';}
+    const t=CK.get('tab');if(t){const b=$(`.tab[data-f="${t}"]`);b&&b.click();}
+  } else {CK.del('visits');CK.del('tab');CK.del('lang');}
+}
+function decide(v){CK.set('consent',v);ckw.classList.add('eaten');setTimeout(()=>{ckw.classList.remove('show','eaten')},650);applyConsent();if(prefsOK())CK.set('lang',LANG);}
+$('#ckYes').addEventListener('click',()=>decide(swPref.classList.contains('on')?'all':'essential'));
+$('#ckNo').addEventListener('click',()=>decide('essential'));
+$('#ckMore').addEventListener('click',e=>{const o=ckPrefs.classList.toggle('open');e.target.textContent=o?'Hide options':'Choose my cookies';$('#ckYes').textContent=o?'Save my choice':YES_TXT;});
+swPref.addEventListener('click',()=>{const on=swPref.classList.toggle('on');swPref.setAttribute('aria-checked',on)});
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(b&&prefsOK())CK.set('tab',b.dataset.f)});
+$$('[data-cookie-settings]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();swPref.classList.toggle('on',CK.get('consent')!=='essential');ckPrefs.classList.add('open');$('#ckMore').textContent='Hide options';$('#ckYes').textContent='Save my choice';ckw.classList.add('show')}));
+if(!CK.get('consent'))setTimeout(()=>ckw.classList.add('show'),1600); else applyConsent();
+
+/* EN / NL */
+Object.assign(NL,{"Monday":"Maandag","Tuesday":"Dinsdag","Wednesday":"Woensdag","Thursday":"Donderdag","Friday":"Vrijdag","Saturday":"Zaterdag","Sunday":"Zondag","Closed":"Gesloten","Hide options":"Verberg opties","Save my choice":"Bewaar mijn keuze","Welcome back · nice to see you again":"Welkom terug · leuk je weer te zien"});
+const DAYNL={"Monday":"maandag","Tuesday":"dinsdag","Wednesday":"woensdag","Thursday":"donderdag","Friday":"vrijdag","Saturday":"zaterdag","Sunday":"zondag"};
+const NL_RX=[[/^Open now · until (\d\d:\d\d)$/,'Nu open · tot $1'],[/^Closed · opens today (\d\d:\d\d)$/,'Gesloten · opent vandaag om $1'],[/^Closed · opens tomorrow (\d\d:\d\d)$/,'Gesloten · opent morgen om $1'],[/^Closed · opens (\w+day) (\d\d:\d\d)$/,(m,d,t)=>`Gesloten · opent ${DAYNL[d]} om ${t}`]];
+const ORIG=new WeakMap();let LANG='en',busy=false;
+function tr(t){const k=t.trim().replace(/\s+/g,' ');if(NL[k]!==undefined)return t.replace(t.trim(),NL[k]);for(const [rx,r] of NL_RX)if(rx.test(k))return t.replace(t.trim(),k.replace(rx,r));return null}
+function walk(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;return(!p||/SCRIPT|STYLE/.test(p.tagName)||!n.nodeValue.trim())?2:1}});let n;busy=true;
+  while(n=w.nextNode()){if(!ORIG.has(n))ORIG.set(n,n.nodeValue);const en=ORIG.get(n);if(LANG==='nl'){const t=tr(en);if(t!==null&&n.nodeValue!==t)n.nodeValue=t}else if(n.nodeValue!==en)n.nodeValue=en;}busy=false;}
+function setLang(l,save){LANG=l;document.documentElement.lang=l;document.title=TITLES[l==='nl'?1:0];
+  $$('.lang').forEach(g=>{g.classList.toggle('nl',l==='nl');g.querySelectorAll('button').forEach(b=>{const on=b.dataset.lang===l;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})});
+  walk(document.body);
+  if(save){try{sessionStorage.setItem(P+'lang',l)}catch(e){} if(prefsOK())CK.set('lang',l);document.body.classList.remove('switching');void document.body.offsetWidth;document.body.classList.add('switching');}}
+new MutationObserver(ms=>{if(busy||LANG==='en')return;ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===3){const t=tr(n.nodeValue);if(t!==null){ORIG.set(n,n.nodeValue);busy=true;n.nodeValue=t;busy=false}}else if(n.nodeType===1)walk(n)}))}).observe(document.body,{childList:true,subtree:true});
+$$('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang,true)));
+let startLang=CK.get('lang');try{startLang=startLang||sessionStorage.getItem(P+'lang')}catch(e){}
+if(startLang==='nl')setLang('nl',false);
+
+route(true);
+document.fonts&&document.fonts.ready.then(fitWord);
+requestAnimationFrame(()=>$$('.hero .rv').forEach(el=>el.classList.add('in')));
+
+</script>
+</body>
+</html>

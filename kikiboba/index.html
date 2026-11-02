@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>KIKIBOBA 車輪餅 · Taiwanese wheel cakes, tea & culture in De Pijp</title>
+<meta name="description" content="KIKIBOBA, Van Woustraat 21A Amsterdam. Taiwanese wheel cakes, milk tea and matcha, books, goods and exhibitions. Open 11:00–18:00, closed Thursday.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%232a2925%22/%3E%3Ctext x=%2232%22 y=%2244%22 font-size=%2234%22 text-anchor=%22middle%22 fill=%22%23F7F6F3%22 font-family=%22serif%22 font-weight=%22700%22%3E%E2%9C%B6%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#2a2925">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&text=%E5%90%83%E5%92%96%E5%95%A1%E5%96%AE%E5%A5%B6%E6%B3%A1%E7%83%8F%E7%83%A4%E7%B4%85%E8%8A%8B%E8%8C%B6%E8%8F%9C%E8%BB%8A%E8%BC%AA%E9%A0%AD%E9%A4%85%E9%A4%A1%E9%BA%B5%E9%BE%8D&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CafeOrCoffeeShop", "name": "KIKIBOBA", "address": {"@type": "PostalAddress", "streetAddress": "Van Woustraat 21A", "postalCode": "1074 AA", "addressLocality": "Amsterdam", "addressCountry": "NL"}, "geo": {"@type": "GeoCoordinates", "latitude": 52.3568988, "longitude": 4.8998985}, "aggregateRating": {"@type": "AggregateRating", "ratingValue": 4.8, "reviewCount": 209}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "11:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "11:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "11:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "11:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "11:00", "closes": "18:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "11:00", "closes": "18:00"}], "sameAs": ["https://www.instagram.com/kikiboba_ams/"]}</script>
+<style>
+:root{
+  --green:#2a2925; --green-2:#45433d; --green-3:#141311; --matcha:#d39a52; --accent-l:#f0cf9c;
+  --g-rgb:42,41,37; --d-rgb:20,19,17; --bg-rgb:236,234,229;
+  --bg:#ECEAE5; --bg-2:#F7F6F3; --sand:#DCD7CD; --khaki:#9A9182; --ink:#171613; --on-green:#F1E7D6; --pop:<built-in method pop of dict object at 0x7f92ce465fc0>;
+  --mute:rgba(18,18,18,.62);
+  --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace; --han:'Noto Serif TC',serif;
+  --pad:clamp(16px,4vw,48px); --max:1240px; --r:20px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+/* ── KYŌ system: one green, warm beiges, khaki, near-black. Inter heavy + JetBrains Mono. ── */
+/*ROOT*/
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+::selection{background:var(--green);color:var(--bg-2)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.g{color:var(--green)}
+.han{font-family:var(--han);font-weight:900}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;font-weight:600;font-size:14px;transition:background .3s,color .3s,transform .3s var(--ease),border-color .3s;white-space:nowrap}
+.pill:hover{transform:translateY(-1px)}
+.pill.white{background:#fff;color:var(--ink)}
+.pill.white:hover{background:var(--bg-2)}
+.pill.ghost{border:1.5px solid rgba(255,255,255,.7);color:#fff}
+.pill.ghost:hover{background:#fff;color:var(--ink)}
+.pill.green{background:var(--green);color:var(--bg-2)}
+.pill.green:hover{background:var(--green-2)}
+.pill.line{border:1.5px solid var(--ink)}
+.pill.line:hover{background:var(--ink);color:var(--bg-2)}
+.pill .ar{transition:transform .3s var(--ease)}
+.pill:hover .ar{transform:translateX(3px)}
+.chip{display:inline-flex;align-items:center;gap:8px;height:28px;padding:0 12px;border-radius:999px;background:#fff;color:var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* ── header ── */
+header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .4s,color .4s,box-shadow .4s;color:#fff}
+header .in{max-width:var(--max);margin:0 auto;padding:14px var(--pad);display:flex;align-items:center;gap:28px}
+.logo{display:flex;align-items:baseline;gap:8px;font-weight:900;font-size:19px;letter-spacing:-.03em}
+.logo .han{font-size:17px;letter-spacing:0}
+nav.main{display:flex;gap:24px;margin-left:12px}
+nav.main a{font-size:13.5px;font-weight:500;opacity:.9;position:relative}
+nav.main a::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1.5px;background:currentColor;transition:right .35s var(--ease)}
+nav.main a:hover::after,nav.main a.on::after{right:0}
+header .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+header .pill{height:34px;font-size:13px;padding:0 14px}
+header.solid{background:rgba(var(--bg-rgb),.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);box-shadow:0 1px 0 rgba(18,18,18,.08)}
+header.solid .pill.ghost{border-color:var(--ink);color:var(--ink)}
+header.solid .pill.ghost:hover{background:var(--ink);color:var(--bg-2)}
+.burger{display:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18)}
+header.solid .burger{background:rgba(18,18,18,.06)}
+.burger span{display:block;width:16px;height:1.5px;background:currentColor;margin:4px auto;transition:transform .45s var(--ease)}
+body.menu-open .burger span:first-child{transform:translateY(2.75px) rotate(45deg)}
+body.menu-open .burger span:last-child{transform:translateY(-2.75px) rotate(-45deg)}
+body.menu-open header,body.menu-open header.solid{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;color:var(--bg-2)}
+body.menu-open header .burger{background:rgba(255,255,255,.14)}
+body.menu-open header .lang{border-color:rgba(255,255,255,.4)}
+body.menu-open header .lang::before{background:#fff}
+body.menu-open header .lang button.on{color:var(--ink)}
+body.menu-open #ckwrap{opacity:0;pointer-events:none}
+#mnav a{opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+#mnav.open a{opacity:1;transform:none}
+#mnav.open a:nth-child(2){transition-delay:.05s}#mnav.open a:nth-child(3){transition-delay:.1s}#mnav.open a:nth-child(4){transition-delay:.15s}
+#mnav a.on{color:var(--accent-l)}
+#mnav{position:fixed;inset:0;z-index:49;background:var(--green);color:var(--bg-2);padding:110px var(--pad) 40px;display:flex;flex-direction:column;gap:6px;transform:translateY(-100%);transition:transform .6s var(--ease)}
+#mnav.open{transform:none}
+#mnav a{font-weight:900;font-size:44px;letter-spacing:-.04em;line-height:1.1}
+#mnav .mono{margin-top:auto;opacity:.7;line-height:1.8}
+@media (max-width:860px){nav.main,header .right .hide-m{display:none}.burger{display:block}}
+.logo{white-space:nowrap}
+@media (max-width:520px){header .right>.pill.white{display:none}}
+
+/* ── hero: living matcha swirl ── */
+.hero{position:relative;min-height:100svh;color:#fff;overflow:hidden;display:flex;align-items:flex-end;background:var(--green-3)}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);animation:push 26s ease-in-out infinite alternate;will-change:transform}
+@keyframes push{0%{transform:scale(1.12) translate(0,0)}100%{transform:scale(1.22) translate(-2%,-1.5%)}}
+.hero-meta{position:absolute;right:var(--pad);bottom:clamp(40px,8vw,90px);z-index:2;display:flex;flex-direction:column;gap:4px;text-align:right;opacity:.7;font-size:11px}
+@media (max-width:760px){.hero-meta{display:none}}
+.foam{position:absolute;inset:0;z-index:1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.16;mix-blend-mode:overlay}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 28%,transparent 50%,rgba(var(--d-rgb),.7)),linear-gradient(90deg,rgba(var(--d-rgb),.45),transparent 60%)}
+.hero .han-mark{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);font-size:clamp(120px,22vw,340px);line-height:1;color:rgba(255,255,255,.08);z-index:1;user-select:none}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:clamp(40px,8vw,90px)}
+.hero h1{font-weight:900;font-size:clamp(46px,8.2vw,112px);line-height:.9;letter-spacing:-.045em;text-transform:uppercase;margin:18px 0 18px;max-width:11ch}
+.hero p{font-family:var(--mono);font-size:14px;line-height:1.6;max-width:430px;opacity:.92}
+.hero .btns{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.scroll-cue{position:absolute;left:50%;bottom:22px;z-index:2;width:22px;height:36px;border:1.5px solid rgba(255,255,255,.6);border-radius:20px;transform:translateX(-50%)}
+.scroll-cue::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:2px;background:#fff;transform:translateX(-50%);animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{60%{transform:translate(-50%,10px);opacity:0}100%{opacity:0}}
+@media (max-width:640px){.scroll-cue{display:none}}
+
+/* ── reveal ── */
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* ── break line ── */
+.break{padding:clamp(90px,13vw,150px) 0;text-align:center}
+.break p{font-weight:700;font-size:clamp(20px,2.4vw,30px);letter-spacing:-.025em}
+
+/* ── duo cards ── */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tile{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;color:#fff;display:flex;align-items:flex-end;isolation:isolate}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.4s var(--ease)}
+.tile:hover img{transform:scale(1.05)}
+.tile::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 45%,rgba(var(--d-rgb),.78))}
+.tile .t{padding:clamp(18px,3vw,30px)}
+.tile h3{font-weight:800;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.03em}
+.tile p{font-family:var(--mono);font-size:12.5px;opacity:.88;margin:8px 0 16px;max-width:300px;line-height:1.5}
+.tile .pill{height:34px;font-size:13px}
+@media (max-width:760px){.duo{grid-template-columns:1fr}.tile{aspect-ratio:4/4.6}}
+
+/* ── reviews ── */
+.sec{padding:clamp(70px,9vw,110px) 0}
+.revs{display:grid;grid-template-columns:minmax(260px,300px) 1fr;gap:28px;align-items:center}
+.revs h2,.h2{font-weight:900;font-size:clamp(28px,3vw,38px);letter-spacing:-.04em;line-height:1}
+.stars{color:var(--pop);letter-spacing:2px;font-size:15px;margin-top:12px}
+.revs .mono{color:var(--mute);margin-top:6px;line-height:1.6}
+.rail-wrap{position:relative;min-width:0}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth;padding-bottom:4px}
+.rail::-webkit-scrollbar{display:none}
+.rc{flex:0 0 clamp(230px,24vw,270px);scroll-snap-align:start;background:var(--bg-2);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.rc .who{display:flex;align-items:center;gap:10px}
+.rc .av{width:32px;height:32px;border-radius:50%;background:var(--green);color:var(--bg-2);display:grid;place-items:center;font-weight:700;font-size:13px}
+.rc .who b{font-size:13.5px;display:block}
+.rc .who small{font-family:var(--mono);font-size:10.5px;color:var(--mute)}
+.rc .gl{margin-left:auto;font-weight:800;font-size:15px;background:linear-gradient(90deg,#4285F4,#EA4335,#FBBC05,#34A853);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rc p{font-size:14px;line-height:1.5;color:#333}
+.arrows{display:flex;gap:8px;justify-content:flex-end;margin-bottom:12px}
+.arr{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(18,18,18,.25);display:grid;place-items:center;font-size:14px;transition:background .25s,color .25s,border-color .25s}
+.arr:hover{background:var(--ink);color:var(--bg-2);border-color:var(--ink)}
+.dark .arr{border-color:rgba(255,255,255,.35)}
+.dark .arr:hover{background:#fff;color:var(--ink)}
+@media (max-width:760px){.revs{grid-template-columns:1fr}}
+
+/* ── hello banner ── */
+.hello{position:relative;border-radius:var(--r);overflow:hidden;min-height:clamp(380px,40vw,500px);display:flex;align-items:center;color:#fff;isolation:isolate}
+.hello img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;z-index:-2}
+.hello::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(var(--d-rgb),.82) 0%,rgba(var(--d-rgb),.55) 45%,rgba(var(--d-rgb),.05) 80%)}
+.hello .t{padding:clamp(24px,5vw,56px);max-width:520px}
+.hello h2{font-weight:900;font-size:clamp(34px,4.6vw,58px);letter-spacing:-.045em;line-height:.95;margin:16px 0 14px}
+.hello p{font-family:var(--mono);font-size:13px;line-height:1.7;opacity:.9;margin-bottom:22px}
+
+/* ── signature drinks (dark green band) ── */
+.dark{background:var(--green);color:var(--bg-2)}
+.band-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+.band-head .label{opacity:.65;display:block;margin-bottom:8px}
+.prod{flex:0 0 clamp(200px,22vw,250px);scroll-snap-align:start}
+.prod .ph{aspect-ratio:1/1.08;border-radius:14px;overflow:hidden;background:var(--sand);position:relative}
+.prod .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.prod:hover .ph img{transform:scale(1.06)}
+.prod .ph.type{display:grid;place-items:center;background:var(--green-2)}
+.prod .ph.type .han{font-size:clamp(46px,5vw,64px);color:var(--on-green);line-height:1.1;text-align:center}
+.prod .ph.type.cream{background:var(--bg-2)}
+.prod .ph.type.cream .han{color:var(--green)}
+.prod b{display:block;font-size:14.5px;margin-top:12px}
+.prod small{font-family:var(--mono);font-size:11px;opacity:.65}
+.dark .rail{gap:14px}
+
+/* ── stamp card banner (gift card in KYŌ) ── */
+.stamp{background:var(--green);color:var(--bg-2);border-radius:var(--r);padding:22px clamp(20px,3vw,32px);display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.stamp .ic{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center}
+.stamp .ic svg{width:22px;height:22px}
+.stamp b{display:block;font-weight:800;font-size:clamp(18px,2vw,24px);letter-spacing:-.02em}
+.stamp small{font-family:var(--mono);font-size:12px;opacity:.75}
+.stamp .dots{display:flex;gap:6px;margin-left:auto}
+.stamp .dots i{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5)}
+.stamp .dots i.on{background:var(--bg-2);border-color:var(--bg-2)}
+.stamp .dots i:last-child{background:var(--pop);border-color:var(--pop)}
+@media (max-width:760px){.stamp .dots{margin-left:0;width:100%}}
+
+/* ── family split (workshop in KYŌ) ── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,70px);align-items:center}
+.split .ph{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.split .ph img{width:100%;height:100%;object-fit:cover}
+.split .label{color:var(--khaki)}
+.split h2{margin:12px 0 16px}
+.split p{color:var(--mute);line-height:1.65;font-size:15.5px;max-width:460px}
+.ticks{list-style:none;margin:22px 0 26px;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;font-weight:500}
+.ticks svg{flex:0 0 18px;width:18px;height:18px;color:var(--green);margin-top:1px}
+.split .mono{color:var(--khaki);display:block;margin-bottom:16px}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+
+/* ── FAQ ── */
+.faq{max-width:720px;margin:0 auto}
+.faq .h2{text-align:center}
+.faq .sub{text-align:center;color:var(--mute);font-size:14px;margin:10px 0 28px}
+.q{background:var(--bg-2);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.q button{width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 20px;font-weight:600;font-size:15px;text-align:left;gap:16px}
+.q button span{transition:transform .4s var(--ease);font-size:18px;color:var(--green)}
+.q.open button span{transform:rotate(45deg)}
+.q .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.q.open .a{grid-template-rows:1fr}
+.q .a>div{overflow:hidden}
+.q .a p{padding:0 20px 18px;color:var(--mute);line-height:1.65;font-size:14.5px}
+
+/* ── map card ── */
+.mapcard{position:relative;border-radius:var(--r);overflow:hidden;height:clamp(300px,34vw,420px);background:var(--sand)}
+.mapcard iframe{width:100%;height:100%;border:0;filter:grayscale(1) sepia(.25) contrast(.95)}
+@media (hover:none){.mapcard iframe{pointer-events:none}}
+.mapcard .tag{position:absolute;left:18px;bottom:18px;background:var(--ink);color:var(--bg-2);border-radius:12px;padding:12px 14px}
+.mapcard .tag b{display:block;font-size:14px}
+.mapcard .tag small{font-family:var(--mono);font-size:11px;opacity:.7}
+.mapcard .go{position:absolute;right:18px;bottom:18px}
+
+/* ── footer ── */
+footer{background:var(--sand);padding:clamp(56px,7vw,80px) 0 0;overflow:hidden;position:relative}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:28px}
+.fgrid p{font-size:13.5px;color:var(--mute);line-height:1.6;max-width:300px}
+.fgrid h5{font-size:13px;font-weight:700;margin-bottom:12px}
+.fgrid a,.fgrid span{display:block;font-size:13.5px;color:var(--mute);line-height:2}
+.fgrid a:hover{color:var(--ink)}
+.fword{font-weight:900;letter-spacing:-.06em;line-height:.8;white-space:nowrap;color:rgba(18,18,18,.07);margin-top:40px;text-align:center;user-select:none}
+.fbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 0 22px;border-top:1px solid rgba(18,18,18,.12);font-family:var(--mono);font-size:11px;color:var(--mute)}
+@media (max-width:820px){.fgrid{grid-template-columns:1fr 1fr}}
+
+
+/* ── new detail sections ── */
+.chip.light{background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(6px);margin-bottom:10px}
+.art{padding:clamp(80px,10vw,120px) 0 0;overflow:hidden}
+.art-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.art-head .label{color:var(--khaki);display:block;margin-bottom:10px}
+.art-head p{max-width:380px;color:var(--mute);font-size:15px;line-height:1.6}
+.art-track{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.art-row{display:flex;gap:14px;width:max-content;animation:artmq 60s linear infinite}
+.art-track:hover .art-row{animation-play-state:paused}
+.art-row figure{flex:0 0 clamp(200px,20vw,260px);aspect-ratio:1/1;border-radius:50%;overflow:hidden;background:var(--sand);transition:transform .6s var(--ease)}
+.art-row figure:nth-child(even){margin-top:36px}
+.art-row figure:hover{transform:scale(1.04) rotate(-3deg)}
+.art-row img{width:100%;height:100%;object-fit:cover}
+@keyframes artmq{to{transform:translateX(-50%)}}
+.badge{position:absolute;top:10px;left:10px;background:var(--bg-2);color:var(--green);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;border-radius:999px}
+.prod .ph.type .badge{background:var(--pop);color:var(--ink)}
+.pair-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.pair-head .label{color:var(--khaki);display:block;margin-bottom:10px}
+.pair-head p{max-width:360px;color:var(--mute);font-size:15px;line-height:1.6}
+.pairs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pair{background:var(--bg-2);border-radius:var(--r);padding:16px 16px 22px;transition:transform .5s var(--ease),box-shadow .5s}
+.pair:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(var(--d-rgb),.10)}
+.pair .pics{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.pair .pics img,.tilemini{flex:1;aspect-ratio:1/1;border-radius:14px;object-fit:cover;min-width:0}
+.tilemini{display:grid;place-items:center;background:var(--green)}
+.tilemini .han{color:var(--on-green);font-size:clamp(26px,2.6vw,34px);line-height:1.1;text-align:center}
+.tilemini.cream{background:var(--sand)}
+.tilemini.cream .han{color:var(--green)}
+.pair .plus{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--bg-2);display:grid;place-items:center;font-weight:700}
+.pair .label{color:var(--khaki)}
+.pair h3{font-weight:800;font-size:20px;letter-spacing:-.03em;margin:6px 0 8px}
+.pair p{font-size:14px;color:var(--mute);line-height:1.55}
+.tip{margin-top:14px;display:flex;gap:12px;align-items:center;border:1.5px dashed rgba(var(--g-rgb),.35);border-radius:14px;padding:14px 18px;font-size:14px}
+.tip-ic{color:var(--green);font-size:16px}
+@media (max-width:860px){.pairs{grid-template-columns:1fr}}
+.steps-head{text-align:center;margin-bottom:34px}
+.steps-head .label{color:var(--khaki);display:block;margin-bottom:10px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:s}
+.step{position:relative;background:var(--bg-2);border-radius:var(--r);padding:22px;min-height:230px;display:flex;flex-direction:column;overflow:hidden}
+.step .n{font-family:var(--mono);font-size:11px;color:var(--khaki)}
+.step .han{position:absolute;right:-6px;bottom:-22px;font-size:120px;color:rgba(var(--g-rgb),.07);line-height:1}
+.step b{font-weight:800;font-size:24px;letter-spacing:-.03em;margin:auto 0 8px}
+.step p{font-size:14px;color:var(--mute);line-height:1.55;position:relative}
+.step:last-child{background:var(--green);color:var(--bg-2)}
+.step:last-child p{color:rgba(245,243,239,.75)}
+.step:last-child .han{color:rgba(255,255,255,.08)}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+.split .ph.bw img{filter:grayscale(1) contrast(1.05)}
+.floors{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.floor{border-radius:var(--r);padding:clamp(24px,3vw,36px);background:var(--sand);min-height:220px;display:flex;flex-direction:column}
+.floor.dark{background:var(--green);color:var(--bg-2)}
+.floor .label{color:var(--khaki)}
+.floor.dark .label{color:rgba(245,243,239,.6)}
+.floor h3{font-weight:900;font-size:clamp(26px,3vw,36px);letter-spacing:-.04em;margin:10px 0 10px}
+.floor p{font-size:15px;line-height:1.6;opacity:.8;max-width:360px}
+.floor .mono{margin-top:auto;padding-top:18px;opacity:.7}
+@media (max-width:760px){.floors{grid-template-columns:1fr}}
+
+/* ── inner pages ── */
+.page{display:none}.page.active{display:block}
+.ptop{padding:clamp(120px,14vw,170px) 0 clamp(30px,4vw,50px)}
+.ptop .label{color:var(--khaki)}
+.ptop h1{font-weight:900;font-size:clamp(46px,8vw,104px);letter-spacing:-.05em;line-height:.9;text-transform:uppercase;margin-top:14px;max-width:13ch}
+.ptop p{font-family:var(--mono);font-size:13.5px;color:var(--mute);margin-top:18px;max-width:520px;line-height:1.7}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:var(--hh,64px);z-index:5;padding:12px 0;background:var(--bg)}
+.tab{height:36px;padding:0 16px;border-radius:999px;border:1.5px solid rgba(18,18,18,.2);font-size:13.5px;font-weight:600;transition:all .25s}
+.tab.on,.tab:hover{background:var(--green);border-color:var(--green);color:var(--bg-2)}
+.mgroup{padding:28px 0 6px;scroll-margin-top:130px}
+@media (max-width:640px){.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1*var(--pad));padding:10px var(--pad)}.tabs::-webkit-scrollbar{display:none}.tab{flex:0 0 auto}}
+.mgroup h3{font-weight:900;font-size:clamp(24px,3vw,34px);letter-spacing:-.035em;margin-bottom:8px;display:flex;align-items:baseline;gap:12px}
+.mgroup h3 .han{font-size:.7em;color:var(--green)}
+.item{display:grid;grid-template-columns:1fr auto;gap:6px 20px;padding:18px 0;border-bottom:1px solid rgba(18,18,18,.12)}
+.item b{font-size:17px;font-weight:700}
+.item p{grid-column:1;font-family:var(--mono);font-size:12px;color:var(--mute);line-height:1.5}
+.item .t{grid-column:2;grid-row:1/3;align-self:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:rgba(var(--g-rgb),.08);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.mnote{font-family:var(--mono);font-size:12px;color:var(--mute);padding:26px 0 80px}
+
+.story-block{padding:clamp(60px,8vw,100px) 0;border-top:1px solid rgba(18,18,18,.1)}
+.story-block .label{color:var(--khaki)}
+.story-block h2{font-weight:900;font-size:clamp(38px,6vw,80px);letter-spacing:-.05em;line-height:.92;margin:14px 0 20px;max-width:14ch}
+.story-block p{font-size:17px;line-height:1.65;color:var(--mute);max-width:560px}
+.story-split{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,70px);align-items:center}
+.story-split .ph{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5}
+.story-split .ph img{width:100%;height:100%;object-fit:cover}
+.meaning{display:flex;gap:clamp(20px,4vw,60px);margin-top:30px}
+.meaning div{display:flex;flex-direction:column;gap:6px}
+.meaning .han{font-size:clamp(70px,9vw,120px);line-height:1;color:var(--green)}
+.meaning .mono{color:var(--mute)}
+@media (max-width:820px){.story-split{grid-template-columns:1fr}}
+
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:start;padding-bottom:80px}
+.hours{border-top:1px solid rgba(18,18,18,.15);margin-top:20px}
+.hours div{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(18,18,18,.15);font-family:var(--mono);font-size:13.5px}
+.hours div.today{color:var(--green);font-weight:500}
+.openp{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;background:var(--bg-2);border-radius:999px;padding:8px 14px;margin-top:20px}
+.openp i{width:8px;height:8px;border-radius:50%;background:#2e9b4f;animation:pulse 1.8s infinite}
+.openp.closed i{background:#c0583b;animation:none}
+@keyframes pulse{50%{opacity:.3}}
+.addr{font-weight:800;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;line-height:1.1}
+@media (max-width:820px){.visit-grid{grid-template-columns:1fr}}
+
+/* ── cookie: a matcha cookie with a bite out of it, bottom right ── */
+#ckwrap{position:fixed;right:20px;bottom:20px;z-index:70;width:min(340px,calc(100% - 40px));filter:drop-shadow(0 18px 34px rgba(var(--d-rgb),.32));transform:translateY(30px) rotate(3deg) scale(.92);opacity:0;pointer-events:none;transition:transform .8s var(--ease),opacity .5s}
+#ckwrap.show{transform:none;opacity:1;pointer-events:auto}
+#ckwrap.eaten{transition:transform .6s var(--ease),opacity .45s;transform:translateY(16px) scale(.6) rotate(-8deg);opacity:0}
+#cookie{position:relative;background:
+  radial-gradient(circle at 18% 72%,var(--green-3) 0 3px,transparent 3.5px),
+  radial-gradient(circle at 74% 84%,var(--green-3) 0 2.5px,transparent 3px),
+  radial-gradient(circle at 88% 58%,var(--green-2) 0 3.5px,transparent 4px),
+  radial-gradient(circle at 40% 92%,var(--green-2) 0 2px,transparent 2.5px),
+  radial-gradient(circle at 60% 66%,rgba(255,255,255,.08) 0 2px,transparent 2.5px),
+  linear-gradient(160deg,var(--green-2),var(--green) 60%);
+  color:var(--bg-2);border-radius:26px;padding:24px 24px 20px;
+  -webkit-mask:radial-gradient(circle 34px at calc(100% - 4px) 4px,transparent 97%,#000),radial-gradient(circle 20px at calc(100% - 46px) -2px,transparent 97%,#000),radial-gradient(circle 20px at calc(100% + 2px) 46px,transparent 97%,#000);
+  -webkit-mask-composite:source-in;mask:radial-gradient(circle 34px at calc(100% - 4px) 4px,transparent 97%,#000),radial-gradient(circle 20px at calc(100% - 46px) -2px,transparent 97%,#000),radial-gradient(circle 20px at calc(100% + 2px) 46px,transparent 97%,#000);mask-composite:intersect}
+.crumbs{position:absolute;right:30px;top:52px;width:40px;height:40px;pointer-events:none}
+.crumbs i{position:absolute;width:5px;height:5px;border-radius:2px;background:var(--green-2);opacity:0}
+#ckwrap.show .crumbs i{animation:crumb 1.1s var(--ease) .5s both}
+.crumbs i:nth-child(2){left:12px;width:4px;height:4px;animation-delay:.6s!important}
+.crumbs i:nth-child(3){left:22px;width:3px;height:3px;animation-delay:.7s!important}
+@keyframes crumb{0%{opacity:1;transform:translateY(-20px) rotate(0)}100%{opacity:0;transform:translateY(40px) rotate(160deg)}}
+#cookie .kick{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+#cookie h4{font-weight:900;font-size:26px;letter-spacing:-.04em;line-height:1;margin:8px 0 8px;max-width:9ch}
+#cookie p{font-size:12.5px;line-height:1.5;opacity:.85;margin-bottom:14px;max-width:270px}
+#cookie .row{display:flex;gap:8px;flex-wrap:wrap}
+#cookie .pill{height:34px;font-size:13px;padding:0 14px}
+#cookie .pill.no{border:1.5px solid rgba(255,255,255,.55);color:#fff}
+#cookie .pill.no:hover{background:rgba(255,255,255,.12)}
+#cookie .link{font-size:12px;text-decoration:underline;text-underline-offset:3px;opacity:.75;margin-top:12px;display:inline-block}
+#cookie .link:hover{opacity:1}
+.prefs{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.prefs.open{grid-template-rows:1fr}
+.prefs>div{overflow:hidden}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:12.5px}
+.opt b{display:block;font-size:13px}
+.opt small{opacity:.7;line-height:1.4;display:block}
+.sw{position:relative;flex:0 0 38px;height:22px;border-radius:999px;background:rgba(255,255,255,.22);transition:background .3s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .35s var(--ease)}
+.sw.on{background:var(--matcha)}
+.sw.on::after{transform:translateX(16px)}
+.sw.locked{opacity:.55;cursor:not-allowed}
+.welcome{display:none}
+.welcome.show{display:inline-flex}
+@media (max-width:520px){#ckwrap{right:12px;bottom:12px;width:calc(100% - 24px)}}
+
+/* ── language switch ── */
+.lang{position:relative;display:flex;height:34px;padding:3px;border-radius:999px;border:1.5px solid rgba(255,255,255,.55);font-family:var(--mono);font-size:11.5px;letter-spacing:.06em}
+.lang button{position:relative;z-index:1;width:34px;border-radius:999px;transition:color .35s}
+@media (hover:none){.lang{height:38px}}
+.lang::before{content:"";position:absolute;top:3px;left:3px;width:34px;height:calc(100% - 6px);border-radius:999px;background:#fff;transition:transform .45s var(--ease)}
+.lang.nl::before{transform:translateX(34px)}
+.lang button.on{color:var(--ink)}
+header.solid .lang{border-color:rgba(18,18,18,.25)}
+header.solid .lang::before{background:var(--green)}
+header.solid .lang button.on{color:var(--bg-2)}
+body.switching main.page.active{animation:langfade .45s var(--ease)}
+@keyframes langfade{0%{opacity:.35}100%{opacity:1}}
+
+/* ── click puff ── */
+.puff{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;will-change:transform,opacity}
+
+/* page fade */
+#veil{position:fixed;inset:0;z-index:80;background:var(--green);pointer-events:none;opacity:0;transition:opacity .35s ease}
+#veil.on{opacity:1}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+
+/* ── kit additions ── */
+.hero-bg img{object-position:50% 50%}
+.hero .han-mark{font-size:clamp(90px,15vw,240px);}
+.prod .ph.type .han,.tilemini .han{font-size:clamp(30px,3.4vw,46px)}
+.step .han{font-size:110px}
+.meaning .han{font-size:clamp(56px,8vw,110px)}
+.photo-note{font-family:var(--mono);font-size:11px;color:var(--mute);margin-top:14px}
+</style>
+</head>
+<body>
+<!-- Concept demo by Dolcessi for KIKIBOBA. Not the official site. -->
+<div id="veil"></div>
+
+<header id="hdr">
+  <div class="in">
+    <a href="#/" class="logo">KIKIBOBA <span class="han">車輪餅</span></a>
+    <nav class="main">
+      <a href="#/" data-nav="home">Our Space</a>
+      <a href="#/menu" data-nav="menu">Menu</a>
+      <a href="#/story" data-nav="story">Our Story</a>
+      <a href="#/visit" data-nav="visit">Visit</a>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on" aria-pressed="true">EN</button><button data-lang="nl" aria-pressed="false">NL</button></div>
+      <a class="pill ghost hide-m" href="https://www.instagram.com/kikiboba_ams/" target="_blank" rel="noopener">Contact</a>
+      <a class="pill white" href="#/visit">Visit us <span class="ar">→</span></a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div id="mnav">
+  <a href="#/">Our Space</a><a href="#/menu">Menu</a><a href="#/story">Our Story</a><a href="#/visit">Visit</a>
+  <div class="mono">Van Woustraat 21A, Amsterdam<br>@kikiboba_ams</div>
+</div>
+
+<!-- ═════════ HOME ═════════ -->
+<main class="page" data-page="home" data-hero="1">
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"><img src="img/hero.webp" srcset="img/hero-1280.webp 1280w, img/hero.webp 2400w" sizes="100vw" alt="" fetchpriority="high" decoding="async"></div>
+    <div class="foam" aria-hidden="true"></div>
+    <div class="han han-mark" aria-hidden="true">車<br>輪<br>餅</div>
+    <div class="wrap">
+      <span class="chip rv" id="heroChip"><i></i>Wheel cakes · tea · culture</span>
+      <h1 class="rv d1">Soft shapes, sharp ideas</h1>
+      <p class="rv d2">Taiwanese wheel cakes, milk tea and matcha, plus books, goods and exhibitions. A space in De Pijp to slow down and share.</p>
+      <div class="btns rv d3">
+        <a class="pill white" href="#/visit">Our Space <span class="ar">→</span></a>
+        <a class="pill ghost" href="#/menu">Menu <span class="ar">→</span></a>
+      </div>
+    </div>
+    <div class="hero-meta mono rv d3" aria-hidden="true"><span>52.3569° N</span><span>4.8999° E</span><span>Van Woustraat 21A</span></div>
+    <div class="scroll-cue" aria-hidden="true"></div>
+  </section>
+
+  <section class="break wrap"><p class="rv">Warm, crisp, made to order, <span class="g">always a little surprising.</span></p></section>
+
+  <section class="wrap">
+    <div class="duo">
+      
+      <a href="#/menu" class="tile rv">
+        <img src="img/cakes.webp" alt="" loading="lazy">
+        <div class="t"><span class="chip light">Fresh from the iron</span><h3>Taiwanese Wheel Cakes</h3><p>Crisp outside, warm inside. Corn cheese, kimchi potato, ube cheese or taro.</p><span class="pill white">See the menu <span class="ar">→</span></span></div>
+      </a>
+      
+      <a href="#/menu" class="tile rv d1">
+        <img src="img/drink.webp" alt="" loading="lazy">
+        <div class="t"><span class="chip light">From the tea bar</span><h3>Tea Like in Taipei</h3><p>Milk tea, Red Oolong Cloud and matcha. Drinks you won’t find anywhere else in the neighbourhood.</p><span class="pill white">Our drinks <span class="ar">→</span></span></div>
+      </a>
+      
+    </div>
+  </section>
+
+  <section class="art">
+    <div class="wrap art-head">
+      <div><span class="label">@kikiboba_ams</span><h2 class="h2 rv">Books, Goods & <span class="g">Exhibitions</span></h2></div>
+      <p class="rv d1">KIKIBOBA is a space for ideas, culture and connection. Browse the magazines, see the current exhibition, stay a while.</p>
+    </div>
+    <div class="art-track" aria-hidden="true"><div class="art-row"><figure><img src="img/counter-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/cakes-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/expo-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/drink-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/lounge-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/shadow-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/window-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/light-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/counter-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/cakes-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/expo-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/drink-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/lounge-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/shadow-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/window-sq.webp" alt="" loading="lazy"></figure><figure><img src="img/light-sq.webp" alt="" loading="lazy"></figure></div></div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="revs">
+      <div class="rv">
+        <h2>Loved by Our Neighbourhood</h2>
+        <div class="stars">★★★★★</div>
+        <div class="mono">4.8 on Google<br>based on 209 reviews</div>
+      </div>
+      <div class="rail-wrap rv d1">
+        <div class="arrows"><button class="arr" data-rail="r1" data-dir="-1" aria-label="Previous">←</button><button class="arr" data-rail="r1" data-dir="1" aria-label="Next">→</button></div>
+        <div class="rail" id="r1">
+          <div class="rc"><div class="who"><div class="av han">✶</div><div><b>Google review</b><small>KIKIBOBA</small></div><span class="gl">G</span></div><p>“One of the most real places in Amsterdam for milk tea. The wheel cake was AMAZING.”</p></div><div class="rc"><div class="who"><div class="av han">✶</div><div><b>Google review</b><small>KIKIBOBA</small></div><span class="gl">G</span></div><p>“The hot, melted cheese in the Corn Cheese wheel cake was fantastic.”</p></div><div class="rc"><div class="who"><div class="av han">✶</div><div><b>Google review</b><small>KIKIBOBA</small></div><span class="gl">G</span></div><p>“One of my favourite spots in De Pijp. Their drinks are unique and consistently delicious.”</p></div><div class="rc"><div class="who"><div class="av han">✶</div><div><b>Google review</b><small>KIKIBOBA</small></div><span class="gl">G</span></div><p>“Fresh, warm, made with care and love. A peaceful place to calm down.”</p></div><div class="rc"><div class="who"><div class="av han">✶</div><div><b>Google review</b><small>KIKIBOBA</small></div><span class="gl">G</span></div><p>“The space was big, minimal, and we loved every item they had displayed.”</p></div><div class="rc"><div class="who"><div class="av han">✶</div><div><b>Google review</b><small>KIKIBOBA</small></div><span class="gl">G</span></div><p>“A unique selection of art, photography and cultural magazines and books.”</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="hello rv">
+      <img src="img/lounge.webp" alt="" loading="lazy" style="object-position:50% 60%">
+      <div class="t">
+        <span class="chip"><i></i>Van Woustraat 21A · De Pijp</span>
+        <h2>Slow Down, Stay a While</h2>
+        <p>Van Woustraat 21A. Grab a wheel cake, sink into a beanbag and flip through a magazine.</p>
+        <a class="pill white" href="#/visit">Visit us <span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark" style="margin-top:clamp(70px,9vw,110px)">
+    <div class="wrap">
+      <div class="band-head">
+        <div><span class="label">Wheel cakes & tea</span><h2 class="h2">Find Your Favourite</h2></div>
+        <div style="display:flex;gap:8px;align-items:center"><a href="#/menu" class="pill ghost" style="height:34px;font-size:13px">View all</a><button class="arr" data-rail="r2" data-dir="-1" aria-label="Previous">←</button><button class="arr" data-rail="r2" data-dir="1" aria-label="Next">→</button></div>
+      </div>
+      <div class="rail" id="r2">
+        <a href="#/menu" class="prod"><div class="ph"><img src="img/cakes-sq.webp" alt="" loading="lazy"><span class="badge">Bestseller</span></div><b>Corn Cheese</b><small>Hot, melted cheese</small></a><a href="#/menu" class="prod"><div class="ph type cream"><span class="han">泡菜</span></div><b>Kimchi Potato</b><small>Kimchi, cheese & potato</small></a><a href="#/menu" class="prod"><div class="ph type"><span class="han">芋頭</span></div><b>Ube Cheese & Taro</b><small>Purple, nutty, sweet</small></a><a href="#/menu" class="prod"><div class="ph"><img src="img/drink-sq.webp" alt="" loading="lazy"></div><b>Matcha Latte</b><small>With a wheel cake on the side</small></a><a href="#/menu" class="prod"><div class="ph type cream"><span class="han">紅烏龍</span><span class="badge">Only here</span></div><b>Red Oolong Cloud</b><small>Roasted oolong, cloud top</small></a><a href="#/menu" class="prod"><div class="ph type"><span class="han">奶茶</span></div><b>Taiwanese Milk Tea</b><small>The real thing</small></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="pair-head">
+      <div><span class="label">Perfect pairings</span><h2 class="h2 rv">The Lunch <span class="g">Combo</span></h2></div>
+      <p class="rv d1">Three warm wheel cakes for €14, or pair one with a drink. Our favourite ways to order.</p>
+    </div>
+    <div class="pairs">
+      <div class="pair rv"><div class="pics"><img src="img/cakes-sq.webp" alt="" loading="lazy"><span class="plus">+</span><div class="tilemini cream"><span class="han">泡菜</span></div></div><span class="label">Lunch deal</span><h3>3 Wheel Cakes · €14</h3><p>Mix sweet and savoury. Corn cheese and kimchi potato are a must.</p></div><div class="pair rv d1"><div class="pics"><img src="img/drink-sq.webp" alt="" loading="lazy"><span class="plus">+</span><div class="tilemini"><span class="han">芋頭</span></div></div><span class="label">The afternoon</span><h3>Matcha + Ube Cheese</h3><p>Grassy matcha, nutty ube. Not too sweet, just right.</p></div><div class="pair rv d2"><div class="pics"><div class="tilemini cream"><span class="han">紅烏龍</span></div><span class="plus">+</span><img src="img/cakes-sq.webp" alt="" loading="lazy"></div><span class="label">The Taipei</span><h3>Red Oolong Cloud + Corn Cheese</h3><p>Roasty tea against a hot, cheesy wheel cake.</p></div>
+    </div>
+    <div class="tip rv"><span class="tip-ic">✦</span><span><b>Wheel cake tip:</b> eat it right away while it’s hot and crisp. That’s how they do it at the night markets in Taiwan.</span></div>
+  </section>
+
+  <section class="wrap">
+    <div class="stamp rv">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg></div>
+      <div><b>Now showing: Diary by Beryl Wu</b><small>Our first exhibition, with original paintings, postcards and limited goods.</small></div>
+      <a class="pill white" href="#/visit" style="margin-left:auto">Come see it <span class="ar">→</span></a>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="steps-head"><span class="label">How we make it</span><h2 class="h2 rv">From Batter to <span class="g">Wheel Cake</span></h2></div>
+    <div class="steps">
+      <div class="step rv"><span class="n">01</span><span class="han">麵</span><b>Mix</b><p>A light batter, made fresh every day.</p></div><div class="step rv d1"><span class="n">02</span><span class="han">烤</span><b>Bake</b><p>Poured into the round cast-iron moulds until golden and crisp.</p></div><div class="step rv d2"><span class="n">03</span><span class="han">餡</span><b>Fill</b><p>Corn cheese, kimchi potato, ube or taro, sealed in the middle.</p></div><div class="step rv d3"><span class="n">04</span><span class="han">吃</span><b>Eat</b><p>Straight away, while it’s still warm. With a cup of tea on the side.</p></div>
+    </div>
+  </section>
+
+  <section class="sec wrap" style="padding-top:0">
+    <div class="split">
+      <div class="ph rv"><img src="img/counter.webp" alt="" loading="lazy"></div>
+      <div>
+        <span class="label rv">Bouba / Kiki</span>
+        <h2 class="h2 rv d1" style="font-size:clamp(30px,3.6vw,46px)">Where Soft Meets <span class="g">Sharp</span></h2>
+        <p class="rv d2">Our name comes from the Bouba/Kiki effect, where soft shapes meet sharp ones. Just like the different people and ideas that meet here. Sometimes cosy, sometimes curious, always a little surprising.</p>
+        <ul class="ticks rv d3">
+          <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>Taiwanese wheel cakes, made to order</li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>Books, magazines and design goods</li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l4 4 8-9"/></svg>Exhibitions and cultural events</li>
+        </ul>
+        <span class="mono rv">Open 11:00–18:00 · closed Thursday</span>
+        <a class="pill green rv" href="#/story">Read our story <span class="ar">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="floors">
+      <div class="floor rv"><span class="label">The bar</span><h3>Wheel Cakes & Tea</h3><p>A long wooden counter, warm light and the smell of fresh batter.</p><span class="mono">Best for · a quick treat</span></div><div class="floor rv dark d1"><span class="label">The back room</span><h3>The Slow Corner</h3><p>Beanbags, books and soft light. Stay as long as you like.</p><span class="mono">Best for · slowing down</span></div>
+    </div>
+  </section>
+
+  <section class="sec wrap">
+    <div class="faq">
+      <h2 class="h2 rv">Frequently Asked Questions</h2>
+      <p class="sub rv">Everything you want to know before you drop by</p>
+      <div id="faq"><div class="q rv"><button>Where is KIKIBOBA?<span>+</span></button><div class="a"><div><p>At Van Woustraat 21A in De Pijp, a few minutes from the Albert Cuyp market.</p></div></div></div><div class="q rv"><button>When are you open?<span>+</span></button><div class="a"><div><p>Monday to Wednesday and Friday to Sunday, 11:00–18:00. Closed on Thursday.</p></div></div></div><div class="q rv"><button>What is a wheel cake?<span>+</span></button><div class="a"><div><p>A Taiwanese street snack: a round, crisp pancake with a sweet or savoury filling, baked in a cast-iron mould.</p></div></div></div><div class="q rv"><button>Is there a lunch deal?<span>+</span></button><div class="a"><div><p>Yes: three wheel cakes for €14. Mix sweet and savoury.</p></div></div></div><div class="q rv"><button>Can I visit the exhibition?<span>+</span></button><div class="a"><div><p>Of course. Exhibitions are free to see during opening hours.</p></div></div></div><div class="q rv"><button>Where does the name come from?<span>+</span></button><div class="a"><div><p>From the Bouba/Kiki effect: soft shapes meeting sharp ones, like different people and ideas meeting here.</p></div></div></div></div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-bottom:clamp(70px,9vw,110px)">
+    <div class="mapcard rv">
+      <iframe title="Map of KIKIBOBA" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.8949485%2C52.35464880000001%2C4.9048485%2C52.3591488&amp;layer=mapnik&amp;marker=52.3568988%2C4.8998985"></iframe>
+      <div class="tag"><b>KIKIBOBA</b><small>Van Woustraat 21A, Amsterdam</small></div>
+      <a class="pill green go" data-maps target="_blank" rel="noopener">Get directions <span class="ar">→</span></a>
+    </div>
+  </section>
+</main>
+
+<!-- ═════════ MENU ═════════ -->
+<main class="page" data-page="menu">
+  <div class="wrap">
+    <div class="ptop"><span class="label">Menu · 菜單</span><h1>Our Menu</h1><p>Wheel cakes, Taiwanese tea and matcha. A selection; the full menu is at the counter.</p></div>
+    <div class="tabs" id="tabs"><button class="tab on" data-f="all">All</button><button class="tab" data-f="wheel">Wheel Cakes</button><button class="tab" data-f="tea">Tea</button><button class="tab" data-f="coffee">Coffee</button></div>
+    <div id="menu"><section class="mgroup" data-g="wheel"><h3>Wheel Cakes <span class="han">車輪餅</span></h3><div class="item"><b>Corn Cheese</b><p>Sweet corn and hot, melted cheese</p><span class="t">Bestseller</span></div><div class="item"><b>Kimchi Cheese Potato</b><p>Savoury, with a little kick</p></div><div class="item"><b>Ube Cheese</b><p>Purple yam and cheese</p></div><div class="item"><b>Taro</b><p>Sweet taro paste</p></div><div class="item"><b>Lunch Combo</b><p>Any three wheel cakes</p><span class="t">€14</span></div></section><section class="mgroup" data-g="tea"><h3>Tea <span class="han">茶</span></h3><div class="item"><b>Red Oolong Cloud</b><p>Roasted red oolong with a cloud top</p><span class="t">Only here</span></div><div class="item"><b>Taiwanese Milk Tea</b><p>The real thing</p></div><div class="item"><b>Matcha Latte</b><p>Japanese matcha with milk</p></div><div class="item"><b>Ube Matcha Custard</b><p>Subtle, not too sweet</p></div></section><section class="mgroup" data-g="coffee"><h3>Coffee <span class="han">咖啡</span></h3><div class="item"><b>Latte</b><p>Espresso and steamed milk</p></div></section></div>
+    <p class="mnote">Prices at the counter. Menu selection for this concept, based on what guests order most.</p>
+  </div>
+</main>
+
+<!-- ═════════ STORY ═════════ -->
+<main class="page" data-page="story">
+  <div class="wrap">
+    <div class="ptop"><span class="label">Our story</span><h1>A Space for Ideas, Culture and Connection</h1></div>
+    
+    <section class="story-block story-split">
+      
+      <div>
+        <span class="label">01 · The space</span>
+        <h2 class="rv">Slow down, <span class="g">chill, share.</span></h2>
+        <p class="rv">KIKIBOBA is a place to slow down and share moments together, with wheel cakes, tea, books and design under one roof.</p>
+        
+      </div>
+      <div class="ph rv"><img src="img/inside.webp" alt="" loading="lazy"></div>
+    </section>
+    
+    <section class="story-block">
+      
+      <div>
+        <span class="label">02 · The name</span>
+        <h2 class="rv">Kiki is sharp, <span class="g">Bouba is soft.</span></h2>
+        <p class="rv">Show people a spiky shape and a round one, and almost everyone calls the spiky one “kiki” and the round one “bouba”. We are a little of both.</p>
+        <div class="meaning rv"><div><span class="han">✶</span><span class="mono">kiki · sharp</span></div><div><span class="han">●</span><span class="mono">bouba · soft</span></div></div>
+      </div>
+      
+    </section>
+    
+    <section class="story-block story-split">
+      <div class="ph rv"><img src="img/window.webp" alt="" loading="lazy"></div>
+      <div>
+        <span class="label">03 · The window</span>
+        <h2 class="rv">Designed with <span class="g">friends.</span></h2>
+        <p class="rv">Our window was designed by @chyi.tw, with type by @xleetype. Our first exhibition centres on Beryl Wu’s book Diary.</p>
+        
+      </div>
+      
+    </section>
+    
+  </div>
+</main>
+
+<!-- ═════════ VISIT ═════════ -->
+<main class="page" data-page="visit">
+  <div class="wrap">
+    <div class="ptop"><span class="label">Visit</span><h1>Slow Down, Stay a While</h1></div>
+    <div class="visit-grid">
+      <div>
+        <div class="addr">Van Woustraat 21A<br>1074 AA Amsterdam</div>
+        <p class="mono" style="color:var(--mute);margin-top:10px;line-height:1.8">De Pijp · a few minutes from the Albert Cuyp market<br></p>
+        <div class="openp" id="openp"><i></i><span></span></div>
+        <div class="hours" id="hours"></div>
+        <div style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap"><a class="pill green" data-maps target="_blank" rel="noopener">Get directions <span class="ar">→</span></a><a class="pill line" href="https://www.instagram.com/kikiboba_ams/" target="_blank" rel="noopener">Instagram</a></div>
+      </div>
+      <div class="mapcard" style="height:clamp(320px,40vw,480px)">
+        <iframe title="Map of KIKIBOBA" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.8949485%2C52.35464880000001%2C4.9048485%2C52.3591488&amp;layer=mapnik&amp;marker=52.3568988%2C4.8998985"></iframe>
+        <div class="tag"><b>KIKIBOBA</b><small>Van Woustraat 21A</small></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a href="#/" class="logo" style="color:var(--ink)">KIKIBOBA <span class="han">車輪餅</span></a><p style="margin-top:12px">Taiwanese wheel cakes, tea and matcha, books, goods and exhibitions on the Van Woustraat.</p></div>
+      <div><h5>Café</h5><a href="#/menu">Menu</a><a href="#/story">Our Story</a><a href="#/visit">Visit</a></div>
+      <div><h5>Contact</h5><a href="https://www.instagram.com/kikiboba_ams/" target="_blank" rel="noopener">Instagram</a><span>Van Woustraat 21A, Amsterdam</span></div>
+      <div><h5>Opening Hours</h5><span>Mon–Wed · 11:00–18:00</span><span>Thu · closed</span><span>Fri–Sun · 11:00–18:00</span><a href="#" data-cookie-settings>Cookie settings</a></div>
+    </div>
+    <div class="fword" id="fword">KIKIBOBA <span class="han">車輪餅</span></div>
+    <div class="fbar"><span>© KIKIBOBA · Amsterdam</span><span>Concept by dolcessi_ · not the official KIKIBOBA site · reviews from Google</span></div>
+  </div>
+</footer>
+
+<div id="ckwrap" role="dialog" aria-label="Cookies">
+  <div id="cookie">
+    <div class="crumbs" aria-hidden="true"><i></i><i></i><i></i></div>
+    <span class="kick">Fresh from the iron</span>
+    <h4>Wheel cookie?</h4>
+    <p>We bake a couple of small cookies: one to remember your choice, one for your language, favourite menu tab and a welcome back. No ads, no tracking.</p>
+    <div class="prefs" id="ckprefs"><div>
+      <div class="opt"><div><b>Essential</b><small>Remembers this choice for 6 months.</small></div><span class="sw on locked" aria-label="Essential cookies, always on"></span></div>
+      <div class="opt"><div><b>Preferences</b><small>Your language, last menu tab and a welcome back.</small></div><button class="sw on" id="swPref" role="switch" aria-checked="true" aria-label="Preference cookies"></button></div>
+    </div></div>
+    <div class="row" style="margin-top:12px">
+      <button class="pill white" id="ckYes">Take a bite</button>
+      <button class="pill no" id="ckNo">Essentials only</button>
+    </div>
+    <button class="link" id="ckMore">Choose my cookies</button>
+  </div>
+</div>
+
+<script src="vendor/lenis.min.js"></script>
+<script>
+const SLUG="kikiboba";
+const MAPS="https://www.google.com/maps/search/?api=1\u0026query=KIKIBOBA+Van+Woustraat+21A+Amsterdam";
+const HOURS=[["11:00", "18:00"], ["11:00", "18:00"], ["11:00", "18:00"], null, ["11:00", "18:00"], ["11:00", "18:00"], ["11:00", "18:00"]];
+const YES_TXT="Take a bite";
+const TITLES=["KIKIBOBA \u8eca\u8f2a\u9905 \u00b7 Taiwanese wheel cakes, tea \u0026 culture in De Pijp", "KIKIBOBA \u8eca\u8f2a\u9905 \u00b7 Taiwanese wheel cakes, thee \u0026 cultuur in De Pijp"];
+const NL={"3 Wheel Cakes \u00b7 \u20ac14": "3 wheel cakes \u00b7 \u20ac14", "4.8 on Google": "4,8 op Google", "A Space for Ideas, Culture and Connection": "Een plek voor idee\u00ebn, cultuur en ontmoeting", "A Taiwanese street snack: a round, crisp pancake with a sweet or savoury filling, baked in a cast-iron mould.": "Een Taiwanese streetfoodsnack: een rond, krokant pannenkoekje met een zoete of hartige vulling, gebakken in een gietijzeren vorm.", "A light batter, made fresh every day.": "Een licht beslag, elke dag vers gemaakt.", "A long wooden counter, warm light and the smell of fresh batter.": "Een lange houten toonbank, warm licht en de geur van vers beslag.", "All": "Alles", "Any three wheel cakes": "Drie wheel cakes naar keuze", "At Van Woustraat 21A in De Pijp, a few minutes from the Albert Cuyp market.": "Op de Van Woustraat 21A in De Pijp, een paar minuten van de Albert Cuypmarkt.", "Bake": "Bakken", "Beanbags, books and soft light. Stay as long as you like.": "Zitzakken, boeken en zacht licht. Blijf zo lang als je wilt.", "Best for \u00b7 a quick treat": "Ideaal voor \u00b7 een snelle traktatie", "Best for \u00b7 slowing down": "Ideaal voor \u00b7 vertragen", "Books, Goods \u0026": "Boeken, spullen \u0026", "Books, magazines and design goods": "Boeken, magazines en designspullen", "Bouba is soft.": "Bouba is zacht.", "Can I visit the exhibition?": "Kan ik de expositie bezoeken?", "Choose my cookies": "Kies mijn cookies", "Coffee": "Koffie", "Combo": "combo", "Come see it": "Kom kijken", "Concept by dolcessi_ \u00b7 not the official KIKIBOBA site \u00b7 reviews from Google": "Concept door dolcessi_ \u00b7 niet de offici\u00eble site van KIKIBOBA \u00b7 reviews van Google", "Cookie settings": "Cookie-instellingen", "Corn cheese, kimchi potato, ube or taro, sealed in the middle.": "Corn cheese, kimchi-aardappel, ube of taro, in het midden ingesloten.", "Crisp outside, warm inside. Corn cheese, kimchi potato, ube cheese or taro.": "Krokant van buiten, warm van binnen. Corn cheese, kimchi-aardappel, ube-kaas of taro.", "De Pijp \u00b7 a few minutes from the Albert Cuyp market": "De Pijp \u00b7 een paar minuten van de Albert Cuypmarkt", "Designed with": "Ontworpen met", "Eat": "Eten", "Espresso and steamed milk": "Espresso en gestoomde melk", "Essential": "Noodzakelijk", "Essentials only": "Alleen noodzakelijk", "Everything you want to know before you drop by": "Alles wat je wilt weten voordat je langskomt", "Exhibitions": "exposities", "Exhibitions and cultural events": "Exposities en culturele events", "Fill": "Vullen", "Find Your Favourite": "Vind jouw favoriet", "Frequently Asked Questions": "Veelgestelde vragen", "Fresh from the iron": "Vers uit het ijzer", "Fri\u2013Sun \u00b7 11:00\u201318:00": "Vr\u2013zo \u00b7 11:00\u201318:00", "From Batter to": "Van beslag tot", "From the Bouba/Kiki effect: soft shapes meeting sharp ones, like different people and ideas meeting here.": "Van het Bouba/Kiki-effect: zachte vormen die scherpe ontmoeten, zoals verschillende mensen en idee\u00ebn hier samenkomen.", "From the tea bar": "Van de theebar", "Get directions": "Routebeschrijving", "Google review": "Google-review", "Grassy matcha, nutty ube. Not too sweet, just right.": "Grassige matcha, nootachtige ube. Niet te zoet, precies goed.", "Hot, melted cheese": "Warme, gesmolten kaas", "How we make it": "Zo maken we het", "Is there a lunch deal?": "Is er een lunchdeal?", "Japanese matcha with milk": "Japanse matcha met melk", "KIKIBOBA is a place to slow down and share moments together, with wheel cakes, tea, books and design under one roof.": "KIKIBOBA is een plek om te vertragen en samen momenten te delen, met wheel cakes, thee, boeken en design onder \u00e9\u00e9n dak.", "KIKIBOBA is a space for ideas, culture and connection. Browse the magazines, see the current exhibition, stay a while.": "KIKIBOBA is een plek voor idee\u00ebn, cultuur en ontmoeting. Blader door de magazines, bekijk de huidige expositie, blijf even.", "Kiki is sharp,": "Kiki is scherp,", "Kimchi Cheese Potato": "Kimchi-kaas-aardappel", "Kimchi Potato": "Kimchi-aardappel", "Kimchi, cheese \u0026 potato": "Kimchi, kaas \u0026 aardappel", "Loved by Our Neighbourhood": "Geliefd in de buurt", "Lunch Combo": "Lunchcombo", "Lunch deal": "Lunchdeal", "Matcha + Ube Cheese": "Matcha + ube-kaas", "Milk tea, Red Oolong Cloud and matcha. Drinks you won\u2019t find anywhere else in the neighbourhood.": "Melkthee, Red Oolong Cloud en matcha. Drankjes die je nergens anders in de buurt vindt.", "Mix": "Mengen", "Mix sweet and savoury. Corn cheese and kimchi potato are a must.": "Mix zoet en hartig. Corn cheese en kimchi-aardappel zijn een must.", "Monday to Wednesday and Friday to Sunday, 11:00\u201318:00. Closed on Thursday.": "Maandag tot en met woensdag en vrijdag tot en met zondag, 11:00\u201318:00. Donderdag gesloten.", "Mon\u2013Wed \u00b7 11:00\u201318:00": "Ma\u2013wo \u00b7 11:00\u201318:00", "Now showing: Diary by Beryl Wu": "Nu te zien: Diary van Beryl Wu", "Of course. Exhibitions are free to see during opening hours.": "Natuurlijk. Exposities zijn gratis te zien tijdens de openingstijden.", "Only here": "Alleen hier", "Open 11:00\u201318:00 \u00b7 closed Thursday": "Open 11:00\u201318:00 \u00b7 donderdag gesloten", "Opening Hours": "Openingstijden", "Our Menu": "Ons menu", "Our Space": "Onze plek", "Our Story": "Ons verhaal", "Our drinks": "Onze drankjes", "Our first exhibition, with original paintings, postcards and limited goods.": "Onze eerste expositie, met originele schilderijen, ansichtkaarten en gelimiteerde spullen.", "Our name comes from the Bouba/Kiki effect, where soft shapes meet sharp ones. Just like the different people and ideas that meet here. Sometimes cosy, sometimes curious, always a little surprising.": "Onze naam komt van het Bouba/Kiki-effect, waar zachte vormen scherpe vormen ontmoeten. Net als de verschillende mensen en idee\u00ebn die hier samenkomen. Soms knus, soms nieuwsgierig, altijd een beetje verrassend.", "Our story": "Ons verhaal", "Our window was designed by @chyi.tw, with type by @xleetype. Our first exhibition centres on Beryl Wu\u2019s book Diary.": "Ons raam is ontworpen door @chyi.tw, met typografie van @xleetype. Onze eerste expositie draait om het boek Diary van Beryl Wu.", "Perfect pairings": "Perfecte combinaties", "Poured into the round cast-iron moulds until golden and crisp.": "Gegoten in de ronde gietijzeren vormen tot ze goudbruin en krokant zijn.", "Preferences": "Voorkeuren", "Prices at the counter. Menu selection for this concept, based on what guests order most.": "Prijzen aan de toonbank. Menuselectie voor dit concept, gebaseerd op wat gasten het vaakst bestellen.", "Purple yam and cheese": "Paarse yam en kaas", "Purple, nutty, sweet": "Paars, nootachtig, zoet", "Read our story": "Lees ons verhaal", "Red Oolong Cloud + Corn Cheese": "Red Oolong Cloud + corn cheese", "Remembers this choice for 6 months.": "Onthoudt deze keuze 6 maanden.", "Roasted oolong, cloud top": "Geroosterde oolong, wolkje erop", "Roasted red oolong with a cloud top": "Geroosterde rode oolong met een wolkje erop", "Roasty tea against a hot, cheesy wheel cake.": "Geroosterde thee tegen een warme, kazige wheel cake.", "Savoury, with a little kick": "Hartig, met een pittig randje", "See the menu": "Bekijk het menu", "Sharp": "scherp elkaar raken", "Show people a spiky shape and a round one, and almost everyone calls the spiky one \u201ckiki\u201d and the round one \u201cbouba\u201d. We are a little of both.": "Laat mensen een puntige en een ronde vorm zien, en bijna iedereen noemt de puntige \u201ckiki\u201d en de ronde \u201cbouba\u201d. Wij zijn een beetje van allebei.", "Slow Down, Stay a While": "Vertraag, blijf even", "Slow down,": "Vertraag,", "Soft shapes, sharp ideas": "Zachte vormen, scherpe idee\u00ebn", "Straight away, while it\u2019s still warm. With a cup of tea on the side.": "Meteen, nu hij nog warm is. Met een kop thee ernaast.", "Subtle, not too sweet": "Subtiel, niet te zoet", "Sweet corn and hot, melted cheese": "Zoete mais en warme, gesmolten kaas", "Sweet taro paste": "Zoete taropasta", "Taiwanese Milk Tea": "Taiwanese melkthee", "Taiwanese Wheel Cakes": "Taiwanese wheel cakes", "Taiwanese wheel cakes, made to order": "Taiwanese wheel cakes, vers gemaakt", "Taiwanese wheel cakes, milk tea and matcha, plus books, goods and exhibitions. A space in De Pijp to slow down and share.": "Taiwanese wheel cakes, melkthee en matcha, plus boeken, spullen en exposities. Een plek in De Pijp om te vertragen en te delen.", "Taiwanese wheel cakes, tea and matcha, books, goods and exhibitions on the Van Woustraat.": "Taiwanese wheel cakes, thee en matcha, boeken, spullen en exposities op de Van Woustraat.", "Take a bite": "Neem een hap", "Tea": "Thee", "Tea Like in Taipei": "Thee zoals in Taipei", "The Lunch": "De lunch", "The Slow Corner": "De rustige hoek", "The Taipei": "De Taipei", "The afternoon": "De middag", "The back room": "De achterkamer", "The bar": "De bar", "The name": "De naam", "The real thing": "Het echte werk", "The space": "De plek", "The window": "Het raam", "Three warm wheel cakes for \u20ac14, or pair one with a drink. Our favourite ways to order.": "Drie warme wheel cakes voor \u20ac14, of combineer er \u00e9\u00e9n met een drankje. Onze favoriete bestellingen.", "Thu \u00b7 closed": "Do \u00b7 gesloten", "Ube Cheese \u0026 Taro": "Ube-kaas \u0026 taro", "Ube Matcha Custard": "Ube-matchacustard", "Van Woustraat 21A. Grab a wheel cake, sink into a beanbag and flip through a magazine.": "Van Woustraat 21A. Pak een wheel cake, plof in een zitzak en blader door een magazine.", "View all": "Bekijk alles", "Visit": "Bezoek", "Visit us": "Kom langs", "Warm, crisp, made to order,": "Warm, krokant, vers gemaakt,", "We bake a couple of small cookies: one to remember your choice, one for your language, favourite menu tab and a welcome back. No ads, no tracking.": "We bakken een paar kleine cookies: \u00e9\u00e9n om je keuze te onthouden, en \u00e9\u00e9n voor je taal, je favoriete menutab en een welkom terug. Geen advertenties, geen tracking.", "What is a wheel cake?": "Wat is een wheel cake?", "Wheel Cake": "wheel cake", "Wheel Cakes": "Wheel cakes", "Wheel Cakes \u0026 Tea": "Wheel cakes \u0026 thee", "Wheel cake tip:": "Wheel cake-tip:", "Wheel cakes \u0026 tea": "Wheel cakes \u0026 thee", "Wheel cakes \u00b7 tea \u00b7 culture": "Wheel cakes \u00b7 thee \u00b7 cultuur", "Wheel cakes, Taiwanese tea and matcha. A selection; the full menu is at the counter.": "Wheel cakes, Taiwanese thee en matcha. Een selectie; het volledige menu vind je aan de toonbank.", "When are you open?": "Wanneer zijn jullie open?", "Where Soft Meets": "Waar zacht en", "Where does the name come from?": "Waar komt de naam vandaan?", "Where is KIKIBOBA?": "Waar zit KIKIBOBA?", "With a wheel cake on the side": "Met een wheel cake erbij", "Yes: three wheel cakes for \u20ac14. Mix sweet and savoury.": "Ja: drie wheel cakes voor \u20ac14. Mix zoet en hartig.", "Your language, last menu tab and a welcome back.": "Je taal, laatste menutab en een welkom terug.", "always a little surprising.": "altijd een beetje verrassend.", "based on 209 reviews": "op basis van 209 reviews", "bouba \u00b7 soft": "bouba \u00b7 zacht", "chill, share.": "chill, deel.", "eat it right away while it\u2019s hot and crisp. That\u2019s how they do it at the night markets in Taiwan.": "eet hem meteen, nu hij warm en krokant is. Zo doen ze het op de nachtmarkten in Taiwan.", "friends.": "vrienden.", "kiki \u00b7 sharp": "kiki \u00b7 scherp", "\u201cA unique selection of art, photography and cultural magazines and books.\u201d": "\u201cEen unieke selectie kunst-, fotografie- en cultuurmagazines en boeken.\u201d", "\u201cFresh, warm, made with care and love. A peaceful place to calm down.\u201d": "\u201cVers, warm, met zorg en liefde gemaakt. Een rustige plek om tot rust te komen.\u201d", "\u201cOne of my favourite spots in De Pijp. Their drinks are unique and consistently delicious.\u201d": "\u201cEen van mijn favoriete plekken in De Pijp. Hun drankjes zijn uniek en altijd heerlijk.\u201d", "\u201cOne of the most real places in Amsterdam for milk tea. The wheel cake was AMAZING.\u201d": "\u201cEen van de meest echte plekken in Amsterdam voor melkthee. De wheel cake was GEWELDIG.\u201d", "\u201cThe hot, melted cheese in the Corn Cheese wheel cake was fantastic.\u201d": "\u201cDe warme, gesmolten kaas in de Corn Cheese wheel cake was fantastisch.\u201d", "\u201cThe space was big, minimal, and we loved every item they had displayed.\u201d": "\u201cDe ruimte was groot en minimalistisch, en we vonden alles wat ze uitstalden prachtig.\u201d"};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const CSSV=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+document.querySelectorAll('[data-maps]').forEach(a=>a.href=MAPS);
+$('#faq').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const q=b.parentElement;const o=q.classList.contains('open');$$('.q.open').forEach(x=>x.classList.remove('open'));if(!o)q.classList.add('open');});
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;$$('.tab').forEach(t=>t.classList.toggle('on',t===b));$$('.mgroup').forEach(g=>g.style.display=(b.dataset.f==='all'||g.dataset.g===b.dataset.f)?'':'none');});
+$$('.arr[data-rail]').forEach(b=>b.addEventListener('click',()=>{const r=document.getElementById(b.dataset.rail);r.scrollBy({left:(+b.dataset.dir)*r.clientWidth*.8,behavior:'smooth'});}));
+
+/* hours + open now (null = closed) */
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const now=new Date(),di=(now.getDay()+6)%7,mins=now.getHours()*60+now.getMinutes(),toM=s=>+s.slice(0,2)*60+ +s.slice(3);
+$('#hours').innerHTML=HOURS.map((h,i)=>`<div class="${i===di?'today':''}"><span>${DAYS[i]}</span><span>${h?h[0]+'–'+h[1]:'Closed'}</span></div>`).join('');
+(function(){const op=$('#openp'),h=HOURS[di],open=h&&mins>=toM(h[0])&&mins<toM(h[1]);
+  if(open){op.querySelector('span').textContent=`Open now · until ${h[1]}`;return}
+  op.classList.add('closed');
+  if(h&&mins<toM(h[0])){op.querySelector('span').textContent=`Closed · opens today ${h[0]}`;return}
+  let k=(di+1)%7,steps=1;while(!HOURS[k]&&steps<7){k=(k+1)%7;steps++}
+  op.querySelector('span').textContent=steps===1?`Closed · opens tomorrow ${HOURS[k][0]}`:`Closed · opens ${DAYS[k]} ${HOURS[k][0]}`;})();
+
+/* footer wordmark fits width */
+function fitWord(){const f=$('#fword');f.style.fontSize='100px';const w=f.parentElement.clientWidth;f.style.fontSize=Math.min(260,100*w/f.scrollWidth)+'px';}
+addEventListener('resize',fitWord);
+
+/* header */
+const hdr=$('#hdr');
+function setHH(){document.documentElement.style.setProperty('--hh',hdr.offsetHeight+'px')}addEventListener('resize',setHH);setTimeout(setHH,0);
+function hdrState(){const hero=$('.page.active[data-hero]');hdr.classList.toggle('solid',!hero||scrollY>60);}
+
+/* reveal */
+let io;function observe(){io&&io.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});$$('.page.active .rv:not(.in)').forEach(el=>io.observe(el));}
+
+/* router */
+const veil=$('#veil'),mnav=$('#mnav');
+function show(p){$$('.page').forEach(x=>x.classList.toggle('active',x.dataset.page===p));$$('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===p));window.lenis?lenis.scrollTo(0,{immediate:true}):scrollTo(0,0);hdrState();requestAnimationFrame(()=>{observe();fitWord();});}
+function setMenu(o){mnav.classList.toggle('open',o);document.body.classList.toggle('menu-open',o);$('#burger').setAttribute('aria-expanded',o);if(window.lenis)o?lenis.stop():lenis.start();document.documentElement.style.overflow=o?'hidden':'';}
+function route(first){const n=location.hash.replace('#/','')||'home';const p=['home','menu','story','visit'].includes(n)?n:'home';setMenu(false);mnav.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')===(p==='home'?'#/':'#/'+p)));if(first)return show(p);veil.classList.add('on');setTimeout(()=>{show(p);veil.classList.remove('on')},360);}
+addEventListener('hashchange',()=>route(false));
+$('#burger').addEventListener('click',()=>setMenu(!mnav.classList.contains('open')));
+mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+/* smooth scroll */
+try{if(window.Lenis&&!matchMedia('(prefers-reduced-motion:reduce)').matches){window.lenis=new Lenis({lerp:.085,smoothWheel:true});lenis.on('scroll',hdrState);(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0);}}catch(e){}
+addEventListener('scroll',hdrState,{passive:true});
+
+/* click puff in the brand colours */
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;let lastPtr='mouse';
+function puff(e){
+  const el=document.elementFromPoint(e.clientX,e.clientY);
+  const onDark=el&&el.closest('.dark,#ckwrap,.hero,.stamp,.pill.green,#mnav,.hello,.tile');
+  const cols=onDark?[CSSV('--bg-2'),CSSV('--accent-l'),CSSV('--bg')]:[CSSV('--green'),CSSV('--green-2'),CSSV('--matcha')];
+  const n=14;
+  for(let i=0;i<n;i++){
+    const d=document.createElement('i'),s=3+Math.random()*5,a=(i/n)*Math.PI*2+(Math.random()-.5)*.5,r=22+Math.random()*30;
+    d.className='puff';d.style.cssText=`width:${s}px;height:${s}px;left:${e.clientX-s/2}px;top:${e.clientY-s/2}px;background:${cols[i%3]}`;
+    document.body.appendChild(d);
+    const dx=Math.cos(a)*r,dy=Math.sin(a)*r;
+    d.animate([{transform:'translate(0,0) scale(.4)',opacity:0},{transform:`translate(${dx*.55}px,${dy*.55}px) scale(1)`,opacity:1,offset:.25},{transform:`translate(${dx}px,${dy+8}px) scale(.2)`,opacity:0}],{duration:700+Math.random()*250,easing:'cubic-bezier(.22,1,.36,1)'}).onfinish=()=>d.remove();
+  }
+}
+document.addEventListener('pointerdown',e=>{lastPtr=e.pointerType;if(!reduce&&e.pointerType==='mouse')puff(e)},{passive:true});
+document.addEventListener('click',e=>{if(!reduce&&lastPtr!=='mouse'&&e.detail)puff(e)},{passive:true});
+
+/* cookies, for real */
+const P=SLUG.replace(/[^a-z]/g,'').slice(0,6)+'_';
+const CK={get(n){const m=document.cookie.match('(?:^|; )'+P+n+'=([^;]*)');return m?decodeURIComponent(m[1]):null},
+  set(n,v,days=180){document.cookie=`${P+n}=${encodeURIComponent(v)}; max-age=${days*86400}; path=/; SameSite=Lax${location.protocol==='https:'?'; Secure':''}`},
+  del(n){document.cookie=`${P+n}=; max-age=0; path=/`}};
+const ckw=$('#ckwrap'),swPref=$('#swPref'),ckPrefs=$('#ckprefs');
+const prefsOK=()=>CK.get('consent')==='all';
+function applyConsent(){
+  if(prefsOK()){const v=(+CK.get('visits')||0)+1;CK.set('visits',v);
+    if(v>1){$('#heroChip').innerHTML='<i></i>Welcome back · nice to see you again';}
+    const t=CK.get('tab');if(t){const b=$(`.tab[data-f="${t}"]`);b&&b.click();}
+  } else {CK.del('visits');CK.del('tab');CK.del('lang');}
+}
+function decide(v){CK.set('consent',v);ckw.classList.add('eaten');setTimeout(()=>{ckw.classList.remove('show','eaten')},650);applyConsent();if(prefsOK())CK.set('lang',LANG);}
+$('#ckYes').addEventListener('click',()=>decide(swPref.classList.contains('on')?'all':'essential'));
+$('#ckNo').addEventListener('click',()=>decide('essential'));
+$('#ckMore').addEventListener('click',e=>{const o=ckPrefs.classList.toggle('open');e.target.textContent=o?'Hide options':'Choose my cookies';$('#ckYes').textContent=o?'Save my choice':YES_TXT;});
+swPref.addEventListener('click',()=>{const on=swPref.classList.toggle('on');swPref.setAttribute('aria-checked',on)});
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(b&&prefsOK())CK.set('tab',b.dataset.f)});
+$$('[data-cookie-settings]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();swPref.classList.toggle('on',CK.get('consent')!=='essential');ckPrefs.classList.add('open');$('#ckMore').textContent='Hide options';$('#ckYes').textContent='Save my choice';ckw.classList.add('show')}));
+if(!CK.get('consent'))setTimeout(()=>ckw.classList.add('show'),1600); else applyConsent();
+
+/* EN / NL */
+Object.assign(NL,{"Monday":"Maandag","Tuesday":"Dinsdag","Wednesday":"Woensdag","Thursday":"Donderdag","Friday":"Vrijdag","Saturday":"Zaterdag","Sunday":"Zondag","Closed":"Gesloten","Hide options":"Verberg opties","Save my choice":"Bewaar mijn keuze","Welcome back · nice to see you again":"Welkom terug · leuk je weer te zien"});
+const DAYNL={"Monday":"maandag","Tuesday":"dinsdag","Wednesday":"woensdag","Thursday":"donderdag","Friday":"vrijdag","Saturday":"zaterdag","Sunday":"zondag"};
+const NL_RX=[[/^Open now · until (\d\d:\d\d)$/,'Nu open · tot $1'],[/^Closed · opens today (\d\d:\d\d)$/,'Gesloten · opent vandaag om $1'],[/^Closed · opens tomorrow (\d\d:\d\d)$/,'Gesloten · opent morgen om $1'],[/^Closed · opens (\w+day) (\d\d:\d\d)$/,(m,d,t)=>`Gesloten · opent ${DAYNL[d]} om ${t}`]];
+const ORIG=new WeakMap();let LANG='en',busy=false;
+function tr(t){const k=t.trim().replace(/\s+/g,' ');if(NL[k]!==undefined)return t.replace(t.trim(),NL[k]);for(const [rx,r] of NL_RX)if(rx.test(k))return t.replace(t.trim(),k.replace(rx,r));return null}
+function walk(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;return(!p||/SCRIPT|STYLE/.test(p.tagName)||!n.nodeValue.trim())?2:1}});let n;busy=true;
+  while(n=w.nextNode()){if(!ORIG.has(n))ORIG.set(n,n.nodeValue);const en=ORIG.get(n);if(LANG==='nl'){const t=tr(en);if(t!==null&&n.nodeValue!==t)n.nodeValue=t}else if(n.nodeValue!==en)n.nodeValue=en;}busy=false;}
+function setLang(l,save){LANG=l;document.documentElement.lang=l;document.title=TITLES[l==='nl'?1:0];
+  $$('.lang').forEach(g=>{g.classList.toggle('nl',l==='nl');g.querySelectorAll('button').forEach(b=>{const on=b.dataset.lang===l;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})});
+  walk(document.body);
+  if(save){try{sessionStorage.setItem(P+'lang',l)}catch(e){} if(prefsOK())CK.set('lang',l);document.body.classList.remove('switching');void document.body.offsetWidth;document.body.classList.add('switching');}}
+new MutationObserver(ms=>{if(busy||LANG==='en')return;ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===3){const t=tr(n.nodeValue);if(t!==null){ORIG.set(n,n.nodeValue);busy=true;n.nodeValue=t;busy=false}}else if(n.nodeType===1)walk(n)}))}).observe(document.body,{childList:true,subtree:true});
+$$('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang,true)));
+let startLang=CK.get('lang');try{startLang=startLang||sessionStorage.getItem(P+'lang')}catch(e){}
+if(startLang==='nl')setLang('nl',false);
+
+route(true);
+document.fonts&&document.fonts.ready.then(fitWord);
+requestAnimationFrame(()=>$$('.hero .rv').forEach(el=>el.classList.add('in')));
+
+</script>
+</body>
+</html>
