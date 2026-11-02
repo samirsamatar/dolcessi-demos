@@ -42,6 +42,13 @@
   .more-work{line-height:2}
 }
 @keyframes nudge{50%{transform:translateX(5px)}}
+/* v2.1 phones: step ticks on the pinned crowd card */
+.crowd-steps{display:none}
+@media (max-width:900px){
+  .crowd-steps{display:flex;gap:6px;margin-top:14px}
+  .crowd-steps i{flex:1;height:3px;border-radius:2px;background:#262626;transition:background .4s,box-shadow .4s}
+  .crowd-steps i.on{background:var(--ember);box-shadow:0 0 8px rgba(255,90,31,.6)}
+}
 </style>
 {{ content_for_header }}
 </head>

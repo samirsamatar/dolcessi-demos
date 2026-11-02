@@ -593,7 +593,14 @@ function setupScroll() {
   } else {
     words.forEach(w => w.style.opacity = 1);
     stats.forEach((st, i) => ScrollTrigger.create({ trigger: st, start: "top 85%", once: true, onEnter: () => countUp(st) }));
-    ScrollTrigger.create({ trigger: "#crowd", start: "top 85%", end: "bottom 15%", scrub: true, onUpdate: s => { const p = s.progress; setCrowd(p > 0.66 ? 3 : p > 0.44 ? 2 : p > 0.22 ? 1 : 0); } });
+    // phones: hold the crowd card in the middle of the screen; scrolling steps it 100 → 77 → 70 → 53,
+    // then the last state stays up for a beat before the page lets go
+    ScrollTrigger.config({ ignoreMobileResize: true });
+    const steps = document.createElement("div"); steps.className = "crowd-steps"; steps.setAttribute("aria-hidden", "true");
+    steps.innerHTML = "<i></i><i></i><i></i>"; $("#crowd").appendChild(steps);
+    const ticks = [...steps.children];
+    ScrollTrigger.create({ trigger: ".problem-right", pin: ".problem-right", start: "center center", end: "+=180%", pinSpacing: true, anticipatePin: 1, scrub: true,
+      onUpdate: s => { const p = s.progress; const k = p > 0.66 ? 3 : p > 0.4 ? 2 : p > 0.12 ? 1 : 0; setCrowd(k); ticks.forEach((t, i) => t.classList.toggle("on", i < k)); } });
   }
 
   /* ---- 03 takeoff ---- */
