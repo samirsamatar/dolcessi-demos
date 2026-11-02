@@ -21,8 +21,9 @@
 <link rel="icon" type="image/png" sizes="192x192" href="{{ 'favicon-192.png' | asset_url }}"><link rel="icon" type="image/png" sizes="48x48" href="{{ 'favicon-48.png' | asset_url }}"><link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | asset_url }}">
 <style>
 /* v2.0 work cards: live pill, client-colour glow, feature line, more-work row */
-.card-live{position:absolute;z-index:3;top:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:5px 10px 5px 8px;border-radius:999px;background:rgba(7,7,7,.82);border:1px solid rgba(255,255,255,.08);font-size:9px;letter-spacing:.2em;color:var(--bone);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.card-live{position:absolute;z-index:3;top:-12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:5px 10px 5px 8px;border-radius:999px;background:#0b0b0b;border:1px solid #3a3a3a;transition:border-color .5s;font-size:9px;letter-spacing:.2em;color:var(--bone);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .card-live .live-dot{width:6px;height:6px}
+.card:hover .card-live{border-color:var(--acc,#3a3a3a)}
 .card:hover .card-phone,.card:focus-visible .card-phone{border-color:var(--acc,#3a3a3a);box-shadow:0 40px 90px rgba(0,0,0,.65),0 0 80px color-mix(in srgb,var(--acc,#FF5A1F) 32%,transparent)}
 .card:focus-visible{outline:none}
 .card:focus-visible .card-phone img.alt{opacity:1}
@@ -37,6 +38,7 @@
   .swipe-hint{display:flex;justify-content:flex-end;gap:8px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ash);margin:-3vh 0 4vh}
   .swipe-hint span{color:var(--ember);animation:nudge 1.6s ease-in-out infinite}
   .card-phone{width:min(68vw,280px)}
+  .deck{padding-top:16px}
   .more-work{line-height:2}
 }
 @keyframes nudge{50%{transform:translateX(5px)}}
