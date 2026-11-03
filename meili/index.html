@@ -1259,13 +1259,13 @@ const NL_RX=[[/^Open now · until (\d\d:\d\d)$/,'Nu open · tot $1'],[/^Closed �
 const ORIG=new WeakMap();let busy=false;
 function tr(t){const k=t.trim().replace(/\s+/g,' ');if(NL[k]!==undefined)return t.replace(t.trim(),NL[k]);for(const [rx,r] of NL_RX)if(rx.test(k))return t.replace(t.trim(),k.replace(rx,r));return null}
 function walk(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;return(!p||/SCRIPT|STYLE/.test(p.tagName)||p.closest('#intro')||!n.nodeValue.trim())?2:1}});let n;busy=true;
-  while(n=w.nextNode()){if(!ORIG.has(n))ORIG.set(n,n.nodeValue);const en=ORIG.get(n);if(LANG==='nl'){const t=tr(en);if(t!==null&&n.nodeValue!==t)n.nodeValue=t}else if(n.nodeValue!==en)n.nodeValue=en;}busy=false}
+  while(n=w.nextNode()){if(!ORIG.has(n))ORIG.set(n,n.nodeValue);const en=ORIG.get(n);if(LANG==='nl'){const t=tr(en);if(t!==null&&n.nodeValue!==t)n.nodeValue=t}else if(n.nodeValue!==en)n.nodeValue=en;}busy=false;if(typeof MO!=='undefined')MO.takeRecords()}
 const TITLES=['Meili Bakery · Asian creative bakery on the Haarlemmerdijk','Meili Bakery · Aziatische creatieve bakkerij aan de Haarlemmerdijk'];
 function setLang(l,save){LANG=l;document.documentElement.lang=l;document.title=TITLES[l==='nl'?1:0];
   $$('.lang').forEach(g=>{g.classList.toggle('nl',l==='nl');g.querySelectorAll('button').forEach(b=>{const on=b.dataset.lang===l;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)})});
   walk(document.body);
   if(save){try{sessionStorage.setItem(P+'lang',l)}catch(e){}if(prefsOK())CK.set('lang',l);document.body.classList.remove('switching');void document.body.offsetWidth;document.body.classList.add('switching')}}
-new MutationObserver(ms=>{if(busy||LANG==='en')return;ms.forEach(m=>{if(m.type==='characterData'){const n=m.target;ORIG.set(n,n.nodeValue);const t=tr(n.nodeValue);if(t!==null){busy=true;n.nodeValue=t;busy=false}}m.addedNodes.forEach(n=>{if(n.nodeType===3){const t=tr(n.nodeValue);if(t!==null){ORIG.set(n,n.nodeValue);busy=true;n.nodeValue=t;busy=false}}else if(n.nodeType===1)walk(n)})})}).observe(document.body,{childList:true,subtree:true,characterData:true});
+const MO=new MutationObserver(ms=>{if(busy||LANG==='en')return;ms.forEach(m=>{if(m.type==='characterData'){const n=m.target;ORIG.set(n,n.nodeValue);const t=tr(n.nodeValue);if(t!==null){busy=true;n.nodeValue=t;busy=false}}m.addedNodes.forEach(n=>{if(n.nodeType===3){const t=tr(n.nodeValue);if(t!==null){ORIG.set(n,n.nodeValue);busy=true;n.nodeValue=t;busy=false}}else if(n.nodeType===1)walk(n)})})});MO.observe(document.body,{childList:true,subtree:true,characterData:true});
 $$('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang,true)));
 let startLang=CK.get('lang');try{startLang=startLang||sessionStorage.getItem(P+'lang')}catch(e){}
 if(startLang==='nl')setLang('nl',false);
