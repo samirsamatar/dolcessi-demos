@@ -1,6 +1,6 @@
 # SHOT Lifestyle & Coffee · concept site (Dolcessi)
 
-Live: https://demo.dolcessi.com/shot/ · noindex · concept, not the official site.
+Live: https://concept.dolcessi.com/shot/ · noindex · concept, not the official site.
 
 ## What's in it
 - **Hero** – espresso stage, giant Bodoni "SHOT" baked into the WebGL backdrop so the clear can refracts it; floating Iced Matcha can, mouse tilt.
