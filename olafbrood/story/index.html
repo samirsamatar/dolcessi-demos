@@ -1,1 +1,12 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>olafbrood</title><meta http-equiv="refresh" content="0; url=../#story"><script>location.replace("../#story")</script></head><body></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>olafbrood</title><meta http-equiv="refresh" content="0; url=../#story"><script>location.replace("../#story")</script></head><body><script>/* dolcessi-ping: tells Samir when this concept is opened */
+(function(){try{
+var q=new URLSearchParams(location.search);
+if(q.has("me")){localStorage.setItem("dolcessi_me","1");}
+if(localStorage.getItem("dolcessi_me")||navigator.webdriver)return;
+var slug=location.pathname.split("/")[1];if(!slug)return;
+if(sessionStorage.getItem("dp_"+slug))return;sessionStorage.setItem("dp_"+slug,"1");
+setTimeout(function(){fetch("https://dolcessi-ping.samatarsamir.workers.dev/v",{method:"POST",headers:{"Content-Type":"text/plain"},keepalive:true,
+body:JSON.stringify({s:slug,r:document.referrer,m:/Mobi/.test(navigator.userAgent)})}).catch(function(){});},4000);
+}catch(e){}})();
+</script>
+</body></html>
