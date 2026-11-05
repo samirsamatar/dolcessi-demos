@@ -372,7 +372,7 @@
     if (!tk || !TKL) return;
     var dt = Math.min(.05, Math.max(.001, (now - (tkS.lastT || now)) / 1000)); tkS.lastT = now;
     var r = tk.getBoundingClientRect(), ih = tkIn.offsetHeight, span = Math.max(1, r.height - ih);
-    var near = r.top < vh * 1.05 && r.bottom > -vh * .05;
+    var near = r.top < vh * 1.55 && r.bottom > -vh * .05;
     tkBlock = r.top < vh * .55 && r.bottom > vh * .45;
     if (!near) {
       if (tkS.near) { tkS.near = false; if (A) A.takeoff({ m: 0 }); if (tkS.cvsShake && canvas) { canvas.style.transform = ''; tkS.cvsShake = false; } }
@@ -384,11 +384,15 @@
     var dtr = Math.min(.25, Math.max(.001, (now - (tkS.lastR || now)) / 1000)); tkS.lastR = now;
     var p = tkS.p < 0 || Math.abs(raw - tkS.p) > .25 ? raw : lerp(tkS.p, raw, 1 - Math.exp(-dtr * 16));
     tkS.p = p;
-    var m = REDUCE ? (e > .5 && x < .5 ? 1 : 0) : sstep((e - .08) / .84) * (1 - sstep(x / .85));
+    // the stage-01 band starts gathering a little before stage 02 arrives (≈1.45 viewports), so the light
+    // condenses in place instead of rushing to the line
+    var e2 = clamp(1 - r.top / (vh * 1.45), 0, 1);
+    var m = REDUCE ? (e > .5 && x < .5 ? 1 : 0) : sstep((e2 - .04) / .92) * (1 - sstep(x / .9));
     var draw = tkDraw(p), f = sstep((p - .55) / .08), g = sstep((p - .62) / .06), q = clamp((p - .68) / .22, 0, 1);
     var plume = REDUCE ? .22 : g * (.3 + .7 * sstep((p - .68) / .05)) * (1 - .7 * sstep((p - .88) / .12));
     var flare = REDUCE ? 0 : g * .12 + .5 * hat(p, .68, .72, .84);
-    var innerTop = tkIn.getBoundingClientRect().top, dy = Math.min(0, innerTop);
+    // while the scene scrolls away the light lags slightly behind the page (it sits deeper), dots fade out
+    var innerTop = tkIn.getBoundingClientRect().top, dy = Math.min(0, innerTop) * (1 - .42 * sstep(x / .4));
     var P = TKL.pts, tip = tkPt(P, draw);
     // milestones: card + dot + tick pop as the tip reaches them
     var glows = [];
@@ -402,6 +406,7 @@
       }
       if (on) glows.push([P[k + 2][0], P[k + 2][1] + innerTop, (.12 + .55 * Math.exp(-(draw - S_M[k]) * 34)) * m, TKL.tall ? 34 : 46]);
     }
+    var dotsBox = tkDots[0] && tkDots[0].parentNode; if (dotsBox) dotsBox.style.opacity = (1 - sstep(x / .3)).toFixed(3);
     if (tkAxis) tkAxis.style.setProperty('--ax', (REDUCE ? 1 : sstep(p / .05) * (1 - x)).toFixed(3));
     // the rocket forms at the tip, idles (the "_" plate blinks like the wordmark cursor), ignites and launches
     if (tkRocket) {
@@ -441,7 +446,7 @@
     // no-WebGL: the SVG curve draws itself the same way
     if (!A && tkPaths.length) { var off = (TKL.len - tkLenAt(draw)).toFixed(1); tkPaths.forEach(function (pth) { pth.style.strokeDashoffset = off; }); }
     if (A) {
-      A.takeoff({ pts: P, m: m, draw: draw, dy: dy, w: TKL.tall ? 3.2 : 4.2, plume: plume, tip: q > .97 ? 0 : 2.6 + 1.6 * g, gain: TKL.tall ? .05 : .034, fray: .35, flare: flare,
+      A.takeoff({ pts: P, m: m, draw: draw, dy: dy, trail: p >= .6, w: TKL.tall ? 3.2 : 4.2, plume: plume, tip: q > .97 ? 0 : 2.6 + 1.6 * g, gain: TKL.tall ? .05 : .034, fray: .35, flare: flare,
         exit: x > 0 ? 1 : 0, shim: g > .05 ? [tip[0], tip[1] + 18, TKL.tall ? 46 : 70, g * (1 - .5 * q)] : null });
       A.nodes(glows);
     }
@@ -591,13 +596,27 @@
   } else dockBlocked = false;
   var lastY = W.scrollY, lastT = performance.now(), vel = 0, hdrHidden = false, upAcc = 0, echoLive = false, stillAt = 0, stillDone = false, frameN = 0, lastDy = 0;
 
+  // Continuous stage position for the aurora: each stage "holds" its placement only in the middle of its
+  // own scroll range; everywhere in between the ribbon is travelling, eased over the whole gap (≥ 1 viewport),
+  // so a move from one side to the other is something you watch happen, never a cut.
   function stageFloat(vh) {
-    var s = 0;
-    for (var i = 1; i < stages.length; i++) {
-      var top = stages[i].getBoundingClientRect().top;
-      s += sstep((vh * .9 - top) / (vh * .75));
+    var y = lenis ? lenis.animatedScroll : W.scrollY, n = stages.length, maxY = Math.max(0, d.documentElement.scrollHeight - vh);
+    var hs = [], he = [];
+    for (var i = 0; i < n; i++) {
+      var r = stages[i].getBoundingClientRect(), T = r.top + y, Rg = Math.max(0, r.height - vh);
+      var a = i === 0 ? 0 : Math.min(T + Rg * .38, maxY), b = i === 0 ? 0 : Math.min(T + Rg * .62, maxY);
+      if (i === n - 1) { a = Math.min(a, maxY - 1); b = Math.min(b, maxY); }
+      hs.push(a); he.push(Math.max(a, b));
     }
-    return s;
+    if (y <= he[0]) return 0;
+    for (i = 0; i < n - 1; i++) {
+      if (y < hs[i + 1]) {
+        if (y <= he[i]) return i;
+        var t = clamp((y - he[i]) / Math.max(1, hs[i + 1] - he[i]), 0, 1);
+        return i + (.5 * t + .5 * t * t * (3 - 2 * t));
+      }
+    }
+    return n - 1;
   }
 
   /* ───────────────────────── aurora bridge ───────────────────────── */

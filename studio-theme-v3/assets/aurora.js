@@ -25,6 +25,36 @@
     return d;
   }
 
+  /* One ribbon through the whole page. Every stage is a placement of the SAME band: a spine (6 control
+     points) carrying three layered sub-ribbons (core, inner sheet, outer veil) that share it. Neighbouring
+     placements are planned close to each other, so the page reads as one ribbon meandering down it.
+     Only stage 02 (takeoff, see A.takeoff) condenses it to a thin line; How fans it into three lanes that
+     split from and rejoin the band. */
+  function offP(p, d) {
+    return p.map(function (q, j) {
+      var a = p[Math.max(0, j - 1)], b = p[Math.min(5, j + 1)], tx = b[0] - a[0], ty = b[1] - a[1], l = Math.sqrt(tx * tx + ty * ty) || 1;
+      return [q[0] - ty / l * d, q[1] + tx / l * d];
+    });
+  }
+  function band(p, w, b, o) {
+    o = o || {};
+    var tw = o.tw != null ? o.tw : .9, fr = o.fr != null ? o.fr : .35, sp = o.sp != null ? o.sp : 1, dp = o.dp != null ? o.dp : .6, hu = o.hu != null ? o.hu : .15;
+    return [R(p, w, tw, b, fr, sp, 0, dp, hu),
+      R(offP(p, w * .2), w * .55, tw * .75, b * .52, fr * 1.2, sp * 1.2, 1.6, dp * .8, hu - .45),
+      R(offP(p, -w * .17), w * .32, tw * .6, b * .36, fr * 1.4, sp * .9, 2.5, dp * .6, hu + .4)];
+  }
+  function lanesKF(L, tall, g) {
+    // three lanes that split out of the band and rejoin it at both ends; r0 = middle, r1 = +side, r2 = -side
+    var c = (L[0] + L[1] + L[2]) / 3, order = tall ? [1, 2, 0] : [1, 2, 0], r = [];
+    for (var k = 0; k < 3; k++) {
+      var Li = L[order[k]], h = function (t) { return c + (Li - c) * t; }, p;
+      p = tall ? [[-.35, c], [.0, h(.62)], [.3, Li], [.7, Li], [1.0, h(.62)], [1.35, c]]
+               : [[c, 1.3], [h(.62), .97], [Li, .66], [Li, .34], [h(.62), .03], [c, -.3]];
+      r.push(R(p, k === 0 ? .1 : .085, .7, k === 0 ? .62 : .5, .3, 1.1, [0, 1.6, 2.5][k], .5, .1));
+    }
+    return { r: r, g: g };
+  }
+
   var WIDE = {
     pre: { r: [
       R([[-0.1, .5], [.15, .5], [.35, .5], [.65, .5], [.85, .5], [1.1, .5]], .004, 0, 1.4, 0, .6, 0, .2, .4),
@@ -32,60 +62,23 @@
       R([[-0.1, .5], [.15, .5], [.35, .5], [.65, .5], [.85, .5], [1.1, .5]], .004, 0, .2, 0, .6, 2, .2, 0)
     ], g: G({ bloom: 1.2, exp: 1.5 }) },
 
-    hero: { r: [
-      R([[-0.18, 1.08], [.14, .95], [.44, .80], [.67, .54], [.86, .30], [1.16, .02]], .26, 1.15, 1.0, .32, 1, 0, .7, .15),
-      R([[-0.12, .78], [.22, 1.0], [.52, .9], [.74, .66], [.95, .52], [1.2, .5]], .11, .8, .55, .4, 1.3, 1.6, .5, -.35),
-      R([[.36, -.14], [.56, .1], [.74, .14], [.88, .05], [1.02, -.03], [1.2, -.12]], .06, .6, .22, .6, .8, 2.4, .4, .4)
-    ], g: G({ bloom: .9, exp: 1.25, glow: .12, gx: .78, gy: .62 }) },
-
-    why: { r: [
-      R([[-0.12, .9], [.18, .96], [.42, .89], [.66, .97], [.88, .9], [1.12, .95]], .3, .45, .5, 1.25, .5, .4, .5, -.45),
-      R([[-0.12, 1.02], [.25, .95], [.5, 1.04], [.75, .97], [.95, 1.04], [1.15, .99]], .18, .3, .3, 1.4, .4, 2.1, .4, -.75),
-      R([[-0.1, .06], [.2, .12], [.45, .04], [.7, .1], [.9, .03], [1.1, .08]], .07, .3, .1, 1.3, .3, 1, .4, -.6)
-    ], g: G({ flick: .85, bloom: .7, exp: 1.05, glow: .05, gx: .5, gy: 1.2, wind: .6 }) },
-
-    path: { r: [
-      R([[-0.12, .9], [.18, .91], [.42, .89], [.66, .9], [.88, .89], [1.12, .9]], .14, .45, .6, .5, .9, .4, .5, -.1),
-      R([[-0.12, .95], [.25, .93], [.5, .95], [.75, .93], [.95, .95], [1.15, .94]], .1, .3, .4, .6, .8, 2.1, .4, -.4),
-      R([[-0.1, .84], [.2, .86], [.45, .84], [.7, .86], [.9, .85], [1.1, .86]], .05, .3, .3, .6, .7, 1, .4, .2)
-    ], g: G({ bloom: .9, exp: 1.15, wind: .6 }) },
-
-    lanes: { r: [
-      R([[.18, 1.2], [.2, .9], [.19, .65], [.2, .4], [.18, .15], [.17, -.2]], .06, .8, .42, .3, 1.1, 0, .5, .1),
-      R([[.5, 1.2], [.51, .9], [.49, .65], [.5, .4], [.51, .15], [.5, -.2]], .06, .8, .42, .3, 1.1, 2.1, .5, .1),
-      R([[.82, 1.2], [.8, .9], [.81, .65], [.8, .4], [.82, .15], [.83, -.2]], .06, .8, .42, .3, 1.1, 4.2, .5, .1)
-    ], g: G({ bloom: .85, exp: 1.2 }) },
-
-    warp: { r: [
-      R([[-0.25, .54], [.1, .53], [.35, .51], [.65, .53], [.9, .52], [1.25, .5]], .5, .05, .62, .45, 5, 0, .9, .2),
-      R([[-0.25, .4], [.1, .42], [.35, .45], [.65, .47], [.9, .48], [1.25, .5]], .28, .05, .42, .55, 6, 1, .9, -.3),
-      R([[-0.25, .68], [.1, .65], [.35, .61], [.65, .58], [.9, .57], [1.25, .55]], .28, .05, .42, .55, 6, 2, .9, .5)
-    ], g: G({ warp: .55, bloom: .9, exp: 1.2, wind: .5 }) },
-
-    inside: { r: [
-      R([[-0.15, 1.05], [.15, 1.0], [.4, 1.03], [.62, .99], [.86, 1.02], [1.15, .97]], .12, .9, .42, .35, .9, 0, .6, .25),
-      R([[-0.15, 1.12], [.2, 1.05], [.5, 1.09], [.7, 1.03], [.9, 1.08], [1.15, 1.03]], .09, .6, .26, .45, .8, 2, .5, -.5),
-      R([[1.06, -.1], [.98, .15], [1.0, .4], [.97, .6], [1.01, .8], [1.05, 1.1]], .04, .4, .2, .5, .7, 1, .4, .3)
-    ], g: G({ bloom: .75, exp: 1.05, glow: .06, gx: .5, gy: 1.22 }) },
-
-    proof: { fc: [.27, .55], r: [
-      R([[.03, 1.18], [.075, .62], [.16, .16], [.38, .16], [.47, .62], [.51, 1.18]], .045, .9, .62, .25, 1.1, 0, .5, .25),
-      R([[-0.06, 1.22], [.01, .6], [.12, .04], [.42, .04], [.54, .6], [.61, 1.22]], .08, .6, .3, .4, .8, 1.7, .5, -.45),
-      R([[-0.1, 1.0], [.2, .96], [.45, 1.0], [.7, .95], [.9, 1.0], [1.1, .96]], .08, .5, .16, .4, .9, 3, .4, -.2)
-    ], g: G({ bloom: .85, exp: 1.15, glow: .06, gx: .27, gy: .62 }) },
-
-    faq: { r: [
-      R([[-0.12, 1.16], [.02, .9], [.12, .74], [.24, .76], [.31, .94], [.37, 1.2]], .05, .7, .42, .35, .8, 0, .5, .15),
-      R([[-0.16, 1.2], [-.02, .86], [.12, .64], [.28, .68], [.37, .92], [.44, 1.24]], .07, .5, .22, .45, .6, 2, .4, -.5),
-      R([[1.16, -.1], [1.04, .2], [1.01, .45], [1.03, .7], [1.06, .9], [1.16, 1.1]], .04, .4, .14, .5, .5, 1, .4, -.4)
-    ], g: G({ bloom: .75, exp: 1.05, glow: .05, gx: .15, gy: 1.1 }) },
-
-    cta: { fc: [.5, .74], r: [
-      R([[-0.15, 1.1], [.12, .95], [.35, .86], [.65, .86], [.88, .95], [1.15, 1.1]], .26, .55, .88, .3, .9, 0, .7, .45),
-      R([[-0.1, 1.22], [.15, 1.02], [.38, .92], [.62, .92], [.85, 1.02], [1.1, 1.22]], .16, .9, .7, .35, 1.1, 1.4, .6, -.2),
-      R([[.12, 1.34], [.31, 1.04], [.45, .86], [.55, .86], [.69, 1.04], [.88, 1.34]], .08, .4, .62, .3, 1.4, 2.6, .4, .9)
-    ], g: G({ bloom: 1.1, exp: 1.3, glow: .62, gx: .5, gy: .96 }) },
-
+    hero: { r: band([[-0.18, 1.08], [.14, .95], [.44, .8], [.67, .55], [.86, .32], [1.16, .04]], .28, 1.0, { tw: 1.15, fr: .32, dp: .7, hu: .15 }),
+      g: G({ bloom: .9, exp: 1.25, glow: .12, gx: .78, gy: .62 }) },
+    why: { r: band([[-0.15, .84], [.08, .87], [.3, .86], [.52, .89], [.76, .92], [1.08, .95]], .26, .5, { tw: .45, fr: 1.2, sp: .5, dp: .5, hu: -.45 }),
+      g: G({ flick: .85, bloom: .7, exp: 1.05, glow: .05, gx: .5, gy: 1.2, wind: .6 }) },
+    path: { r: band([[-0.25, .9], [-.02, .9], [.16, .89], [.34, .91], [.54, .98], [.8, 1.12]], .2, .62, { tw: .45, fr: .5, sp: .9, dp: .5, hu: -.1 }),
+      g: G({ bloom: .9, exp: 1.15, wind: .6 }) },
+    lanes: lanesKF([.2, .5, .8], false, G({ bloom: .85, exp: 1.2 })),
+    warp: { r: band([[-0.25, .55], [.1, .53], [.35, .51], [.65, .52], [.9, .5], [1.25, .48]], .46, .64, { tw: .05, fr: .5, sp: 5, dp: .9, hu: .2 }),
+      g: G({ warp: .55, bloom: .9, exp: 1.2, wind: .5 }) },
+    inside: { r: band([[-0.15, .58], [.12, .64], [.38, .72], [.62, .8], [.86, .9], [1.15, .99]], .3, .5, { tw: .9, fr: .35, sp: .9, dp: .6, hu: .2 }),
+      g: G({ bloom: .78, exp: 1.08, glow: .05, gx: .5, gy: 1.2 }) },
+    proof: { fc: [.27, .55], r: band([[.0, 1.22], [.06, .66], [.15, .17], [.39, .17], [.48, .66], [.54, 1.22]], .16, .66, { tw: .9, fr: .28, sp: 1.1, dp: .5, hu: .22 }),
+      g: G({ bloom: .85, exp: 1.15, glow: .06, gx: .27, gy: .62 }) },
+    faq: { r: band([[-0.12, .98], [.08, .8], [.24, .68], [.43, .76], [.7, .95], [1.1, 1.12]], .24, .5, { tw: .7, fr: .35, sp: .8, dp: .5, hu: .1 }),
+      g: G({ bloom: .75, exp: 1.05, glow: .05, gx: .2, gy: 1.1 }) },
+    cta: { fc: [.5, .74], r: band([[-0.15, 1.1], [.12, .95], [.35, .86], [.65, .86], [.88, .95], [1.15, 1.1]], .26, .9, { tw: .55, fr: .3, sp: .9, dp: .7, hu: .45 }),
+      g: G({ bloom: 1.1, exp: 1.3, glow: .62, gx: .5, gy: .96 }) },
     popup: { r: [
       R([[-0.15, .95], [.15, .78], [.38, .6], [.62, .42], [.85, .24], [1.15, .05]], .2, 1.3, .95, .3, 1.2, 0, .7, .35),
       R([[-0.15, .1], [.15, .28], [.4, .44], [.6, .56], [.85, .72], [1.15, .92]], .1, .9, .5, .35, 1, 1.5, .5, -.3),
@@ -93,60 +86,33 @@
     ], g: G({ bloom: 1.1, exp: 1.3, glow: .3, gx: .5, gy: .5 }) }
   };
 
-  // Portrait phones: same story, recomposed for a tall frame (copy sits top/middle).
+  // Portrait phones: the same single ribbon, placed for a tall frame (copy sits top/middle).
   var TALL = {
     pre: WIDE.pre,
-    hero: { r: [
-      R([[-0.3, 1.04], [.05, .93], [.35, .8], [.62, .65], [.9, .48], [1.35, .32]], .25, 1.05, 1.2, .32, 1, 0, .7, .15),
-      R([[-0.3, .78], [.1, 1.0], [.45, .92], [.75, .8], [1.0, .66], [1.4, .62]], .1, .8, .62, .4, 1.3, 1.6, .5, -.35),
-      R([[.4, -.08], [.65, .06], [.85, .1], [1.0, .04], [1.15, -.02], [1.4, -.1]], .05, .6, .3, .6, .8, 2.4, .4, .4)
-    ], g: G({ bloom: .95, exp: 1.3, glow: .16, gx: .72, gy: .92 }) },
-    why: { r: [
-      R([[-0.3, .9], [.05, .95], [.35, .88], [.65, .95], [.95, .87], [1.3, .93]], .26, .45, .55, 1.2, .5, .4, .5, -.45),
-      R([[-0.3, 1.0], [.1, .93], [.45, 1.02], [.75, .95], [1.0, 1.02], [1.3, .97]], .16, .3, .26, 1.4, .4, 2.1, .4, -.8),
-      R([[-0.3, .08], [.1, .14], [.4, .06], [.7, .12], [1.0, .05], [1.3, .1]], .07, .3, .12, 1.3, .3, 1, .4, -.6)
-    ], g: G({ flick: .85, bloom: .7, exp: 1.1, glow: .05, gx: .5, gy: 1.2, wind: .6 }) },
-    path: { r: [
-      R([[-0.3, .92], [.05, .93], [.35, .91], [.65, .93], [.95, .91], [1.3, .92]], .12, .45, .7, .5, .9, .4, .5, -.1),
-      R([[-0.3, .97], [.1, .95], [.45, .97], [.75, .95], [1.0, .97], [1.3, .96]], .08, .3, .45, .6, .8, 2.1, .4, -.4),
-      R([[-0.3, .86], [.1, .87], [.4, .85], [.7, .87], [1.0, .86], [1.3, .87]], .05, .3, .35, .6, .7, 1, .4, .2)
-    ], g: G({ bloom: .95, exp: 1.25, wind: .6 }) },
-    lanes: { r: [
-      R([[-0.35, .2], [0, .3], [.3, .34], [.6, .32], [.95, .26], [1.35, .2]], .06, .7, .55, .3, 1.1, 0, .5, .1),
-      R([[-0.35, .55], [0, .6], [.3, .62], [.6, .6], [.95, .55], [1.35, .5]], .06, .7, .55, .3, 1.1, 2.1, .5, .1),
-      R([[-0.35, .88], [0, .92], [.3, .94], [.6, .92], [.95, .86], [1.35, .8]], .06, .7, .55, .3, 1.1, 4.2, .5, .1)
-    ], g: G({ bloom: .85, exp: 1.2 }) },
-    warp: { r: [
-      R([[-0.3, .52], [.05, .51], [.35, .49], [.65, .51], [.95, .49], [1.3, .48]], .32, .05, .58, .5, 5, 0, .9, .2),
-      R([[-0.3, .4], [.05, .41], [.35, .43], [.65, .44], [.95, .45], [1.3, .46]], .18, .05, .4, .6, 6, 1, .9, -.3),
-      R([[-0.3, .64], [.05, .62], [.35, .59], [.65, .57], [.95, .55], [1.3, .54]], .18, .05, .4, .6, 6, 2, .9, .5)
-    ], g: G({ warp: .5, bloom: .9, exp: 1.2, wind: .5 }) },
-    inside: { r: [
-      R([[-0.3, 1.0], [0, .96], [.35, 1.0], [.65, .95], [.95, .99], [1.3, .94]], .1, .9, .55, .35, .9, 0, .6, .25),
-      R([[-0.3, 1.08], [.05, 1.02], [.45, 1.06], [.7, 1.0], [1.0, 1.05], [1.3, 1.0]], .07, .6, .36, .45, .8, 2, .5, -.5),
-      R([[1.08, -.1], [.98, .15], [1.0, .4], [.97, .6], [1.0, .8], [1.06, 1.1]], .035, .4, .22, .5, .7, 1, .4, .3)
-    ], g: G({ bloom: .8, exp: 1.15, glow: .08, gx: .5, gy: 1.2 }) },
-    proof: { fc: [.5, .5], r: [
-      R([[.04, 1.2], [.1, .62], [.24, .15], [.76, .15], [.9, .62], [.96, 1.2]], .035, .9, .58, .25, 1.1, 0, .5, .25),
-      R([[-0.08, 1.25], [.0, .6], [.18, .03], [.82, .03], [1.0, .6], [1.08, 1.25]], .06, .6, .28, .4, .8, 1.7, .5, -.45),
-      R([[-0.3, 1.02], [.1, .98], [.4, 1.02], [.7, .97], [1.0, 1.02], [1.3, .98]], .06, .5, .14, .4, .9, 3, .4, -.2)
-    ], g: G({ bloom: .85, exp: 1.15, glow: .06, gx: .5, gy: .55 }) },
-    faq: { r: [
-      R([[1.2, -.1], [1.02, .2], [.98, .45], [1.0, .7], [1.04, .9], [1.2, 1.12]], .06, .7, .36, .4, .7, 0, .5, -.1),
-      R([[1.22, -.1], [1.06, .2], [1.0, .45], [1.03, .7], [1.06, .9], [1.2, 1.1]], .05, .5, .24, .5, .6, 2, .4, -.6),
-      R([[-0.2, 1.1], [-.02, .9], [-.04, .7], [-.02, .5], [-.05, .3], [-.2, .1]], .04, .4, .12, .5, .5, 1, .4, -.4)
-    ], g: G({ bloom: .75, exp: 1.1 }) },
-    cta: { fc: [.5, .6], r: [
-      R([[-0.3, .94], [0, .84], [.3, .76], [.7, .76], [1.0, .84], [1.3, .94]], .2, .55, 1.1, .3, .9, 0, .7, .55),
-      R([[-0.3, 1.1], [0, .96], [.35, .88], [.65, .88], [1.0, .96], [1.3, 1.1]], .12, .9, .65, .35, 1.1, 1.4, .6, -.2),
-      R([[0, 1.24], [.25, 1.0], [.42, .8], [.58, .8], [.75, 1.0], [1.0, 1.24]], .06, .4, .5, .3, 1.4, 2.6, .4, .9)
-    ], g: G({ bloom: 1.1, exp: 1.35, glow: .55, gx: .5, gy: .9 }) },
+    hero: { r: band([[-0.3, 1.04], [.05, .93], [.35, .8], [.62, .65], [.9, .48], [1.35, .32]], .25, 1.2, { tw: 1.05, fr: .32, dp: .7, hu: .15 }),
+      g: G({ bloom: .95, exp: 1.3, glow: .16, gx: .72, gy: .92 }) },
+    why: { r: band([[-0.3, .88], [.0, .9], [.28, .88], [.56, .91], [.85, .93], [1.25, .95]], .22, .55, { tw: .45, fr: 1.2, sp: .5, dp: .5, hu: -.45 }),
+      g: G({ flick: .85, bloom: .7, exp: 1.1, glow: .05, gx: .5, gy: 1.2, wind: .6 }) },
+    path: { r: band([[-0.35, .93], [-.05, .93], [.2, .92], [.42, .94], [.66, 1.0], [1.0, 1.14]], .18, .7, { tw: .45, fr: .5, sp: .9, dp: .5, hu: -.1 }),
+      g: G({ bloom: .95, exp: 1.25, wind: .6 }) },
+    lanes: lanesKF([.3, .55, .8], true, G({ bloom: .85, exp: 1.2 })),
+    warp: { r: band([[-0.3, .53], [.05, .52], [.35, .5], [.65, .51], [.95, .49], [1.3, .48]], .3, .6, { tw: .05, fr: .5, sp: 5, dp: .9, hu: .2 }),
+      g: G({ warp: .5, bloom: .9, exp: 1.2, wind: .5 }) },
+    inside: { r: band([[-0.3, .62], [.05, .68], [.35, .77], [.65, .85], [.95, .93], [1.3, 1.0]], .22, .6, { tw: .9, fr: .35, sp: .9, dp: .6, hu: .25 }),
+      g: G({ bloom: .8, exp: 1.15, glow: .08, gx: .5, gy: 1.2 }) },
+    proof: { fc: [.5, .5], r: band([[.04, 1.22], [.1, .64], [.24, .16], [.76, .16], [.9, .64], [.96, 1.22]], .12, .66, { tw: .9, fr: .28, sp: 1.1, dp: .5, hu: .22 }),
+      g: G({ bloom: .85, exp: 1.15, glow: .06, gx: .5, gy: .55 }) },
+    faq: { r: band([[-0.3, .9], [0, .74], [.3, .64], [.6, .7], [.95, .86], [1.3, .98]], .2, .55, { tw: .7, fr: .35, sp: .8, dp: .5, hu: .1 }),
+      g: G({ bloom: .78, exp: 1.12 }) },
+    cta: { fc: [.5, .6], r: band([[-0.3, .94], [0, .84], [.3, .76], [.7, .76], [1.0, .84], [1.3, .94]], .2, 1.1, { tw: .55, fr: .3, sp: .9, dp: .7, hu: .55 }),
+      g: G({ bloom: 1.1, exp: 1.35, glow: .55, gx: .5, gy: .9 }) },
     popup: { r: [
       R([[-0.3, .9], [0, .75], [.35, .58], [.65, .44], [1.0, .28], [1.3, .12]], .16, 1.3, .9, .3, 1.2, 0, .7, .35),
       R([[-0.3, .15], [0, .3], [.4, .45], [.6, .55], [1.0, .7], [1.3, .85]], .08, .9, .45, .35, 1, 1.5, .5, -.3),
       R([[.25, 1.2], [.38, .85], [.48, .55], [.52, .45], [.62, .15], [.75, -.2]], .04, .5, .3, .3, 1.4, 2.5, .4, .6)
     ], g: G({ bloom: 1.1, exp: 1.3, glow: .3, gx: .5, gy: .5 }) }
   };
+
 
   /* ───────────────────────── shaders ───────────────────────── */
   var VS_STRAND = [
@@ -493,31 +459,33 @@
     var n = seq.length, c = clamp(st.cur, 0, n - 1), i0 = Math.floor(c), f = c - i0;
     var a = kfFor(seq[i0]), b = kfFor(seq[Math.min(n - 1, i0 + 1)]);
     var k = lerpKF(a, b, f);
-    // leaving stage 02: the strands that peel off the trail go straight to the three lanes of stage 03
-    if (st.tk.exit > 0 && st.tk.m > 0 && KF.lanes) k = lerpKF(k, kfFor('lanes'), clamp(st.tk.m * 3, 0, 1) * st.tk.exit);
     if (st.ov > 0.001) k = lerpKF(k, KF.popup, st.ov);
     if (st.pre > 0.001) k = lerpKF(k, KF.pre, st.pre);
     return k;
   }
   function kfFor(name) {
-    var k = KF[name] || KF.hero, i, j, r, base, p;
+    var k = KF[name] || KF.hero, tall = KF === TALL;
     if (k.fc && st.focus[name]) {
-      var fx = st.focus[name][0] - k.fc[0], fy = st.focus[name][1] - k.fc[1], g2 = {};
+      // the band bends around a live DOM element (proof phone, CTA button); clamped so it never flings far off-screen
+      // followed with ~half parallax: the light sits deeper than the page, so it drifts rather than scrolls
+      var py = tall ? .25 : .36, fx = clamp((st.focus[name][0] - k.fc[0]) * .55, -.4, .4), fy = clamp((st.focus[name][1] - k.fc[1]) * py, -.45, .45), g2 = {};
       for (var gk in k.g) g2[gk] = k.g[gk];
       g2.gx += fx; g2.gy += fy;
       return { r: k.r.map(function (b) { return withP(b, b.p.map(function (q) { return [q[0] + fx, q[1] + fy]; })); }), g: g2 };
     }
     if (name === 'lanes' && st.lanes) {
-      var tall = KF === TALL;
-      r = [];
-      for (i = 0; i < 3; i++) {
-        base = k.r[i]; var ln = st.lanes[i]; if (!ln) { r.push(base); continue; }
-        var m = 0; for (j = 0; j < 6; j++) m += base.p[j][tall ? 1 : 0]; m /= 6;
-        var sh = (tall ? ln[1] : ln[0]) - m;
-        p = base.p.map(function (q) { return tall ? [q[0], q[1] + sh] : [q[0] + sh, q[1]]; });
-        r.push(withP(base, p));
-      }
-      return { r: r, g: k.g };
+      // wide: lanes sit behind the three cards; tall: the cards scroll past, so the lanes only lean towards them
+      var D = [.3, .55, .8], L = st.lanes.map(function (q, n) { return tall ? D[n] : clamp(q[0], .12, .88); });
+      return lanesKF(L, tall, k.g);
+    }
+    if (name === 'path' && st.tk.trail && st.tk.pts) {
+      // after the launch the trail itself widens back into the band, right where the rocket went
+      var T = st.tk.pts, dy = st.tk.dy * .5, u = function (q) { return [q[0] / cw, (q[1] + dy) / ch]; };
+      var m4 = u(T[5]), tp = u(T[6]), sp = [
+        [m4[0] - .07, 1.3], [m4[0] - .025, Math.min(1.02, m4[1] + .28)], m4, tp, [tp[0] + .005, tp[1] * .35], [tp[0] + .01, -.35]];
+      if (!k._trail) k._trail = band(sp, tall ? .2 : .26, .7, { tw: .6, fr: .4, sp: 1.2, dp: .6, hu: .3 });
+      var tb = k._trail.map(function (b, n) { return withP(b, n === 0 ? sp : offP(sp, (n === 1 ? .2 : -.17) * b.w / (n === 1 ? .55 : .32))); });
+      return { r: tb, g: k.g };
     }
     return k;
   }
@@ -534,9 +502,11 @@
 
     // dynamics
     st.prevCur = st.cur;
-    st.cur = damp(st.cur, st.target, 2.6, dt);
+    // damped follow of the scroll-driven stage position: the ribbon glides after the page, never snaps
+    st.cur = damp(st.cur, st.target, 2.1, dt);
     var sv = (st.cur - st.prevCur) / dt;
-    st.energy = damp(st.energy, clamp(Math.abs(sv) * .75, 0, 1), 6, dt);
+    // warp energy comes from scroll speed (a velocity effect ON the ribbon), not from moving between placements
+    st.energy = damp(st.energy, clamp(Math.abs(st.svel) * .9 + Math.abs(sv) * .25, 0, 1), 6, dt);
     st.svel = damp(st.svel, st.vel, 8, dt); st.vel *= Math.exp(-dt * 5);
     st.ov = damp(st.ov, st.ovT, 3.4, dt);
     st.pre = damp(st.pre, st.preT, 2.1, dt);
@@ -547,7 +517,7 @@
     for (var i = 0; i < 3; i++) st.ptr[i] = damp(st.ptr[i], st.ptrT[i], i === 2 ? 2.2 : 5, dt);
     st.ptrT[2] *= Math.exp(-dt * .9);
 
-    var K = frameKF(), g = K.g;
+    var K = frameKF(), g = K.g; st.lastK = K;
     var asp = cw / ch;
 
     // control points (+ slow living wobble) → scene space
@@ -765,6 +735,46 @@
     if (!A.ok || !ready) return;
     st.cur = st.target; st.pre = 0; st.ign = 1; st.thr = 0; st.fade = 1; st.ov = st.ovT;
     var keep = st.time; st.time = 12.0; render(performance.now()); st.time = keep;
+  };
+  // QA probe: the visible centre of the light in viewport units (0..1). settled=true evaluates the
+  // placement the ribbon is heading to (st.target) instead of the damped current one.
+  function crPt(P, t) {
+    var f = clamp(t, 0, 1) * 5, s = Math.min(Math.floor(f), 4), u = f - s, p1 = P[s], p2 = P[s + 1];
+    var p0 = s === 0 ? [2 * p1[0] - p2[0], 2 * p1[1] - p2[1]] : P[s - 1], p3 = s === 4 ? [2 * p2[0] - p1[0], 2 * p2[1] - p1[1]] : P[s + 2], o = [];
+    for (var k = 0; k < 2; k++) o[k] = .5 * (2 * p1[k] + (-p0[k] + p2[k]) * u + (2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k]) * u * u + (-p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]) * u * u * u);
+    return o;
+  }
+  function edgeW(v) { var a = clamp((v + .06) / .12, 0, 1), b = clamp((1.06 - v) / .12, 0, 1); return a * a * (3 - 2 * a) * b * b * (3 - 2 * b); }
+  function visMean(pts) {
+    var sx = 0, sy = 0, n = 0;
+    pts.forEach(function (q) { var w = edgeW(q[0]) * edgeW(q[1]); sx += q[0] * w; sy += q[1] * w; n += w; });
+    return n > .5 ? [sx / n, sy / n, n] : null;
+  }
+  A.centre = function (settled) {
+    if (!A.ok) return null;
+    var keep = st.cur; if (settled) st.cur = st.target;
+    var K = frameKF(); st.cur = keep;
+    var acc = [0, 0], wsum = 0;
+    for (var i = 0; i < 3; i++) {
+      var r = K.r[i], pts = [];
+      for (var q = 0; q <= 48; q++) pts.push(crPt(r.p, q / 48));
+      var mean = visMean(pts), wt = r.b * [.56, .28, .16][i];
+      if (mean) { acc[0] += mean[0] * wt; acc[1] += mean[1] * wt; wsum += wt; }
+    }
+    var rib = wsum ? [acc[0] / wsum, acc[1] / wsum] : [.5, .5], TK = st.tk, m = TK.pts ? clamp(TK.m, 0, 1) : 0;
+    if (m > .001) {
+      var tp = [];
+      for (q = 0; q <= 80; q++) {
+        var sP = q / 80 * TK.draw, f = sP * 7, si = Math.min(Math.floor(f), 6), uu = f - si, P = TK.pts;
+        var a = P[Math.max(0, si - 1)], b = P[si], c = P[si + 1], d2 = P[Math.min(7, si + 2)];
+        var x = .5 * (2 * b[0] + (-a[0] + c[0]) * uu + (2 * a[0] - 5 * b[0] + 4 * c[0] - d2[0]) * uu * uu + (-a[0] + 3 * b[0] - 3 * c[0] + d2[0]) * uu * uu * uu);
+        var y = .5 * (2 * b[1] + (-a[1] + c[1]) * uu + (2 * a[1] - 5 * b[1] + 4 * c[1] - d2[1]) * uu * uu + (-a[1] + 3 * b[1] - 3 * c[1] + d2[1]) * uu * uu * uu);
+        tp.push([x / cw, (y + TK.dy) / ch]);
+      }
+      var tm = visMean(tp);
+      if (tm) rib = [rib[0] + (tm[0] - rib[0]) * m, rib[1] + (tm[1] - rib[1]) * m];
+    }
+    return { x: rib[0], y: rib[1], cur: st.cur, target: st.target, m: m };
   };
   A.debug = function () { return { q: qLevel, n: nDraw, W: W, H: H, fmt: fmt && fmt.scale, gl2: isGL2, cur: st.cur, target: st.target, anchors: st.anchors, lanes: st.lanes, ov: st.ov, pre: st.pre, ign: st.ign, seq: seq }; };
 })();
