@@ -45,10 +45,10 @@
     ], g: G({ flick: .85, bloom: .7, exp: 1.05, glow: .05, gx: .5, gy: 1.2, wind: .6 }) },
 
     path: { r: [
-      R([[-0.1, .9], [.16, .74], [.38, .6], [.62, .48], [.84, .32], [1.12, .16]], .03, .35, .78, .12, 1.6, 0, .3, .35),
-      R([[-0.1, .9], [.16, .74], [.38, .6], [.62, .48], [.84, .32], [1.12, .16]], .055, .5, .3, .2, 1.4, 1.2, .3, -.2),
-      R([[-0.1, .9], [.16, .74], [.38, .6], [.62, .48], [.84, .32], [1.12, .16]], .012, .2, .42, .1, 2, 2.4, .2, .7)
-    ], g: G({ bloom: .85, exp: 1.15 }) },
+      R([[-0.12, .9], [.18, .91], [.42, .89], [.66, .9], [.88, .89], [1.12, .9]], .14, .45, .6, .5, .9, .4, .5, -.1),
+      R([[-0.12, .95], [.25, .93], [.5, .95], [.75, .93], [.95, .95], [1.15, .94]], .1, .3, .4, .6, .8, 2.1, .4, -.4),
+      R([[-0.1, .84], [.2, .86], [.45, .84], [.7, .86], [.9, .85], [1.1, .86]], .05, .3, .3, .6, .7, 1, .4, .2)
+    ], g: G({ bloom: .9, exp: 1.15, wind: .6 }) },
 
     lanes: { r: [
       R([[.18, 1.2], [.2, .9], [.19, .65], [.2, .4], [.18, .15], [.17, -.2]], .06, .8, .42, .3, 1.1, 0, .5, .1),
@@ -107,10 +107,10 @@
       R([[-0.3, .08], [.1, .14], [.4, .06], [.7, .12], [1.0, .05], [1.3, .1]], .07, .3, .12, 1.3, .3, 1, .4, -.6)
     ], g: G({ flick: .85, bloom: .7, exp: 1.1, glow: .05, gx: .5, gy: 1.2, wind: .6 }) },
     path: { r: [
-      R([[.3, -.15], [.18, .15], [.12, .4], [.12, .6], [.18, .85], [.3, 1.15]], .03, .35, 1.2, .12, 1.6, 0, .3, .35),
-      R([[.3, -.15], [.18, .15], [.12, .4], [.12, .6], [.18, .85], [.3, 1.15]], .055, .5, .5, .2, 1.4, 1.2, .3, -.2),
-      R([[.3, -.15], [.18, .15], [.12, .4], [.12, .6], [.18, .85], [.3, 1.15]], .015, .2, .55, .1, 2, 2.4, .2, .7)
-    ], g: G({ bloom: 1.05, exp: 1.3 }) },
+      R([[-0.3, .92], [.05, .93], [.35, .91], [.65, .93], [.95, .91], [1.3, .92]], .12, .45, .7, .5, .9, .4, .5, -.1),
+      R([[-0.3, .97], [.1, .95], [.45, .97], [.75, .95], [1.0, .97], [1.3, .96]], .08, .3, .45, .6, .8, 2.1, .4, -.4),
+      R([[-0.3, .86], [.1, .87], [.4, .85], [.7, .87], [1.0, .86], [1.3, .87]], .05, .3, .35, .6, .7, 1, .4, .2)
+    ], g: G({ bloom: .95, exp: 1.25, wind: .6 }) },
     lanes: { r: [
       R([[-0.35, .2], [0, .3], [.3, .34], [.6, .32], [.95, .26], [1.35, .2]], .06, .7, .55, .3, 1.1, 0, .5, .1),
       R([[-0.35, .55], [0, .6], [.3, .62], [.6, .6], [.95, .55], [1.35, .5]], .06, .7, .55, .3, 1.1, 2.1, .5, .1),
@@ -158,6 +158,9 @@
     'uniform vec4 u_rb[3];', // flow clock, phase, depth, hue
     'uniform float u_aspect, u_px, u_time, u_twc, u_vel, u_flick, u_ign, u_draw, u_thr, u_warp, u_lw, u_wind;',
     'uniform vec3 u_ptr;',
+    'uniform vec2 u_tp[8];', // takeoff path (stage 02): entry, origin, 4 milestones, top, beyond
+    'uniform vec4 u_tk;',    // x: condense mix, y: drawn extent (path param of the tip), z: half-width, w: plume
+    'uniform vec4 u_tk2;',   // x: tip glow, y: gain, z: fray, w: unused
     'varying vec3 v_col;',
     'varying float v_side;',
     'vec2 cr(vec2 a, vec2 b, vec2 c, vec2 d, float u){float u2=u*u,u3=u2*u;return .5*((2.*b)+(-a+c)*u+(2.*a-5.*b+4.*c-d)*u2+(-a+3.*b-3.*c+d)*u3);}',
@@ -170,6 +173,26 @@
     '  C=cr(p0,p1,p2,p3,u); T=crd(p0,p1,p2,p3,u);',
     '}',
     'float h1(float n){return fract(sin(n*91.345)*47453.5453);}',
+    'vec2 tpath(float s, out vec2 T){',
+    '  float f=clamp(s,0.,1.)*7.; float sf=min(floor(f),6.); float u=f-sf; int i=int(sf);',
+    '  int i0=i==0?0:i-1; int i3=i==6?7:i+2;',
+    '  vec2 p1=u_tp[i]; vec2 p2=u_tp[i+1];',
+    '  vec2 p0=i==0?2.*p1-p2:u_tp[i0]; vec2 p3=i==6?2.*p2-p1:u_tp[i3];',
+    '  T=crd(p0,p1,p2,p3,u); return cr(p0,p1,p2,p3,u);',
+    '}',
+    // one strand of the condensed bundle: rides the takeoff path from the entry up to the tip
+    'vec2 tstrand(float t, out float pl){',
+    '  float s=t*u_tk.y; vec2 T; vec2 C=tpath(s,T); T=normalize(T+vec2(1e-6)); vec2 N=vec2(-T.y,T.x);',
+    '  float d=(1.-t)*u_tk.y;',
+    // exhaust: the bundle opens into a cone right behind the nozzle and closes again down the trail
+    '  pl=u_tk.w*(1.-exp(-d/.007))*exp(-d/.05)*12.;',
+    '  float w=u_tk.z*(1.+pl);',
+    '  float sd=a_s.y;',
+    '  float tw=mix(.55+.45*cos(s*34.+u_time*.9+sd*6.2831),1.,min(pl*.3,1.));',
+    '  float n=sin(s*60.+sd*41.+u_time*1.3)*.5+sin(s*130.-sd*23.+u_time*2.1)*.3+sin(s*23.+sd*7.-u_time*.7)*.2;',
+    '  float fl=sin(sd*29.+u_time*(7.+sd*5.))*.5+sin(sd*13.-u_time*11.)*.3;',
+    '  return C+N*(a_s.x*w*tw+n*u_tk.z*u_tk2.z*(1.+pl*.4)+fl*u_tk.z*pl*.35);',
+    '}',
     // returns position; z (depth) and fold via out params
     'vec2 strand(int k, float t, vec4 ra, vec4 rb, bool thr, out float z, out float fold){',
     '  vec2 C,T; path(k,t,C,T);',
@@ -187,13 +210,21 @@
     '  P.y+=u_vel*(.04+.22*sd)*(.6+.4*sin(t*3.1416));',
     '  return P;',
     '}',
+    // ribbon strand, condensed-bundle strand, or a per-strand staggered blend of both
+    'vec2 pos(int k, float t, vec4 ra, vec4 rb, bool thr, float mm, out float z, out float fold, out float pl){',
+    '  vec2 R=vec2(0.); z=0.; fold=1.; pl=0.;',
+    '  if(mm<.999) R=strand(k,t,ra,rb,thr,z,fold);',
+    '  if(mm>.001){ vec2 K=tstrand(t,pl); R=mix(R,K,mm); z=mix(z,(a_s.y-.5)*.12,mm); fold=mix(fold,1.,mm); }',
+    '  return R;',
+    '}',
     'void main(){',
     '  bool thr=a_s.w>8.5; int k=thr?0:int(a_s.w+.01);',
     '  vec4 ra=k==0?u_ra[0]:(k==1?u_ra[1]:u_ra[2]);',
     '  vec4 rb=k==0?u_rb[0]:(k==1?u_rb[1]:u_rb[2]);',
-    '  float t=a_v.x; float z,fold,z2,fold2;',
-    '  vec2 P=strand(k,t,ra,rb,thr,z,fold);',
-    '  vec2 Q=strand(k,t+.004,ra,rb,thr,z2,fold2);',
+    '  float t=a_v.x; float z,fold,z2,fold2,pl,pl2;',
+    '  float mm=thr?0.:smoothstep(a_s.y*.5,a_s.y*.5+.5,u_tk.x);',
+    '  vec2 P=pos(k,t,ra,rb,thr,mm,z,fold,pl);',
+    '  vec2 Q=pos(k,t+.004,ra,rb,thr,mm,z2,fold2,pl2);',
     '  vec2 Tn=normalize(Q-P+vec2(1e-6)); vec2 Ns=vec2(-Tn.y,Tn.x);',
     '  float sd=a_s.y, rank=a_s.z, o=thr?0.:a_s.x;',
     '  float near=clamp(.5-z*1.2,0.,1.);',
@@ -218,6 +249,13 @@
     '  float vis=thr?u_thr*step(t,u_draw)*(1.+6.*exp(-pow((u_draw-t)*60.,2.))):clamp((u_ign*1.25-sd)*7.,0.,1.);',
     '  float I=edge*sb*core*pulse*depthF*fl*vis*ra.z*(1.+.35*(1.-fold));',
     '  I*=1.+u_warp*.5*pk;',
+    '  if(mm>.001){',
+    '    float tip=exp(-pow((1.-t)*u_tk.y/.011,2.));',
+    '    float sbT=(.35+1.7*pow(rank,5.))*(1.-.4*o*o);',
+    '    float nz=exp(-(1.-t)*u_tk.y/.005)*u_tk.w;',
+    '    float IT=smoothstep(0.,.03,t)*sbT*mix(.55,1.3,pk)*(1.+u_tk2.x*tip+nz*2.5)/(1.+pl*.45)*u_tk2.y;',
+    '    I=mix(I,IT,mm);',
+    '  }',
     // colour: amber core → ember → garnet underside, rare bone highlights
     '  vec3 GAR=vec3(.42,.02,.035), EMB=vec3(1.,.16,.03), AMB=vec3(1.,.5,.13), BON=vec3(.95,.84,.72);',
     '  float hu=rb.w;',
@@ -226,6 +264,14 @@
     '  col=mix(col,BON,step(.975-hu*.03,rank)*.75);',
     '  col=mix(col,GAR,clamp(-hu,0.,1.)*.35*(1.-pk));',
     '  if(thr) col=mix(EMB,BON,.25);',
+    '  if(mm>.001){',
+    '    float ao=abs(o); float tip2=exp(-pow((1.-t)*u_tk.y/.02,2.));',
+    '    vec3 ct=mix(mix(BON,AMB,.55),EMB,smoothstep(.05,.75,ao));',
+    '    ct=mix(ct,GAR,smoothstep(.85,1.15,ao)*.55);',
+    '    ct=mix(ct,mix(AMB,EMB,.35),min(pl*.35,1.)*.7);',
+    '    ct=mix(ct,BON,tip2*.55);',
+    '    col=mix(col,ct,mm);',
+    '  }',
     '  v_col=col*I;',
     '}'
   ].join('\n');
@@ -265,10 +311,13 @@
     'uniform vec2 u_glowPos;',
     'uniform vec4 u_scrim[4]; uniform vec4 u_sk;',
     'uniform vec4 u_node[4];',
+    'uniform vec4 u_shim;',
     'float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}',
     'float sbox(vec2 p, vec2 b){vec2 q=abs(p)-b; return length(max(q,0.))+min(max(q.x,q.y),0.);}',
     'void main(){',
     ' vec2 uv=v_uv; vec3 sc;',
+    ' if(u_shim.w>.001){ vec2 dq=vec2((uv.x-u_shim.x)*u_aspect,uv.y-u_shim.y); float mk=exp(-dot(dq,dq)/(u_shim.z*u_shim.z));',
+    '   uv+=u_shim.w*mk*vec2(sin(uv.y*170.+u_time*31.)+.5*sin(uv.y*73.-u_time*17.),cos(uv.x*150.+u_time*27.))*.0032; }',
     ' float wb=u_warp, vb=u_vel;',
     ' if(wb+abs(vb)>.004){',
     '   vec2 c=vec2(.5,.5); vec3 acc=vec3(0.); float tw=0.;',
@@ -331,7 +380,9 @@
     ptr: [0, 0, 0], ptrT: [0, 0, 0], ptrSeen: false,
     ov: 0, ovT: 0, ign: 0, ignT: 0, draw: 0, drawT: 0, thr: 0, thrT: 0, pre: 1, preT: 1,
     fade: 0, flow: [0, 0, 0], twc: 0, time: 0, flickAmp: 1, flickNext: 0,
-    scr: [], nodes: [], anchors: null, lanes: null, focus: {}, debugQ: null, frozen: false
+    scr: [], nodes: [], anchors: null, lanes: null, focus: {}, debugQ: null, frozen: false,
+    // stage 02 takeoff: driven straight from scroll by the page (no extra damping, so DOM and light stay locked)
+    tk: { m: 0, draw: .2, w: 4, plume: 0, tip: 0, gain: .03, fray: .35, flare: 0, exit: 0, shim: null, pts: null, dy: 0 }
   };
   var ft = { acc: 0, n: 0, slow: 0, fast: 0, failed: [] };
 
@@ -442,21 +493,14 @@
     var n = seq.length, c = clamp(st.cur, 0, n - 1), i0 = Math.floor(c), f = c - i0;
     var a = kfFor(seq[i0]), b = kfFor(seq[Math.min(n - 1, i0 + 1)]);
     var k = lerpKF(a, b, f);
+    // leaving stage 02: the strands that peel off the trail go straight to the three lanes of stage 03
+    if (st.tk.exit > 0 && st.tk.m > 0 && KF.lanes) k = lerpKF(k, kfFor('lanes'), clamp(st.tk.m * 3, 0, 1) * st.tk.exit);
     if (st.ov > 0.001) k = lerpKF(k, KF.popup, st.ov);
     if (st.pre > 0.001) k = lerpKF(k, KF.pre, st.pre);
     return k;
   }
   function kfFor(name) {
     var k = KF[name] || KF.hero, i, j, r, base, p;
-    if (name === 'path' && st.anchors) {
-      // the light path threads through the live DOM node positions
-      var an = st.anchors, n = an.length, f = an[0], l = an[n - 1];
-      var d0 = norm(f[0] - an[1][0], f[1] - an[1][1]), d1 = norm(l[0] - an[n - 2][0], l[1] - an[n - 2][1]);
-      var ext = [[f[0] + d0[0] * .6, f[1] + d0[1] * .6]].concat(an.slice(0, 4)).concat([[l[0] + d1[0] * .6, l[1] + d1[1] * .6]]);
-      r = [];
-      for (i = 0; i < 3; i++) { base = k.r[i]; r.push(withP(base, ext)); }
-      return { r: r, g: k.g };
-    }
     if (k.fc && st.focus[name]) {
       var fx = st.focus[name][0] - k.fc[0], fy = st.focus[name][1] - k.fc[1], g2 = {};
       for (var gk in k.g) g2[gk] = k.g[gk];
@@ -480,7 +524,7 @@
   function norm(x, y) { var l = Math.sqrt(x * x + y * y) || 1; return [x / l, y / l]; }
   function withP(b, p) { return { p: p, w: b.w, tw: b.tw, b: b.b, fr: b.fr, sp: b.sp, ph: b.ph, dp: b.dp, hu: b.hu }; }
 
-  var U = { p: new Float32Array(36), ra: new Float32Array(12), rb: new Float32Array(12), scr: new Float32Array(16), node: new Float32Array(16) };
+  var U = { p: new Float32Array(36), ra: new Float32Array(12), rb: new Float32Array(12), scr: new Float32Array(16), node: new Float32Array(16), tp: new Float32Array(16) };
 
   function render(now) {
     var dt = Math.min(.5, Math.max(.001, (now - lastT) / 1000 || .016));
@@ -547,6 +591,14 @@
     gl.uniform1f(P.u.u_warp, clamp(g.warp + st.energy * .45, 0, 1)); gl.uniform1f(P.u.u_lw, g.lw * A.lineW); gl.uniform1f(P.u.u_wind, g.wind);
     gl.uniform3f(P.u.u_ptr, (st.ptr[0] / cw * 2 - 1) * asp, 1 - st.ptr[1] / ch * 2, st.ptr[2]);
     gl.uniform1f(P.u.u_gain, gain * A.gain / fmt.scale * (fmt.scale > 1 ? 1 : 1));
+    var TK = st.tk, tm = TK.pts ? clamp(TK.m, 0, 1) : 0;
+    if (tm > 0) {
+      for (i = 0; i < 8; i++) { U.tp[i * 2] = (TK.pts[i][0] / cw * 2 - 1) * asp; U.tp[i * 2 + 1] = 1 - (TK.pts[i][1] + TK.dy) / ch * 2; }
+      gl.uniform2fv(P.u.u_tp, U.tp);
+    }
+    gl.uniform4f(P.u.u_tk, tm, clamp(TK.draw, .001, 1), TK.w * 2 / ch, TK.plume);
+    // the whole strand population sits on one line: scale per-strand light so the sum stays a line, not a white-out
+    gl.uniform4f(P.u.u_tk2, TK.tip, TK.gain * 1100 / Math.max(200, nDraw), TK.fray, 0);
     gl.bindBuffer(gl.ARRAY_BUFFER, bufs.tpl);
     gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0); divisor(0, 0);
     gl.bindBuffer(gl.ARRAY_BUFFER, bufs.inst);
@@ -583,9 +635,12 @@
     gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, fbos[1].t); gl.uniform1i(C.u.u_bloom, 1);
     gl.activeTexture(gl.TEXTURE0);
     gl.uniform2f(C.u.u_res, W, H); gl.uniform1f(C.u.u_time, T); gl.uniform1f(C.u.u_aspect, asp);
-    gl.uniform1f(C.u.u_exp, g.exp * A.exposure); gl.uniform1f(C.u.u_bloomK, g.bloom * .55 * (1 + st.energy * .6));
-    gl.uniform1f(C.u.u_warp, reduce ? 0 : clamp(g.warp * .35 + st.energy * .5, 0, .9));
-    gl.uniform1f(C.u.u_vel, reduce ? 0 : clamp(st.svel, -1, 1) * .55);
+    var calm = 1 - .88 * tm, fl = TK.flare * tm;
+    gl.uniform1f(C.u.u_exp, g.exp * A.exposure * (1 + fl * .18)); gl.uniform1f(C.u.u_bloomK, g.bloom * .55 * (1 + st.energy * .6) * (1 + fl * 1.6));
+    gl.uniform1f(C.u.u_warp, reduce ? 0 : clamp(g.warp * .35 + st.energy * .5, 0, .9) * calm);
+    gl.uniform1f(C.u.u_vel, reduce ? 0 : clamp(st.svel, -1, 1) * .55 * calm);
+    var sh = TK.shim && tm > 0 && !reduce ? TK.shim : null;
+    gl.uniform4f(C.u.u_shim, sh ? sh[0] / cw : 0, sh ? 1 - (sh[1] + TK.dy) / ch : 0, sh ? sh[2] / ch : .1, sh ? sh[3] : 0);
     gl.uniform1f(C.u.u_glow, g.glow * (1 + st.ov * .3)); gl.uniform2f(C.u.u_glowPos, g.gx, g.gy);
     gl.uniform1f(C.u.u_scale, fmt.scale); gl.uniform1f(C.u.u_fade, st.fade); gl.uniform1f(C.u.u_grain, A.grain);
     for (i = 0; i < 4; i++) {
@@ -687,6 +742,9 @@
   A.velocity = function (v) { st.vel = clamp(v, -2, 2); };
   A.pointer = function (x, y) { st.ptrT[0] = x; st.ptrT[1] = y; if (!st.ptrSeen) { st.ptr[0] = x; st.ptr[1] = y; st.ptrSeen = true; } st.ptrT[2] = Math.min(1, st.ptrT[2] + .25); };
   A.overlay = function (on) { st.ovT = on ? 1 : 0; };
+  // stage 02 "graph into rocket": pts = 8 control points in client px (entry, origin, 4 milestones, top, beyond),
+  // m = condense mix, draw = drawn extent along the path (0..1), plume/flare/shim = launch effects, dy = scene offset
+  A.takeoff = function (o) { var k; for (k in o) st.tk[k] = o[k]; };
   // hold: the page covers the canvas (e.g. the full-screen menu) — stop drawing until released
   A.hold = function (on) { st.held = !!on; if (on) stopLoop(); else if (A.ok && !reduce) startLoop(); };
   A.scrims = function (list) {

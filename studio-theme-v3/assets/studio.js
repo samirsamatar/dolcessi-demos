@@ -120,6 +120,7 @@
     if (!HAS_GSAP) return;
     var gs = h._ghosts || [];
     delay = delay || 0;
+    h._played = true;
     placeGhosts(h);
     h._busy = true;
     var dist = clamp(h.offsetHeight * .26, 30, 96);
@@ -198,7 +199,8 @@
     echoes.forEach(function (h) {
       if (h.id === 'hero-h') return;
       gsap.set(h, { opacity: 0 });
-      ST.create({ trigger: h, start: 'top 84%', once: true, onEnter: function () { playEcho(h, 0, 1, 0); } });
+      var sc = h.closest('[data-tk]');
+      ST.create({ trigger: sc || h, start: sc ? 'top 55%' : 'top 84%', once: true, onEnter: function () { playEcho(h, 0, 1, 0); if (sc) sc.classList.add('is-in'); } });
     });
     $$('[data-count]').forEach(function (el) {
       el.textContent = '0';
@@ -273,47 +275,176 @@
     }
   }
 
-  /* ───────────────────────── path / node graph ───────────────────────── */
-  var graph = $('[data-graph]'), nodes = $$('[data-node]'), svg = graph && $('.graph__lines', graph);
-  var segs = [], pathProg = 0;
-  var NODE_AT = [.06, .3, .54, .78];
-  function iconCenter(n, ref) {
-    var r = $('.node__ic', n).getBoundingClientRect();
-    return [r.left + r.width / 2 - (ref ? ref.left : 0), r.top + r.height / 2 - (ref ? ref.top : 0)];
-  }
-  function drawGraph() {
-    if (!graph) return;
-    var gr = graph.getBoundingClientRect(), vertical = isNarrow();
-    $$('path,circle', svg).forEach(function (e) { e.remove(); });
-    segs = [];
-    var pts = nodes.map(function (n) { return iconCenter(n, gr); });
-    for (var i = 0; i < pts.length - 1; i++) {
-      var a = pts[i], b = pts[i + 1], dx = b[0] - a[0], dy = b[1] - a[1], dd;
-      if (vertical) dd = 'M' + a[0] + ',' + (a[1] + 30) + ' C' + a[0] + ',' + (a[1] + dy * .5) + ' ' + b[0] + ',' + (b[1] - dy * .5) + ' ' + b[0] + ',' + (b[1] - 30);
-      else dd = 'M' + (a[0] + 30) + ',' + a[1] + ' C' + (a[0] + dx * .55) + ',' + a[1] + ' ' + (b[0] - dx * .55) + ',' + b[1] + ' ' + (b[0] - 30) + ',' + b[1];
-      var base = d.createElementNS('http://www.w3.org/2000/svg', 'path'); base.setAttribute('d', dd); base.setAttribute('class', 'base');
-      var lit = d.createElementNS('http://www.w3.org/2000/svg', 'path'); lit.setAttribute('d', dd); lit.setAttribute('class', 'lit');
-      var sp = d.createElementNS('http://www.w3.org/2000/svg', 'circle'); sp.setAttribute('r', '3'); sp.setAttribute('class', 'spark');
-      svg.appendChild(base); svg.appendChild(lit); svg.appendChild(sp);
-      var len = lit.getTotalLength(); lit.style.strokeDasharray = len; lit.style.strokeDashoffset = len;
-      segs.push({ lit: lit, sp: sp, len: len });
+  /* ───────────────────────── stage 02: graph into rocket ─────────────────────────
+     One continuous light: the stage-01 strands condense (aurora.js, scroll-scrubbed) into a single
+     bundle that enters from the left edge, draws a hockey-stick growth curve through four milestones,
+     turns into a rocket at the top and launches out of frame; the trail then splits into stage 03's lanes.
+     Layout is computed in px from the sticky scene (one viewport tall), so the whole graph always fits. */
+  var tk = $('[data-tk]'), tkIn = tk && $('.tk__sticky', tk), tkCam = tk && $('.tk__cam', tk), tkHead = tk && $('.tk__head', tk);
+  var tkNodes = tk ? $$('[data-tk-node]', tk) : [], tkDots = tk ? $$('[data-tk-dot]', tk) : [], tkTicks = tk ? $$('[data-tk-tick]', tk) : [];
+  var tkFlash = tk && $('[data-tk-flash]', tk), tkRocket = tk && $('[data-tk-rocket]', tk), tkFlat = tk && $('[data-tk-flat]', tk);
+  var tkBase = tk && $('.tk__base', tk), tkAxis = tk && $('.tk__axis', tk), tkSparkBox = tk && $('[data-tk-sparks]', tk), tkPaths = tk ? $$('[data-tk-path]', tk) : [];
+  var S_START = 1.5 / 7, S_TOP = 6 / 7, S_M = [2 / 7, 3 / 7, 4 / 7, 5 / 7];
+  var TKL = null, tkBlock = false;
+  var tkS = { p: -1, on: [0, 0, 0, 0], sparks: [], emit: 0, lastT: 0, shook: false, cvsShake: false, near: false };
+  function tkPt(P, s) {
+    // the same uniform Catmull-Rom the shader evaluates (point + derivative), so DOM and light stay locked together
+    var f = clamp(s, 0, 1) * 7, i = Math.min(Math.floor(f), 6), u = f - i, u2 = u * u, u3 = u2 * u;
+    var p1 = P[i], p2 = P[i + 1];
+    var p0 = i === 0 ? [2 * p1[0] - p2[0], 2 * p1[1] - p2[1]] : P[i - 1], p3 = i === 6 ? [2 * p2[0] - p1[0], 2 * p2[1] - p1[1]] : P[i + 2];
+    var o = [];
+    for (var k = 0; k < 2; k++) {
+      var a = -p0[k] + p2[k], b = 2 * p0[k] - 5 * p1[k] + 4 * p2[k] - p3[k], c = -p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k];
+      o[k] = .5 * (2 * p1[k] + a * u + b * u2 + c * u3); o[k + 2] = .5 * (a + 2 * b * u + 3 * c * u2);
     }
-    setPath(pathProg);
+    return o;
   }
-  function setPath(p) {
-    pathProg = p;
-    nodes.forEach(function (n, i) { n.classList.toggle('is-lit', p >= NODE_AT[i]); });
-    segs.forEach(function (s, i) {
-      var f = sstep((p - NODE_AT[i]) / (NODE_AT[i + 1] - NODE_AT[i]));
-      s.lit.style.strokeDashoffset = (s.len * (1 - f)).toFixed(1);
-      var pt = s.lit.getPointAtLength(s.len * f);
-      s.sp.setAttribute('cx', pt.x.toFixed(1)); s.sp.setAttribute('cy', pt.y.toFixed(1));
-      s.sp.style.opacity = f > .01 && f < .99 ? 1 : 0;
+  function tkLayout() {
+    if (!tk || !tkIn) return;
+    var W = tkIn.clientWidth, H = tkIn.clientHeight, tall = W / H < .82;
+    if (!W || !H) return;
+    var ir = tkIn.getBoundingClientRect(), hr = tkHead.getBoundingClientRect(), cs = getComputedStyle(tkHead);
+    var lx = hr.left - ir.left + parseFloat(cs.paddingLeft), rx = hr.right - ir.left - parseFloat(cs.paddingRight);
+    var hb = hr.bottom - ir.top, x0, x5, yb, yt, U, ex;
+    if (!tall) {
+      x0 = lx; x5 = lx + (rx - lx) * .78;
+      yb = H - clamp(H * .105, 56, 104);
+      U = [.27, .5, .72, .87]; ex = 2.7;
+      yt = Math.max(clamp(H * .2, 140, 220), 0);
+    } else {
+      x0 = lx; x5 = W - Math.max(30, W * .09);
+      yb = H - clamp(H * .07, 44, 66);
+      U = [.33, .62, .8, .92]; ex = 2.4;
+      // the top milestone's card must clear the headline; the rocket may sit beside the (narrow) headline
+      var v4 = Math.pow(U[3], ex);
+      yt = Math.max(132, yb - (yb - hb - 48) / v4);
+    }
+    var pts = [[-W * .7, yb], [x0, yb]];
+    U.forEach(function (u) { pts.push([x0 + u * (x5 - x0), yb - Math.pow(u, ex) * (yb - yt)]); });
+    pts.push([x5, yt]); pts.push([x5 + W * .012, -H * .7]);
+    // cards: flags standing on the flat part, then hanging off the steep part (desktop); a rising stair left of the line (phones)
+    var boxes = [];
+    tkNodes.forEach(function (n, k) {
+      var M = pts[k + 2], cw = n.offsetWidth, ch = n.offsetHeight, x, y, ox;
+      if (!tall) {
+        if (k < 2) { x = M[0] + 10 - cw; y = M[1] - 24 - ch; ox = '100%'; }
+        else { x = M[0] + 26; y = M[1] + 14; ox = '0%'; }
+      } else {
+        if (k === 0) { x = M[0] + 16 - cw; y = M[1] - 22 - ch; }
+        else { x = M[0] - 18 - cw; y = M[1] - ch / 2 - [24, 8, 0][k - 1]; }
+        ox = '100%';
+      }
+      x = clamp(x, lx, W - lx - cw);
+      if (k > 0) {
+        var pb = boxes[k - 1];
+        if (x < pb[0] + pb[2] && x + cw > pb[0] && y + ch > pb[1] - 8 && y < pb[1] + pb[3]) y = pb[1] - ch - 8;
+      }
+      boxes.push([x, y, cw, ch]);
+      n.style.setProperty('--x', x.toFixed(1) + 'px'); n.style.setProperty('--y', y.toFixed(1) + 'px'); n.style.setProperty('--ox', ox);
     });
+    tkDots.forEach(function (dt, k) { dt.style.setProperty('--t', 'translate(' + pts[k + 2][0].toFixed(1) + 'px,' + pts[k + 2][1].toFixed(1) + 'px)'); });
+    tkTicks.forEach(function (t, k) { t.style.transform = 'translate(' + pts[k + 2][0].toFixed(1) + 'px,' + (yb + 1).toFixed(1) + 'px)'; });
+    if (tkBase) { tkBase.style.setProperty('--bx', x0 + 'px'); tkBase.style.setProperty('--by', yb + 'px'); tkBase.style.setProperty('--bw', Math.max(0, W - lx - x0) + 'px'); }
+    if (tkFlat) tkFlat.style.transform = 'translate(' + (W - lx) + 'px,' + (yb - 10) + 'px) translate(-100%,-100%)';
+    var rw = tall ? clamp(W * .1, 30, 42) : clamp(H * .066, 40, 64);
+    if (tkRocket) tkRocket.style.setProperty('--rw', rw + 'px');
+    // no-WebGL fallback: an SVG polyline of the same curve, drawn with stroke-dashoffset
+    var smp = [], L = 0, dd = '';
+    for (var q = 0; q <= 280; q++) {
+      var s = q / 280, pt = tkPt(pts, s);
+      if (q) L += Math.hypot(pt[0] - smp[q - 1][1], pt[1] - smp[q - 1][2]);
+      smp.push([s, pt[0], pt[1], L]); dd += (q ? 'L' : 'M') + pt[0].toFixed(1) + ',' + pt[1].toFixed(1);
+    }
+    tkPaths.forEach(function (pth) { pth.setAttribute('d', dd); pth.style.strokeDasharray = L.toFixed(0); });
+    TKL = { W: W, H: H, tall: tall, pts: pts, smp: smp, len: L, rw: rw, rh: rw * 2.25, x5: x5, yt: yt };
+    tkS.p = -1; // force a refresh
   }
-  if (graph) {
-    drawGraph();
-    if (!HAS_GSAP) setPath(1);
+  function tkLenAt(s) { var a = TKL.smp, i = Math.min(a.length - 1, Math.max(0, Math.round(s * (a.length - 1)))); return a[i][3]; }
+  function tkDraw(p) {
+    if (p < .04) return S_START;
+    if (p < .56) return S_START + (S_TOP - S_START) * ((p - .04) / .52);
+    if (p < .68) return S_TOP;
+    return S_TOP + (1 - S_TOP) * Math.pow(clamp((p - .68) / .22, 0, 1), 2.2);
+  }
+  function hat(v, a, b, c) { return v <= a || v >= c ? 0 : v < b ? sstep((v - a) / (b - a)) : 1 - sstep((v - b) / (c - b)); }
+  if (tkSparkBox) for (var si = 0; si < 22; si++) { var sp = d.createElement('i'); tkSparkBox.appendChild(sp); tkS.sparks.push({ el: sp, life: 0, age: 0, x: 0, y: 0, vx: 0, vy: 0 }); }
+  function tkFrame(now, vh) {
+    if (!tk || !TKL) return;
+    var dt = Math.min(.05, Math.max(.001, (now - (tkS.lastT || now)) / 1000)); tkS.lastT = now;
+    var r = tk.getBoundingClientRect(), ih = tkIn.offsetHeight, span = Math.max(1, r.height - ih);
+    var near = r.top < vh * 1.05 && r.bottom > -vh * .05;
+    tkBlock = r.top < vh * .55 && r.bottom > vh * .45;
+    if (!near) {
+      if (tkS.near) { tkS.near = false; if (A) A.takeoff({ m: 0 }); if (tkS.cvsShake && canvas) { canvas.style.transform = ''; tkS.cvsShake = false; } }
+      return;
+    }
+    tkS.near = true;
+    var e = clamp(1 - r.top / vh, 0, 1), x = clamp(-(r.top + span) / ih, 0, 1);
+    var raw = REDUCE ? .645 : clamp(-r.top / span, 0, 1);
+    var dtr = Math.min(.25, Math.max(.001, (now - (tkS.lastR || now)) / 1000)); tkS.lastR = now;
+    var p = tkS.p < 0 || Math.abs(raw - tkS.p) > .25 ? raw : lerp(tkS.p, raw, 1 - Math.exp(-dtr * 16));
+    tkS.p = p;
+    var m = REDUCE ? (e > .5 && x < .5 ? 1 : 0) : sstep((e - .08) / .84) * (1 - sstep(x / .85));
+    var draw = tkDraw(p), f = sstep((p - .55) / .08), g = sstep((p - .62) / .06), q = clamp((p - .68) / .22, 0, 1);
+    var plume = REDUCE ? .22 : g * (.3 + .7 * sstep((p - .68) / .05)) * (1 - .7 * sstep((p - .88) / .12));
+    var flare = REDUCE ? 0 : g * .12 + .5 * hat(p, .68, .72, .84);
+    var innerTop = tkIn.getBoundingClientRect().top, dy = Math.min(0, innerTop);
+    var P = TKL.pts, tip = tkPt(P, draw);
+    // milestones: card + dot + tick pop as the tip reaches them
+    var glows = [];
+    for (var k = 0; k < 4; k++) {
+      var on = draw >= S_M[k] - .0015 && (e > .98 || REDUCE) ? 1 : 0;
+      if (on !== tkS.on[k]) {
+        tkS.on[k] = on;
+        tkNodes[k].classList.toggle('is-on', !!on); tkTicks[k] && tkTicks[k].classList.toggle('is-on', !!on);
+        var dot = tkDots[k]; dot.classList.toggle('is-on', !!on); dot.classList.remove('is-hit');
+        if (on && !REDUCE) { void dot.offsetWidth; dot.classList.add('is-hit'); }
+      }
+      if (on) glows.push([P[k + 2][0], P[k + 2][1] + innerTop, (.12 + .55 * Math.exp(-(draw - S_M[k]) * 34)) * m, TKL.tall ? 34 : 46]);
+    }
+    if (tkAxis) tkAxis.style.setProperty('--ax', (REDUCE ? 1 : sstep(p / .05) * (1 - x)).toFixed(3));
+    // the rocket forms at the tip, idles (the "_" plate blinks like the wordmark cursor), ignites and launches
+    if (tkRocket) {
+      if (f > .001) {
+        var ang = Math.atan2(tip[2], -tip[3]) * 180 / Math.PI, bo = 1 + 2.2 * Math.pow(f - 1, 3) + 1.2 * Math.pow(f - 1, 2);
+        var sc = .2 + .8 * bo;
+        tkRocket.style.opacity = Math.min(1, f * 1.6).toFixed(3);
+        tkRocket.style.transform = 'translate3d(' + (tip[0] - TKL.rw / 2).toFixed(1) + 'px,' + (tip[1] - TKL.rh).toFixed(1) + 'px,0) rotate(' + ang.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+        var fl = g * (.45 + .55 * sstep((p - .68) / .05)) * (REDUCE ? .5 : (1 + .12 * Math.sin(now * .047) + .08 * Math.sin(now * .113)));
+        tkRocket.style.setProperty('--fl', fl.toFixed(3));
+        tkRocket.classList.toggle('is-lit', g > .3);
+      } else if (tkRocket.style.opacity !== '0') { tkRocket.style.opacity = '0'; tkRocket.classList.remove('is-lit'); }
+    }
+    if (tkFlash) { var fh = REDUCE ? 0 : 4 * f * (1 - f); tkFlash.style.opacity = fh.toFixed(3); tkFlash.style.transform = 'translate(' + TKL.x5.toFixed(1) + 'px,' + TKL.yt.toFixed(1) + 'px) scale(' + (1 + 7 * f).toFixed(2) + ')'; }
+    // tiny camera shake at ignition/launch (scene + light together)
+    var amp = REDUCE ? 0 : (TKL.tall ? 1.4 : 2.4) * (sstep((p - .64) / .04) * (1 - sstep((p - .74) / .14)) + .25 * g * (1 - q));
+    if (amp > .05 && m > .5) {
+      var sx = amp * (Math.sin(now * .053) + .6 * Math.sin(now * .0317 + 1.3)) / 1.6, sy = amp * (Math.cos(now * .047) + .6 * Math.sin(now * .029 + .4)) / 1.6;
+      var tr = 'translate3d(' + sx.toFixed(2) + 'px,' + sy.toFixed(2) + 'px,0)';
+      tkCam.style.transform = tr; if (canvas) { canvas.style.transform = tr; tkS.cvsShake = true; } tkS.shook = true;
+    } else if (tkS.shook) { tkCam.style.transform = ''; if (canvas) canvas.style.transform = ''; tkS.shook = tkS.cvsShake = false; }
+    // sparks from the nozzle while the engine burns
+    var burning = !REDUCE && g > .2 && q < .97 && tip[1] > -40, ux = -tip[2], uy = -tip[3], ul = Math.hypot(ux, uy) || 1; ux /= ul; uy /= ul;
+    if (burning) tkS.emit += dt * (26 + 70 * hat(p, .66, .72, .9));
+    tkS.sparks.forEach(function (s) {
+      if (tkS.emit >= 1 && s.life <= 0 && burning) {
+        tkS.emit -= 1; var a = (Math.random() - .5) * 1.5, v = 90 + Math.random() * 260;
+        s.x = tip[0]; s.y = tip[1] + 2; s.vx = (ux * Math.cos(a) - uy * Math.sin(a)) * v; s.vy = (ux * Math.sin(a) + uy * Math.cos(a)) * v; s.life = .35 + Math.random() * .55; s.age = 0;
+      }
+      if (s.life > 0) {
+        s.age += dt; s.vy += 380 * dt; s.x += s.vx * dt; s.y += s.vy * dt;
+        var k2 = 1 - s.age / s.life; if (k2 <= 0) { s.life = 0; s.el.style.opacity = '0'; return; }
+        s.el.style.opacity = (k2 * .95).toFixed(2); s.el.style.transform = 'translate3d(' + s.x.toFixed(1) + 'px,' + s.y.toFixed(1) + 'px,0) scale(' + (.5 + k2).toFixed(2) + ')';
+      }
+    });
+    if (tkS.emit > 3) tkS.emit = 3;
+    // no-WebGL: the SVG curve draws itself the same way
+    if (!A && tkPaths.length) { var off = (TKL.len - tkLenAt(draw)).toFixed(1); tkPaths.forEach(function (pth) { pth.style.strokeDashoffset = off; }); }
+    if (A) {
+      A.takeoff({ pts: P, m: m, draw: draw, dy: dy, w: TKL.tall ? 3.2 : 4.2, plume: plume, tip: q > .97 ? 0 : 2.6 + 1.6 * g, gain: TKL.tall ? .05 : .034, fray: .35, flare: flare,
+        exit: x > 0 ? 1 : 0, shim: g > .05 ? [tip[0], tip[1] + 18, TKL.tall ? 46 : 70, g * (1 - .5 * q)] : null });
+      A.nodes(glows);
+    }
   }
 
   /* ───────────────────────── work track ───────────────────────── */
@@ -329,8 +460,6 @@
   if (HAS_GSAP) {
     var mm = gsap.matchMedia();
     mm.add('(min-width: 861px)', function () {
-      // path: pinned stage; the node graph lights up as you pass it
-      ST.create({ trigger: '.path__pin', pin: true, start: 'top top', end: '+=130%', scrub: true, onUpdate: function (s) { setPath(s.progress * 1.04); }, onRefresh: drawGraph });
       // work: pinned horizontal run under a fixed headline row; phones fly in out of the warp
       var cards = $$('.card', track);
       var dist = function () { var l = cards[cards.length - 1]; return Math.max(0, l.offsetLeft + l.offsetWidth + (parseFloat(getComputedStyle(track).paddingRight) || 0) - innerWidth); };
@@ -343,7 +472,6 @@
       return function () { gsap.set(track, { clearProps: 'transform' }); };
     });
     mm.add('(max-width: 860px)', function () {
-      ST.create({ trigger: graph, start: 'top 78%', end: 'bottom 88%', scrub: true, onUpdate: function (s) { setPath(s.progress * 1.05); }, onRefresh: drawGraph });
       gsap.fromTo($$('.card', track), { x: 120, opacity: 0 }, { x: 0, opacity: 1, duration: 1.2, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: track, start: 'top 85%', once: true } });
     });
     // hero leaves the stage: copy drifts up and dims, the card floats away faster
@@ -351,12 +479,14 @@
     gsap.to('.sc', { yPercent: -38, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
     W.addEventListener('load', function () { ST.refresh(); });
     if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { ST.refresh(); });
-  } else {
-    setPath(1);
   }
   var rT = 0;
-  W.addEventListener('resize', function () { clearTimeout(rT); rT = setTimeout(function () { drawGraph(); phoneBar(); echoes.forEach(placeGhosts); }, 150); });
-  if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { echoes.forEach(placeGhosts); });
+  W.addEventListener('resize', function () { clearTimeout(rT); rT = setTimeout(function () { tkLayout(); phoneBar(); echoes.forEach(placeGhosts); }, 150); });
+  if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { echoes.forEach(placeGhosts); tkLayout(); });
+  W.addEventListener('load', tkLayout);
+  d.addEventListener('lang', function () { setTimeout(tkLayout, 30); });
+  tkLayout();
+  if (tk && !HAS_GSAP) tk.classList.add('is-in');
 
   /* ───────────────────────── bento: language flip ───────────────────────── */
   var flip = $('[data-flip]');
@@ -475,7 +605,6 @@
   var scrimEls = $$('[data-scrim]');
   var laneEls = $$('[data-lane]');
   var baPhone = $('.ba__phone'), ctaBtn = $('.cta .btn--xl');
-  var nodeGlow = [0, 0, 0, 0];
 
   function startAurora() {
     if (!W.Aurora || !canvas) { html.classList.add('no-gl'); return; }
@@ -510,7 +639,7 @@
       if (Math.abs(lastDy) > innerHeight * .6) ve = av = 0; // a jump, not a scroll
       if (av > .04 || echoLive) {
         echoLive = av > .04;
-        var vis = echoes.filter(function (h) { if (h._busy || !h._ghosts) return false; var hr = h.getBoundingClientRect(); return hr.bottom > -50 && hr.top < vh + 50; });
+        var vis = echoes.filter(function (h) { if (h._busy || !h._ghosts || !h._played) return false; var hr = h.getBoundingClientRect(); return hr.bottom > -50 && hr.top < vh + 50; });
         for (var e = 0; e < vis.length; e++) {
           var h = vis[e];
           for (var gi = 0; gi < h._ghosts.length; gi++) {
@@ -549,10 +678,11 @@
     });
     if (dock) {
       // the dock only shows when no other "Show me my site" button (or the footer) is on screen
-      var on = y > vh * .6 && !dockBlocked && !askOpen && !menuOpen;
+      var on = y > vh * .6 && !dockBlocked && !tkBlock && !askOpen && !menuOpen;
       if (dock._on !== on) { dock._on = on; dock.classList.toggle('is-on', on); dock.setAttribute('aria-hidden', on ? 'false' : 'true'); dock.tabIndex = on ? 0 : -1; }
     }
 
+    tkFrame(now, vh);
     if (!A) { trailEcho(vh); return; }
     A.stage(sf);
     A.velocity(vel / 2600);
@@ -560,17 +690,7 @@
     var busy = Math.abs(dy) > .01 || (frameN++ & 3) === 0;
     if (busy) pushScrims(vh);
 
-    // node graph → light path anchors and node glows
-    if (graph && busy) {
-      var gr = graph.getBoundingClientRect();
-      if (gr.bottom > -vh && gr.top < vh * 2) {
-        var pts = nodes.map(function (n) { return iconCenter(n); });
-        A.anchors(pts);
-        var gl = [];
-        for (var k = 0; k < 4; k++) { nodeGlow[k] = lerp(nodeGlow[k], nodes[k].classList.contains('is-lit') ? 1 : 0, .08); gl.push([pts[k][0], pts[k][1], nodeGlow[k] * .32, 46]); }
-        A.nodes(gl);
-      } else { A.nodes([]); }
-    }
+    if (!tkS.near && busy) A.nodes([]);
     if (busy && baPhone && A.focus) { var bp = baPhone.getBoundingClientRect(); A.focus('proof', bp.left + bp.width / 2, bp.top + bp.height / 2); }
     if (busy && ctaBtn && A.focus) { var cb = ctaBtn.getBoundingClientRect(); A.focus('cta', cb.left + cb.width / 2, cb.top + cb.height / 2); }
     if (busy && laneEls.length && A.lanes) {

@@ -88,7 +88,7 @@
   <ol>
     <li data-rail="0"><span data-nl="Start">Start</span></li>
     <li data-rail="1"><span data-nl="Waarom">Why</span></li>
-    <li data-rail="2"><span data-nl="Route">Path</span></li>
+    <li data-rail="2"><span data-nl="Opstijgen">Lift-off</span></li>
     <li data-rail="3"><span data-nl="Werkwijze">How</span></li>
     <li data-rail="4"><span data-nl="Werk">Work</span></li>
     <li data-rail="5"><span data-nl="Inhoud">Inside</span></li>
@@ -162,35 +162,58 @@
     </div>
   </section>
 
-  <!-- ───────── PATH ───────── -->
-  <section class="s path" id="path" data-stage="path" aria-labelledby="path-h">
-    <div class="path__pin">
-      <div class="wrap path__wrap">
-        <div class="path__head" data-scrim="1">
-          <p class="label mono" data-reveal><i class="live" aria-hidden="true"></i><span class="n">02</span><span data-nl="Wat een goede site doet">What a good site does</span></p>
-          <h2 class="h2" id="path-h" data-echo data-nl="Van zoeken <em>tot zitten.</em>">From search <em>to seat.</em></h2>
-          <p class="lede" data-reveal data-nl="Een goede site heeft één taak: mensen van hun telefoon naar jouw deur brengen. Geen gezoek, geen pdf.">A good site has one job: get people from their phone to your door. No hunting, no PDFs.</p>
+  <!-- ───────── PATH: graph into rocket (sticky, one viewport tall; driven by studio.js + aurora.js) ───────── -->
+  <section class="s tk" id="path" data-stage="path" data-tk aria-labelledby="path-h">
+    <div class="tk__sticky">
+      <div class="tk__cam">
+        <div class="tk__axis" aria-hidden="true">
+          <i class="tk__base"></i>
+          <span class="tk__tick" data-tk-tick><b class="mono">01</b></span><span class="tk__tick" data-tk-tick><b class="mono">02</b></span><span class="tk__tick" data-tk-tick><b class="mono">03</b></span><span class="tk__tick" data-tk-tick><b class="mono">04</b></span>
+          <span class="tk__flat mono" data-tk-flat data-nl="een site die stilstaat">a site that just sits there</span>
         </div>
-        <div class="graph" data-graph>
-          <svg class="graph__lines" aria-hidden="true"><defs><linearGradient id="gl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF5A1F"/><stop offset="1" stop-color="#FFB27A"/></linearGradient></defs></svg>
-          <ol class="graph__nodes">
-            <li class="node glass" data-node>
-              <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span>
-              <span class="node__t"><span class="node__k mono"><span>01</span><span data-nl="Zoekt">Search</span></span><b data-nl="Gezocht">Searched</b><small data-nl="“koffie in de buurt”, 08:12">“coffee near me”, 08:12</small></span>
-            </li>
-            <li class="node glass" data-node>
-              <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10 18.5h4"/></svg></span>
-              <span class="node__t"><span class="node__k mono"><span>02</span><span data-nl="Opent">Open</span></span><b data-nl="Opende je site">Opened your site</b><small data-nl="Menu meteen in beeld. Geen pdf.">Menu on screen. Not a PDF.</small></span>
-            </li>
-            <li class="node glass" data-node>
-              <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0113 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span>
-              <span class="node__t"><span class="node__k mono"><span>03</span><span data-nl="Tikt">Tap</span></span><b data-nl="Tikte op “Route”">Tapped “Route”</b><small data-nl="Of Bellen. Of Reserveren.">Or Call. Or Book.</small></span>
-            </li>
-            <li class="node glass node--end" data-node>
-              <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 21V4.5A1.5 1.5 0 016.5 3h11A1.5 1.5 0 0119 4.5V21"/><path d="M3 21h18"/><circle cx="15" cy="12.5" r="1"/></svg></span>
-              <span class="node__t"><span class="node__k mono"><span>04</span><span data-nl="Binnen">In</span></span><b data-nl="Kwam binnen">Walked in</b><small data-nl="Dat is de hele klus.">That’s the whole job.</small></span>
-            </li>
-          </ol>
+        <svg class="tk__svg" aria-hidden="true" focusable="false"><defs><linearGradient id="tkg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FF5A1F"/><stop offset=".7" stop-color="#FFB27A"/><stop offset="1" stop-color="#FFE2C8"/></linearGradient></defs><path class="tk__glow" data-tk-path/><path class="tk__line" data-tk-path/></svg>
+        <div class="wrap tk__head"><div class="tk__copy" data-scrim="1">
+          <p class="label mono tk__in"><i class="live" aria-hidden="true"></i><span class="n">02</span><span data-nl="Wat een goede site doet">What a good site does</span></p>
+          <h2 class="h2" id="path-h" data-echo data-nl="Goede sites staan niet stil.<br> <em>Ze stijgen op.</em>">Good sites don’t sit there.<br> <em>They take off.</em></h2>
+          <p class="lede tk__in" data-nl="Van zoeken tot zitten: een goede site brengt mensen van hun telefoon naar jouw deur.">From search to seat: a good site gets people from their phone to your door.</p>
+        </div></div>
+        <ol class="tk__nodes">
+          <li class="node tk__node glass" data-tk-node>
+            <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span>
+            <span class="node__t"><span class="node__k mono"><span>01</span><span data-nl="Zoekt">Search</span></span><b data-nl="Gezocht">Searched</b><small data-nl="“koffie in de buurt”, 08:12">“coffee near me”, 08:12</small></span>
+          </li>
+          <li class="node tk__node glass" data-tk-node>
+            <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10 18.5h4"/></svg></span>
+            <span class="node__t"><span class="node__k mono"><span>02</span><span data-nl="Opent">Open</span></span><b data-nl="Opende je site">Opened your site</b><small data-nl="Menu meteen in beeld. Geen pdf.">Menu on screen. Not a PDF.</small></span>
+          </li>
+          <li class="node tk__node glass" data-tk-node>
+            <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0113 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span>
+            <span class="node__t"><span class="node__k mono"><span>03</span><span data-nl="Tikt">Tap</span></span><b data-nl="Tikte op “Route”">Tapped “Route”</b><small data-nl="Of Bellen. Of Reserveren.">Or Call. Or Book.</small></span>
+          </li>
+          <li class="node tk__node glass node--end" data-tk-node>
+            <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 21V4.5A1.5 1.5 0 016.5 3h11A1.5 1.5 0 0119 4.5V21"/><path d="M3 21h18"/><circle cx="15" cy="12.5" r="1"/></svg></span>
+            <span class="node__t"><span class="node__k mono"><span>04</span><span data-nl="Binnen">In</span></span><b data-nl="Kwam binnen">Walked in</b><small data-nl="Dat is de hele klus.">That’s the whole job.</small></span>
+          </li>
+        </ol>
+        <div class="tk__dots" aria-hidden="true"><i data-tk-dot></i><i data-tk-dot></i><i data-tk-dot></i><i data-tk-dot></i><i class="tk__flash" data-tk-flash></i></div>
+        <div class="tk__sparks" aria-hidden="true" data-tk-sparks></div>
+        <div class="tk__rocket" aria-hidden="true" data-tk-rocket>
+          <span class="tk__flame"></span>
+          <svg viewBox="0 0 48 108" focusable="false">
+            <defs>
+              <linearGradient id="tkb" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".45" stop-color="#ECE7E1"/><stop offset="1" stop-color="#9A948D"/></linearGradient>
+              <linearGradient id="tkf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF8A4C"/><stop offset="1" stop-color="#C93A0C"/></linearGradient>
+            </defs>
+            <path class="tk__fin" d="M14 58 C8 64 4 74 3 88 L14 82 Z"/>
+            <path class="tk__fin" d="M34 58 C40 64 44 74 45 88 L34 82 Z"/>
+            <path class="tk__body" d="M24 2 C33 12 36.5 26 36.5 42 L36.5 80 C36.5 83 34.5 85 31.5 85 L16.5 85 C13.5 85 11.5 83 11.5 80 L11.5 42 C11.5 26 15 12 24 2 Z"/>
+            <path class="tk__seam" d="M14.5 30 L33.5 30"/>
+            <circle class="tk__port" cx="24" cy="46" r="6.2"/>
+            <circle class="tk__glass" cx="24" cy="46" r="3.6"/>
+            <path class="tk__fin" d="M22.4 62 L25.6 62 L25.6 84 L22.4 84 Z"/>
+            <rect class="tk__nozzle" x="17" y="85" width="14" height="5" rx="1.5"/>
+            <rect class="tk__us" x="12" y="94" width="24" height="5" rx="1.5"/>
+          </svg>
         </div>
       </div>
     </div>
