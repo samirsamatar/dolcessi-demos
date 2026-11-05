@@ -1,0 +1,567 @@
+{% layout none %}<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dolcessi — Websites for cafés &amp; restaurants in Amsterdam</title>
+<meta name="description" content="Dolcessi builds high-end websites for independent cafés and restaurants in Amsterdam. We build your site before you ask: your menu, your hours, your street. You say yes or you don’t. Live within days.">
+<link rel="canonical" href="{{ canonical_url }}">
+<meta name="theme-color" content="#070707">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dolcessi">
+<meta property="og:title" content="Dolcessi — They Google you before they taste you.">
+<meta property="og:description" content="High-end websites for Amsterdam cafés and restaurants. We build yours first. You say yes or you don’t.">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:image" content="https:{{ 'og-v3.jpg' | asset_url }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dolcessi — They Google you before they taste you.">
+<meta name="twitter:description" content="High-end websites for Amsterdam cafés and restaurants. We build yours first.">
+<meta name="twitter:image" content="https:{{ 'og-v3.jpg' | asset_url }}">
+<link rel="icon" type="image/png" sizes="48x48" href="{{ 'favicon-48.png' | asset_url }}">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ 'favicon-192.png' | asset_url }}">
+<link rel="apple-touch-icon" href="{{ 'apple-touch-icon.png' | asset_url }}">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Dolcessi","url":"https://dolcessi.com/","email":"info@dolcessi.com","description":"High-end websites for independent cafés and restaurants in Amsterdam. We build your site before you ask.","slogan":"They Google you before they taste you.","areaServed":{"@type":"City","name":"Amsterdam"},"address":{"@type":"PostalAddress","addressLocality":"Amsterdam","addressCountry":"NL"},"availableLanguage":["nl","en"],"knowsLanguage":["nl","en"],"identifier":{"@type":"PropertyValue","propertyID":"KvK","value":"99514168"} }
+</script>
+<script>document.documentElement.className='js';try{var l=localStorage.getItem('dolcessi_lang');if(!l&&/^nl\b/i.test(navigator.language||''))l='nl';if(l==='nl'){document.documentElement.lang='nl';document.documentElement.classList.add('is-nl')}if(sessionStorage.getItem('dolcessi_seen'))document.documentElement.classList.add('seen')}catch(e){}</script>
+<link rel="preload" href="{{ 'inter-tight-latin-800-normal.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'instrument-serif-latin-400-italic.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'inter-tight-latin-400-normal.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ 'studio.css' | asset_url }}">
+<script src="{{ 'gsap.min.js' | asset_url }}" defer></script>
+<script src="{{ 'ScrollTrigger.min.js' | asset_url }}" defer></script>
+<script src="{{ 'lenis.min.js' | asset_url }}" defer></script>
+<script src="{{ 'aurora.js' | asset_url }}" defer></script>
+<script src="{{ 'studio.js' | asset_url }}" defer></script>
+{{ content_for_header }}
+</head>
+<body>
+<a class="skip" href="#main" data-nl="Naar de inhoud">Skip to content</a>
+
+<canvas id="aurora" class="aurora" aria-hidden="true"></canvas>
+<div class="aurora-fallback" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="pre" id="pre" aria-hidden="true">
+  <div class="pre__mark">dolcessi<span class="cur">_</span></div>
+  <div class="pre__thread"><i></i></div>
+  <div class="pre__meta mono"><span data-nl="Websites voor cafés &amp; restaurants">Websites for cafés &amp; restaurants</span><span>Amsterdam</span></div>
+</div>
+
+<header class="hdr" id="hdr">
+  <a class="mark" href="#top" aria-label="Dolcessi — back to top" data-nl-aria-label="Dolcessi — terug naar boven">dolcessi<span class="cur" aria-hidden="true">_</span></a>
+  <nav class="nav" aria-label="Primary">
+    <a href="#work" data-nl="Werk">Work</a>
+    <a href="#how" data-nl="Werkwijze">How</a>
+    <a href="#proof" data-nl="Bewijs">Proof</a>
+    <a href="#faq" data-nl="Vragen">FAQ</a>
+  </nav>
+  <div class="hdr__r">
+    <span class="clock mono"><i class="live" aria-hidden="true"></i><span class="clock__l">AMS</span> <time data-clock aria-label="Time in Amsterdam">--:--</time></span>
+    <div class="lang mono" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="nl" aria-pressed="false">NL</button>
+    </div>
+    <button type="button" class="btn btn--bone btn--sm" data-ask data-magnetic><span data-nl="Laat mijn site zien">Show me my site</span></button>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="mnav" aria-label="Menu" data-menu><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="mnav" id="mnav" hidden>
+  <nav class="mnav__nav" aria-label="Menu">
+    <a href="#how"><span class="mono">03</span><span data-nl="Werkwijze">How it works</span></a>
+    <a href="#work"><span class="mono">04</span><span data-nl="Werk">Work</span></a>
+    <a href="#proof"><span class="mono">06</span><span data-nl="Bewijs">Proof</span></a>
+    <a href="#faq"><span class="mono">07</span><span data-nl="Vragen">FAQ</span></a>
+  </nav>
+  <div class="mnav__foot">
+    <button type="button" class="btn btn--ember" data-ask><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">→</span></button>
+    <p class="mono"><a href="mailto:info@dolcessi.com">info@dolcessi.com</a><span>AMS <time data-clock>--:--</time></span></p>
+  </div>
+</div>
+
+<aside class="rail mono" aria-hidden="true">
+  <ol>
+    <li data-rail="0"><span data-nl="Start">Start</span></li>
+    <li data-rail="1"><span data-nl="Waarom">Why</span></li>
+    <li data-rail="2"><span data-nl="Route">Path</span></li>
+    <li data-rail="3"><span data-nl="Werkwijze">How</span></li>
+    <li data-rail="4"><span data-nl="Werk">Work</span></li>
+    <li data-rail="5"><span data-nl="Inhoud">Inside</span></li>
+    <li data-rail="6"><span data-nl="Bewijs">Proof</span></li>
+    <li data-rail="7"><span data-nl="Vragen">FAQ</span></li>
+    <li data-rail="8"><span data-nl="Jouw site">Yours</span></li>
+  </ol>
+</aside>
+
+<main id="main">
+
+  <!-- ───────── HERO ───────── -->
+  <section class="s hero" id="top" data-stage="hero" aria-labelledby="hero-h">
+    <div class="wrap hero__grid">
+      <div class="hero__copy" data-scrim="1">
+        <p class="label mono"><i class="live" aria-hidden="true"></i><span><span data-nl="Websites voor cafés &amp; restaurants">Websites for cafés &amp; restaurants</span><span class="lbl-x"> · Amsterdam</span></span></p>
+        <h1 class="h1" id="hero-h" data-echo data-nl="Eerst gegoogeld. <em>Dan</em> geproefd.">They Google you <em>before</em> they taste&nbsp;you.</h1>
+        <p class="lede" data-nl="Wij bouwen een echte website voor je café of restaurant, met jouw menu, jouw openingstijden en jouw straat, <b>nog voordat je erom vraagt</b>. Je ziet hem op je telefoon. Jij zegt ja, of niet.">We build your café or restaurant a real website, with your menu, your hours and your street, <b>before you ask</b>. You see it on your phone. You say yes, or you don’t.</p>
+        <div class="ctas">
+          <button type="button" class="btn btn--ember" data-ask data-magnetic><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">→</span></button>
+          <a class="btn btn--ghost" href="#work" data-magnetic><span data-nl="Bekijk het werk">See the work</span><span class="arr" aria-hidden="true">↓</span></a>
+        </div>
+        <ul class="facts mono">
+          <li><b>40+</b> <span data-nl="concepten live">concepts live</span></li>
+          <li data-nl="Gebouwd in Amsterdam">Built in Amsterdam</li>
+          <li>NL / EN</li>
+        </ul>
+      </div>
+
+      <figure class="sc glass" data-sc aria-label="Example: a guest searches, your site comes up" data-nl-aria-label="Voorbeeld: een gast zoekt, jouw site verschijnt">
+        <div class="sc__top mono"><span><i class="live" aria-hidden="true"></i><span data-nl="Iemand zoekt">Someone’s searching</span></span><span>AMS <time data-clock>--:--</time></span></div>
+        <div class="sc__q"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><span class="sc__typed" data-typed>takoyaki near me</span><i class="caret" aria-hidden="true"></i></div>
+        <a class="sc__res" data-sc-link href="https://concept.dolcessi.com/osakaball/" target="_blank" rel="noopener" data-cursor="VIEW ↗">
+          <span class="sc__ph"><img data-sc-img src="{{ 'work-osakaball.webp' | asset_url }}" alt="" width="620" height="1342" fetchpriority="low"></span>
+          <span class="sc__meta">
+            <span class="sc__badge mono" data-nl="Jouw site">Your site</span>
+            <b data-sc-name>Osakaball</b>
+            <span class="sc__area mono" data-sc-area>De Pijp · Osaka street food</span>
+            <span class="chips"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h9"/></svg><span data-nl="Menu">Menu</span></span><span class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0113 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span data-nl="Route">Route</span></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span data-nl="Bellen">Call</span></span><span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-nl="Reserveer">Book</span></span></span>
+          </span>
+        </a>
+        <figcaption class="sc__foot mono"><span class="sc__url">concept.dolcessi.com/<span data-sc-slug>osakaball</span></span><span class="sc__n"><b data-sc-n>01</b> / 03</span></figcaption>
+      </figure>
+    </div>
+    <a class="scrollcue mono" href="#why" aria-label="Scroll to the next section" data-nl-aria-label="Scroll naar het volgende deel"><span data-nl="Scroll">Scroll</span><i aria-hidden="true"></i></a>
+  </section>
+
+  <!-- ───────── WHY ───────── -->
+  <section class="s why" id="why" data-stage="why" aria-labelledby="why-h">
+    <div class="wrap">
+      <p class="label mono" data-reveal><i class="live live--flicker" aria-hidden="true"></i><span class="n">01</span><span data-nl="Waarom het ertoe doet">Why it matters</span></p>
+      <h2 class="h2 why__h" id="why-h" data-echo data-scrim="1" data-nl="Een slechte website ziet er niet slecht uit. Hij ziet er <em class='neon'>gesloten</em> uit.">A bad website doesn’t look bad. It looks <em class="neon">closed.</em></h2>
+      <div class="stats" data-scrim="1">
+        <div class="stat" data-reveal>
+          <div class="stat__n"><span data-count="77">77</span><i>%</i></div>
+          <p data-nl="van de gasten bekijkt de website van een restaurant voordat ze gaan.">of diners check a restaurant’s website before they go.</p>
+          <span class="stat__src mono">MGH, 2019</span>
+        </div>
+        <div class="stat" data-reveal>
+          <div class="stat__n"><span data-count="70">70</span><i>%</i></div>
+          <p data-nl="zegt dat een website hen weleens heeft afgeschrikt om te gaan.">say a website has put them off going.</p>
+          <span class="stat__src mono" data-nl="MGH, 2019 · ongeveer">MGH, 2019 · approx.</span>
+        </div>
+        <div class="stat" data-reveal>
+          <div class="stat__n"><span data-count="53">53</span><i>%</i></div>
+          <p data-nl="van de mensen op hun telefoon haakt af als een pagina langer dan 3&nbsp;seconden laadt.">of people on their phone leave a page that takes longer than 3&nbsp;seconds to load.</p>
+          <span class="stat__src mono">Google, 2016</span>
+        </div>
+      </div>
+      <p class="fine mono" data-reveal data-nl="Bronnen: MGH-enquête onder 1.101 Amerikaanse restaurantbezoekers, 2019 · Google, 2016.">Sources: MGH survey of 1,101 US diners, 2019 · Google, 2016.</p>
+    </div>
+  </section>
+
+  <!-- ───────── PATH ───────── -->
+  <section class="s path" id="path" data-stage="path" aria-labelledby="path-h">
+    <div class="path__pin">
+      <div class="wrap path__wrap">
+        <div class="path__head" data-scrim="1">
+          <p class="label mono" data-reveal><i class="live" aria-hidden="true"></i><span class="n">02</span><span data-nl="Wat een goede site doet">What a good site does</span></p>
+          <h2 class="h2" id="path-h" data-echo data-nl="Van zoeken <em>tot zitten.</em>">From search <em>to seat.</em></h2>
+          <p class="lede" data-reveal data-nl="Een goede site heeft één taak: mensen van hun telefoon naar jouw deur brengen. Geen gezoek, geen pdf.">A good site has one job: get people from their phone to your door. No hunting, no PDFs.</p>
+        </div>
+        <div class="graph" data-graph>
+          <svg class="graph__lines" aria-hidden="true"><defs><linearGradient id="gl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF5A1F"/><stop offset="1" stop-color="#FFB27A"/></linearGradient></defs></svg>
+          <ol class="graph__nodes">
+            <li class="node glass" data-node>
+              <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span>
+              <span class="node__t"><span class="node__k mono"><span>01</span><span data-nl="Zoekt">Search</span></span><b data-nl="Gezocht">Searched</b><small data-nl="“koffie in de buurt”, 08:12">“coffee near me”, 08:12</small></span>
+            </li>
+            <li class="node glass" data-node>
+              <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10 18.5h4"/></svg></span>
+              <span class="node__t"><span class="node__k mono"><span>02</span><span data-nl="Opent">Open</span></span><b data-nl="Opende je site">Opened your site</b><small data-nl="Menu meteen in beeld. Geen pdf.">Menu on screen. Not a PDF.</small></span>
+            </li>
+            <li class="node glass" data-node>
+              <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0113 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span>
+              <span class="node__t"><span class="node__k mono"><span>03</span><span data-nl="Tikt">Tap</span></span><b data-nl="Tikte op “Route”">Tapped “Route”</b><small data-nl="Of Bellen. Of Reserveren.">Or Call. Or Book.</small></span>
+            </li>
+            <li class="node glass node--end" data-node>
+              <span class="node__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 21V4.5A1.5 1.5 0 016.5 3h11A1.5 1.5 0 0119 4.5V21"/><path d="M3 21h18"/><circle cx="15" cy="12.5" r="1"/></svg></span>
+              <span class="node__t"><span class="node__k mono"><span>04</span><span data-nl="Binnen">In</span></span><b data-nl="Kwam binnen">Walked in</b><small data-nl="Dat is de hele klus.">That’s the whole job.</small></span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── HOW ───────── -->
+  <section class="s how" id="how" data-stage="lanes" aria-labelledby="how-h">
+    <div class="wrap">
+      <p class="label mono" data-reveal><i class="live" aria-hidden="true"></i><span class="n">03</span><span data-nl="Hoe het werkt">How it works</span></p>
+      <h2 class="h2" id="how-h" data-echo data-scrim="1" data-nl="We werken <em>andersom.</em> Expres.">We work <em>backwards.</em> On purpose.</h2>
+      <ol class="steps">
+        <li class="step glass" data-lane data-reveal>
+          <span class="step__n mono">01</span>
+          <div class="step__ui ui-build" aria-hidden="true">
+            <span class="ui-build__url mono">concept.dolcessi.com/<b data-nl="jouwzaak">yourplace</b></span>
+            <span class="ui-build__rows"><i></i><i></i><i></i></span>
+            <span class="ui-build__bar"><i></i></span>
+          </div>
+          <h3 data-nl="Wij bouwen hem eerst.">We build it first.</h3>
+          <p data-nl="Jouw menu, jouw openingstijden, jouw straat. Een echte site, gemaakt voordat je erom vraagt.">Your menu, your hours, your street. A real site, made before you ask.</p>
+          <span class="tag mono" data-nl="Gratis">Free</span>
+        </li>
+        <li class="step glass" data-lane data-reveal>
+          <span class="step__n mono">02</span>
+          <div class="step__ui ui-yes" aria-hidden="true">
+            <span class="ui-yes__b ui-yes__b--on" data-nl="Ja, graag">Yes, please</span>
+            <span class="ui-yes__b" data-nl="Nee, dank je">No, thanks</span>
+          </div>
+          <h3 data-nl="Jij zegt ja. Of niet.">You say yes. Or you don’t.</h3>
+          <p data-nl="We laten hem zien op een telefoon. Geen verkooppraatje, geen gedoe. Nee is ook een prima antwoord.">We show it to you on a phone. No pitch deck, no pressure. No is a perfectly good answer.</p>
+          <span class="tag mono" data-nl="Op je telefoon">On your phone</span>
+        </li>
+        <li class="step glass" data-lane data-reveal>
+          <span class="step__n mono">03</span>
+          <div class="step__ui ui-live" aria-hidden="true">
+            <span class="ui-live__pill"><i></i>Live</span>
+            <span class="ui-live__url mono">www.<b data-nl="jouwzaak">yourplace</b>.nl</span>
+          </div>
+          <h3 data-nl="Binnen een paar dagen live.">Live within days.</h3>
+          <p data-nl="Jouw domein en jouw content blijven van jou. Iets aanpassen? Stuur ons een WhatsAppje.">Your domain and your content stay yours. Need a change? Send us a WhatsApp.</p>
+          <span class="tag mono" data-nl="Van jou">Yours</span>
+        </li>
+      </ol>
+      <p class="how__price" data-reveal data-scrim="1" data-nl="De prijs? <em>Eerst laten we je je site zien, dan praten we.</em> Zonder verrassingen.">The price? <em>We show you your site first, then we talk.</em> No surprises.</p>
+    </div>
+  </section>
+
+  <!-- ───────── WORK ───────── -->
+  <section class="s work" id="work" data-stage="warp" aria-labelledby="work-h">
+    <div class="work__pin">
+      <div class="wrap work__head">
+        <div class="work__title" data-scrim="1">
+          <p class="label mono" data-reveal><i class="live" aria-hidden="true"></i><span class="n">04</span><span data-nl="Werk">Work</span></p>
+          <h2 class="h2" id="work-h" data-echo data-nl="40+ zaken.<br> <em>Gebouwd voordat iemand het vroeg.</em>">40+ places.<br> <em>Built before anyone asked.</em></h2>
+        </div>
+        <p class="fine mono work__fine" data-reveal data-nl="Elke telefoon opent het live concept. Onofficiële concepten door Dolcessi, niet de eigen websites van deze zaken.">Each phone opens the live concept. Unofficial concepts by Dolcessi, not the places’ own websites.</p>
+      </div>
+      <div class="track" data-track>
+        <a class="card" href="https://concept.dolcessi.com/miyabi/" target="_blank" rel="noopener" data-cursor="VIEW ↗">
+          <span class="phone"><img class="ph-a" src="{{ 'work-miyabi.webp' | asset_url }}" alt="Miyabi Matcha concept site, first screen" data-nl-alt="Concept-site Miyabi Matcha, eerste scherm" width="620" height="1342" loading="lazy" decoding="async"><img class="ph-b" src="{{ 'work-miyabi-in.webp' | asset_url }}" alt="" width="620" height="1342" loading="lazy" decoding="async"></span>
+          <span class="card__meta"><span class="card__k mono"><span>01</span><span data-nl="Matchabar · Zeedijk">Matcha bar · Zeedijk</span></span><b>Miyabi Matcha</b><span class="card__sig" data-nl="Gouden 雅, een reis naar Kakegawa, brand zelf de brûlée.">Gold 雅, a journey to Kakegawa, torch the brûlée yourself.</span></span>
+        </a>
+        <a class="card" href="https://concept.dolcessi.com/osakaball/" target="_blank" rel="noopener" data-cursor="VIEW ↗">
+          <span class="phone"><img class="ph-a" src="{{ 'work-osakaball.webp' | asset_url }}" alt="Osakaball concept site, first screen" data-nl-alt="Concept-site Osakaball, eerste scherm" width="620" height="1342" loading="lazy" decoding="async"><img class="ph-b" src="{{ 'work-osakaball-in.webp' | asset_url }}" alt="" width="620" height="1342" loading="lazy" decoding="async"></span>
+          <span class="card__meta"><span class="card__k mono"><span>02</span><span data-nl="Osaka street food · De Pijp">Osaka street food · De Pijp</span></span><b>Osakaball</b><span class="card__sig" data-nl="Draai de takoyaki, twaalf tegelijk.">Turn the takoyaki, twelve at a time.</span></span>
+        </a>
+        <a class="card" href="https://concept.dolcessi.com/mala-wang/" target="_blank" rel="noopener" data-cursor="VIEW ↗">
+          <span class="phone"><img class="ph-a" src="{{ 'work-mala-wang.webp' | asset_url }}" alt="Mala Wang concept site, first screen" data-nl-alt="Concept-site Mala Wang, eerste scherm" width="620" height="1342" loading="lazy" decoding="async"><img class="ph-b" src="{{ 'work-mala-wang-in.webp' | asset_url }}" alt="" width="620" height="1342" loading="lazy" decoding="async"></span>
+          <span class="card__meta"><span class="card__k mono"><span>03</span><span data-nl="Sichuan-noedels · Oosterdok">Sichuan noodles · Oosterdok</span></span><b>Mala Wang</b><span class="card__sig" data-nl="Trek de noedels: van 1 tot 256 draden.">Pull the noodles: from 1 strand to 256.</span></span>
+        </a>
+        <a class="card" href="https://concept.dolcessi.com/meili/" target="_blank" rel="noopener" data-cursor="VIEW ↗">
+          <span class="phone"><img class="ph-a" src="{{ 'work-meili.webp' | asset_url }}" alt="Meili Bakery concept site, first screen" data-nl-alt="Concept-site Meili Bakery, eerste scherm" width="620" height="1342" loading="lazy" decoding="async"><img class="ph-b" src="{{ 'work-meili-in.webp' | asset_url }}" alt="" width="620" height="1342" loading="lazy" decoding="async"></span>
+          <span class="card__meta"><span class="card__k mono"><span>04</span><span data-nl="Bakkerij · Haarlemmerdijk">Bakery · Haarlemmerdijk</span></span><b>Meili Bakery</b><span class="card__sig" data-nl="Een getekende bakkerstoonbank om mee te spelen.">An illustrated bakery counter you can play with.</span></span>
+        </a>
+        <a class="card" href="https://concept.dolcessi.com/soba-ukou/" target="_blank" rel="noopener" data-cursor="VIEW ↗">
+          <span class="phone"><img class="ph-a" src="{{ 'work-soba-ukou.webp' | asset_url }}" alt="SOBA UKOU concept site, first screen" data-nl-alt="Concept-site SOBA UKOU, eerste scherm" width="620" height="1342" loading="lazy" decoding="async"><img class="ph-b" src="{{ 'work-soba-ukou-in.webp' | asset_url }}" alt="" width="620" height="1342" loading="lazy" decoding="async"></span>
+          <span class="card__meta"><span class="card__k mono"><span>05</span><span data-nl="Sobarestaurant · De Pijp">Soba restaurant · De Pijp</span></span><b>SOBA UKOU</b><span class="card__sig" data-nl="Snijd de soba, haarfijn, op het ritme van je duim.">Cut the soba, a hair at a time, to the rhythm of your thumb.</span></span>
+        </a>
+        <a class="card" href="https://concept.dolcessi.com/yi-cha/" target="_blank" rel="noopener" data-cursor="VIEW ↗">
+          <span class="phone"><img class="ph-a" src="{{ 'work-yi-cha.webp' | asset_url }}" alt="Yi Cha concept site, first screen" data-nl-alt="Concept-site Yi Cha, eerste scherm" width="620" height="1342" loading="lazy" decoding="async"><img class="ph-b" src="{{ 'work-yi-cha-in.webp' | asset_url }}" alt="" width="620" height="1342" loading="lazy" decoding="async"></span>
+          <span class="card__meta"><span class="card__k mono"><span>06</span><span data-nl="Boba &amp; dim sum · De Pijp">Boba &amp; dim sum · De Pijp</span></span><b>Yi Cha</b><span class="card__sig" data-nl="Knijp in de bao, tot hij openbarst.">Squish the bao until it breaks open.</span></span>
+        </a>
+        <a class="card" href="https://concept.dolcessi.com/jako/" target="_blank" rel="noopener" data-cursor="VIEW ↗">
+          <span class="phone"><img class="ph-a" src="{{ 'work-jako.webp' | asset_url }}" alt="Jako Bubble Tea concept site, first screen" data-nl-alt="Concept-site Jako Bubble Tea, eerste scherm" width="620" height="1342" loading="lazy" decoding="async"><img class="ph-b" src="{{ 'work-jako-in.webp' | asset_url }}" alt="" width="620" height="1342" loading="lazy" decoding="async"></span>
+          <span class="card__meta"><span class="card__k mono"><span>07</span><span data-nl="Bubble tea · Bos en Lommer">Bubble tea · Bos en Lommer</span></span><b>Jako Bubble Tea</b><span class="card__sig" data-nl="Seal de beker, prik het rietje erdoor.">Seal the cup, then stab the straw.</span></span>
+        </a>
+        <a class="card" href="https://concept.dolcessi.com/manila-bakery/" target="_blank" rel="noopener" data-cursor="VIEW ↗">
+          <span class="phone"><img class="ph-a" src="{{ 'work-manila-bakery.webp' | asset_url }}" alt="Manila Bakery concept site, first screen" data-nl-alt="Concept-site Manila Bakery, eerste scherm" width="620" height="1342" loading="lazy" decoding="async"><img class="ph-b" src="{{ 'work-manila-bakery-in.webp' | asset_url }}" alt="" width="620" height="1342" loading="lazy" decoding="async"></span>
+          <span class="card__meta"><span class="card__k mono"><span>08</span><span data-nl="Filipijnse bakkerij · Centraal">Filipino bakery · Centraal</span></span><b>Manila Bakery</b><span class="card__sig" data-nl="Rijd mee in de jeepney, langs Manila Bay.">Ride the jeepney along Manila Bay.</span></span>
+        </a>
+        <a class="card card--more" href="https://concept.dolcessi.com/" target="_blank" rel="noopener" data-cursor="ALL ↗">
+          <span class="more__in">
+            <span class="more__n">40+</span>
+            <span class="more__t" data-nl="Bekijk alle concepten">See every concept</span>
+            <span class="more__u mono">concept.dolcessi.com ↗</span>
+          </span>
+        </a>
+      </div>
+      <div class="work__bar" aria-hidden="true"><i></i><span class="work__n mono"><b data-work-n>01</b> / 08</span></div>
+    </div>
+  </section>
+
+  <!-- ───────── INSIDE ───────── -->
+  <section class="s inside" id="inside" data-stage="inside" aria-labelledby="inside-h">
+    <div class="wrap">
+      <div class="inside__head" data-scrim="1">
+        <p class="label mono" data-reveal><i class="live" aria-hidden="true"></i><span class="n">05</span><span data-nl="Wat erin zit">What’s inside</span></p>
+        <h2 class="h2" id="inside-h" data-echo data-nl="Klein scherm. <em>Alles erop.</em>">Small screen. <em>Everything on it.</em></h2>
+      </div>
+      <div class="bento">
+        <article class="tile t-menu glass" data-reveal>
+          <div class="tile__ui menu-ui" aria-hidden="true">
+            <div class="menu-ui__tabs mono"><span class="on" data-nl="Koffie">Coffee</span><span data-nl="Eten">Food</span><span data-nl="Zoet">Sweet</span></div>
+            <ul class="menu-ui__list">
+              <li><span data-nl="Matcha latte">Matcha latte</span><i class="alg">M</i></li>
+              <li><span data-nl="Pandan-chiffon">Pandan chiffon</span><i class="alg">G</i><i class="alg">E</i><i class="alg">M</i></li>
+              <li><span data-nl="Dan dan-noedels">Dan dan noodles</span><i class="alg">G</i><i class="alg">P</i><i class="alg">S</i></li>
+              <li><span data-nl="Ube-roomtaart">Ube roll cake</span><i class="alg">G</i><i class="alg">E</i></li>
+            </ul>
+            <div class="menu-ui__pdf mono"><s>menu_2019_final(2).pdf</s></div>
+          </div>
+          <h3 data-nl="Een menu op je telefoon. <em>Geen pdf.</em>">A menu on a phone. <em>Not a PDF.</em></h3>
+          <p data-nl="Leesbaar met één duim, in het Nederlands en Engels, met allergenen erbij.">Readable with one thumb, in Dutch and English, allergens marked.</p>
+        </article>
+        <article class="tile t-act glass" data-reveal>
+          <div class="tile__ui act-ui" aria-hidden="true">
+            <span class="act"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span data-nl="Bellen">Call</span></span>
+            <span class="act act--on"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0113 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg><span data-nl="Route">Route</span></span>
+            <span class="act"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg><span data-nl="Reserveer">Book</span></span>
+          </div>
+          <h3 data-nl="Bellen, route, reserveren.">Call, route, book.</h3>
+          <p data-nl="Eén tik. Geen telefoonnummer overtypen.">One tap. No copying phone numbers.</p>
+        </article>
+        <article class="tile t-hours glass" data-reveal>
+          <div class="tile__ui hours-ui" aria-hidden="true">
+            <span class="pill" data-open><i></i><span data-open-t>Open now · until 22:00</span></span>
+            <div class="hours-ui__bar"><i data-open-bar></i></div>
+            <div class="hours-ui__ticks mono"><span>10</span><span>14</span><span>18</span><span>22</span></div>
+          </div>
+          <h3 data-nl="Openingstijden die kloppen.">Opening hours that are right.</h3>
+          <p data-nl="Live “nu open”-status, vanzelf. Voorbeeld: elke dag 10–22.">A live “open now”, all by itself. Example: daily 10–22.</p>
+        </article>
+        <article class="tile t-lang glass" data-reveal>
+          <div class="tile__ui lang-ui" aria-hidden="true"><span class="lang-ui__w" data-flip="Menu|Menukaart|Allergens|Allergenen|Book a table|Tafel reserveren">Menu</span><span class="lang-ui__k mono">NL ⇄ EN</span></div>
+          <h3 data-nl="Nederlands én Engels.">Dutch and English.</h3>
+          <p data-nl="Voor de buurt en voor de toerist. Met allergenen erbij.">For the neighbours and the tourists. Allergens included.</p>
+        </article>
+        <article class="tile t-speed glass" data-reveal>
+          <div class="tile__ui speed-ui" aria-hidden="true">
+            <div class="speed-ui__track"><i class="speed-ui__fill"></i><span class="speed-ui__mark"></span></div>
+            <div class="speed-ui__l mono"><span>0 s</span><span data-nl="3 s · 53% weg">3 s · 53% gone</span></div>
+          </div>
+          <h3 data-nl="Snel op 4G.">Fast on 4G.</h3>
+          <p data-nl="Gebouwd voor telefoons in de tram, niet voor een desktop op kantoor.">Built for phones on a tram, not a desktop in an office.</p>
+        </article>
+        <article class="tile t-google glass" data-reveal>
+          <div class="tile__ui g-ui" aria-hidden="true">
+            <span class="g-ui__pin"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0113 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></span>
+            <span class="g-ui__rows"><i></i><i></i><i></i></span>
+          </div>
+          <h3 data-nl="Google-profiel, geregeld.">Google profile, sorted.</h3>
+          <p data-nl="Tijden, foto’s en een link naar je site, waar mensen echt zoeken.">Hours, photos and a link to your site, where people actually search.</p>
+        </article>
+        <article class="tile t-wa glass" data-reveal>
+          <div class="tile__ui wa-ui" aria-hidden="true">
+            <span class="b b--in" data-nl="Kun je de pompoensoep erop zetten?">Can you add the pumpkin soup?</span>
+            <span class="b b--out" data-nl="Gedaan. Staat online ✓✓">Done. It’s live ✓✓</span>
+          </div>
+          <h3 data-nl="Aanpassen via WhatsApp.">Changes by WhatsApp.</h3>
+          <p data-nl="Nieuw gerecht, andere tijden? Stuur een berichtje.">New dish, new hours? Send a message.</p>
+        </article>
+        <article class="tile t-own glass" data-reveal>
+          <div class="tile__ui own-ui" aria-hidden="true">
+            <span class="own-ui__dots"><i></i><i></i><i></i></span>
+            <span class="own-ui__bar mono"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></svg><span>www.<b data-nl="jouwzaak">yourplace</b>.nl</span></span>
+            <span class="own-ui__tag mono" data-nl="Van jou">Yours</span>
+          </div>
+          <h3 data-nl="Jouw domein. Jouw content.">Your domain. Your content.</h3>
+          <p data-nl="Je domein en je content staan op jouw naam, niet op de onze.">Your domain and your content are in your name, not ours.</p>
+        </article>
+        <article class="tile t-sys glass" data-reveal>
+          <div class="tile__ui sys-ui mono" aria-hidden="true">
+            <span class="sys-ui__src" data-nl="Jouw site">Your site</span>
+            <svg class="sys-ui__lines" viewBox="0 0 120 72" preserveAspectRatio="none"><path d="M0 36 C55 36 60 16 120 16"/><path d="M0 36 C55 36 60 56 120 56"/></svg>
+            <span class="sys-ui__dst"><span data-nl="Reserveringen">Bookings</span><span data-nl="Bezorging">Delivery</span></span>
+          </div>
+          <h3 data-nl="Werkt met wat je al hebt.">Works with what you’ve got.</h3>
+          <p data-nl="We linken naar het reserverings- of bezorgsysteem dat je al gebruikt.">We link to the booking or delivery system you already use.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── PROOF ───────── -->
+  <section class="s proof" id="proof" data-stage="proof" aria-labelledby="proof-h">
+    <div class="wrap">
+      <div class="proof__grid">
+        <div class="ba" data-ba data-cursor="DRAG">
+          <div class="ba__tags mono" aria-hidden="true"><span class="ba__tag ba__tag--l"><span aria-hidden="true">←</span> <span data-nl="Voor">Before</span></span><span class="ba__tag ba__tag--r"><span data-nl="Na">After</span> <span aria-hidden="true">→</span></span></div>
+          <div class="ba__phone">
+            <img class="ba__after" src="{{ 'work-osakaball.webp' | asset_url }}" alt="After: a Dolcessi concept site on a phone" data-nl-alt="Na: een concept-site van Dolcessi op een telefoon" width="620" height="1342" loading="lazy" decoding="async">
+            <div class="ba__before" data-ba-before><img src="{{ 'proof-before.webp' | asset_url }}" alt="Before: a typical outdated restaurant website on a phone" data-nl-alt="Voor: een typische verouderde restaurantsite op een telefoon" width="620" height="1342" loading="lazy" decoding="async"></div>
+            <div class="ba__handle" data-ba-handle aria-hidden="true"><i></i><span>⟷</span></div>
+          </div>
+          <label class="sr" for="ba-range" data-nl="Vergelijk voor en na">Compare before and after</label>
+          <input class="ba__range" id="ba-range" type="range" min="0" max="100" value="50" data-ba-range>
+          <p class="fine mono ba__cap" data-nl="Links: een typische restaurantsite (illustratie). Rechts: ons concept voor Osakaball.">Left: a typical restaurant site (illustration). Right: our Osakaball concept.</p>
+        </div>
+        <div class="proof__side">
+          <div class="proof__head" data-scrim="1">
+            <p class="label mono" data-reveal><i class="live" aria-hidden="true"></i><span class="n">06</span><span data-nl="Bewijs">Proof</span></p>
+            <h2 class="h2" id="proof-h" data-echo data-nl="Neem het niet van ons aan. <em>Sleep.</em>">Don’t take our word for it. <em>Drag.</em></h2>
+          </div>
+          <div class="lh glass" data-reveal>
+            <svg class="lh__ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="lh__track" cx="60" cy="60" r="52"/><circle class="lh__arc" cx="60" cy="60" r="52" data-lh-arc/></svg>
+            <div class="lh__n"><span data-count="96">96</span></div>
+            <div class="lh__t">
+              <b data-nl="96 van de 100 op de snelheidstest van Google.">96 out of 100 on Google’s speed test.</b>
+              <p data-nl="Lighthouse is de test van Google die meet hoe snel een site op een telefoon laadt. Ons concept voor RELOAD Coffee haalde 96.">Lighthouse is Google’s test for how fast a site loads on a phone. Our concept for RELOAD Coffee scored 96.</p>
+              <span class="fine mono"><span data-nl="Labtest, mobiel, nov 2026">Lab test, mobile, Nov 2026</span> · <a href="https://concept.dolcessi.com/reload/" target="_blank" rel="noopener" data-cursor="VIEW ↗"><span data-nl="Bekijk RELOAD">See RELOAD</span> ↗</a></span>
+            </div>
+          </div>
+          <div class="spots glass" data-reveal>
+            <span class="label mono"><i class="live" aria-hidden="true"></i><span data-nl="Eerste klanten">Founding clients</span></span>
+            <p class="spots__t" data-nl="We nemen onze eerste drie cafés &amp; restaurants aan.">We’re taking on our first three cafés &amp; restaurants.</p>
+            <div class="spots__row" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="spots__f"><span class="mono"><b>3</b> <span data-nl="van 3 plekken vrij">of 3 spots open</span></span><button type="button" class="btn btn--bone btn--sm" data-ask data-magnetic><span data-nl="Pak een plek">Claim a spot</span><span class="arr" aria-hidden="true">→</span></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── FAQ ───────── -->
+  <section class="s faq" id="faq" data-stage="faq" aria-labelledby="faq-h">
+    <div class="wrap faq__grid">
+      <div class="faq__head" data-scrim="1">
+        <p class="label mono" data-reveal><i class="live" aria-hidden="true"></i><span class="n">07</span><span data-nl="Vragen">FAQ</span></p>
+        <h2 class="h2" id="faq-h" data-echo data-nl="Terechte <em>vragen.</em>">Fair <em>questions.</em></h2>
+        <p class="lede" data-reveal data-nl="Iets anders? Mail <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>.">Something else? Email <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a>.</p>
+      </div>
+      <div class="qa">
+        <details class="q" data-reveal>
+          <summary><span data-nl="Wat kost het?">What does it cost?</span><i aria-hidden="true"></i></summary>
+          <div class="q__a"><p data-nl="We laten je eerst je site zien, dan praten we. Je weet de prijs voordat je ja zegt. Geen verrassingen.">We show you your site first, then we talk. You know the price before you say yes. No surprises.</p></div>
+        </details>
+        <details class="q" data-reveal>
+          <summary><span data-nl="Is het concept echt gratis?">Is the concept really free?</span><i aria-hidden="true"></i></summary>
+          <div class="q__a"><p data-nl="Ja. Wij bouwen het voordat je erom vraagt. Wil je het niet, dan zeg je nee en dat is het.">Yes. We build it before you ask. If you don’t want it, you say no and that’s that.</p></div>
+        </details>
+        <details class="q" data-reveal>
+          <summary><span data-nl="Hoe snel staat het live?">How fast is it live?</span><i aria-hidden="true"></i></summary>
+          <div class="q__a"><p data-nl="Binnen een paar dagen na je ja. De site is er al; we koppelen je domein, zetten je Google-profiel goed en gaan live.">Within days of your yes. The site already exists; we connect your domain, set up your Google profile and go live.</p></div>
+        </details>
+        <details class="q" data-reveal>
+          <summary><span data-nl="Is het van mij?">Is it mine?</span><i aria-hidden="true"></i></summary>
+          <div class="q__a"><p data-nl="Je domein en je content zijn van jou. Ze staan op jouw naam, niet op de onze.">Your domain and your content are yours. They’re in your name, not ours.</p></div>
+        </details>
+        <details class="q" data-reveal>
+          <summary><span data-nl="Hoe pas ik mijn menu of openingstijden aan?">How do I change my menu or hours?</span><i aria-hidden="true"></i></summary>
+          <div class="q__a"><p data-nl="Stuur ons een WhatsAppje. Wij passen het aan.">Send us a WhatsApp. We change it.</p></div>
+        </details>
+        <details class="q" data-reveal>
+          <summary><span data-nl="We hebben al een reserverings- of bezorgsysteem.">We already use a booking or delivery system.</span><i aria-hidden="true"></i></summary>
+          <div class="q__a"><p data-nl="Prima. Je site linkt gewoon naar het systeem dat je al gebruikt.">Great. Your site links straight to the system you already use.</p></div>
+        </details>
+        <details class="q" data-reveal>
+          <summary><span data-nl="Doen jullie ook cafés?">Do you do cafés too?</span><i aria-hidden="true"></i></summary>
+          <div class="q__a"><p data-nl="Ja. Cafés, bakkerijen, theebars en restaurants. Googelen mensen je voordat ze langskomen? Dan zijn wij er voor jou.">Yes. Cafés, bakeries, tea bars and restaurants. If people Google you before they come by, we’re for you.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── CTA ───────── -->
+  <section class="s cta" id="start" data-stage="cta" aria-labelledby="cta-h">
+    <div class="wrap cta__in">
+      <p class="label mono" data-reveal><i class="live" aria-hidden="true"></i><span data-nl="Nog 3 van de 3 plekken vrij">3 of 3 founding spots open</span></p>
+      <h2 class="h-xl" id="cta-h" data-echo data-scrim="1" data-nl="Bekijk je site <em>voordat</em> je een cent betaalt.">See yours <em>before</em> you pay a&nbsp;cent.</h2>
+      <button type="button" class="btn btn--ember btn--xl" data-ask data-magnetic><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">→</span></button>
+      <ul class="facts mono" data-reveal data-scrim="1">
+        <li data-nl="Gratis concept">Free concept</li>
+        <li data-nl="Jij zegt ja, of niet">You say yes, or you don’t</li>
+        <li data-nl="Binnen dagen live">Live within days</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__mark" aria-hidden="true"><span class="w">dolcessi</span><span class="cur">_</span></div>
+    <div class="ftr__grid mono">
+      <div><span class="ftr__k" data-nl="Studio">Studio</span><span data-nl="Amsterdam (Amstelveen)">Amsterdam (Amstelveen)</span><span>AMS <time data-clock>--:--</time></span></div>
+      <div><span class="ftr__k" data-nl="Contact">Contact</span><a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a><a href="https://concept.dolcessi.com/" target="_blank" rel="noopener">concept.dolcessi.com ↗</a></div>
+      <div><span class="ftr__k" data-nl="Gegevens">Details</span><span>KvK 99514168</span><a href="https://dolcessi.com/policies/privacy-policy" data-nl="Privacybeleid">Privacy policy</a></div>
+      <div><span class="ftr__k">© 2026 Dolcessi</span><span class="ftr__small" data-nl="Concepten zijn onofficieel en niet de eigen websites van de zaken.">Concepts are unofficial and not the places’ own websites.</span></div>
+    </div>
+  </div>
+</footer>
+
+<button type="button" class="dock btn btn--ember" data-ask aria-hidden="true" tabindex="-1"><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">→</span></button>
+
+<div class="ask" id="ask" role="dialog" aria-modal="true" aria-labelledby="ask-h1" hidden>
+  <div class="ask__bg" data-close></div>
+  <div class="ask__glow" aria-hidden="true"></div>
+  <div class="ask__panel">
+    <div class="ask__top mono">
+      <span class="ask__t"><i class="live" aria-hidden="true"></i><span data-nl="Laat mijn site zien">Show me my site</span></span>
+      <span class="ask__step" aria-live="polite"><b data-stepn>01</b> / 02</span>
+      <button type="button" class="ask__x" data-close aria-label="Close" data-nl-aria-label="Sluiten"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="ask__bar" aria-hidden="true"><i data-bar></i></div>
+    {% form 'contact', id: 'ask-form', class: 'ask-form', novalidate: 'novalidate' %}{% if form.posted_successfully? %}<i hidden data-sent></i>{% endif %}{% if form.errors %}<i hidden data-err>{{ form.errors | default_errors | strip_html | escape }}</i>{% endif %}
+      <input type="hidden" name="contact[subject]" value="Show me my site">
+      <div class="panes" data-panes>
+      <div class="pane" data-pane="1">
+        <h2 class="ask__h" id="ask-h1" data-nl="Welk <em>café of restaurant?</em>">Which <em>café or restaurant?</em></h2>
+        <p class="ask__p" data-nl="Wij bouwen je site eerst. Jij ziet hem op je telefoon.">We build your site first. You see it on your phone.</p>
+        <div class="fld">
+          <input name="contact[restaurant]" id="f-rest" autocomplete="organization" maxlength="80" placeholder=" " aria-required="true" aria-describedby="e-rest">
+          <label for="f-rest" data-nl="Café of restaurant">Café or restaurant</label>
+          <span class="fld__err" id="e-rest" role="alert"></span>
+        </div>
+        <div class="fld">
+          <input name="contact[neighbourhood]" id="f-area" maxlength="60" placeholder=" ">
+          <label for="f-area"><span data-nl="Buurt">Neighbourhood</span> <i data-nl="(optioneel)">(optional)</i></label>
+        </div>
+        <div class="ask__row">
+          <span class="ask__hint mono"><i aria-hidden="true"></i><span data-nl="Gratis · Vrijblijvend">Free · No obligation</span></span>
+          <button type="button" class="btn btn--ember" data-next><span data-nl="Volgende">Next</span><span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="pane" data-pane="2" hidden>
+        <h2 class="ask__h" data-nl="Waar sturen we <em>hem heen?</em>">Where do we <em>send it?</em></h2>
+        <p class="ask__p" data-nl="We sturen je de link zodra je site klaar is.">We’ll send you the link when your site is ready.</p>
+        <p class="ask__p ask__err" data-err-msg role="alert" hidden></p>
+        <div class="fld">
+          <input name="contact[name]" id="f-name" autocomplete="name" maxlength="60" placeholder=" " aria-required="true" aria-describedby="e-name">
+          <label for="f-name" data-nl="Je naam">Your name</label>
+          <span class="fld__err" id="e-name" role="alert"></span>
+        </div>
+        <div class="fld">
+          <input type="email" name="contact[email]" id="f-email" autocomplete="email" maxlength="120" placeholder=" " aria-required="true" aria-describedby="e-email">
+          <label for="f-email" data-nl="E-mail">Email</label>
+          <span class="fld__err" id="e-email" role="alert"></span>
+        </div>
+        <div class="fld">
+          <input type="tel" name="contact[phone]" id="f-phone" autocomplete="tel" maxlength="30" placeholder=" ">
+          <label for="f-phone"><span data-nl="WhatsApp / telefoon">WhatsApp / phone</span> <i data-nl="(optioneel)">(optional)</i></label>
+        </div>
+        <input type="hidden" name="contact[body]" id="f-body">
+        <div class="ask__row">
+          <button type="button" class="link mono" data-back><span aria-hidden="true">←</span> <span data-nl="Terug">Back</span></button>
+          <button type="submit" class="btn btn--ember"><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">→</span></button>
+        </div>
+        <p class="fine ask__fine" data-nl="We gebruiken dit alleen om je je concept te sturen. <a href='https://dolcessi.com/policies/privacy-policy'>Privacy</a>">We only use this to send you your concept. <a href="https://dolcessi.com/policies/privacy-policy">Privacy</a></p>
+      </div>
+      <div class="pane pane--done" data-pane="3" hidden>
+        <span class="done__tick" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><path d="M14 24.5l7 7 13-14"/></svg></span>
+        <h2 class="ask__h ask__h--big" id="ask-h3" data-nl="De bon is binnen. <em>Je site staat op het vuur.</em>">Ticket’s in. <em>Your site’s on the stove.</em></h2>
+        <p class="ask__p" data-nl="We gaan aan de slag en mailen je zodra hij klaar is. Vragen? <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>">We’re on it, and we’ll email you when it’s ready. Questions? <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a></p>
+        <div class="ask__row"><span></span><button type="button" class="btn btn--bone" data-close><span data-nl="Terug naar de site">Back to the site</span></button></div>
+      </div>
+      </div>
+    {% endform %}
+  </div>
+</div>
+
+<div class="cursor" aria-hidden="true"><i class="cursor__dot"></i><i class="cursor__ring"><span class="cursor__lbl"></span></i></div>
+<noscript><style>.pre{display:none}</style></noscript>
+<script>(function(){var d=document,h=d.documentElement;if(!h.classList.contains('is-nl'))return;var a=d.querySelectorAll('[data-nl]'),i,e;for(i=0;i<a.length;i++){e=a[i];e._en=e.innerHTML;e.innerHTML=e.getAttribute('data-nl')}['aria-label','alt','placeholder','title'].forEach(function(k){var b=d.querySelectorAll('[data-nl-'+k+']');for(i=0;i<b.length;i++){e=b[i];e._enA=e._enA||{};e._enA[k]=e.getAttribute(k)||'';e.setAttribute(k,e.getAttribute('data-nl-'+k))}})})()</script>
+</body>
+</html>
