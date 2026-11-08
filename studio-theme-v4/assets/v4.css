@@ -287,7 +287,7 @@ main,.ftr{position:relative;z-index:1}
 .kinds li{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;border-radius:999px;border:1px solid var(--c-18);color:var(--c-70)}
 .kinds li:first-child{border-color:rgba(255,107,91,.6);color:var(--coral)}
 .track{display:flex;gap:clamp(18px,2vw,30px);padding-inline:var(--pad);will-change:transform}
-.card{--w:min(clamp(200px,17.5vw,280px),calc((100svh - 440px) / 2.165 + 12px));flex:0 0 auto;width:var(--w);display:flex;flex-direction:column;gap:14px;text-decoration:none;transform-style:preserve-3d}
+.card{--w:clamp(150px,min(17.5vw,calc((100svh - 440px) / 2.165 + 12px)),280px);flex:0 0 auto;width:var(--w);display:flex;flex-direction:column;gap:14px;text-decoration:none;transform-style:preserve-3d}
 .phone{position:relative;display:block;padding:6px;border-radius:38px;background:linear-gradient(160deg,rgba(244,237,224,.22),rgba(244,237,224,.06));border:1px solid rgba(244,237,224,.22);box-shadow:0 40px 80px -30px rgba(3,8,20,.8),inset 0 1px 0 rgba(255,255,255,.15);transition:transform .6s var(--ease),box-shadow .6s var(--ease),border-color .4s}
 .phone img{width:100%;height:auto;aspect-ratio:620/1342;object-fit:cover;border-radius:32px;background:var(--navy-2)}
 .phone .ph-b{position:absolute;inset:6px;width:calc(100% - 12px);opacity:0;transition:opacity .5s}
@@ -613,6 +613,15 @@ button[disabled]{opacity:.7;cursor:progress}
   .ask{place-items:end center;padding:0}
   .ask__panel{border-radius:28px 28px 0 0;width:100%;padding:18px 20px calc(24px + env(safe-area-inset-bottom));max-height:100%}
   .ask__panel{transform:translateY(40px)}
+}
+@media (min-width:861px) and (max-height:780px){
+  .work__sticky{padding-top:78px;gap:16px}
+  .work .h2{font-size:clamp(30px,3.3vw,50px)}
+  .work__side .fine,.card__sig{display:none}
+  .work__side .label{margin-bottom:12px}
+  .card{--w:clamp(150px,calc((100svh - 330px) / 2.165),240px)}
+  .tk__head .h2{font-size:clamp(34px,4vw,60px)}
+  .tk__sticky{padding-top:84px}
 }
 @media (max-width:860px) and (max-height:700px){
   .tk__head .h2{font-size:clamp(30px,8.6vw,40px)}
