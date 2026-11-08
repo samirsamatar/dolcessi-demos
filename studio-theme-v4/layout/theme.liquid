@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ page_title }} · Dolcessi</title>
+<meta name="theme-color" content="#14213D">
+<link rel="icon" type="image/png" sizes="192x192" href="{{ 'favicon-v4-192.png' | asset_url }}"><link rel="icon" type="image/png" sizes="48x48" href="{{ 'favicon-v4-48.png' | asset_url }}"><link rel="apple-touch-icon" href="{{ 'apple-touch-icon-v4.png' | asset_url }}">
+{{ content_for_header }}
+<style>
+@font-face{font-family:"Inter Tight";font-weight:100 900;font-display:swap;src:url({{ 'inter-tight-var.woff2' | asset_url }}) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-display:swap;src:url({{ 'instrument-serif-latin-400-italic.woff2' | asset_url }}) format("woff2")}
+html,body{margin:0;background:#14213D;color:#F4EDE0;font:400 17px/1.6 "Inter Tight",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:radial-gradient(60vmax 40vmax at 85% 105%,rgba(255,107,91,.35),transparent 60%),#14213D;min-height:100vh}
+a{color:#FF6B5B}
+.doc{max-width:760px;margin:0 auto;padding:56px 22px 110px}
+.back{display:inline-block;margin-bottom:56px;color:#F4EDE0;text-decoration:none;font:560 22px "Inter Tight",sans-serif;letter-spacing:-.06em}
+.back span{color:#FF6B5B}
+.doc h1{font-weight:300;font-size:clamp(42px,7vw,76px);letter-spacing:-.055em;line-height:.95;margin:0 0 32px}
+.rte{color:rgba(244,237,224,.78)}
+.rte h2,.rte h3{color:#F4EDE0;font-weight:450;letter-spacing:-.03em}
+.rte table{border-collapse:collapse}.rte td,.rte th{border:1px solid rgba(244,237,224,.18);padding:6px 10px}
+</style>
+</head>
+<body>
+{{ content_for_layout }}
+</body>
+</html>
