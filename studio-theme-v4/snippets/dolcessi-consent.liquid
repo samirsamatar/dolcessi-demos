@@ -1,0 +1,152 @@
+{%- comment -%}
+  Dolcessi cookie banner. Wired to Shopify's Customer Privacy API, so every Shopify pixel
+  (Google & YouTube, Facebook & Instagram, Shopify Analytics, custom pixels) follows the
+  visitor's choice exactly as with Shopify's own banner. Shopify's banner must stay ENABLED
+  in Settings → Customer privacy (it decides which regions need consent); we only hide its UI.
+  Reopen anywhere with a link: <a href="#cookies" data-cookie-settings>…</a>.
+  Test: add ?cookies to any URL to force the banner open.
+{%- endcomment -%}
+<style>
+#shopify-pc__banner,#shopify-pc__prefs,#shopify-pc__prefs__overlay{display:none!important}
+.dck{--n:#14213D;--nd:#0B1428;--c:#F4EDE0;--k:#FF6B5B;--kd:#E04B3A;position:fixed;left:max(16px,env(safe-area-inset-left));bottom:calc(16px + env(safe-area-inset-bottom));z-index:90;width:min(408px,calc(100vw - 32px));box-sizing:border-box;padding:22px 22px 20px;border-radius:22px;background:rgba(11,20,40,.94);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);border:1px solid rgba(244,237,224,.14);box-shadow:0 30px 80px -20px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.2),0 -40px 90px -50px rgba(255,107,91,.45) inset;color:var(--c);font:400 15px/1.5 "Inter Tight",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;opacity:0;transform:translateY(24px) scale(.98);transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .55s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.dck[hidden]{display:none}
+.dck.is-in{opacity:1;transform:none;pointer-events:auto}
+.dck *{box-sizing:border-box}
+.dck__top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.dck__ic{flex:none;width:38px;height:38px}
+.dck__k{font:500 10.5px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,237,224,.55);margin:0 0 5px}
+.dck__h{margin:0;font-weight:500;font-size:21px;line-height:1.1;letter-spacing:-.035em}
+.dck__h em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;color:var(--k);letter-spacing:-.01em}
+.dck__p{margin:0 0 16px;color:rgba(244,237,224,.74);font-size:14.5px}
+.dck__p a,.dck__link{color:var(--c);text-decoration:underline;text-decoration-color:rgba(255,107,91,.8);text-underline-offset:3px}
+.dck__row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dck__b{appearance:none;border:0;border-radius:999px;padding:13px 14px;font:500 14.5px/1 "Inter Tight",system-ui,sans-serif;letter-spacing:-.01em;cursor:pointer;transition:transform .2s,background-color .2s,color .2s,box-shadow .2s}
+.dck__b:active{transform:scale(.97)}
+.dck__b--yes{background:var(--k);color:var(--n);box-shadow:0 8px 24px -10px rgba(255,107,91,.8)}
+.dck__b--yes:hover{background:#FF8B7D}
+.dck__b--no{background:var(--c);color:var(--n)}
+.dck__b--no:hover{background:#fff}
+.dck__b--ghost{background:transparent;color:var(--c);border:1px solid rgba(244,237,224,.22)}
+.dck__b--ghost:hover{border-color:rgba(244,237,224,.5)}
+.dck__more{display:block;margin:12px auto 0;background:none;border:0;padding:4px;color:rgba(244,237,224,.7);font:500 11px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.dck__more:hover{color:var(--c)}
+.dck__opts{display:grid;gap:2px;margin:0 0 16px;border-top:1px solid rgba(244,237,224,.1)}
+.dck__opt{display:grid;grid-template-columns:1fr auto;gap:2px 14px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(244,237,224,.1)}
+.dck__opt b{font-weight:500;font-size:14.5px}
+.dck__opt small{grid-column:1;color:rgba(244,237,224,.6);font-size:12.5px;line-height:1.4}
+.dck__sw{grid-row:1/3;grid-column:2;position:relative;width:46px;height:28px}
+.dck__sw input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:1}
+.dck__sw i{position:absolute;inset:0;border-radius:99px;background:rgba(244,237,224,.16);transition:background-color .25s}
+.dck__sw i:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--c);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.dck__sw input:checked+i{background:var(--k)}
+.dck__sw input:checked+i:after{transform:translateX(18px)}
+.dck__sw input:disabled{cursor:default}
+.dck__sw input:disabled+i{opacity:.55}
+.dck__sw input:focus-visible+i{outline:2px solid var(--k);outline-offset:3px}
+.dck__b:focus-visible,.dck__more:focus-visible{outline:2px solid var(--k);outline-offset:3px}
+.dck__done{display:flex;align-items:center;gap:10px;font-size:14.5px;color:rgba(244,237,224,.85)}
+.dck__done:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--k);box-shadow:0 0 12px var(--k)}
+@media (max-width:560px){.dck{left:12px;right:12px;width:auto;bottom:calc(12px + env(safe-area-inset-bottom));padding:18px 18px 16px;border-radius:20px}.dck__h{font-size:19px}.dck__p{font-size:14px;margin-bottom:14px}}
+@media (prefers-reduced-motion:reduce){.dck{transition:opacity .2s;transform:none}}
+</style>
+<div class="dck" id="dck" role="dialog" aria-modal="false" aria-labelledby="dck-h" aria-describedby="dck-p" hidden></div>
+<script>
+(function () {
+  var T = {
+    en: {
+      k: 'Cookies', h: 'A cookie, <em>if you like.</em>',
+      p: 'We use cookies to see which parts of this site work and, later on, to show our ads to the right cafés and restaurants. Only with your OK. <a href="/policies/privacy-policy">Privacy policy</a>',
+      yes: 'Accept all', no: 'Reject all', more: 'Choose for myself', save: 'Save my choice', back: 'Back',
+      nec: ['Necessary', 'Keeps the site and the contact form working. Always on.'],
+      ana: ['Analytics', 'Anonymous visit stats so we know what to improve.'],
+      mkt: ['Marketing', 'Lets ad platforms like Google and Meta measure our ads.'],
+      pre: ['Preferences', 'Remembers things like your language.'],
+      done: 'Saved. Change it anytime under “Cookie settings”.', settings: 'Cookie settings'
+    },
+    nl: {
+      k: 'Cookies', h: 'Een cookie, <em>als je wilt.</em>',
+      p: 'We gebruiken cookies om te zien wat op deze site werkt en, later, om onze advertenties aan de juiste cafés en restaurants te laten zien. Alleen met jouw OK. <a href="/policies/privacy-policy">Privacybeleid</a>',
+      yes: 'Alles accepteren', no: 'Alles weigeren', more: 'Zelf kiezen', save: 'Keuze opslaan', back: 'Terug',
+      nec: ['Noodzakelijk', 'Houdt de site en het contactformulier werkend. Altijd aan.'],
+      ana: ['Statistieken', 'Anonieme bezoekcijfers, zodat we weten wat beter kan.'],
+      mkt: ['Marketing', 'Laat advertentieplatforms zoals Google en Meta onze advertenties meten.'],
+      pre: ['Voorkeuren', 'Onthoudt bijvoorbeeld je taal.'],
+      done: 'Opgeslagen. Wijzig het altijd via “Cookie-instellingen”.', settings: 'Cookie-instellingen'
+    }
+  };
+  var d = document, html = d.documentElement, box = d.getElementById('dck'), cp = null, view = 'main', lastFocus = null;
+  var force = /[?&]cookies(=|&|$)/.test(location.search);
+  function lang() {
+    if (html.classList.contains('is-nl')) return 'nl';
+    try { var s = localStorage.getItem('dolcessi_lang'); if (s) return s === 'nl' ? 'nl' : 'en'; } catch (e) { }
+    return /^nl/i.test(html.lang || '') ? 'nl' : 'en';
+  }
+  function cur() {
+    var c = cp && cp.currentVisitorConsent ? cp.currentVisitorConsent() : {};
+    return { analytics: c.analytics === 'yes', marketing: c.marketing === 'yes', preferences: c.preferences === 'yes' };
+  }
+  var ICON = '<svg class="dck__ic" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3.5a16.5 16.5 0 1 0 16.4 14.6 4.6 4.6 0 0 1-5.6-4.9 4.6 4.6 0 0 1-5.7-5.6A4.7 4.7 0 0 1 20 3.5Z" fill="#F4EDE0"/><circle cx="13" cy="15" r="2.1" fill="#14213D"/><circle cx="23.5" cy="25.5" r="2.4" fill="#14213D"/><circle cx="13.5" cy="26" r="1.6" fill="#14213D"/><circle cx="27" cy="17.5" r="1.3" fill="#FF6B5B"/><rect x="25" y="32" width="9" height="2.6" rx="1.3" fill="#FF6B5B"/></svg>';
+  function opt(key, t, on, dis) {
+    return '<label class="dck__opt"><b>' + t[0] + '</b><small>' + t[1] + '</small><span class="dck__sw"><input type="checkbox" data-k="' + key + '"' + (on ? ' checked' : '') + (dis ? ' disabled' : '') + ' aria-label="' + t[0] + '"><i></i></span></label>';
+  }
+  function render() {
+    var t = T[lang()], c = cur(), h = '<div class="dck__top">' + ICON + '<div><p class="dck__k">' + t.k + '</p><h2 class="dck__h" id="dck-h">' + t.h + '</h2></div></div>';
+    if (view === 'done') { box.innerHTML = '<p class="dck__done" id="dck-p" role="status">' + t.done + '</p>'; return; }
+    h += '<p class="dck__p" id="dck-p">' + t.p + '</p>';
+    if (view === 'main') {
+      h += '<div class="dck__row"><button class="dck__b dck__b--no" type="button" data-a="no">' + t.no + '</button><button class="dck__b dck__b--yes" type="button" data-a="yes">' + t.yes + '</button></div><button class="dck__more" type="button" data-a="more">' + t.more + ' →</button>';
+    } else {
+      h += '<div class="dck__opts">' + opt('n', t.nec, true, true) + opt('analytics', t.ana, c.analytics) + opt('marketing', t.mkt, c.marketing) + opt('preferences', t.pre, c.preferences) + '</div>';
+      h += '<div class="dck__row"><button class="dck__b dck__b--ghost" type="button" data-a="yes">' + t.yes + '</button><button class="dck__b dck__b--yes" type="button" data-a="save">' + t.save + '</button></div>';
+    }
+    box.innerHTML = h;
+  }
+  function open(v) {
+    view = v || 'main'; lastFocus = d.activeElement; render(); box.hidden = false;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { box.classList.add('is-in'); }); });
+  }
+  function close() {
+    box.classList.remove('is-in');
+    setTimeout(function () { box.hidden = true; }, 500);
+    if (lastFocus && lastFocus.focus && box.contains(d.activeElement)) try { lastFocus.focus(); } catch (e) { }
+  }
+  function save(c) {
+    var done = function () { view = 'done'; render(); setTimeout(close, 1700); };
+    if (cp && cp.setTrackingConsent) {
+      try { cp.setTrackingConsent({ analytics: !!c.analytics, marketing: !!c.marketing, preferences: !!c.preferences, headlessStorefront: false }, done); }
+      catch (e) { cp.setTrackingConsent({ analytics: !!c.analytics, marketing: !!c.marketing, preferences: !!c.preferences }, done); }
+    } else done();
+  }
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-a]'); if (!b) return;
+    var a = b.getAttribute('data-a');
+    if (a === 'yes') save({ analytics: 1, marketing: 1, preferences: 1 });
+    else if (a === 'no') save({});
+    else if (a === 'more') { view = 'prefs'; render(); var f = box.querySelector('input:not([disabled])'); if (f) f.focus(); }
+    else if (a === 'save') {
+      var c = {}; box.querySelectorAll('input[data-k]').forEach(function (i) { c[i.getAttribute('data-k')] = i.checked; }); save(c);
+    }
+  });
+  d.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden && view === 'prefs') { view = 'main'; render(); } });
+  d.addEventListener('click', function (e) {
+    var l = e.target.closest('[data-cookie-settings], a[href="#cookies"]'); if (!l) return;
+    e.preventDefault(); open('prefs');
+  });
+  new MutationObserver(function () { if (!box.hidden && view !== 'done') render(); }).observe(html, { attributes: true, attributeFilter: ['class'] });
+  function whenClear(cb, t0) {
+    var p = d.getElementById('pre');
+    if (!p || p.classList.contains('is-out') || getComputedStyle(p).display === 'none' || Date.now() - t0 > 8000) return setTimeout(cb, 900);
+    setTimeout(function () { whenClear(cb, t0); }, 250);
+  }
+  function boot() {
+    if (!window.Shopify || !Shopify.loadFeatures) { if (force) open(); return; }
+    Shopify.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], function (err) {
+      if (err) { if (force) open(); return; }
+      cp = Shopify.customerPrivacy;
+      var show = force; try { show = show || cp.shouldShowBanner(); } catch (e) { }
+      if (show) whenClear(function () { open(); }, Date.now());
+    });
+  }
+  if (d.readyState === 'complete') boot(); else addEventListener('load', boot);
+})();
+</script>

@@ -502,7 +502,7 @@
     <div class="ftr__grid mono">
       <div><span class="ftr__k" data-nl="Studio">Studio</span><span data-nl="Amsterdam (Amstelveen)">Amsterdam (Amstelveen)</span><span>AMS <time data-clock>--:--</time></span></div>
       <div><span class="ftr__k" data-nl="Contact">Contact</span><a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a><a href="https://concept.dolcessi.com/" target="_blank" rel="noopener">concept.dolcessi.com ↗</a></div>
-      <div><span class="ftr__k" data-nl="Gegevens">Details</span><span>KvK 99514168</span><a href="https://dolcessi.com/policies/privacy-policy" data-nl="Privacybeleid">Privacy policy</a></div>
+      <div><span class="ftr__k" data-nl="Gegevens">Details</span><span>KvK 99514168</span><a href="https://dolcessi.com/policies/privacy-policy" data-nl="Privacybeleid">Privacy policy</a><a href="#cookies" data-cookie-settings data-nl="Cookie-instellingen">Cookie settings</a></div>
       <div><span class="ftr__k">© 2026 Dolcessi</span><span class="ftr__small" data-nl="Concepten zijn onofficieel en niet de eigen websites van de zaken.">Concepts are unofficial and not the places’ own websites.</span></div>
     </div>
     <div class="ftr__mark" aria-hidden="true"><span class="ftr__w">dolcessi</span><span class="cur">_</span></div>
@@ -579,5 +579,6 @@
 <div class="cursor" aria-hidden="true"><i class="cursor__dot"></i><i class="cursor__ring"><span class="cursor__lbl"></span></i></div>
 <noscript><style>.pre{display:none}</style></noscript>
 <script>(function(){var d=document,h=d.documentElement;if(!h.classList.contains('is-nl'))return;var a=d.querySelectorAll('[data-nl]'),i,e;for(i=0;i<a.length;i++){e=a[i];e._en=e.innerHTML;e.innerHTML=e.getAttribute('data-nl')}['aria-label','alt','placeholder','title'].forEach(function(k){var b=d.querySelectorAll('[data-nl-'+k+']');for(i=0;i<b.length;i++){e=b[i];e._enA=e._enA||{};e._enA[k]=e.getAttribute(k)||'';e.setAttribute(k,e.getAttribute('data-nl-'+k))}})})()</script>
+{% render 'dolcessi-consent' %}
 </body>
 </html>
