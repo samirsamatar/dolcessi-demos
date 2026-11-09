@@ -143,7 +143,12 @@
     Shopify.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], function (err) {
       if (err) { if (force) open(); return; }
       cp = Shopify.customerPrivacy;
-      var show = force; try { show = show || cp.shouldShowBanner(); } catch (e) { }
+      var show = force;
+      try {
+        var v = cp.currentVisitorConsent ? cp.currentVisitorConsent() : {};
+        var undecided = !v || v.analytics === '' || v.marketing === '' || v.preferences === '' || v.analytics == null;
+        show = show || (cp.shouldShowBanner() && undecided);
+      } catch (e) { }
       if (show) whenClear(function () { open(); }, Date.now());
     });
   }
