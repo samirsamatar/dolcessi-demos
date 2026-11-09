@@ -179,3 +179,38 @@
     ok: function () { return !S.lost; }
   };
 })();
+
+/* Signature (borrowed from KYŌ): a burst of coral dots on every click. Desktop only. */
+(function () {
+  'use strict';
+  var W = window, d = document, mq = function (q) { return W.matchMedia(q).matches; };
+  if (!mq('(hover: hover) and (pointer: fine)') || mq('(prefers-reduced-motion: reduce)')) return;
+  function init() {
+    var cv = d.createElement('canvas'); cv.id = 'burst'; cv.setAttribute('aria-hidden', 'true');
+    cv.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:400';
+    d.body.appendChild(cv);
+    var g = cv.getContext('2d'), dpr = 1, parts = [], running = false;
+    var size = function () { dpr = Math.min(2, W.devicePixelRatio || 1); cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; };
+    size(); W.addEventListener('resize', size);
+    function frame(now) {
+      g.clearRect(0, 0, cv.width, cv.height);
+      parts = parts.filter(function (p) { return now - p.t0 < p.life; });
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i], k = Math.max(0, (now - p.t0) / p.life), e = 1 - Math.pow(1 - k, 3);
+        var r = (5 + p.reach * e) * dpr, s = p.s * (1 - k) * dpr;
+        g.globalAlpha = 1 - k * k; g.fillStyle = p.c;
+        g.beginPath(); g.arc(p.x * dpr + Math.cos(p.a) * r, p.y * dpr + Math.sin(p.a) * r, Math.max(0, s), 0, 6.283); g.fill();
+      }
+      if (parts.length) requestAnimationFrame(frame); else { running = false; g.clearRect(0, 0, cv.width, cv.height); }
+    }
+    W.addEventListener('pointerdown', function (ev) {
+      if (ev.pointerType !== 'mouse' || ev.button !== 0) return;
+      var hit = d.elementFromPoint(ev.clientX, ev.clientY);
+      var c = hit && hit.closest('.panel') ? '#E04B3A' : '#FF6B5B';
+      var n = 9, t0 = performance.now(), off = Math.random() * 6.283;
+      for (var i = 0; i < n; i++) parts.push({ x: ev.clientX, y: ev.clientY, c: c, a: off + i / n * 6.283 + (Math.random() - .5) * .25, reach: 20 + Math.random() * 10, s: 2.1 + Math.random() * .8, t0: t0, life: 620 + Math.random() * 160 });
+      if (!running) { running = true; requestAnimationFrame(frame); }
+    }, { passive: true, capture: true });
+  }
+  if (d.body) init(); else d.addEventListener('DOMContentLoaded', init);
+})();
