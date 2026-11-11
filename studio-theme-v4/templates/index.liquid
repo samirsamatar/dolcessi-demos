@@ -516,7 +516,7 @@
   <div class="ask__panel glass">
     <div class="ask__top mono">
       <span class="ask__t"><i class="dot" aria-hidden="true"></i><span data-nl="Laat mijn site zien">Show me my site</span></span>
-      <span class="ask__step" aria-live="polite"><b data-stepn>01</b> / 02</span>
+      <span class="ask__step" aria-live="polite"><b data-stepn>01</b> / 05</span>
       <button type="button" class="ask__x" data-close aria-label="Close" data-nl-aria-label="Sluiten"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="ask__bar" aria-hidden="true"><i data-bar></i></div>
@@ -524,25 +524,89 @@
       <input type="hidden" name="contact[subject]" value="Show me my site">
       <div class="panes" data-panes>
       <div class="pane" data-pane="1">
-        <h2 class="ask__h" id="ask-h1" data-nl="Welk <em>café of restaurant?</em>">Which <em>café or restaurant?</em></h2>
-        <p class="ask__p" data-nl="Wij bouwen je site eerst. Jij ziet hem op je telefoon.">We build your site first. You see it on your phone.</p>
-        <div class="fld">
-          <input name="contact[restaurant]" id="f-rest" autocomplete="organization" maxlength="80" placeholder=" " aria-required="true" aria-describedby="e-rest">
-          <label for="f-rest" data-nl="Café of restaurant">Café or restaurant</label>
-          <span class="fld__err" id="e-rest" role="alert"></span>
+        <h2 class="ask__h" id="ask-h1" data-nl="Waar kunnen we <em>mee helpen?</em>">What can we <em>help with?</em></h2>
+        <p class="ask__p" data-nl="Tik wat het beste past. Vijf korte vragen, geen verplichtingen.">Tap what fits best. Five quick questions, no strings.</p>
+        <div class="opts" role="radiogroup" aria-labelledby="ask-h1">
+          <label class="opt"><input type="radio" name="contact[help]" value="A new website" data-auto><span class="opt__i" aria-hidden="true">✦</span><span class="opt__t" data-nl="Een nieuwe website">A new website</span><small data-nl="We beginnen bij nul.">We start from zero.</small></label>
+          <label class="opt"><input type="radio" name="contact[help]" value="Redesign my website" data-auto><span class="opt__i" aria-hidden="true">↻</span><span class="opt__t" data-nl="Mijn site vernieuwen">Redesign my site</span><small data-nl="Hij werkt, maar voelt oud.">It works, but feels old.</small></label>
+          <label class="opt"><input type="radio" name="contact[help]" value="Bookings, orders or a menu online" data-auto><span class="opt__i" aria-hidden="true">☰</span><span class="opt__t" data-nl="Reserveren, bestellen of menu">Bookings, orders or menu</span><small data-nl="Klanten moeten het online kunnen.">Customers should do it online.</small></label>
+          <label class="opt"><input type="radio" name="contact[help]" value="Get found on Google" data-auto><span class="opt__i" aria-hidden="true">⌕</span><span class="opt__t" data-nl="Gevonden worden op Google">Get found on Google</span><small data-nl="Meer mensen die je vinden.">More people finding you.</small></label>
+          <label class="opt opt--wide"><input type="radio" name="contact[help]" value="Something else" data-other="f-help-x"><span class="opt__i" aria-hidden="true">…</span><span class="opt__t" data-nl="Iets anders">Something else</span><small data-nl="Vertel het ons in je eigen woorden.">Tell us in your own words.</small></label>
         </div>
-        <div class="fld">
-          <input name="contact[neighbourhood]" id="f-area" maxlength="60" placeholder=" ">
-          <label for="f-area"><span data-nl="Buurt">Neighbourhood</span> <i data-nl="(optioneel)">(optional)</i></label>
+        <div class="fld fld--x" hidden data-x="f-help-x">
+          <input name="contact[help_other]" id="f-help-x" maxlength="140" placeholder=" ">
+          <label for="f-help-x" data-nl="Waar denk je aan?">What do you have in mind?</label>
         </div>
+        <span class="fld__err opts__err" id="e-1" role="alert"></span>
         <div class="ask__row">
           <span class="ask__hint mono"><i aria-hidden="true"></i><span data-nl="Gratis · Vrijblijvend">Free · No obligation</span></span>
           <button type="button" class="btn btn--coral" data-next><span data-nl="Volgende">Next</span><span class="arr" aria-hidden="true">→</span></button>
         </div>
       </div>
       <div class="pane" data-pane="2" hidden>
-        <h2 class="ask__h" data-nl="Waar sturen we <em>hem heen?</em>">Where do we <em>send it?</em></h2>
-        <p class="ask__p" data-nl="We sturen je de link zodra je site klaar is.">We’ll send you the link when your site is ready.</p>
+        <h2 class="ask__h" id="ask-h2" data-nl="Wat voor <em>zaak heb je?</em>">What kind of <em>business?</em></h2>
+        <p class="ask__p" data-nl="Cafés en restaurants zijn ons thuis, maar we bouwen voor elke lokale zaak.">Cafés and restaurants are home turf, but we build for any local business.</p>
+        <div class="opts opts--3" role="radiogroup" aria-labelledby="ask-h2">
+          <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Café" data-auto><span class="opt__t">Café</span></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Restaurant" data-auto><span class="opt__t">Restaurant</span></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Bakery" data-auto><span class="opt__t" data-nl="Bakkerij">Bakery</span></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Bar" data-auto><span class="opt__t">Bar</span></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Shop" data-auto><span class="opt__t" data-nl="Winkel">Shop</span></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Salon or studio" data-auto><span class="opt__t" data-nl="Salon of studio">Salon or studio</span></label>
+          <label class="opt opt--sm opt--wide"><input type="radio" name="contact[business_type]" value="Other" data-other="f-type-x"><span class="opt__t" data-nl="Iets anders">Something else</span></label>
+        </div>
+        <div class="fld fld--x" hidden data-x="f-type-x">
+          <input name="contact[business_type_other]" id="f-type-x" maxlength="80" placeholder=" ">
+          <label for="f-type-x" data-nl="Wat voor zaak?">What kind of business?</label>
+        </div>
+        <span class="fld__err opts__err" id="e-2" role="alert"></span>
+        <div class="ask__row">
+          <button type="button" class="link mono" data-back><span aria-hidden="true">←</span> <span data-nl="Terug">Back</span></button>
+          <button type="button" class="btn btn--coral" data-next><span data-nl="Volgende">Next</span><span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="pane" data-pane="3" hidden>
+        <h2 class="ask__h" id="ask-h3" data-nl="Wat moet de site <em>voor je doen?</em>">What should the site <em>do for you?</em></h2>
+        <p class="ask__p" data-nl="Kies er zoveel als je wilt.">Pick as many as you like.</p>
+        <div class="opts opts--chips" role="group" aria-labelledby="ask-h3">
+          <label class="chip"><input type="checkbox" value="More people walking in" data-goal><span data-nl="Meer mensen binnen">More people walking in</span></label>
+          <label class="chip"><input type="checkbox" value="More bookings or orders" data-goal><span data-nl="Meer reserveringen of bestellingen">More bookings or orders</span></label>
+          <label class="chip"><input type="checkbox" value="Look as good online as we are in real life" data-goal><span data-nl="Online net zo goed als in het echt">Look as good online as in real life</span></label>
+          <label class="chip"><input type="checkbox" value="Show up higher on Google" data-goal><span data-nl="Hoger in Google">Show up higher on Google</span></label>
+          <label class="chip"><input type="checkbox" value="Fewer calls and DMs with the same questions" data-goal><span data-nl="Minder dezelfde vragen via telefoon en DM">Fewer of the same questions in calls and DMs</span></label>
+          <label class="chip"><input type="checkbox" value="Reach tourists and expats" data-goal><span data-nl="Toeristen en expats bereiken">Reach tourists and expats</span></label>
+        </div>
+        <input type="hidden" name="contact[goal]" id="f-goal">
+        <span class="fld__err opts__err" id="e-3" role="alert"></span>
+        <div class="ask__row">
+          <button type="button" class="link mono" data-back><span aria-hidden="true">←</span> <span data-nl="Terug">Back</span></button>
+          <button type="button" class="btn btn--coral" data-next><span data-nl="Volgende">Next</span><span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="pane" data-pane="4" hidden>
+        <h2 class="ask__h" id="ask-h4" data-nl="Hoe heet <em>je zaak?</em>">What’s your <em>business called?</em></h2>
+        <p class="ask__p" data-nl="Dan kijken we alvast rond: je Google-profiel, je Instagram, je huidige site.">So we can look around first: your Google profile, your Instagram, your current site.</p>
+        <div class="fld">
+          <input name="contact[business]" id="f-rest" autocomplete="organization" maxlength="80" placeholder=" " aria-required="true" aria-describedby="e-rest">
+          <label for="f-rest" data-nl="Naam van je zaak">Business name</label>
+          <span class="fld__err" id="e-rest" role="alert"></span>
+        </div>
+        <div class="fld">
+          <input name="contact[neighbourhood]" id="f-area" maxlength="60" placeholder=" ">
+          <label for="f-area"><span data-nl="Buurt of stad">Neighbourhood or city</span> <i data-nl="(optioneel)">(optional)</i></label>
+        </div>
+        <div class="fld">
+          <input name="contact[current_site]" id="f-site" maxlength="160" placeholder=" " autocapitalize="off" spellcheck="false">
+          <label for="f-site"><span data-nl="Huidige website of Instagram">Current website or Instagram</span> <i data-nl="(optioneel)">(optional)</i></label>
+        </div>
+        <div class="ask__row">
+          <button type="button" class="link mono" data-back><span aria-hidden="true">←</span> <span data-nl="Terug">Back</span></button>
+          <button type="button" class="btn btn--coral" data-next><span data-nl="Volgende">Next</span><span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="pane" data-pane="5" hidden>
+        <h2 class="ask__h" id="ask-h5" data-nl="Waar sturen we <em>hem heen?</em>">Where do we <em>send it?</em></h2>
+        <p class="ask__p" data-nl="Laatste stap. We sturen je de link zodra je concept klaar is.">Last step. We’ll send you the link when your concept is ready.</p>
         <p class="ask__p ask__err" data-err-msg role="alert" hidden></p>
         <div class="fld">
           <input name="contact[name]" id="f-name" autocomplete="name" maxlength="60" placeholder=" " aria-required="true" aria-describedby="e-name">
@@ -565,9 +629,9 @@
         </div>
         <p class="fine ask__fine" data-nl="We gebruiken dit alleen om je je concept te sturen. <a href='https://dolcessi.com/policies/privacy-policy'>Privacy</a>">We only use this to send you your concept. <a href="https://dolcessi.com/policies/privacy-policy">Privacy</a></p>
       </div>
-      <div class="pane pane--done" data-pane="3" hidden>
+      <div class="pane pane--done" data-pane="6" hidden>
         <span class="done__tick" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><path d="M14 24.5l7 7 13-14"/></svg></span>
-        <h2 class="ask__h ask__h--big" id="ask-h3" data-nl="De bon is binnen. <em>Je site staat op het vuur.</em>">Ticket’s in. <em>Your site’s on the stove.</em></h2>
+        <h2 class="ask__h ask__h--big" id="ask-h6" data-nl="De bon is binnen. <em>Je site staat op het vuur.</em>">Ticket’s in. <em>Your site’s on the stove.</em></h2>
         <p class="ask__p" data-nl="We gaan aan de slag en mailen je zodra hij klaar is. Vragen? <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>">We’re on it, and we’ll email you when it’s ready. Questions? <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a></p>
         <div class="ask__row"><span></span><button type="button" class="btn btn--cream" data-close><span data-nl="Terug naar de site">Back to the site</span></button></div>
       </div>

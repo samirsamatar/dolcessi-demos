@@ -19,7 +19,10 @@
   var T = {
     title: { en: 'Dolcessi — Websites for cafés & restaurants in Amsterdam', nl: 'Dolcessi — Websites voor cafés & restaurants in Amsterdam' },
     desc: { en: ($('meta[name=description]') || {}).content || '', nl: 'Dolcessi bouwt websites van topniveau voor zelfstandige cafés en restaurants in Amsterdam. Wij bouwen je site voordat je erom vraagt: jouw menu, jouw openingstijden, jouw straat. Jij zegt ja, of niet. Binnen dagen live.' },
-    errRest: { en: 'Tell us the name of your café or restaurant.', nl: 'Vul de naam van je café of restaurant in.' },
+    errRest: { en: 'What’s the name of your business?', nl: 'Hoe heet je zaak?' },
+    errPick: { en: 'Pick one to continue.', nl: 'Kies er een om verder te gaan.' },
+    errGoal: { en: 'Pick at least one.', nl: 'Kies er minstens één.' },
+    errOther: { en: 'Tell us in a few words.', nl: 'Vertel het in een paar woorden.' },
     errName: { en: 'What should we call you?', nl: 'Hoe mogen we je noemen?' },
     errEmail: { en: 'That email doesn’t look right.', nl: 'Dat e-mailadres klopt niet helemaal.' },
     sending: { en: 'Sending…', nl: 'Versturen…' },
@@ -519,7 +522,7 @@
   /* ───────── dialog ───────── */
   var ask = $('#ask'), form = $('#ask-form'), step = 1, lastFocus = null;
   var panes = ask ? $$('[data-pane]', ask) : [], panesEl = ask && $('[data-panes]', ask);
-  var KEEP = ['#f-rest', '#f-area', '#f-name', '#f-email', '#f-phone'], KEEP_KEY = 'dolcessi_ask';
+  var LAST = 5, DONE = 6, KEEP_KEY = 'dolcessi_ask2';
   function focusables() {
     return $$('a[href],button:not([disabled]),input:not([type=hidden]),select,textarea,[tabindex]:not([tabindex="-1"])', ask)
       .filter(function (el) { return el.offsetParent !== null && !el.closest('[hidden]') && !el.closest('.is-leaving'); });
@@ -544,16 +547,17 @@
     } else {
       panes.forEach(function (p) { p.hidden = +p.getAttribute('data-pane') !== n; p.classList.remove('is-leaving'); });
     }
-    $('[data-stepn]', ask).textContent = '0' + Math.min(n, 2);
-    $('.ask__step', ask).style.visibility = n === 3 ? 'hidden' : '';
-    $('[data-bar]', ask).style.width = n === 1 ? '50%' : '100%';
-    ask.setAttribute('aria-labelledby', n === 3 ? 'ask-h3' : 'ask-h1');
+    $('[data-stepn]', ask).textContent = '0' + Math.min(n, LAST);
+    $('.ask__step', ask).style.visibility = n === DONE ? 'hidden' : '';
+    $('[data-bar]', ask).style.width = (Math.min(n, LAST) / LAST * 100) + '%';
+    ask.setAttribute('aria-labelledby', 'ask-h' + n);
     setTimeout(function () {
-      var f = n === 1 ? $('#f-rest') : n === 2 ? ($('[data-err-msg]:not([hidden])') ? $('#f-email') : $('#f-name')) : $('[data-pane="3"] [data-close]', ask);
-      if (n === 2 && !$('[data-err-msg]:not([hidden])') && $('#f-name').value) f = $('#f-email');
-      if (f && FINE) f.focus({ preventScroll: true });
-      else if (f && n !== 1) f.focus({ preventScroll: true });
-      else if (n === 1) $('.ask__x', ask).focus({ preventScroll: true });
+      var pane = panes.filter(function (p) { return +p.getAttribute('data-pane') === n; })[0], f = null;
+      if (n === LAST) f = $('[data-err-msg]:not([hidden])') || $('#f-name').value ? $('#f-email') : $('#f-name');
+      else if (n === 4) f = $('#f-rest');
+      else if (n === DONE) f = $('[data-close]', pane);
+      else if (pane) { f = $('.ask__h', pane); if (f) f.setAttribute('tabindex', '-1'); }
+      if (f && (FINE || n >= 4 || n <= 3)) f.focus({ preventScroll: true });
     }, 60);
   }
   function setInert(on) { $$('main, .hdr, .ftr, .skip, .mnav, .dock').forEach(function (el) { if ('inert' in el) el.inert = on; else if (on) el.setAttribute('aria-hidden', 'true'); else el.removeAttribute('aria-hidden'); }); }
@@ -596,7 +600,23 @@
     f.classList.toggle('is-bad', !!key); em.textContent = key ? t(key) : '';
     input.setAttribute('aria-invalid', key ? 'true' : 'false');
   }
+  function optErr(n, key) { var e = $('#e-' + n); if (e) e.textContent = key ? t(key) : ''; }
+  function vPick(n, name) {
+    var c = $('input[name="' + name + '"]:checked', form);
+    if (!c) { optErr(n, 'errPick'); return false; }
+    var xo = c.getAttribute('data-other'), x = xo && $('#' + xo);
+    if (x && !x.value.trim()) { optErr(n, 'errOther'); x.focus(); return false; }
+    optErr(n, null); return true;
+  }
+  function vGoal() {
+    var g = $$('[data-goal]:checked', form).map(function (i) { return i.value; });
+    $('#f-goal').value = g.join(' · ');
+    if (!g.length) { optErr(3, 'errGoal'); return false; }
+    optErr(3, null); return true;
+  }
   function v1() { var r = $('#f-rest'), ok = r.value.trim().length > 0; setErr(r, ok ? null : 'errRest'); if (!ok) r.focus(); return ok; }
+  function vStep(n) { return n === 1 ? vPick(1, 'contact[help]') : n === 2 ? vPick(2, 'contact[business_type]') : n === 3 ? vGoal() : n === 4 ? v1() : n === 5 ? v2() : true; }
+  function firstBad() { for (var i = 1; i < LAST; i++) if (!vStep(i)) return i; return 0; }
   function v2() {
     var n = $('#f-name'), m = $('#f-email'), ok = true, first = null;
     if (!n.value.trim()) { setErr(n, 'errName'); ok = false; first = first || n; } else setErr(n, null);
@@ -604,20 +624,70 @@
     if (first) first.focus();
     return ok;
   }
-  function saveForm() { try { sessionStorage.setItem(KEEP_KEY, JSON.stringify(KEEP.map(function (s) { return $(s).value; }))); } catch (e) { } }
-  function restoreForm() { try { var v = JSON.parse(sessionStorage.getItem(KEEP_KEY) || 'null'); if (v) KEEP.forEach(function (s, i) { if (v[i] && !$(s).value) $(s).value = v[i]; }); } catch (e) { } }
+  function saveForm() {
+    try {
+      var v = { t: {}, c: [] };
+      $$('input', form).forEach(function (i) {
+        if (i.type === 'radio' || i.type === 'checkbox') { if (i.checked) v.c.push((i.name || 'goal') + '=' + i.value); }
+        else if (i.id && i.type !== 'hidden') v.t[i.id] = i.value;
+      });
+      sessionStorage.setItem(KEEP_KEY, JSON.stringify(v));
+    } catch (e) { }
+  }
+  function restoreForm() {
+    try {
+      var v = JSON.parse(sessionStorage.getItem(KEEP_KEY) || 'null'); if (!v) return;
+      Object.keys(v.t || {}).forEach(function (id) { var i = d.getElementById(id); if (i && !i.value) i.value = v.t[id]; });
+      $$('input[type=radio],input[type=checkbox]', form).forEach(function (i) { if ((v.c || []).indexOf((i.name || 'goal') + '=' + i.value) > -1) i.checked = true; });
+      syncOpts();
+    } catch (e) { }
+  }
+  function syncOpts() {
+    $$('[data-x]', form).forEach(function (box) {
+      var r = $('[data-other="' + box.getAttribute('data-x') + '"]', form);
+      box.hidden = !(r && r.checked);
+      $$('input', box).forEach(function (i) { i.disabled = box.hidden; });
+    });
+  }
   function clearForm() { try { sessionStorage.removeItem(KEEP_KEY); } catch (e) { } }
   if (ask && form) {
-    $('[data-next]', ask).addEventListener('click', function () { if (v1()) goStep(2); });
-    $('[data-back]', ask).addEventListener('click', function () { goStep(1, true); });
-    ['#f-rest', '#f-area'].forEach(function (s) { $(s).addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); if (v1()) goStep(2); } }); });
+    syncOpts();
+    $$('[data-next]', ask).forEach(function (b) { b.addEventListener('click', function () { if (vStep(step)) goStep(step + 1); }); });
+    $$('[data-back]', ask).forEach(function (b) { b.addEventListener('click', function () { goStep(Math.max(1, step - 1), true); }); });
+    var autoT = 0;
+    form.addEventListener('change', function (e) {
+      var i = e.target; if (!i || !i.matches) return;
+      if (i.type === 'radio') {
+        syncOpts(); optErr(step, null);
+        clearTimeout(autoT);
+        if (i.hasAttribute('data-auto')) { var at = step; autoT = setTimeout(function () { if (step === at && i.checked) goStep(at + 1); }, REDUCE ? 60 : 380); }
+        else if (i.getAttribute('data-other')) setTimeout(function () { var x = $('#' + i.getAttribute('data-other')); if (x) x.focus({ preventScroll: true }); }, 60);
+      }
+      if (i.hasAttribute('data-goal')) { $('#f-goal').value = $$('[data-goal]:checked', form).map(function (c) { return c.value; }).join(' · '); optErr(3, null); }
+    });
+    form.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' || step >= LAST) return;
+      var tg = e.target; if (tg && tg.tagName === 'BUTTON') return;
+      e.preventDefault(); if (vStep(step)) goStep(step + 1);
+    });
     ['#f-rest', '#f-name', '#f-email'].forEach(function (s) { $(s).addEventListener('input', function () { if ($(s).closest('.fld').classList.contains('is-bad')) setErr($(s), null); }); });
     form.addEventListener('submit', function (e) {
-      if (step !== 2) { e.preventDefault(); if (step === 1 && v1()) goStep(2); return; }
-      if (!v1()) { e.preventDefault(); goStep(1, true); return; }
+      if (step !== LAST) { e.preventDefault(); if (step < LAST && vStep(step)) goStep(step + 1); return; }
+      var bad = firstBad();
+      if (bad) { e.preventDefault(); goStep(bad, true); return; }
       if (!v2()) { e.preventDefault(); return; }
       var g = function (s) { return ($(s).value || '').trim(); };
-      $('#f-body').value = ['Show me my site', '', 'Café / restaurant: ' + g('#f-rest'), 'Neighbourhood: ' + (g('#f-area') || '—'), 'Name: ' + g('#f-name'), 'Email: ' + g('#f-email'), 'WhatsApp / phone: ' + (g('#f-phone') || '—'), 'Language: ' + LANG.toUpperCase(), 'Page: ' + location.href.split('#')[0].split('?')[0]].join('\n');
+      var pick = function (name, other) { var c = $('input[name="' + name + '"]:checked', form); if (!c) return '—'; return c.getAttribute('data-other') ? c.value + ': ' + g('#' + other) : c.value; };
+      $('#f-body').value = ['Show me my site', '',
+        'Needs help with: ' + pick('contact[help]', 'f-help-x'),
+        'Business type: ' + pick('contact[business_type]', 'f-type-x'),
+        'Goals: ' + (g('#f-goal') || '—'),
+        'Business: ' + g('#f-rest'),
+        'Neighbourhood / city: ' + (g('#f-area') || '—'),
+        'Current site / Instagram: ' + (g('#f-site') || '—'),
+        '',
+        'Name: ' + g('#f-name'), 'Email: ' + g('#f-email'), 'WhatsApp / phone: ' + (g('#f-phone') || '—'),
+        'Language: ' + LANG.toUpperCase(), 'Page: ' + location.href.split('#')[0].split('?')[0]].join('\n');
       saveForm();
       var sb = $('button[type=submit]', form);
       sb.disabled = true; sb.setAttribute('aria-busy', 'true'); $('span', sb).textContent = t('sending');
@@ -690,9 +760,9 @@
         var msg = (errEl.textContent || '').trim(), m = $('[data-err-msg]');
         m.hidden = false; m.textContent = LANG === 'nl' || !msg ? t('serverErr') : msg;
         if (/mail/i.test(msg)) setErr($('#f-email'), 'errEmail');
-        openAsk(2);
+        openAsk(LAST);
       } else {
-        clearForm(); openAsk(3);
+        clearForm(); openAsk(DONE);
         try { if (/contact_posted/.test(location.search)) history.replaceState(null, '', location.pathname + location.search.replace(/[?&]contact_posted=true/, '').replace(/^&/, '?') + location.hash.replace(/^#(ask-form|contact_form)$/, '')); } catch (e) { }
       }
       return;
