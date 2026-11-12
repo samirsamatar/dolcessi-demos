@@ -26,7 +26,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="{{ 'favicon-v4-192.png' | asset_url }}">
 <link rel="apple-touch-icon" href="{{ 'apple-touch-icon-v4.png' | asset_url }}">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Dolcessi","url":"https://dolcessi.com/","email":"info@dolcessi.com","telephone":"+31 6 40421118","priceRange":"€995–€3,900","description":"Phone-first websites for independent cafés and restaurants in Amsterdam. We build your site before you ask.","slogan":"They Google you before they taste you.","areaServed":{"@type":"City","name":"Amsterdam"},"address":{"@type":"PostalAddress","addressLocality":"Amsterdam","addressCountry":"NL"},"availableLanguage":["nl","en"],"knowsLanguage":["nl","en"],"identifier":{"@type":"PropertyValue","propertyID":"KvK","value":"99514168"} }
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Dolcessi","url":"https://dolcessi.com/","email":"info@dolcessi.com","priceRange":"€995–€3,900","description":"Phone-first websites for independent cafés and restaurants in Amsterdam. We build your site before you ask.","slogan":"They Google you before they taste you.","areaServed":{"@type":"City","name":"Amsterdam"},"address":{"@type":"PostalAddress","addressLocality":"Amsterdam","addressCountry":"NL"},"availableLanguage":["nl","en"],"knowsLanguage":["nl","en"],"identifier":{"@type":"PropertyValue","propertyID":"KvK","value":"99514168"} }
 </script>
 <script>document.documentElement.className='js';try{var l=localStorage.getItem('dolcessi_lang');if(!l&&/^nl\b/i.test(navigator.language||''))l='nl';if(l==='nl'){document.documentElement.lang='nl';document.documentElement.classList.add('is-nl')}if(sessionStorage.getItem('dolcessi_seen')||/^#test$/i.test(location.hash))document.documentElement.classList.add('seen')}catch(e){}</script>
 <link rel="preload" href="{{ 'inter-tight-var.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
@@ -83,7 +83,7 @@
   </nav>
   <div class="mnav__foot">
     <button type="button" class="btn btn--coral" data-test><span data-nl="Doe de telefoontest">Take the Phone Test</span><span class="btn__tag mono">60 sec</span></button>
-    <p class="mono"><a href="https://wa.me/31640421118?text=Hi%20Dolcessi%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Dolcessi%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener">WhatsApp 06 40 42 11 18</a><span>AMS <time data-clock>--:--</time></span></p>
+    <p class="mono"><a href="mailto:info@dolcessi.com">info@dolcessi.com</a><span>AMS <time data-clock>--:--</time></span></p>
   </div>
 </div>
 
@@ -98,7 +98,7 @@
         <p class="lede" data-rv data-nl="Wij bouwen een echte website voor je café of restaurant, met jouw menu, jouw openingstijden en jouw straat, <b>nog voordat je erom vraagt</b>. Je ziet hem op je telefoon. Jij zegt ja, of niet.">We build your café or restaurant a real website, with your menu, your hours and your street, <b>before you ask</b>. You see it on your phone. You say yes, or you don’t.</p>
         <div class="ctas" data-rv>
           <button type="button" class="btn btn--coral" data-test data-magnetic><span data-nl="Doe de telefoontest">Take the Phone Test</span><span class="btn__tag mono">60 sec</span></button>
-          <a class="btn btn--ghost btn--wa" href="https://wa.me/31640421118?text=Hi%20Dolcessi%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Dolcessi%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener" data-cursor="HI" data-magnetic><svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.6 19.4l1.1-3.7a7.9 7.9 0 1 1 2.8 2.7z"/><path d="M9.6 8.4c-.2 2.9 2.4 5.6 5.5 5.9l.9-1.3-1.7-.9-.8.7a4.2 4.2 0 0 1-2.4-2.4l.7-.8-.9-1.7z"/></svg><span data-nl="WhatsApp ons">WhatsApp us</span></a>
+          <button type="button" class="btn btn--ghost btn--wa" data-wa="Hero" data-cursor="HI" data-magnetic><svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.6 19.4l1.1-3.7a7.9 7.9 0 1 1 2.8 2.7z"/><path d="M9.6 8.4c-.2 2.9 2.4 5.6 5.5 5.9l.9-1.3-1.7-.9-.8.7a4.2 4.2 0 0 1-2.4-2.4l.7-.8-.9-1.7z"/></svg><span data-wa-l="cb" data-nl="Wij appen jou">We’ll WhatsApp you</span><span data-wa-l="direct" data-nl="WhatsApp ons">WhatsApp us</span></button>
         </div>
       </div>
 
@@ -544,15 +544,14 @@
       <div class="who__copy">
         <p class="label mono" data-rv><span class="n">08</span><span data-nl="Wie dit bouwt">Who builds this</span></p>
         <h2 class="h2" id="who-h" data-split data-nl="Elke site <em>met de hand</em> gebouwd, in Amsterdam.">Every site built <em>by hand,</em> in Amsterdam.</h2>
-        <p class="lede" data-rv data-nl="Geen bureau, geen doorgeefluik. Wie je preview bouwt, beantwoordt ook je WhatsApp.">No agency, no hand-offs. Whoever builds your preview also answers your WhatsApp.</p>
+        <p class="lede" data-rv data-nl="Geen bureau, geen doorgeefluik. Wie je preview bouwt, beantwoordt ook je berichten.">No agency, no hand-offs. Whoever builds your preview also answers your messages.</p>
       </div>
       <div class="vcard glass" data-rv>
         <div class="vcard__top mono"><span class="vcard__mark">dolcessi<span class="cur" aria-hidden="true">_</span></span><span>AMS <time data-clock>--:--</time></span></div>
-        <p class="vcard__name" data-nl="Even appen?">Say hi<i aria-hidden="true">.</i></p>
-        <p class="vcard__role mono" data-nl="WhatsApp, mail of langskomen">WhatsApp, email or a visit</p>
+        <p class="vcard__name" data-nl="Zeg hoi<i aria-hidden='true'>.</i>">Say hi<i aria-hidden="true">.</i></p>
+        <p class="vcard__role mono" data-nl="Mail, of we komen langs">Email, or we drop by</p>
         <dl class="vcard__rows">
-          <div><dt class="mono">WhatsApp</dt><dd><a href="https://wa.me/31640421118?text=Hi%20Dolcessi%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Dolcessi%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener" data-cursor="HI">06 40 42 11 18</a></dd></div>
-          <div><dt class="mono" data-nl="E-mail">Email</dt><dd><a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a></dd></div>
+                    <div><dt class="mono" data-nl="E-mail">Email</dt><dd><a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a></dd></div>
           <div><dt class="mono">Studio</dt><dd>Amsterdam</dd></div>
         </dl>
       </div>
@@ -565,7 +564,7 @@
       <div class="faq__head">
         <p class="label mono" data-rv><span class="n">09</span><span data-nl="Vragen">FAQ</span></p>
         <h2 class="h2" id="faq-h" data-split data-nl="Terechte <em>vragen.</em>">Fair <em>questions.</em></h2>
-        <p class="lede" data-rv data-nl="Iets anders? App <a href='https://wa.me/31640421118?text=Hoi%20Dolcessi%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak.' target='_blank' rel='noopener' data-cursor='HI'>06&nbsp;40&nbsp;42&nbsp;11&nbsp;18</a> of mail <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>.">Something else? WhatsApp <a href="https://wa.me/31640421118?text=Hi%20Dolcessi%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." target="_blank" rel="noopener" data-cursor="HI">06&nbsp;40&nbsp;42&nbsp;11&nbsp;18</a> or email <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a>.</p>
+        <p class="lede" data-rv data-nl="Iets anders? Mail <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>.">Something else? Email <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a>.</p>
       </div>
       <div class="qa">
         <details class="q" data-rv>
@@ -611,7 +610,7 @@
       <h2 class="h-xl" id="cta-h" data-split data-nl="Bekijk je site <em>voordat</em> je een cent betaalt.">See yours <em>before</em> you pay a&nbsp;cent.</h2>
       <p class="lede cta__lede" data-rv data-nl="Begin met de telefoontest: tien ja-of-neevragen over je huidige site. Daarna bouwen we gratis je preview.">Start with the Phone Test: ten yes-or-no questions about your current site. Then we build your preview, free.</p>
       <div class="cta__btns" data-rv><button type="button" class="btn btn--coral btn--xl" data-test data-magnetic><span data-nl="Doe de telefoontest">Take the Phone Test</span><span class="btn__tag mono">60 sec</span></button>
-        <a class="link mono cta__wa" href="https://wa.me/31640421118?text=Hi%20Dolcessi%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Dolcessi%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener" data-cursor="HI"><span data-nl="of WhatsApp">or WhatsApp</span> 06 40 42 11 18</a></div>
+        <a class="link mono cta__wa" href="mailto:info@dolcessi.com" data-cursor="HI"><span data-nl="of mail">or email</span> info@dolcessi.com</a></div>
       <ul class="facts mono" data-rv>
         <li data-nl="Gratis concept">Free concept</li>
         <li data-nl="Jij zegt ja, of niet">You say yes, or you don’t</li>
@@ -625,7 +624,7 @@
   <div class="wrap">
     <div class="ftr__grid mono">
       <div><span class="ftr__k" data-nl="Studio">Studio</span><span>Amsterdam</span><span>AMS <time data-clock>--:--</time></span></div>
-      <div><span class="ftr__k" data-nl="Contact">Contact</span><a href="https://wa.me/31640421118?text=Hi%20Dolcessi%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Dolcessi%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener" data-cursor="HI">WhatsApp 06 40 42 11 18</a><a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a><a href="https://concept.dolcessi.com/" target="_blank" rel="noopener">concept.dolcessi.com ↗</a></div>
+      <div><span class="ftr__k" data-nl="Contact">Contact</span><a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a><a href="https://concept.dolcessi.com/" target="_blank" rel="noopener">concept.dolcessi.com ↗</a></div>
       <div><span class="ftr__k" data-nl="Gegevens">Details</span><span>KvK 99514168</span><a href="https://dolcessi.com/policies/privacy-policy" data-nl="Privacybeleid">Privacy policy</a><a href="#cookies" data-cookie-settings data-nl="Cookie-instellingen">Cookie settings</a></div>
       <div><span class="ftr__k">© 2026 Dolcessi</span><span class="ftr__small" data-nl="Concepten zijn onofficieel en niet de eigen websites van de zaken.">Concepts are unofficial and not the places’ own websites.</span></div>
     </div>
@@ -684,7 +683,7 @@
         <p class="pt__pass mono" data-pt-pass hidden></p>
         <div class="pt__cta">
           <button type="button" class="btn btn--coral" data-pt-preview><span data-nl="Vraag je gratis preview aan">Request your free preview</span><span class="arr" aria-hidden="true">↗</span></button>
-          <a class="btn btn--ghost btn--wa" data-pt-wa href="https://wa.me/31640421118" target="_blank" rel="noopener"><svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.6 19.4l1.1-3.7a7.9 7.9 0 1 1 2.8 2.7z"/><path d="M9.6 8.4c-.2 2.9 2.4 5.6 5.5 5.9l.9-1.3-1.7-.9-.8.7a4.2 4.2 0 0 1-2.4-2.4l.7-.8-.9-1.7z"/></svg><span>WhatsApp</span></a>
+          <button type="button" class="btn btn--ghost btn--wa" data-pt-wa><svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.6 19.4l1.1-3.7a7.9 7.9 0 1 1 2.8 2.7z"/><path d="M9.6 8.4c-.2 2.9 2.4 5.6 5.5 5.9l.9-1.3-1.7-.9-.8.7a4.2 4.2 0 0 1-2.4-2.4l.7-.8-.9-1.7z"/></svg><span data-wa-l="cb" data-nl="Wij appen jou">We’ll WhatsApp you</span><span data-wa-l="direct" data-nl="WhatsApp ons">WhatsApp us</span></button>
         </div>
         <p class="fine ask__fine pt__fine"><span data-nl="De preview is gratis. Live gaan kan vanaf €995, of €129 per maand.">The preview is free. Going live is from €995, or €129 a month.</span> <button type="button" class="link mono" data-pt-redo><span data-nl="Opnieuw">Retake</span> <span aria-hidden="true">↻</span></button></p>
       </div>
@@ -696,7 +695,7 @@
   <div class="ask__bg" data-close></div>
   <div class="ask__panel glass" data-lenis-prevent>
     <div class="ask__top mono">
-      <span class="ask__t"><i class="dot" aria-hidden="true"></i><span data-nl="Laat mijn site zien">Show me my site</span></span>
+      <span class="ask__t"><i class="dot" aria-hidden="true"></i><span data-ask-t="flow" data-nl="Laat mijn site zien">Show me my site</span><span data-ask-t="wa" data-nl="Wij appen jou">We’ll WhatsApp you</span></span>
       <span class="ask__step" aria-live="polite"><b data-stepn>01</b> / 06</span>
       <button type="button" class="ask__x" data-close aria-label="Close" data-nl-aria-label="Sluiten"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
@@ -833,10 +832,37 @@
         </div>
         <p class="fine ask__fine" data-nl="We gebruiken dit alleen om je je concept te sturen. <a href='https://dolcessi.com/policies/privacy-policy'>Privacy</a>">We only use this to send you your concept. <a href="https://dolcessi.com/policies/privacy-policy">Privacy</a></p>
       </div>
+      <div class="pane" data-pane="8" hidden>
+        <h2 class="ask__h" id="ask-h8" data-nl="Laat je nummer achter. <em>Wij appen jou.</em>">Leave your number. <em>We’ll WhatsApp you.</em></h2>
+        <p class="ask__p" data-nl="Binnen 24 uur krijg je een appje van ons. Geen belletjes, geen spam.">You’ll get a WhatsApp from us within 24 hours. No calls, no spam.</p>
+        <p class="ask__p ask__err" data-wa-err role="alert" hidden></p>
+        <div class="fld">
+          <input type="tel" id="f-wa" autocomplete="tel" inputmode="tel" maxlength="30" placeholder=" " aria-required="true" aria-describedby="e-wa">
+          <label for="f-wa" data-nl="Je WhatsApp-nummer">Your WhatsApp number</label>
+          <span class="fld__err" id="e-wa" role="alert"></span>
+        </div>
+        <div class="fld">
+          <input id="f-wa-rest" autocomplete="organization" maxlength="80" placeholder=" " aria-required="true" aria-describedby="e-wa-rest">
+          <label for="f-wa-rest" data-nl="Naam van je zaak">Business name</label>
+          <span class="fld__err" id="e-wa-rest" role="alert"></span>
+        </div>
+        <div class="fld">
+          <input type="email" id="f-wa-email" autocomplete="email" maxlength="120" placeholder=" " aria-required="true" aria-describedby="e-wa-email">
+          <label for="f-wa-email"><span data-nl="E-mail">Email</span> <i data-nl="(als reserve)">(as a backup)</i></label>
+          <span class="fld__err" id="e-wa-email" role="alert"></span>
+        </div>
+        <div class="ask__row">
+          <button type="button" class="link mono" data-close><span data-nl="Niet nu">Not now</span></button>
+          <button type="submit" class="btn btn--coral" data-wa-send><span data-nl="App mij">WhatsApp me</span><span class="arr" aria-hidden="true">↗</span></button>
+        </div>
+        <p class="fine ask__fine" data-nl="We gebruiken je nummer alleen om je over je site te appen. <a href='https://dolcessi.com/policies/privacy-policy'>Privacy</a>">We only use your number to message you about your site. <a href="https://dolcessi.com/policies/privacy-policy">Privacy</a></p>
+      </div>
       <div class="pane pane--done" data-pane="7" hidden>
         <span class="done__tick" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><path d="M14 24.5l7 7 13-14"/></svg></span>
-        <h2 class="ask__h ask__h--big" id="ask-h7" data-nl="De bon is binnen. <em>Je site staat op het vuur.</em>">Ticket’s in. <em>Your site’s on the stove.</em></h2>
-        <p class="ask__p" data-nl="We gaan aan de slag en mailen je zodra hij klaar is. Vragen? <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>">We’re on it, and we’ll email you when it’s ready. Questions? <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a></p>
+        <h2 class="ask__h ask__h--big" id="ask-h7" data-done="flow" data-nl="De bon is binnen. <em>Je site staat op het vuur.</em>">Ticket’s in. <em>Your site’s on the stove.</em></h2>
+        <p class="ask__p" data-done="flow" data-nl="We gaan aan de slag en mailen je zodra hij klaar is. Vragen? <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>">We’re on it, and we’ll email you when it’s ready. Questions? <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a></p>
+        <h2 class="ask__h ask__h--big" id="ask-h7w" data-done="wa" data-nl="Staat genoteerd. <em>Hou je WhatsApp in de gaten.</em>">Got it. <em>Watch your WhatsApp.</em></h2>
+        <p class="ask__p" data-done="wa" data-nl="We appen je binnen 24 uur. Liever mailen? <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>">We’ll message you within 24 hours. Rather email? <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a></p>
         <div class="ask__row"><span></span><button type="button" class="btn btn--cream" data-close><span data-nl="Terug naar de site">Back to the site</span></button></div>
       </div>
       </div>

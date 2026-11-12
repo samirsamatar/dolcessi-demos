@@ -28,6 +28,9 @@
     errEmail: { en: 'That email doesn’t look right.', nl: 'Dat e-mailadres klopt niet helemaal.' },
     sending: { en: 'Sending…', nl: 'Versturen…' },
     send: { en: 'Show me my site', nl: 'Laat mijn site zien' },
+    sendWa: { en: 'WhatsApp me', nl: 'App mij' },
+    errWa: { en: 'That number doesn’t look right.', nl: 'Dat nummer klopt niet helemaal.' },
+    waHi: { en: 'Hi Dolcessi, I’d like to know more about a website for my place.', nl: 'Hoi Dolcessi, ik wil graag meer weten over een website voor mijn zaak.' },
     open: { en: 'Open now · until 18:00', nl: 'Nu open · tot 18:00' },
     closed: { en: 'Closed · opens 08:00', nl: 'Gesloten · open om 08:00' },
     serverErr: { en: 'Something went wrong sending that. Check your details and try again.', nl: 'Er ging iets mis bij het versturen. Check je gegevens en probeer het opnieuw.' },
@@ -74,6 +77,11 @@
      The one value to edit by hand: places left in the current intake.
      null = no count shown · 2 = "2 left" · 0 = "Full". Reset it when an intake closes. */
   var PLACES_LEFT = null;
+  /* Dolcessi's own WhatsApp Business number, in international form without + (e.g. '31612345678').
+     Empty = visitors leave their number and we WhatsApp them. Filled = the WhatsApp buttons open a chat directly. */
+  var WA_NUMBER = '';
+  if (WA_NUMBER) html.classList.add('wa-direct');
+  function directWa(msg) { W.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg || t('waHi')), '_blank', 'noopener'); }
   var INTAKE = [
     { id: 'founding', until: Date.parse('2026-12-19T23:59:59+01:00'), n: 3,
       k: ['Founding 3', 'De eerste 3'],
@@ -591,7 +599,7 @@
   /* ───────── dialog ───────── */
   var ask = $('#ask'), form = $('#ask-form'), step = 1, lastFocus = null;
   var panes = ask ? $$('[data-pane]', ask) : [], panesEl = ask && $('[data-panes]', ask);
-  var LAST = 6, DONE = 7, KEEP_KEY = 'dolcessi_ask2', askSrc = 'Site';
+  var LAST = 6, DONE = 7, WA = 8, KEEP_KEY = 'dolcessi_ask2', WA_KEY = 'dolcessi_wa', askSrc = 'Site', waMode = false;
   function focusables(root) {
     return $$('a[href],button:not([disabled]),input:not([type=hidden]),select,textarea,[tabindex]:not([tabindex="-1"])', root || ask)
       .filter(function (el) { return el.offsetParent !== null && !el.closest('[hidden]') && !el.closest('.is-leaving'); });
@@ -616,13 +624,19 @@
     } else {
       panes.forEach(function (p) { p.hidden = +p.getAttribute('data-pane') !== n; p.classList.remove('is-leaving'); });
     }
+    if (n === WA) waMode = true; else if (n !== DONE) waMode = false;
+    ask.classList.toggle('is-wa', waMode);
     $('[data-stepn]', ask).textContent = '0' + Math.min(n, LAST);
-    $('.ask__step', ask).style.visibility = n === DONE ? 'hidden' : '';
+    $('.ask__step', ask).style.visibility = n === DONE || n === WA ? 'hidden' : '';
     $('[data-bar]', ask).style.width = (Math.min(n, LAST) / LAST * 100) + '%';
-    ask.setAttribute('aria-labelledby', 'ask-h' + n);
+    ask.setAttribute('aria-labelledby', n === DONE && waMode ? 'ask-h7w' : 'ask-h' + n);
     setTimeout(function () {
       var pane = panes.filter(function (p) { return +p.getAttribute('data-pane') === n; })[0], f = null;
-      if (n === LAST) f = $('[data-err-msg]:not([hidden])') || $('#f-name').value ? $('#f-email') : $('#f-name');
+      if (n === WA) {
+        f = FINE ? ['#f-wa', '#f-wa-rest', '#f-wa-email'].map(function (s) { return $(s); }).filter(function (i) { return !i.value.trim(); })[0] || $('[data-wa-send]') : $('#ask-h8');
+        if (f && f.tagName === 'H2') f.setAttribute('tabindex', '-1');
+      }
+      else if (n === LAST) f = $('[data-err-msg]:not([hidden])') || $('#f-name').value ? $('#f-email') : $('#f-name');
       else if (n === 5) f = $('#f-rest');
       else if (n === DONE) f = $('[data-close]', pane);
       else if (pane) { f = $('.ask__h', pane); if (f) f.setAttribute('tabindex', '-1'); }
@@ -653,6 +667,16 @@
     if (lastFocus && lastFocus.focus && lastFocus !== d.body) lastFocus.focus({ preventScroll: true });
   }
   W.openAsk = openAsk;
+  // "We'll WhatsApp you": the visitor leaves their number instead of seeing ours
+  function openWa(src, back) {
+    askSrc = src || 'Site';
+    if (WA_NUMBER) { directWa(); return; }
+    [['#f-phone', '#f-wa'], ['#f-rest', '#f-wa-rest'], ['#f-email', '#f-wa-email']].forEach(function (p) {
+      var a = $(p[0]), b = $(p[1]); if (a && b && !b.value && a.value) b.value = a.value;
+    });
+    if (askOpen) goStep(WA); else openAsk(WA, back);
+  }
+  W.openWa = openWa;
   var vv = W.visualViewport;
   if (vv && ask) {
     var fitVV = function () {
@@ -668,6 +692,8 @@
     if (o) { e.preventDefault(); askSrc = o.getAttribute('data-ask') || 'Site'; openAsk(1); return; }
     var tb = e.target.closest && e.target.closest('[data-test]');
     if (tb) { e.preventDefault(); openTest(); return; }
+    var wb = e.target.closest && e.target.closest('[data-wa]');
+    if (wb) { e.preventDefault(); openWa(wb.getAttribute('data-wa') || 'Site'); return; }
     if (askOpen && e.target.closest && e.target.closest('[data-close]')) { e.preventDefault(); closeAsk(); }
   });
   function setErr(input, key) {
@@ -702,6 +728,21 @@
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m.value.trim())) { setErr(m, 'errEmail'); ok = false; first = first || m; } else setErr(m, null);
     if (first) first.focus();
     return ok;
+  }
+  function waIntl(v) {
+    var s = (v || '').trim(), dg = s.replace(/\D/g, '');
+    if (/^\+/.test(s)) return dg;
+    if (/^00/.test(dg)) return dg.slice(2);
+    if (/^0/.test(dg)) return '31' + dg.slice(1);
+    return dg;
+  }
+  function vWa() {
+    var p = $('#f-wa'), r = $('#f-wa-rest'), m = $('#f-wa-email'), first = null, n = (p.value || '').replace(/\D/g, '').length;
+    if (n < 9 || n > 15) { setErr(p, 'errWa'); first = p; } else setErr(p, null);
+    if (!r.value.trim()) { setErr(r, 'errRest'); first = first || r; } else setErr(r, null);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m.value.trim())) { setErr(m, 'errEmail'); first = first || m; } else setErr(m, null);
+    if (first) first.focus();
+    return !first;
   }
   function saveForm() {
     try {
@@ -754,8 +795,32 @@
       var tg = e.target; if (tg && tg.tagName === 'BUTTON') return;
       e.preventDefault(); if (vStep(step)) goStep(step + 1);
     });
-    ['#f-rest', '#f-name', '#f-email'].forEach(function (s) { $(s).addEventListener('input', function () { if ($(s).closest('.fld').classList.contains('is-bad')) setErr($(s), null); }); });
+    ['#f-rest', '#f-name', '#f-email', '#f-wa', '#f-wa-rest', '#f-wa-email'].forEach(function (s) { $(s).addEventListener('input', function () { if ($(s).closest('.fld').classList.contains('is-bad')) setErr($(s), null); }); });
     form.addEventListener('submit', function (e) {
+      if (step === WA) {
+        if (!vWa()) { e.preventDefault(); return; }
+        var gv = function (s) { return ($(s).value || '').trim(); };
+        var num = gv('#f-wa'), intl = waIntl(num), pS = gv('#f-pt-score'), pF = gv('#f-pt-fails'), sj = $('input[name="contact[subject]"]', form);
+        // the long flow's named fields carry it; Shopify needs contact[email]
+        $('#f-phone').value = num; $('#f-rest').value = gv('#f-wa-rest'); $('#f-email').value = gv('#f-wa-email');
+        if (sj) sj.value = 'WhatsApp me back' + (pS ? ' · Phone Test ' + pS : '');
+        $('#f-body').value = ['WhatsApp me back', '',
+          'WhatsApp: ' + num, 'Open the chat: https://wa.me/' + intl,
+          'Business: ' + gv('#f-wa-rest'),
+          'Email: ' + gv('#f-wa-email'),
+          '',
+          'Phone Test: ' + (pS || 'not taken'),
+          'Phone Test fails: ' + (pF || '—'),
+          '',
+          'Via: ' + askSrc + ' · ' + intake.id + ' intake',
+          'Language: ' + LANG.toUpperCase(), 'Page: ' + location.href.split('#')[0].split('?')[0]].join('\n');
+        saveForm();
+        try { sessionStorage.setItem(WA_KEY, '1'); } catch (x) { }
+        var wsb = $('[data-wa-send]', form);
+        wsb.disabled = true; wsb.setAttribute('aria-busy', 'true'); $('span', wsb).textContent = t('sending');
+        return;
+      }
+      try { sessionStorage.removeItem(WA_KEY); } catch (x) { }
       if (step !== LAST) { e.preventDefault(); if (step < LAST && vStep(step)) goStep(step + 1); return; }
       var bad = firstBad();
       if (bad) { e.preventDefault(); goStep(bad, true); return; }
@@ -785,8 +850,9 @@
       sb.disabled = true; sb.setAttribute('aria-busy', 'true'); $('span', sb).textContent = t('sending');
     });
     W.addEventListener('pageshow', function () {
-      var sb = $('button[type=submit]', form);
-      if (sb && sb.disabled) { sb.disabled = false; sb.removeAttribute('aria-busy'); $('span', sb).textContent = t('send'); }
+      $$('button[type=submit]', form).forEach(function (sb) {
+        if (sb.disabled) { sb.disabled = false; sb.removeAttribute('aria-busy'); $('span', sb).textContent = t(sb.hasAttribute('data-wa-send') ? 'sendWa' : 'send'); }
+      });
     });
     d.addEventListener('keydown', function (e) {
       if (!askOpen) return;
@@ -945,7 +1011,6 @@
     var pass = $('[data-pt-pass]', pt);
     pass.hidden = !ok.length;
     pass.innerHTML = ok.length === PTQ.length ? '<b>✓ ' + t('ptAll') + '</b>' : '<b>✓ ' + t('ptPassed') + '</b> ' + ok.join(' · ');
-    $('[data-pt-wa]', pt).href = 'https://wa.me/31640421118?text=' + encodeURIComponent(r.noSite ? t('ptWaNone') : t('ptWa').replace('%s', s));
     var arc = $('[data-pt-arc]', pt), n = $('[data-pt-n]', pt), off = (PT_C * (1 - s / 10)).toFixed(1);
     if (still || REDUCE) { arc.style.transition = 'none'; arc.style.strokeDashoffset = off; n.textContent = s; return; }
     arc.style.transition = 'none'; arc.style.strokeDashoffset = PT_C; n.textContent = '0';
@@ -992,6 +1057,17 @@
       else requestAnimationFrame(function () { wait(n + 1); });
     })(0);
   }
+  // result → "We'll WhatsApp you", with the score and the fails in hidden fields
+  function ptWa() {
+    if (!ptRes) return;
+    ptStore();
+    if (WA_NUMBER) { directWa(ptRes.noSite ? t('ptWaNone') : t('ptWa').replace('%s', ptRes.score)); return; }
+    openWa('Phone Test result', ptLast);
+    (function wait(n) {
+      if (ask.classList.contains('is-open') || n > 40) setTimeout(function () { closeTest(true); }, REDUCE ? 0 : 520);
+      else requestAnimationFrame(function () { wait(n + 1); });
+    })(0);
+  }
   W.openTest = openTest;
   if (pt) {
     try { var pr = JSON.parse(sessionStorage.getItem(PT_KEY) || 'null'); if (pr && pr.fails && typeof pr.score === 'number') { ptRes = pr; ptStore(); } } catch (e) { }
@@ -1004,6 +1080,7 @@
       else if (tg.closest('[data-pt-nosite]')) { ptAns = []; ptFinish(true); }
       else if (tg.closest('[data-pt-back]')) { if (ptIdx > 0) ptShow('q', -1, false, function () { ptIdx--; ptRenderQ(); }); else ptShow('0', -1); }
       else if (tg.closest('[data-pt-preview]')) ptPreview();
+      else if (tg.closest('[data-pt-wa]')) ptWa();
       else if (tg.closest('[data-pt-redo]')) {
         ptRes = null; ptAns = []; ptIdx = 0; ptStore();
         try { sessionStorage.removeItem(PT_KEY); } catch (x) { }
@@ -1080,15 +1157,18 @@
   function boot() {
     if (sentOrErr) {
       ignite(false);
-      var errEl = !postedOk && $('#ask-form [data-err]');
+      var errEl = !postedOk && $('#ask-form [data-err]'), wasWa = false;
+      try { wasWa = sessionStorage.getItem(WA_KEY) === '1'; } catch (x) { }
       if (errEl) {
         restoreForm();
-        var msg = (errEl.textContent || '').trim(), m = $('[data-err-msg]');
+        var msg = (errEl.textContent || '').trim(), m = $(wasWa ? '[data-wa-err]' : '[data-err-msg]');
         m.hidden = false; m.textContent = LANG === 'nl' || !msg ? t('serverErr') : msg;
-        if (/mail/i.test(msg)) setErr($('#f-email'), 'errEmail');
-        openAsk(LAST);
+        if (/mail/i.test(msg)) setErr($(wasWa ? '#f-wa-email' : '#f-email'), 'errEmail');
+        openAsk(wasWa ? WA : LAST);
       } else {
-        clearForm(); openAsk(DONE);
+        clearForm(); waMode = wasWa;
+        try { sessionStorage.removeItem(WA_KEY); } catch (x) { }
+        openAsk(DONE);
         try { if (/contact_posted/.test(location.search)) history.replaceState(null, '', location.pathname + location.search.replace(/[?&]contact_posted=true/, '').replace(/^&/, '?') + location.hash.replace(/^#(ask-form|contact_form)$/, '')); } catch (e) { }
       }
       return;

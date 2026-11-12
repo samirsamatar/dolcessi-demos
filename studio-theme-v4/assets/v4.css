@@ -849,3 +849,9 @@ button[disabled]{opacity:.7;cursor:progress}
   .pt [data-tp=q] .ask__h{min-height:3.06em}
 }
 @media (prefers-reduced-motion:reduce){.vcard,.pt__a{transition:none}.pt__arc{transition:none}}
+
+/* v4.3 · "We'll WhatsApp you" — callback until Dolcessi has its own WhatsApp Business number (WA_NUMBER in v4.js) */
+[data-wa-l=direct]{display:none}
+.wa-direct [data-wa-l=direct]{display:inline}
+.wa-direct [data-wa-l=cb]{display:none}
+.ask:not(.is-wa) [data-ask-t=wa],.ask.is-wa [data-ask-t=flow],.ask:not(.is-wa) [data-done=wa],.ask.is-wa [data-done=flow]{display:none}
