@@ -39,8 +39,8 @@
     ptDay: { en: 'What yours needs on day one', nl: 'Wat jouw site vanaf dag één nodig heeft' },
     ptPassed: { en: 'Already right', nl: 'Al goed' },
     ptAll: { en: 'All ten checks passed.', nl: 'Alle tien de checks zijn goed.' },
-    ptWa: { en: 'Hi Samir, I did the Phone Test: %s/10. Can you show me what my site could look like?', nl: 'Hoi Samir, ik heb de telefoontest gedaan: %s/10. Kun je laten zien hoe mijn site eruit kan zien?' },
-    ptWaNone: { en: 'Hi Samir, I did the Phone Test. I don’t have a website yet. Can you show me what mine could look like?', nl: 'Hoi Samir, ik heb de telefoontest gedaan. Ik heb nog geen website. Kun je laten zien hoe die eruit kan zien?' }
+    ptWa: { en: 'Hi Dolcessi, I did the Phone Test: %s/10. Can you show me what my site could look like?', nl: 'Hoi Dolcessi, ik heb de telefoontest gedaan: %s/10. Kun je laten zien hoe mijn site eruit kan zien?' },
+    ptWaNone: { en: 'Hi Dolcessi, I did the Phone Test. I don’t have a website yet. Can you show me what mine could look like?', nl: 'Hoi Dolcessi, ik heb de telefoontest gedaan. Ik heb nog geen website. Kun je laten zien hoe die eruit kan zien?' }
   };
   var t = function (k) { return T[k][LANG]; };
   var nlEls = $$('[data-nl]');
@@ -183,7 +183,7 @@
   /* ───────── smooth scroll ───────── */
   if (!REDUCE && W.Lenis) {
     try {
-      lenis = new W.Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.4 });
+      lenis = new W.Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.4, prevent: function (node) { return !!(node && node.closest && node.closest('.ask, .mnav, .dck')); } });
       (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })(performance.now());
     } catch (e) { lenis = null; }
   }
