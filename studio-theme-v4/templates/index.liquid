@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dolcessi — Websites for cafés &amp; restaurants in Amsterdam</title>
-<meta name="description" content="Dolcessi builds high-end websites for independent cafés and restaurants in Amsterdam. We build your site before you ask: your menu, your hours, your street. You say yes or you don’t. Live within days.">
+<meta name="description" content="Dolcessi builds phone-first websites for independent cafés and restaurants in Amsterdam. We build your site before you ask: your menu, your hours, your street. You say yes or you don’t. Live within days.">
 <link rel="canonical" href="{{ canonical_url }}">
 <meta name="theme-color" content="#14213D">
 <meta name="color-scheme" content="dark light">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dolcessi">
 <meta property="og:title" content="Dolcessi — They Google you before they taste you.">
-<meta property="og:description" content="High-end websites for Amsterdam cafés and restaurants. We build yours first. You say yes or you don’t.">
+<meta property="og:description" content="Phone-first websites for Amsterdam cafés and restaurants. We build yours first. You say yes or you don’t.">
 <meta property="og:url" content="{{ canonical_url }}">
 <meta property="og:image" content="https:{{ 'og-v4.jpg' | asset_url }}">
 <meta property="og:image:width" content="1200">
@@ -20,15 +20,15 @@
 <meta property="og:locale:alternate" content="nl_NL">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Dolcessi — They Google you before they taste you.">
-<meta name="twitter:description" content="High-end websites for Amsterdam cafés and restaurants. We build yours first.">
+<meta name="twitter:description" content="Phone-first websites for Amsterdam cafés and restaurants. We build yours first.">
 <meta name="twitter:image" content="https:{{ 'og-v4.jpg' | asset_url }}">
 <link rel="icon" type="image/png" sizes="48x48" href="{{ 'favicon-v4-48.png' | asset_url }}">
 <link rel="icon" type="image/png" sizes="192x192" href="{{ 'favicon-v4-192.png' | asset_url }}">
 <link rel="apple-touch-icon" href="{{ 'apple-touch-icon-v4.png' | asset_url }}">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Dolcessi","url":"https://dolcessi.com/","email":"info@dolcessi.com","description":"High-end websites for independent cafés and restaurants in Amsterdam. We build your site before you ask.","slogan":"They Google you before they taste you.","areaServed":{"@type":"City","name":"Amsterdam"},"address":{"@type":"PostalAddress","addressLocality":"Amsterdam","addressCountry":"NL"},"availableLanguage":["nl","en"],"knowsLanguage":["nl","en"],"identifier":{"@type":"PropertyValue","propertyID":"KvK","value":"99514168"} }
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Dolcessi","url":"https://dolcessi.com/","email":"info@dolcessi.com","telephone":"+31 6 40421118","priceRange":"€995–€3,900","description":"Phone-first websites for independent cafés and restaurants in Amsterdam. We build your site before you ask.","slogan":"They Google you before they taste you.","areaServed":{"@type":"City","name":"Amsterdam"},"address":{"@type":"PostalAddress","addressLocality":"Amsterdam","addressCountry":"NL"},"availableLanguage":["nl","en"],"knowsLanguage":["nl","en"],"identifier":{"@type":"PropertyValue","propertyID":"KvK","value":"99514168"} }
 </script>
-<script>document.documentElement.className='js';try{var l=localStorage.getItem('dolcessi_lang');if(!l&&/^nl\b/i.test(navigator.language||''))l='nl';if(l==='nl'){document.documentElement.lang='nl';document.documentElement.classList.add('is-nl')}if(sessionStorage.getItem('dolcessi_seen'))document.documentElement.classList.add('seen')}catch(e){}</script>
+<script>document.documentElement.className='js';try{var l=localStorage.getItem('dolcessi_lang');if(!l&&/^nl\b/i.test(navigator.language||''))l='nl';if(l==='nl'){document.documentElement.lang='nl';document.documentElement.classList.add('is-nl')}if(sessionStorage.getItem('dolcessi_seen')||/^#test$/i.test(location.hash))document.documentElement.classList.add('seen')}catch(e){}</script>
 <link rel="preload" href="{{ 'inter-tight-var.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ 'instrument-serif-latin-400-italic.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
 <style>
@@ -61,13 +61,14 @@
     <a href="#work" data-nav="work"><span data-nl="Werk">Work</span></a>
     <a href="#how" data-nav="how"><span data-nl="Werkwijze">How</span></a>
     <a href="#proof" data-nav="proof"><span data-nl="Bewijs">Proof</span></a>
+    <a href="#pricing" data-nav="pricing"><span data-nl="Prijzen">Prices</span></a>
     <a href="#faq" data-nav="faq"><span data-nl="Vragen">FAQ</span></a>
   </nav>
   <div class="hdr__r">
     <div class="lang glass mono" role="group" aria-label="Language">
       <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="nl" aria-pressed="false">NL</button>
     </div>
-    <button type="button" class="btn btn--coral btn--sm hdr__cta" data-ask data-magnetic><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">↗</span></button>
+    <button type="button" class="btn btn--coral btn--sm hdr__cta" data-test data-magnetic><span data-nl="Doe de telefoontest">Take the Phone Test</span><span class="arr" aria-hidden="true">↗</span></button>
     <button type="button" class="menu-btn glass" aria-expanded="false" aria-controls="mnav" aria-label="Menu" data-menu><i></i><i></i></button>
   </div>
 </header>
@@ -77,11 +78,12 @@
     <a href="#how"><span class="mono">03</span><span data-nl="Werkwijze">How it works</span></a>
     <a href="#work"><span class="mono">04</span><span data-nl="Werk">Work</span></a>
     <a href="#proof"><span class="mono">06</span><span data-nl="Bewijs">Proof</span></a>
-    <a href="#faq"><span class="mono">07</span><span data-nl="Vragen">FAQ</span></a>
+    <a href="#pricing"><span class="mono">07</span><span data-nl="Prijzen">Prices</span></a>
+    <a href="#faq"><span class="mono">09</span><span data-nl="Vragen">FAQ</span></a>
   </nav>
   <div class="mnav__foot">
-    <button type="button" class="btn btn--coral" data-ask><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">↗</span></button>
-    <p class="mono"><a href="mailto:info@dolcessi.com">info@dolcessi.com</a><span>AMS <time data-clock>--:--</time></span></p>
+    <button type="button" class="btn btn--coral" data-test><span data-nl="Doe de telefoontest">Take the Phone Test</span><span class="btn__tag mono">60 sec</span></button>
+    <p class="mono"><a href="https://wa.me/31640421118?text=Hi%20Samir%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Samir%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener">WhatsApp 06 40 42 11 18</a><span>AMS <time data-clock>--:--</time></span></p>
   </div>
 </div>
 
@@ -95,8 +97,8 @@
         <h1 class="h1" id="hero-h" data-split data-nl="Eerst gegoogeld. <em>Dan</em> geproefd.">They Google you <em>before</em> they taste&nbsp;you.</h1>
         <p class="lede" data-rv data-nl="Wij bouwen een echte website voor je café of restaurant, met jouw menu, jouw openingstijden en jouw straat, <b>nog voordat je erom vraagt</b>. Je ziet hem op je telefoon. Jij zegt ja, of niet.">We build your café or restaurant a real website, with your menu, your hours and your street, <b>before you ask</b>. You see it on your phone. You say yes, or you don’t.</p>
         <div class="ctas" data-rv>
-          <button type="button" class="btn btn--coral" data-ask data-magnetic><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">↗</span></button>
-          <a class="btn btn--ghost" href="#work" data-magnetic><span data-nl="Bekijk het werk">See the work</span><span class="arr" aria-hidden="true">↓</span></a>
+          <button type="button" class="btn btn--coral" data-test data-magnetic><span data-nl="Doe de telefoontest">Take the Phone Test</span><span class="btn__tag mono">60 sec</span></button>
+          <a class="btn btn--ghost btn--wa" href="https://wa.me/31640421118?text=Hi%20Samir%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Samir%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener" data-cursor="HI" data-magnetic><svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.6 19.4l1.1-3.7a7.9 7.9 0 1 1 2.8 2.7z"/><path d="M9.6 8.4c-.2 2.9 2.4 5.6 5.5 5.9l.9-1.3-1.7-.9-.8.7a4.2 4.2 0 0 1-2.4-2.4l.7-.8-.9-1.7z"/></svg><span data-nl="WhatsApp ons">WhatsApp us</span></a>
         </div>
       </div>
 
@@ -128,7 +130,7 @@
       <li class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 16l8.5-8.5 3 3L9 19H6z"/></svg><span data-nl="Gebouwd voordat<br>je erom vraagt">Built before<br>you ask</span></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9 12.5l2 2 4-4.5"/></svg><span data-nl="Gratis concept,<br>vrijblijvend">Free concept,<br>no strings</span></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10 18.5h4"/></svg><span data-nl="Gemaakt voor<br>telefoons">Made for<br>phones first</span></li>
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/></svg><span data-nl="Binnen een paar<br>dagen live">Live within<br>days</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/></svg><span data-nl="Binnen 7 dagen<br>live">Live within<br>7 days</span></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h9M8.5 4v2M6 6c.6 3.2 2.8 5.6 6 7M11 6c-.8 3.6-3.4 6.4-7 8M13 20l4-9 4 9M14.4 17h5.2"/></svg><span data-nl="Nederlands<br>én Engels">Dutch and<br>English</span></li>
     </ul>
   </section>
@@ -241,12 +243,12 @@
             <span class="ui-live__pill mono"><i></i>Live</span>
             <span class="ui-live__url mono">www.<b data-nl="jouwzaak">yourplace</b>.nl</span>
           </div>
-          <h3 data-nl="Binnen een paar dagen live.">Live within days.</h3>
+          <h3 data-nl="Binnen 7 dagen live.">Live within 7 days.</h3>
           <p data-nl="Jouw domein en jouw content blijven van jou. Iets aanpassen? Stuur ons een WhatsAppje.">Your domain and your content stay yours. Need a change? Send us a WhatsApp.</p>
           <span class="tag mono" data-nl="Van jou">Yours</span>
         </li>
       </ol>
-      <p class="how__price" data-rv data-nl="De prijs? <em>Eerst laten we je je site zien, dan praten we.</em> Zonder verrassingen.">The price? <em>We show you your site first, then we talk.</em> No surprises.</p>
+      <p class="how__price" data-rv data-nl="De prijs? <em>Vanaf €995, of €129 per maand.</em> Het staat <a href='#pricing'>hieronder</a>, zonder verrassingen.">The price? <em>From €995, or €129 a month.</em> It’s all <a href="#pricing">below</a>, no surprises.</p>
     </div>
   </section>
 
@@ -429,42 +431,163 @@
           </div>
         </div>
         <div class="spots glass" data-rv>
-          <span class="label mono"><i class="dot" aria-hidden="true"></i><span data-nl="Eerste klanten">Founding clients</span></span>
-          <p class="spots__t" data-nl="We nemen onze eerste drie <em>cafés &amp; restaurants</em> aan.">We’re taking on our first three <em>cafés &amp; restaurants.</em></p>
+          <span class="label mono"><i class="dot" aria-hidden="true"></i><span data-cohort="k" data-nl="De eerste 3">Founding 3</span></span>
+          <p class="spots__t" data-cohort="spot" data-nl="We nemen onze eerste drie <em>cafés &amp; restaurants</em> aan.">We’re taking on our first three <em>cafés &amp; restaurants.</em></p>
           <div class="spots__f">
-            <span class="spots__row" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="mono spots__n"><b>3</b> <span data-nl="van 3 plekken vrij">of 3 spots open</span></span>
-            <button type="button" class="btn btn--cream btn--sm" data-ask data-magnetic><span data-nl="Pak een plek">Claim a spot</span><span class="arr" aria-hidden="true">↗</span></button>
+            <span class="spots__row" data-cohort-dots aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="mono spots__n" data-cohort="line" data-nl="€495 eenmalig · sluit 19 december">€495 setup · closes 19 December</span>
+            <button type="button" class="btn btn--cream btn--sm" data-ask="Claim a spot (proof)" data-magnetic><span data-cohort="cta" data-nl="Pak een plek">Claim a spot</span><span class="arr" aria-hidden="true">↗</span></button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ───────── 07 FAQ (cream panel) ───────── -->
+  <!-- ───────── 07 PRICES (cream panel) ───────── -->
+  <section class="s panel price" id="pricing" aria-labelledby="price-h">
+    <div class="wrap">
+      <div class="price__head">
+        <p class="label mono" data-rv><span class="n">07</span><span data-nl="Prijzen">Prices</span></p>
+        <h2 class="h2" id="price-h" data-split data-nl="Heldere prijzen. <em>Voordat je het vraagt.</em>">Clear prices. <em>Before you ask.</em></h2>
+        <p class="lede" data-rv data-nl="De preview is gratis. Live gaan doe je met een van drie opties. Welke je ook kiest: de site, het domein en de content zijn <b>van jou</b>.">The preview is free. Going live is one of three options. Whichever you pick, the site, the domain and the content are <b>yours</b>.</p>
+      </div>
+
+      <div class="cohort" data-rv>
+        <div class="cohort__m">
+          <p class="cohort__k mono"><i class="dot" aria-hidden="true"></i><span data-cohort="k" data-nl="De eerste 3">Founding 3</span></p>
+          <p class="cohort__h" data-cohort="h" data-nl="€495 eenmalig <em>in plaats van €995.</em>">€495 setup <em>instead of €995.</em></p>
+          <p class="cohort__p" data-cohort="p" data-nl="In ruil voor: een gefilmde testimonial, 90 dagen Google-statistieken en 3 introducties.">In return: a filmed testimonial, 90 days of Google stats and 3 introductions.</p>
+        </div>
+        <div class="cohort__f">
+          <span class="cohort__row" data-cohort-dots aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="cohort__d mono" data-cohort="d" data-nl="Sluit 19 december">Closes 19 December</span>
+          <button type="button" class="btn btn--coral btn--sm" data-ask="Claim a spot (prices)" data-magnetic><span data-cohort="cta" data-nl="Pak een plek">Claim a spot</span><span class="arr" aria-hidden="true">↗</span></button>
+        </div>
+      </div>
+
+      <div class="plans">
+        <article class="plan plan--sig" data-rv aria-labelledby="plan-sig">
+          <div class="plan__top"><h3 class="plan__name" id="plan-sig">Signature</h3><span class="plan__tag mono" data-nl="Op maat">Made to measure</span></div>
+          <p class="plan__lead" data-nl="Een eigen interactief moment, zoals in de concepten. Het deel dat gasten onthouden.">Your own interactive moment, like the concepts. The part guests remember.</p>
+          <div class="plan__price"><span class="plan__n" data-nl="€3.900">€3,900</span><span class="plan__u mono" data-nl="eenmalig">setup</span></div>
+          <p class="plan__m" data-nl="+ €149 per maand onderhoud">+ €149 a month care</p>
+          <ul class="plan__list">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Alles van Standaard">Everything in Standard</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Een interactieve signature op maat">A custom interactive signature</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Seizoensupdates">Seasonal updates</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Voorrang bij elke aanpassing">Priority on every change</span></li>
+          </ul>
+          <p class="plan__own mono"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></svg><span data-nl="Site, domein en content: van jou">Site, domain and content: yours</span></p>
+        </article>
+        <article class="plan" data-rv aria-labelledby="plan-std">
+          <div class="plan__top"><h3 class="plan__name" id="plan-std" data-nl="Standaard">Standard</h3><span class="plan__tag mono" data-nl="De basis, goed">The essentials</span></div>
+          <p class="plan__lead" data-nl="Alles wat een gast op een telefoon nodig heeft, goed gedaan.">Everything a guest needs on a phone, done properly.</p>
+          <div class="plan__price"><span class="plan__n">€995</span><span class="plan__u mono" data-nl="eenmalig">setup</span></div>
+          <p class="plan__m" data-nl="+ €39 per maand onderhoud">+ €39 a month care</p>
+          <p class="plan__deal mono" data-cohort-only="founding"><i class="dot" aria-hidden="true"></i><span data-nl="De eerste 3: €495 t/m 19 dec">Founding 3: €495 until 19 Dec</span></p>
+          <ul class="plan__list">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Gemaakt voor telefoons, menu als pagina (geen pdf)">Phone-first, menu as a page (not a PDF)</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Live openingstijden">Live opening hours</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Bellen, route en reserveren met één tik">Call, route and book in one tap</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Nederlands en Engels">Dutch and English</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Google-profiel, geregeld">Google profile, sorted</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Je eigen domein">Your own domain</span></li>
+          </ul>
+          <p class="plan__own mono"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></svg><span data-nl="Site, domein en content: van jou">Site, domain and content: yours</span></p>
+        </article>
+        <article class="plan" data-rv aria-labelledby="plan-mo">
+          <div class="plan__top"><h3 class="plan__name" id="plan-mo" data-nl="Per maand">Monthly</h3><span class="plan__tag mono" data-nl="Standaard, gespreid">Standard, spread</span></div>
+          <p class="plan__lead" data-nl="Precies Standaard, zonder opstartkosten.">Exactly Standard, without the setup fee.</p>
+          <div class="plan__price"><span class="plan__n">€0</span><span class="plan__u mono" data-nl="eenmalig">setup</span></div>
+          <p class="plan__m" data-nl="€129 per maand, 12 maanden lang. Daarna €39.">€129 a month for 12 months. Then €39.</p>
+          <ul class="plan__list">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Alles van Standaard">Everything in Standard</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Geen opstartkosten">No setup fee</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Eerste maand betaald vóór de livegang">First month paid before going live</span></li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-nl="Na 12 maanden: €39 per maand onderhoud">After 12 months: €39 a month care</span></li>
+          </ul>
+          <p class="plan__own mono"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></svg><span data-nl="Site, domein en content: van jou">Site, domain and content: yours</span></p>
+        </article>
+      </div>
+
+      <div class="assure">
+        <div class="guar" data-rv>
+          <p class="assure__l mono" data-nl="Twee garanties, bij elke optie">Two guarantees, on every option</p>
+          <ul class="guar__list">
+            <li><span class="guar__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z"/></svg></span><p data-nl="<b>Binnen 7 dagen na je ja live,</b> anders zijn je eerste 3 maanden onderhoud gratis."><b>Live within 7 days of your yes,</b> or your first 3 months of care are free.</p></li>
+            <li><span class="guar__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/></svg></span><p data-nl="<b>Zeg je binnen 30 dagen na de livegang op,</b> dan krijg je alles terug wat je betaald hebt."><b>Cancel within 30 days of going live</b> and you get back everything you paid.</p></li>
+          </ul>
+        </div>
+        <div class="care" data-rv>
+          <p class="assure__l mono" data-nl="Onderhoud, elke maand">Care, every month</p>
+          <ul class="care__list">
+            <li data-nl="Aanpassingen via WhatsApp">Changes by WhatsApp</li>
+            <li data-nl="Hosting en domein">Hosting and domain</li>
+            <li data-nl="Google-profiel bijgehouden">Google profile kept up</li>
+            <li data-nl="Seizoensupdates van je menu">Seasonal menu updates</li>
+            <li data-nl="Kort maandrapport: bellers, routetikken, kliks">A short monthly report: calls, route taps, clicks</li>
+          </ul>
+          <p class="care__n" data-nl="Betaal een kwartaal of een half jaar vooruit: <b>1 maand gratis.</b>">Prepay a quarter or 6 months: <b>1 month free.</b></p>
+        </div>
+      </div>
+
+      <div class="price__cta" data-rv>
+        <p data-nl="De preview is gratis. <em>Je kiest een optie nadat je hem gezien hebt.</em>">The preview is free. <em>You pick an option after you’ve seen it.</em></p>
+        <button type="button" class="btn btn--coral" data-ask="Prices" data-magnetic><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 08 WHO BUILDS THIS (navy glass) ───────── -->
+  <section class="s s--glass who" id="who" data-glow="0.72,0.6,0.3,0.8,0.7" aria-labelledby="who-h">
+    <div class="wrap who__grid">
+      <div class="who__copy">
+        <p class="label mono" data-rv><span class="n">08</span><span data-nl="Wie dit bouwt">Who builds this</span></p>
+        <h2 class="h2" id="who-h" data-split data-nl="Ik ben Samir. Ik bouw elke site <em>zelf,</em> in Amsterdam.">I’m Samir. I build every site <em>myself,</em> in Amsterdam.</h2>
+        <p class="lede" data-rv data-nl="Geen bureau, geen doorgeefluik. Wie je preview bouwt, beantwoordt ook je WhatsApp.">No agency, no hand-offs. The person who builds your preview is the person who answers your WhatsApp.</p>
+      </div>
+      <div class="vcard glass" data-rv>
+        <div class="vcard__top mono"><span class="vcard__mark">dolcessi<span class="cur" aria-hidden="true">_</span></span><span>AMS <time data-clock>--:--</time></span></div>
+        <p class="vcard__name">Samir<i aria-hidden="true">.</i></p>
+        <p class="vcard__role mono" data-nl="Bouwt elke site zelf">Builds every site himself</p>
+        <dl class="vcard__rows">
+          <div><dt class="mono">WhatsApp</dt><dd><a href="https://wa.me/31640421118?text=Hi%20Samir%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Samir%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener" data-cursor="HI">06 40 42 11 18</a></dd></div>
+          <div><dt class="mono" data-nl="E-mail">Email</dt><dd><a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a></dd></div>
+          <div><dt class="mono">KvK</dt><dd>99514168</dd></div>
+          <div><dt class="mono">Studio</dt><dd data-nl="Amsterdam (ingeschreven in Amstelveen)">Amsterdam (registered in Amstelveen)</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 09 FAQ (cream panel) ───────── -->
   <section class="s panel faq" id="faq" aria-labelledby="faq-h">
     <div class="wrap faq__grid">
       <div class="faq__head">
-        <p class="label mono" data-rv><span class="n">07</span><span data-nl="Vragen">FAQ</span></p>
+        <p class="label mono" data-rv><span class="n">09</span><span data-nl="Vragen">FAQ</span></p>
         <h2 class="h2" id="faq-h" data-split data-nl="Terechte <em>vragen.</em>">Fair <em>questions.</em></h2>
-        <p class="lede" data-rv data-nl="Iets anders? Mail <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>.">Something else? Email <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a>.</p>
+        <p class="lede" data-rv data-nl="Iets anders? App <a href='https://wa.me/31640421118?text=Hoi%20Samir%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak.' target='_blank' rel='noopener' data-cursor='HI'>06&nbsp;40&nbsp;42&nbsp;11&nbsp;18</a> of mail <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>.">Something else? WhatsApp <a href="https://wa.me/31640421118?text=Hi%20Samir%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." target="_blank" rel="noopener" data-cursor="HI">06&nbsp;40&nbsp;42&nbsp;11&nbsp;18</a> or email <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a>.</p>
       </div>
       <div class="qa">
         <details class="q" data-rv>
-          <summary><span data-nl="Doen jullie ook cafés?">Do you do cafés too?</span><i aria-hidden="true"></i></summary>
-          <div class="q__a"><p data-nl="Ja. Koffiebars, bakkerijen, matcha- en theebars en restaurants. Googelen mensen je voordat ze langskomen? Dan zijn wij er voor jou.">Yes. Coffee bars, bakeries, matcha and tea bars, and restaurants. If people Google you before they come by, we’re for you.</p></div>
+          <summary><span data-nl="Alleen cafés en restaurants?">Only cafés and restaurants?</span><i aria-hidden="true"></i></summary>
+          <div class="q__a"><p data-nl="Daar bouwen we voor: koffiebars, bakkerijen, matcha- en theebars, restaurants. Heb je iets anders? Vraag het gerust.">That’s who we build for: coffee bars, bakeries, matcha and tea bars, restaurants. Running something else? Ask anyway.</p></div>
         </details>
         <details class="q" data-rv>
           <summary><span data-nl="Wat kost het?">What does it cost?</span><i aria-hidden="true"></i></summary>
-          <div class="q__a"><p data-nl="We laten je eerst je site zien, dan praten we. Je weet de prijs voordat je ja zegt. Geen verrassingen.">We show you your site first, then we talk. You know the price before you say yes. No surprises.</p></div>
+          <div class="q__a"><p data-nl="Drie opties. Signature: €3.900 eenmalig plus €149 per maand. Standaard: €995 eenmalig plus €39 per maand. Of Standaard gespreid: geen opstartkosten, €129 per maand voor 12 maanden, daarna €39. De preview is gratis, en je weet de prijs voordat je ja zegt.">Three options. Signature: €3,900 setup plus €149 a month. Standard: €995 setup plus €39 a month. Or Standard, spread: no setup fee, €129 a month for 12 months, then €39. The preview is free, and you know the price before you say yes.</p></div>
         </details>
         <details class="q" data-rv>
           <summary><span data-nl="Is het concept echt gratis?">Is the concept really free?</span><i aria-hidden="true"></i></summary>
-          <div class="q__a"><p data-nl="Ja. Wij bouwen het voordat je erom vraagt. Wil je het niet, dan zeg je nee en dat is het.">Yes. We build it before you ask. If you don’t want it, you say no and that’s that.</p></div>
+          <div class="q__a"><p data-nl="Ja, de preview is gratis. Live gaan kan vanaf €995, of €129 per maand. Wil je hem niet, dan zeg je nee en dat is het.">Yes, the preview is free. Going live is from €995, or €129 a month. If you don’t want it, you say no and that’s that.</p></div>
+        </details>
+        <details class="q" data-rv>
+          <summary><span data-nl="En als het uitloopt, of ik bedenk me?">What if it’s late, or I change my mind?</span><i aria-hidden="true"></i></summary>
+          <div class="q__a"><p data-nl="Twee garanties, bij elke optie. Binnen 7 dagen na je ja live, anders zijn je eerste 3 maanden onderhoud gratis. En zeg je binnen 30 dagen na de livegang op, dan krijg je alles terug wat je betaald hebt.">Two guarantees, on every option. Live within 7 days of your yes, or your first 3 months of care are free. And if you cancel within 30 days of going live, you get back everything you paid.</p></div>
         </details>
         <details class="q" data-rv>
           <summary><span data-nl="Hoe snel staat het live?">How fast is it live?</span><i aria-hidden="true"></i></summary>
-          <div class="q__a"><p data-nl="Binnen een paar dagen na je ja. De site is er al; we koppelen je domein, zetten je Google-profiel goed en gaan live.">Within days of your yes. The site already exists; we connect your domain, set up your Google profile and go live.</p></div>
+          <div class="q__a"><p data-nl="Binnen 7 dagen na je ja. De site is er al; we koppelen je domein, zetten je Google-profiel goed en gaan live.">Within 7 days of your yes. The site already exists; we connect your domain, set up your Google profile and go live.</p></div>
         </details>
         <details class="q" data-rv>
           <summary><span data-nl="Is het van mij?">Is it mine?</span><i aria-hidden="true"></i></summary>
@@ -485,13 +608,15 @@
   <!-- ───────── CTA (navy glass, coral sunrise) ───────── -->
   <section class="s s--glass cta" id="start" data-glow="0.5,1.14,0.52,1.2,1" aria-labelledby="cta-h">
     <div class="wrap cta__in">
-      <p class="label mono" data-rv><i class="dot" aria-hidden="true"></i><span data-nl="Nog 3 van de 3 plekken vrij">3 of 3 founding spots open</span></p>
+      <p class="label mono" data-rv><i class="dot" aria-hidden="true"></i><span data-cohort="tag" data-nl="De eerste 3 · sluit 19 december">Founding 3 · closes 19 December</span></p>
       <h2 class="h-xl" id="cta-h" data-split data-nl="Bekijk je site <em>voordat</em> je een cent betaalt.">See yours <em>before</em> you pay a&nbsp;cent.</h2>
-      <div data-rv><button type="button" class="btn btn--coral btn--xl" data-ask data-magnetic><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">↗</span></button></div>
+      <p class="lede cta__lede" data-rv data-nl="Begin met de telefoontest: tien ja-of-neevragen over je huidige site. Daarna bouwen we gratis je preview.">Start with the Phone Test: ten yes-or-no questions about your current site. Then we build your preview, free.</p>
+      <div class="cta__btns" data-rv><button type="button" class="btn btn--coral btn--xl" data-test data-magnetic><span data-nl="Doe de telefoontest">Take the Phone Test</span><span class="btn__tag mono">60 sec</span></button>
+        <a class="link mono cta__wa" href="https://wa.me/31640421118?text=Hi%20Samir%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Samir%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener" data-cursor="HI"><span data-nl="of WhatsApp">or WhatsApp</span> 06 40 42 11 18</a></div>
       <ul class="facts mono" data-rv>
         <li data-nl="Gratis concept">Free concept</li>
         <li data-nl="Jij zegt ja, of niet">You say yes, or you don’t</li>
-        <li data-nl="Binnen dagen live">Live within days</li>
+        <li data-nl="Binnen 7 dagen live">Live within 7 days</li>
       </ul>
     </div>
   </section>
@@ -501,7 +626,7 @@
   <div class="wrap">
     <div class="ftr__grid mono">
       <div><span class="ftr__k" data-nl="Studio">Studio</span><span data-nl="Amsterdam (Amstelveen)">Amsterdam (Amstelveen)</span><span>AMS <time data-clock>--:--</time></span></div>
-      <div><span class="ftr__k" data-nl="Contact">Contact</span><a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a><a href="https://concept.dolcessi.com/" target="_blank" rel="noopener">concept.dolcessi.com ↗</a></div>
+      <div><span class="ftr__k" data-nl="Contact">Contact</span><a href="https://wa.me/31640421118?text=Hi%20Samir%2C%20I%E2%80%99d%20like%20to%20know%20more%20about%20a%20website%20for%20my%20place." data-nl-href="https://wa.me/31640421118?text=Hoi%20Samir%2C%20ik%20wil%20graag%20meer%20weten%20over%20een%20website%20voor%20mijn%20zaak." target="_blank" rel="noopener" data-cursor="HI">WhatsApp 06 40 42 11 18</a><a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a><a href="https://concept.dolcessi.com/" target="_blank" rel="noopener">concept.dolcessi.com ↗</a></div>
       <div><span class="ftr__k" data-nl="Gegevens">Details</span><span>KvK 99514168</span><a href="https://dolcessi.com/policies/privacy-policy" data-nl="Privacybeleid">Privacy policy</a><a href="#cookies" data-cookie-settings data-nl="Cookie-instellingen">Cookie settings</a></div>
       <div><span class="ftr__k">© 2026 Dolcessi</span><span class="ftr__small" data-nl="Concepten zijn onofficieel en niet de eigen websites van de zaken.">Concepts are unofficial and not the places’ own websites.</span></div>
     </div>
@@ -509,14 +634,71 @@
   </div>
 </footer>
 
-<button type="button" class="dock btn btn--coral" data-ask aria-hidden="true" tabindex="-1"><span data-nl="Laat mijn site zien">Show me my site</span><span class="arr" aria-hidden="true">↗</span></button>
+<button type="button" class="dock btn btn--coral" data-test aria-hidden="true" tabindex="-1"><span data-nl="Doe de telefoontest">Take the Phone Test</span><span class="btn__tag mono">60 sec</span></button>
+
+<div class="ask pt" id="pt" role="dialog" aria-modal="true" aria-labelledby="pt-h0" hidden>
+  <div class="ask__bg" data-pt-close></div>
+  <div class="ask__panel glass">
+    <div class="ask__top mono">
+      <span class="ask__t"><i class="dot" aria-hidden="true"></i><span data-nl="Telefoontest">Phone Test</span></span>
+      <span class="ask__step" data-pt-step aria-live="polite">60 sec</span>
+      <button type="button" class="ask__x" data-pt-close aria-label="Close" data-nl-aria-label="Sluiten"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="ask__bar" aria-hidden="true"><i data-pt-bar style="width:0"></i></div>
+    <div class="panes" data-pt-panes>
+      <div class="pane" data-tp="0">
+        <h2 class="ask__h" id="pt-h0" tabindex="-1" data-nl="Hoe doet je site het <em>op een telefoon?</em>">How does your site do <em>on a phone?</em></h2>
+        <p class="ask__p" data-nl="Tien ja-of-neevragen over je huidige website. Pak je telefoon erbij en antwoord eerlijk. Je krijgt een score uit 10, en bij elke nee een oplossing.">Ten yes-or-no questions about your current website. Grab your phone and answer honestly. You get a score out of 10, and a fix for every no.</p>
+        <ul class="pt__meta mono"><li data-nl="10 vragen">10 questions</li><li data-nl="60 seconden">60 seconds</li><li data-nl="Geen e-mail nodig">No email needed</li></ul>
+        <div class="ask__row">
+          <button type="button" class="link mono" data-pt-nosite><span data-nl="Nog geen website">No website yet</span> <span aria-hidden="true">→</span></button>
+          <button type="button" class="btn btn--coral" data-pt-start><span data-nl="Start de test">Start the test</span><span class="arr" aria-hidden="true">→</span></button>
+        </div>
+        <p class="fine ask__fine" data-nl="Er wordt niets verstuurd tot je zelf een preview aanvraagt.">Nothing is sent unless you ask for a preview.</p>
+      </div>
+      <div class="pane" data-tp="q" hidden>
+        <p class="pt__k mono" data-pt-k>01</p>
+        <h2 class="ask__h" id="pt-hq" tabindex="-1" data-pt-h></h2>
+        <p class="ask__p" data-pt-p></p>
+        <div class="pt__ans" role="group" aria-labelledby="pt-hq">
+          <button type="button" class="pt__a" data-pt-a="1" aria-pressed="false"><span class="opt__i" aria-hidden="true">✓</span><span class="opt__t" data-nl="Ja">Yes</span></button>
+          <button type="button" class="pt__a pt__a--no" data-pt-a="0" aria-pressed="false"><span class="opt__i" aria-hidden="true">✕</span><span class="opt__t" data-nl="Nee">No</span></button>
+        </div>
+        <div class="ask__row">
+          <button type="button" class="link mono" data-pt-back><span aria-hidden="true">←</span> <span data-nl="Terug">Back</span></button>
+          <span class="ask__hint mono pt__keys" aria-hidden="true"><i></i><span data-nl="Toets J of N">Press Y or N</span></span>
+        </div>
+      </div>
+      <div class="pane" data-tp="r" hidden>
+        <div class="pt__res">
+          <div class="pt__ring" aria-hidden="true"><svg viewBox="0 0 104 104"><circle class="pt__trk" cx="52" cy="52" r="46"/><circle class="pt__arc" cx="52" cy="52" r="46" data-pt-arc/></svg><span class="pt__n"><b data-pt-n>0</b><small>/10</small></span></div>
+          <div class="pt__v">
+            <p class="pt__k mono" data-pt-tier></p>
+            <h2 class="ask__h" id="pt-hr" tabindex="-1" data-pt-vh></h2>
+          </div>
+        </div>
+        <p class="ask__p" data-pt-vp></p>
+        <div class="pt__fix" data-pt-fix>
+          <p class="pt__lbl mono" data-pt-fixlbl></p>
+          <ol class="pt__fails" data-pt-fails></ol>
+        </div>
+        <p class="pt__pass mono" data-pt-pass hidden></p>
+        <div class="pt__cta">
+          <button type="button" class="btn btn--coral" data-pt-preview><span data-nl="Vraag je gratis preview aan">Request your free preview</span><span class="arr" aria-hidden="true">↗</span></button>
+          <a class="btn btn--ghost btn--wa" data-pt-wa href="https://wa.me/31640421118" target="_blank" rel="noopener"><svg class="wa-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.6 19.4l1.1-3.7a7.9 7.9 0 1 1 2.8 2.7z"/><path d="M9.6 8.4c-.2 2.9 2.4 5.6 5.5 5.9l.9-1.3-1.7-.9-.8.7a4.2 4.2 0 0 1-2.4-2.4l.7-.8-.9-1.7z"/></svg><span>WhatsApp</span></a>
+        </div>
+        <p class="fine ask__fine pt__fine"><span data-nl="De preview is gratis. Live gaan kan vanaf €995, of €129 per maand.">The preview is free. Going live is from €995, or €129 a month.</span> <button type="button" class="link mono" data-pt-redo><span data-nl="Opnieuw">Retake</span> <span aria-hidden="true">↻</span></button></p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="ask" id="ask" role="dialog" aria-modal="true" aria-labelledby="ask-h1" hidden>
   <div class="ask__bg" data-close></div>
   <div class="ask__panel glass">
     <div class="ask__top mono">
       <span class="ask__t"><i class="dot" aria-hidden="true"></i><span data-nl="Laat mijn site zien">Show me my site</span></span>
-      <span class="ask__step" aria-live="polite"><b data-stepn>01</b> / 05</span>
+      <span class="ask__step" aria-live="polite"><b data-stepn>01</b> / 06</span>
       <button type="button" class="ask__x" data-close aria-label="Close" data-nl-aria-label="Sluiten"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="ask__bar" aria-hidden="true"><i data-bar></i></div>
@@ -525,7 +707,7 @@
       <div class="panes" data-panes>
       <div class="pane" data-pane="1">
         <h2 class="ask__h" id="ask-h1" data-nl="Waar kunnen we <em>mee helpen?</em>">What can we <em>help with?</em></h2>
-        <p class="ask__p" data-nl="Tik wat het beste past. Vijf korte vragen, geen verplichtingen.">Tap what fits best. Five quick questions, no strings.</p>
+        <p class="ask__p" data-nl="Tik wat het beste past. Zes korte vragen, geen verplichtingen.">Tap what fits best. Six quick questions, no strings.</p>
         <div class="opts" role="radiogroup" aria-labelledby="ask-h1">
           <label class="opt"><input type="radio" name="contact[help]" value="A new website" data-auto><span class="opt__i" aria-hidden="true">✦</span><span class="opt__t" data-nl="Een nieuwe website">A new website</span><small data-nl="We beginnen bij nul.">We start from zero.</small></label>
           <label class="opt"><input type="radio" name="contact[help]" value="Redesign my website" data-auto><span class="opt__i" aria-hidden="true">↻</span><span class="opt__t" data-nl="Mijn site vernieuwen">Redesign my site</span><small data-nl="Hij werkt, maar voelt oud.">It works, but feels old.</small></label>
@@ -545,14 +727,12 @@
       </div>
       <div class="pane" data-pane="2" hidden>
         <h2 class="ask__h" id="ask-h2" data-nl="Wat voor <em>zaak heb je?</em>">What kind of <em>business?</em></h2>
-        <p class="ask__p" data-nl="Cafés en restaurants zijn ons thuis, maar we bouwen voor elke lokale zaak.">Cafés and restaurants are home turf, but we build for any local business.</p>
-        <div class="opts opts--3" role="radiogroup" aria-labelledby="ask-h2">
+        <p class="ask__p" data-nl="We bouwen voor cafés en restaurants. Heb je iets anders? Vertel het ons gerust.">We build for cafés and restaurants. Running something else? Tell us anyway.</p>
+        <div class="opts opts--2x" role="radiogroup" aria-labelledby="ask-h2">
           <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Café" data-auto><span class="opt__t">Café</span></label>
           <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Restaurant" data-auto><span class="opt__t">Restaurant</span></label>
           <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Bakery" data-auto><span class="opt__t" data-nl="Bakkerij">Bakery</span></label>
           <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Bar" data-auto><span class="opt__t">Bar</span></label>
-          <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Shop" data-auto><span class="opt__t" data-nl="Winkel">Shop</span></label>
-          <label class="opt opt--sm"><input type="radio" name="contact[business_type]" value="Salon or studio" data-auto><span class="opt__t" data-nl="Salon of studio">Salon or studio</span></label>
           <label class="opt opt--sm opt--wide"><input type="radio" name="contact[business_type]" value="Other" data-other="f-type-x"><span class="opt__t" data-nl="Iets anders">Something else</span></label>
         </div>
         <div class="fld fld--x" hidden data-x="f-type-x">
@@ -584,7 +764,30 @@
         </div>
       </div>
       <div class="pane" data-pane="4" hidden>
-        <h2 class="ask__h" id="ask-h4" data-nl="Hoe heet <em>je zaak?</em>">What’s your <em>business called?</em></h2>
+        <h2 class="ask__h" id="ask-h4" data-nl="Wanneer, en <em>welke optie?</em>">When, and <em>which option?</em></h2>
+        <p class="ask__p" data-nl="Nergens aan vast. Zo weten we hoe we je preview plannen.">No commitment. It just helps us plan your preview.</p>
+        <p class="grp__l mono" id="ask-g1" data-nl="Wanneer wil je live?">When do you want it live?</p>
+        <div class="opts opts--2x" role="radiogroup" aria-labelledby="ask-g1">
+          <label class="opt opt--sm"><input type="radio" name="contact[timing]" value="As soon as possible" data-pair><span class="opt__t" data-nl="Zo snel mogelijk">As soon as possible</span></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[timing]" value="Within a month" data-pair><span class="opt__t" data-nl="Binnen een maand">Within a month</span></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[timing]" value="In 1–3 months" data-pair><span class="opt__t" data-nl="Over 1–3 maanden">In 1–3 months</span></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[timing]" value="Just looking" data-pair><span class="opt__t" data-nl="Ik kijk nog even">Just looking</span></label>
+        </div>
+        <p class="grp__l mono" id="ask-g2" data-nl="Welke optie past?">Which option fits?</p>
+        <div class="opts opts--2x" role="radiogroup" aria-labelledby="ask-g2">
+          <label class="opt opt--sm"><input type="radio" name="contact[option]" value="Signature" data-pair><span class="opt__t" data-nl="Signature">Signature</span><small data-nl="€3.900 + €149 p/m">€3,900 + €149/mo</small></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[option]" value="Standard" data-pair><span class="opt__t" data-nl="Standaard">Standard</span><small data-nl="€995 + €39 p/m">€995 + €39/mo</small></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[option]" value="Monthly" data-pair><span class="opt__t" data-nl="Per maand">Monthly</span><small data-nl="€0 + €129 p/m">€0 + €129/mo</small></label>
+          <label class="opt opt--sm"><input type="radio" name="contact[option]" value="Not sure yet" data-pair><span class="opt__t" data-nl="Weet ik nog niet">Not sure yet</span><small data-nl="Dat bespreken we">Let’s talk</small></label>
+        </div>
+        <span class="fld__err opts__err" id="e-4" role="alert"></span>
+        <div class="ask__row">
+          <button type="button" class="link mono" data-back><span aria-hidden="true">←</span> <span data-nl="Terug">Back</span></button>
+          <button type="button" class="btn btn--coral" data-next><span data-nl="Volgende">Next</span><span class="arr" aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div class="pane" data-pane="5" hidden>
+        <h2 class="ask__h" id="ask-h5" data-nl="Hoe heet <em>je zaak?</em>">What’s your <em>business called?</em></h2>
         <p class="ask__p" data-nl="Dan kijken we alvast rond: je Google-profiel, je Instagram, je huidige site.">So we can look around first: your Google profile, your Instagram, your current site.</p>
         <div class="fld">
           <input name="contact[business]" id="f-rest" autocomplete="organization" maxlength="80" placeholder=" " aria-required="true" aria-describedby="e-rest">
@@ -604,8 +807,8 @@
           <button type="button" class="btn btn--coral" data-next><span data-nl="Volgende">Next</span><span class="arr" aria-hidden="true">→</span></button>
         </div>
       </div>
-      <div class="pane" data-pane="5" hidden>
-        <h2 class="ask__h" id="ask-h5" data-nl="Waar sturen we <em>hem heen?</em>">Where do we <em>send it?</em></h2>
+      <div class="pane" data-pane="6" hidden>
+        <h2 class="ask__h" id="ask-h6" data-nl="Waar sturen we <em>hem heen?</em>">Where do we <em>send it?</em></h2>
         <p class="ask__p" data-nl="Laatste stap. We sturen je de link zodra je concept klaar is.">Last step. We’ll send you the link when your concept is ready.</p>
         <p class="ask__p ask__err" data-err-msg role="alert" hidden></p>
         <div class="fld">
@@ -622,6 +825,8 @@
           <input type="tel" name="contact[phone]" id="f-phone" autocomplete="tel" maxlength="30" placeholder=" ">
           <label for="f-phone"><span data-nl="WhatsApp / telefoon">WhatsApp / phone</span> <i data-nl="(optioneel)">(optional)</i></label>
         </div>
+        <input type="hidden" name="contact[phone_test_score]" id="f-pt-score">
+        <input type="hidden" name="contact[phone_test_fails]" id="f-pt-fails">
         <input type="hidden" name="contact[body]" id="f-body">
         <div class="ask__row">
           <button type="button" class="link mono" data-back><span aria-hidden="true">←</span> <span data-nl="Terug">Back</span></button>
@@ -629,9 +834,9 @@
         </div>
         <p class="fine ask__fine" data-nl="We gebruiken dit alleen om je je concept te sturen. <a href='https://dolcessi.com/policies/privacy-policy'>Privacy</a>">We only use this to send you your concept. <a href="https://dolcessi.com/policies/privacy-policy">Privacy</a></p>
       </div>
-      <div class="pane pane--done" data-pane="6" hidden>
+      <div class="pane pane--done" data-pane="7" hidden>
         <span class="done__tick" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="22"/><path d="M14 24.5l7 7 13-14"/></svg></span>
-        <h2 class="ask__h ask__h--big" id="ask-h6" data-nl="De bon is binnen. <em>Je site staat op het vuur.</em>">Ticket’s in. <em>Your site’s on the stove.</em></h2>
+        <h2 class="ask__h ask__h--big" id="ask-h7" data-nl="De bon is binnen. <em>Je site staat op het vuur.</em>">Ticket’s in. <em>Your site’s on the stove.</em></h2>
         <p class="ask__p" data-nl="We gaan aan de slag en mailen je zodra hij klaar is. Vragen? <a href='mailto:info@dolcessi.com' data-cursor='HI'>info@dolcessi.com</a>">We’re on it, and we’ll email you when it’s ready. Questions? <a href="mailto:info@dolcessi.com" data-cursor="HI">info@dolcessi.com</a></p>
         <div class="ask__row"><span></span><button type="button" class="btn btn--cream" data-close><span data-nl="Terug naar de site">Back to the site</span></button></div>
       </div>
@@ -642,7 +847,7 @@
 
 <div class="cursor" aria-hidden="true"><i class="cursor__dot"></i><i class="cursor__ring"><span class="cursor__lbl"></span></i></div>
 <noscript><style>.pre{display:none}</style></noscript>
-<script>(function(){var d=document,h=d.documentElement;if(!h.classList.contains('is-nl'))return;var a=d.querySelectorAll('[data-nl]'),i,e;for(i=0;i<a.length;i++){e=a[i];e._en=e.innerHTML;e.innerHTML=e.getAttribute('data-nl')}['aria-label','alt','placeholder','title'].forEach(function(k){var b=d.querySelectorAll('[data-nl-'+k+']');for(i=0;i<b.length;i++){e=b[i];e._enA=e._enA||{};e._enA[k]=e.getAttribute(k)||'';e.setAttribute(k,e.getAttribute('data-nl-'+k))}})})()</script>
+<script>(function(){var d=document,h=d.documentElement;if(!h.classList.contains('is-nl'))return;var a=d.querySelectorAll('[data-nl]'),i,e;for(i=0;i<a.length;i++){e=a[i];e._en=e.innerHTML;e.innerHTML=e.getAttribute('data-nl')}['aria-label','alt','placeholder','title','href'].forEach(function(k){var b=d.querySelectorAll('[data-nl-'+k+']');for(i=0;i<b.length;i++){e=b[i];e._enA=e._enA||{};e._enA[k]=e.getAttribute(k)||'';e.setAttribute(k,e.getAttribute('data-nl-'+k))}})})()</script>
 {% render 'dolcessi-consent' %}
 </body>
 </html>

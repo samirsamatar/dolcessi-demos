@@ -1,4 +1,4 @@
-/*! Dolcessi v4 "Reed" — page orchestration (i18n, scroll scenes, glass light, dialog). */
+/*! Dolcessi v4.3 "Reed" — page orchestration (i18n, intake banner, scroll scenes, glass light, Phone Test, dialog). */
 (function () {
   'use strict';
   var d = document, html = d.documentElement, W = window;
@@ -15,12 +15,13 @@
 
   /* ───────── i18n ───────── */
   var LANG = html.classList.contains('is-nl') ? 'nl' : 'en';
-  var ATTRS = ['aria-label', 'alt', 'placeholder', 'title'];
+  var ATTRS = ['aria-label', 'alt', 'placeholder', 'title', 'href'];
   var T = {
     title: { en: 'Dolcessi — Websites for cafés & restaurants in Amsterdam', nl: 'Dolcessi — Websites voor cafés & restaurants in Amsterdam' },
     desc: { en: ($('meta[name=description]') || {}).content || '', nl: 'Dolcessi bouwt websites van topniveau voor zelfstandige cafés en restaurants in Amsterdam. Wij bouwen je site voordat je erom vraagt: jouw menu, jouw openingstijden, jouw straat. Jij zegt ja, of niet. Binnen dagen live.' },
     errRest: { en: 'What’s the name of your business?', nl: 'Hoe heet je zaak?' },
     errPick: { en: 'Pick one to continue.', nl: 'Kies er een om verder te gaan.' },
+    errPick2: { en: 'Pick one in each list.', nl: 'Kies er in elke lijst een.' },
     errGoal: { en: 'Pick at least one.', nl: 'Kies er minstens één.' },
     errOther: { en: 'Tell us in a few words.', nl: 'Vertel het in een paar woorden.' },
     errName: { en: 'What should we call you?', nl: 'Hoe mogen we je noemen?' },
@@ -30,7 +31,16 @@
     open: { en: 'Open now · until 18:00', nl: 'Nu open · tot 18:00' },
     closed: { en: 'Closed · opens 08:00', nl: 'Gesloten · open om 08:00' },
     serverErr: { en: 'Something went wrong sending that. Check your details and try again.', nl: 'Er ging iets mis bij het versturen. Check je gegevens en probeer het opnieuw.' },
-    menuClose: { en: 'Close menu', nl: 'Menu sluiten' }
+    menuClose: { en: 'Close menu', nl: 'Menu sluiten' },
+    left: { en: '%s of %n left', nl: 'nog %s van %n' },
+    full: { en: 'Full', nl: 'Vol' },
+    ptResult: { en: 'Result', nl: 'Uitslag' },
+    ptFix: { en: 'What to fix', nl: 'Wat je kunt verbeteren' },
+    ptDay: { en: 'What yours needs on day one', nl: 'Wat jouw site vanaf dag één nodig heeft' },
+    ptPassed: { en: 'Already right', nl: 'Al goed' },
+    ptAll: { en: 'All ten checks passed.', nl: 'Alle tien de checks zijn goed.' },
+    ptWa: { en: 'Hi Samir, I did the Phone Test: %s/10. Can you show me what my site could look like?', nl: 'Hoi Samir, ik heb de telefoontest gedaan: %s/10. Kun je laten zien hoe mijn site eruit kan zien?' },
+    ptWaNone: { en: 'Hi Samir, I did the Phone Test. I don’t have a website yet. Can you show me what mine could look like?', nl: 'Hoi Samir, ik heb de telefoontest gedaan. Ik heb nog geen website. Kun je laten zien hoe die eruit kan zien?' }
   };
   var t = function (k) { return T[k][LANG]; };
   var nlEls = $$('[data-nl]');
@@ -59,6 +69,65 @@
   });
   $$('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-lang') === LANG ? 'true' : 'false'); });
   if (LANG === 'nl') { d.title = t('title'); }
+
+  /* ───────── intake banner: switches by date (Amsterdam time) ─────────
+     The one value to edit by hand: places left in the current intake.
+     null = no count shown · 2 = "2 left" · 0 = "Full". Reset it when an intake closes. */
+  var PLACES_LEFT = null;
+  var INTAKE = [
+    { id: 'founding', until: Date.parse('2026-12-19T23:59:59+01:00'), n: 3,
+      k: ['Founding 3', 'De eerste 3'],
+      h: ['€495 setup <em>instead of €995.</em>', '€495 eenmalig <em>in plaats van €995.</em>'],
+      p: ['In return: a filmed testimonial, 90 days of Google stats and 3 introductions.', 'In ruil voor: een gefilmde testimonial, 90 dagen Google-statistieken en 3 introducties.'],
+      d: ['Closes 19 December', 'Sluit 19 december'],
+      line: ['€495 setup · closes 19 December', '€495 eenmalig · sluit 19 december'],
+      tag: ['Founding 3 · closes 19 December', 'De eerste 3 · sluit 19 december'],
+      spot: ['We’re taking on our first three <em>cafés &amp; restaurants.</em>', 'We nemen onze eerste drie <em>cafés &amp; restaurants</em> aan.'],
+      cta: ['Claim a spot', 'Pak een plek'] },
+    { id: 'winter', until: Date.parse('2027-01-31T23:59:59+01:00'), n: 5,
+      k: ['Winter Cohort', 'Winterronde'],
+      h: ['5 places. <em>Last intake before Japan.</em>', '5 plekken. <em>De laatste ronde vóór Japan.</em>'],
+      p: ['After these five, the next intake is after Japan.', 'Na deze vijf is de volgende ronde pas na Japan.'],
+      d: ['Closes 31 January', 'Sluit 31 januari'],
+      line: ['5 places · closes 31 January', '5 plekken · sluit 31 januari'],
+      line2: ['closes 31 January', 'sluit 31 januari'],
+      tag: ['Winter Cohort · closes 31 January', 'Winterronde · sluit 31 januari'],
+      spot: ['Five places this winter. <em>The last before Japan.</em>', 'Vijf plekken deze winter. <em>De laatste vóór Japan.</em>'],
+      cta: ['Claim a spot', 'Pak een plek'] },
+    { id: 'after', until: Infinity, n: 0,
+      k: ['Next intake after Japan', 'Volgende ronde na Japan'],
+      h: ['Register now. <em>Registered places hear first.</em>', 'Schrijf je nu in. <em>Ingeschreven zaken horen het eerst.</em>'],
+      p: ['', ''], d: ['', ''],
+      line: ['Registered places hear first', 'Ingeschreven zaken horen het eerst'],
+      tag: ['Next intake after Japan · register now', 'Volgende ronde na Japan · schrijf je nu in'],
+      spot: ['Next intake <em>after Japan.</em>', 'Volgende ronde <em>na Japan.</em>'],
+      cta: ['Register now', 'Schrijf je in'] }
+  ];
+  var intake = INTAKE.filter(function (p) { return Date.now() <= p.until; })[0] || INTAKE[INTAKE.length - 1];
+  var placesLeft = intake.n && typeof PLACES_LEFT === 'number' ? clamp(Math.round(PLACES_LEFT), 0, intake.n) : null;
+  function intakeText(key, l) {
+    var i = l === 'nl' ? 1 : 0, v = intake[key][i];
+    if (placesLeft === null || !v || ['d', 'line', 'tag'].indexOf(key) < 0) return v;
+    var c = placesLeft ? T.left[l].replace('%s', placesLeft).replace('%n', intake.n) : T.full[l];
+    if (key === 'tag') { var at = v.indexOf(' · '); return at < 0 ? v + ' · ' + c : v.slice(0, at) + ' · ' + c + v.slice(at); }
+    if (key === 'line' && intake.line2) v = intake.line2[i];
+    return c + ' · ' + v;
+  }
+  (function applyIntake() {
+    html.setAttribute('data-intake', intake.id);
+    $$('[data-cohort-only]').forEach(function (el) { el.hidden = el.getAttribute('data-cohort-only') !== intake.id; });
+    $$('[data-cohort]').forEach(function (el) {
+      var k = el.getAttribute('data-cohort'), en = intakeText(k, 'en'), nl = intakeText(k, 'nl'), v = LANG === 'nl' ? nl : en;
+      el._en = en; el.setAttribute('data-nl', nl);
+      if (el.innerHTML !== v) el.innerHTML = v;
+      el.hidden = !v;
+    });
+    $$('[data-cohort-dots]').forEach(function (el) {
+      var taken = placesLeft === null ? 0 : intake.n - placesLeft, h = '';
+      for (var k = 0; k < intake.n; k++) h += k < taken ? '<i class="is-taken"></i>' : '<i></i>';
+      el.innerHTML = h; el.hidden = !intake.n;
+    });
+  })();
 
   /* ───────── split headings into words ───────── */
   function split(el) {
@@ -413,7 +482,7 @@
   var panels = $$('.panel');
   var hdr = $('#hdr'), navLinks = $$('[data-nav]'), navPill = $('.nav__pill');
   var navSecs = navLinks.map(function (a) { return $(a.getAttribute('href')); });
-  var dock = $('.dock'), dockBlocked = true, askOpen = false;
+  var dock = $('.dock'), dockBlocked = true, askOpen = false, ptOpen = false;
   var cursor = $('.cursor');
   var lastNav = null, lastY = -1, lastVH = 0, frameN = 0;
 
@@ -468,14 +537,14 @@
     if (dock) {
       var inTk = false;
       if (tk) { var tr = tk.getBoundingClientRect(); inTk = tr.top < vh * .5 && tr.bottom > vh * .5; }
-      var show = narrow() && y > vh * .7 && !dockBlocked && !askOpen && !inTk && !(fr && fr.top < vh);
+      var show = narrow() && y > vh * .7 && !dockBlocked && !askOpen && !ptOpen && !inTk && !(fr && fr.top < vh);
       dock.classList.toggle('is-on', show);
       dock.setAttribute('aria-hidden', show ? 'false' : 'true');
       dock.tabIndex = show ? 0 : -1;
     }
   }
   if (dock && 'IntersectionObserver' in W) {
-    var blockers = $$('[data-ask]').filter(function (b) { return b !== dock && !b.closest('.mnav') && !b.closest('.hdr') && !b.closest('.ask'); });
+    var blockers = $$('[data-ask],[data-test]').filter(function (b) { return b !== dock && !b.closest('.mnav') && !b.closest('.hdr') && !b.closest('.ask'); });
     var dio = new IntersectionObserver(function (es) {
       es.forEach(function (e) { e.target._vis = e.isIntersecting; });
       dockBlocked = blockers.some(function (b) { return b._vis; });
@@ -522,9 +591,9 @@
   /* ───────── dialog ───────── */
   var ask = $('#ask'), form = $('#ask-form'), step = 1, lastFocus = null;
   var panes = ask ? $$('[data-pane]', ask) : [], panesEl = ask && $('[data-panes]', ask);
-  var LAST = 5, DONE = 6, KEEP_KEY = 'dolcessi_ask2';
-  function focusables() {
-    return $$('a[href],button:not([disabled]),input:not([type=hidden]),select,textarea,[tabindex]:not([tabindex="-1"])', ask)
+  var LAST = 6, DONE = 7, KEEP_KEY = 'dolcessi_ask2', askSrc = 'Site';
+  function focusables(root) {
+    return $$('a[href],button:not([disabled]),input:not([type=hidden]),select,textarea,[tabindex]:not([tabindex="-1"])', root || ask)
       .filter(function (el) { return el.offsetParent !== null && !el.closest('[hidden]') && !el.closest('.is-leaving'); });
   }
   function goStep(n, back, instant) {
@@ -554,28 +623,32 @@
     setTimeout(function () {
       var pane = panes.filter(function (p) { return +p.getAttribute('data-pane') === n; })[0], f = null;
       if (n === LAST) f = $('[data-err-msg]:not([hidden])') || $('#f-name').value ? $('#f-email') : $('#f-name');
-      else if (n === 4) f = $('#f-rest');
+      else if (n === 5) f = $('#f-rest');
       else if (n === DONE) f = $('[data-close]', pane);
       else if (pane) { f = $('.ask__h', pane); if (f) f.setAttribute('tabindex', '-1'); }
       if (f && (FINE || n >= 4 || n <= 3)) f.focus({ preventScroll: true });
     }, 60);
   }
   function setInert(on) { $$('main, .hdr, .ftr, .skip, .mnav, .dock').forEach(function (el) { if ('inert' in el) el.inert = on; else if (on) el.setAttribute('aria-hidden', 'true'); else el.removeAttribute('aria-hidden'); }); }
-  function openAsk(n) {
+  // one page-level state for both dialogs (the Phone Test hands over to the question flow)
+  function modalSync() {
+    var on = askOpen || ptOpen;
+    html.classList.toggle('ask-open', on); setInert(on);
+    if (lenis) { if (on) lenis.stop(); else lenis.start(); }
+  }
+  function openAsk(n, back) {
     if (!ask || askOpen) return;
     setMenu(false);
-    askOpen = true; lastFocus = d.activeElement;
+    askOpen = true; lastFocus = back || d.activeElement;
     ask.hidden = false;
     requestAnimationFrame(function () { requestAnimationFrame(function () { if (askOpen) ask.classList.add('is-open'); }); });
-    html.classList.add('ask-open'); setInert(true);
-    if (lenis) lenis.stop();
+    modalSync();
     goStep(n || 1, false, true);
   }
   function closeAsk() {
     if (!askOpen) return;
     askOpen = false;
-    ask.classList.remove('is-open'); html.classList.remove('ask-open'); setInert(false);
-    if (lenis) lenis.start();
+    ask.classList.remove('is-open'); modalSync();
     setTimeout(function () { if (!askOpen) ask.hidden = true; }, 520);
     if (lastFocus && lastFocus.focus && lastFocus !== d.body) lastFocus.focus({ preventScroll: true });
   }
@@ -592,7 +665,9 @@
   }
   d.addEventListener('click', function (e) {
     var o = e.target.closest && e.target.closest('[data-ask]');
-    if (o) { e.preventDefault(); openAsk(1); return; }
+    if (o) { e.preventDefault(); askSrc = o.getAttribute('data-ask') || 'Site'; openAsk(1); return; }
+    var tb = e.target.closest && e.target.closest('[data-test]');
+    if (tb) { e.preventDefault(); openTest(); return; }
     if (askOpen && e.target.closest && e.target.closest('[data-close]')) { e.preventDefault(); closeAsk(); }
   });
   function setErr(input, key) {
@@ -614,8 +689,12 @@
     if (!g.length) { optErr(3, 'errGoal'); return false; }
     optErr(3, null); return true;
   }
+  function vPlan() {
+    var ok = !!$('input[name="contact[timing]"]:checked', form) && !!$('input[name="contact[option]"]:checked', form);
+    optErr(4, ok ? null : 'errPick2'); return ok;
+  }
   function v1() { var r = $('#f-rest'), ok = r.value.trim().length > 0; setErr(r, ok ? null : 'errRest'); if (!ok) r.focus(); return ok; }
-  function vStep(n) { return n === 1 ? vPick(1, 'contact[help]') : n === 2 ? vPick(2, 'contact[business_type]') : n === 3 ? vGoal() : n === 4 ? v1() : n === 5 ? v2() : true; }
+  function vStep(n) { return n === 1 ? vPick(1, 'contact[help]') : n === 2 ? vPick(2, 'contact[business_type]') : n === 3 ? vGoal() : n === 4 ? vPlan() : n === 5 ? v1() : n === 6 ? v2() : true; }
   function firstBad() { for (var i = 1; i < LAST; i++) if (!vStep(i)) return i; return 0; }
   function v2() {
     var n = $('#f-name'), m = $('#f-email'), ok = true, first = null;
@@ -649,7 +728,7 @@
       $$('input', box).forEach(function (i) { i.disabled = box.hidden; });
     });
   }
-  function clearForm() { try { sessionStorage.removeItem(KEEP_KEY); } catch (e) { } }
+  function clearForm() { ptRes = null; try { sessionStorage.removeItem(KEEP_KEY); sessionStorage.removeItem(PT_KEY); } catch (e) { } }
   if (ask && form) {
     syncOpts();
     $$('[data-next]', ask).forEach(function (b) { b.addEventListener('click', function () { if (vStep(step)) goStep(step + 1); }); });
@@ -661,6 +740,11 @@
         syncOpts(); optErr(step, null);
         clearTimeout(autoT);
         if (i.hasAttribute('data-auto')) { var at = step; autoT = setTimeout(function () { if (step === at && i.checked) goStep(at + 1); }, REDUCE ? 60 : 380); }
+        else if (i.hasAttribute('data-pair')) {
+          // two single-choice lists on one step: move on once both are answered
+          var ps = step, all = $$('.opts', i.closest('.pane')).every(function (g) { return !!$('input:checked', g); });
+          if (all) autoT = setTimeout(function () { if (step === ps) goStep(ps + 1); }, REDUCE ? 60 : 420);
+        }
         else if (i.getAttribute('data-other')) setTimeout(function () { var x = $('#' + i.getAttribute('data-other')); if (x) x.focus({ preventScroll: true }); }, 60);
       }
       if (i.hasAttribute('data-goal')) { $('#f-goal').value = $$('[data-goal]:checked', form).map(function (c) { return c.value; }).join(' · '); optErr(3, null); }
@@ -678,15 +762,23 @@
       if (!v2()) { e.preventDefault(); return; }
       var g = function (s) { return ($(s).value || '').trim(); };
       var pick = function (name, other) { var c = $('input[name="' + name + '"]:checked', form); if (!c) return '—'; return c.getAttribute('data-other') ? c.value + ': ' + g('#' + other) : c.value; };
+      var ptS = g('#f-pt-score'), ptF = g('#f-pt-fails'), subj = $('input[name="contact[subject]"]', form);
+      if (subj) subj.value = 'Show me my site' + (ptS ? ' · Phone Test ' + ptS : '');
       $('#f-body').value = ['Show me my site', '',
         'Needs help with: ' + pick('contact[help]', 'f-help-x'),
         'Business type: ' + pick('contact[business_type]', 'f-type-x'),
         'Goals: ' + (g('#f-goal') || '—'),
+        'When live: ' + pick('contact[timing]'),
+        'Option: ' + pick('contact[option]'),
         'Business: ' + g('#f-rest'),
         'Neighbourhood / city: ' + (g('#f-area') || '—'),
         'Current site / Instagram: ' + (g('#f-site') || '—'),
         '',
+        'Phone Test: ' + (ptS || 'not taken'),
+        'Phone Test fails: ' + (ptF || '—'),
+        '',
         'Name: ' + g('#f-name'), 'Email: ' + g('#f-email'), 'WhatsApp / phone: ' + (g('#f-phone') || '—'),
+        'Via: ' + askSrc + ' · ' + intake.id + ' intake',
         'Language: ' + LANG.toUpperCase(), 'Page: ' + location.href.split('#')[0].split('?')[0]].join('\n');
       saveForm();
       var sb = $('button[type=submit]', form);
@@ -709,6 +801,240 @@
     });
   }
 
+
+  /* ───────── Phone Test: 10 yes/no checks, a score, a fix per no ───────── */
+  // s: short name (index 0 goes into the email, in English) · h: question · p: how to check · f: the fix
+  var PTQ = [
+    { s: ['Menu as a web page', 'Menu als webpagina'],
+      h: ['Is your menu a real web page, <em>not a PDF or a photo?</em>', 'Staat je menu als echte webpagina online, <em>niet als pdf of foto?</em>'],
+      p: ['Open it on your phone. A PDF download or a photo of the menu card counts as no.', 'Open het op je telefoon. Een pdf-download of een foto van de menukaart telt als nee.'],
+      f: ['Put the menu on the page as text: readable with one thumb, and easy to update.', 'Zet het menu als tekst op de pagina: leesbaar met één duim en makkelijk aan te passen.'] },
+    { s: ['Opens within 3 seconds', 'Opent binnen 3 seconden'],
+      h: ['Does your site open <em>within 3 seconds</em> on your phone?', 'Opent je site <em>binnen 3 seconden</em> op je telefoon?'],
+      p: ['Try it on 4G, not on your Wi-Fi. Count: one, two, three.', 'Probeer het op 4G, niet op je wifi. Tel: één, twee, drie.'],
+      f: ['Make it fast: 53% of people on their phone leave a page that takes longer than 3 seconds to load (Google, 2016).', 'Maak hem snel: 53% van de mensen op hun telefoon haakt af als een pagina langer dan 3 seconden laadt (Google, 2016).'] },
+    { s: ['One-tap call', 'Bellen met één tik'],
+      h: ['Can people call you <em>with one tap?</em>', 'Kunnen mensen je bellen <em>met één tik?</em>'],
+      p: ['Tap the phone number on your site. Does your phone start dialling?', 'Tik op het telefoonnummer op je site. Gaat je telefoon bellen?'],
+      f: ['Turn your number into a call button, right at the top.', 'Maak van je nummer een belknop, bovenaan.'] },
+    { s: ['Route button', 'Routeknop'],
+      h: ['Is there a <em>route button</em> that opens maps?', 'Is er een <em>routeknop</em> die kaarten opent?'],
+      p: ['One tap from your site to directions to your door.', 'Eén tik van je site naar de route naar je deur.'],
+      f: ['Add a Route button that opens Google or Apple Maps to your door.', 'Voeg een Route-knop toe die Google Maps of Apple Kaarten naar je deur opent.'] },
+    { s: ['Booking or ordering on a phone', 'Reserveren of bestellen op de telefoon'],
+      h: ['Can guests book or order <em>on their phone?</em>', 'Kunnen gasten reserveren of bestellen <em>op hun telefoon?</em>'],
+      p: ['Try it yourself, start to finish. Don’t take bookings or orders? Tap yes.', 'Probeer het zelf, van begin tot eind. Geen reserveringen of bestellingen? Tik ja.'],
+      f: ['One clear Book or Order button, linked to the system you already use and tested on a phone.', 'Eén duidelijke knop Reserveren of Bestellen, gekoppeld aan het systeem dat je al gebruikt en getest op een telefoon.'] },
+    { s: ['Google hours and link', 'Google-tijden en link'],
+      h: ['Are your hours on Google right, <em>and linked to your site?</em>', 'Kloppen je tijden op Google, <em>met een link naar je site?</em>'],
+      p: ['Search your name in Google Maps. Are today’s hours right, and is there a Website button?', 'Zoek je zaak op in Google Maps. Kloppen de tijden van vandaag, en is er een knop Website?'],
+      f: ['Correct your Google hours (holidays too) and add your website to the profile.', 'Zet je tijden op Google goed (ook feestdagen) en zet je website in je profiel.'] },
+    { s: ['Dutch and English', 'Nederlands en Engels'],
+      h: ['Is your site in Dutch <em>and English?</em>', 'Is je site in het Nederlands <em>én het Engels?</em>'],
+      p: ['For the neighbours and for the tourists.', 'Voor de buurt en voor de toerist.'],
+      f: ['Offer both, with one tap to switch.', 'Bied allebei aan, met één tik om te wisselen.'] },
+    { s: ['Allergens marked', 'Allergenen vermeld'],
+      h: ['Are allergens <em>marked on your menu?</em>', 'Staan de allergenen <em>bij je menu?</em>'],
+      p: ['Gluten, nuts, milk: next to each dish, not only “ask our staff”.', 'Gluten, noten, melk: bij elk gerecht, niet alleen ‘vraag het ons personeel’.'],
+      f: ['Mark allergens next to each dish, so guests don’t have to ask.', 'Zet allergenen bij elk gerecht, zodat gasten het niet hoeven te vragen.'] },
+    { s: ['Recent photos', 'Recente foto’s'],
+      h: ['Do your photos show your place <em>as it is today?</em>', 'Laten je foto’s je zaak zien <em>zoals hij nu is?</em>'],
+      p: ['Same room, same dishes. Not the opening-day shots.', 'Zelfde inrichting, zelfde gerechten. Niet de foto’s van de opening.'],
+      f: ['Swap in recent photos of today’s dishes and today’s room.', 'Zet er recente foto’s op van de gerechten en de zaak van nu.'] },
+    { s: ['Instagram links to the site', 'Instagram linkt naar je site'],
+      h: ['Does your Instagram <em>link to your site?</em>', 'Linkt je Instagram <em>naar je site?</em>'],
+      p: ['Check your bio: is the link there, and does it open your site?', 'Check je bio: staat de link erin, en opent hij je site?'],
+      f: ['Put your site in your Instagram bio, so followers find the menu, the route and the booking.', 'Zet je site in je Instagram-bio, zodat volgers het menu, de route en reserveren vinden.'] }
+  ];
+  var PTV = {
+    none: { k: ['No website yet', 'Nog geen website'], h: ['Starting <em>from zero.</em>', 'We beginnen <em>bij nul.</em>'],
+      p: ['No old site to fix, so we start clean. Right now, guests only see what Google and Instagram show them.', 'Geen oude site om te repareren, dus we beginnen schoon. Nu zien gasten alleen wat Google en Instagram laten zien.'] },
+    top: { k: ['Every check passed', 'Alles in orde'], h: ['Your site <em>works.</em>', 'Je site <em>werkt.</em>'],
+      p: ['Ten out of ten. Honestly: you don’t need us for the basics. Want a site people remember? Ask for a free preview anyway.', 'Tien uit tien. Eerlijk is eerlijk: voor de basis heb je ons niet nodig. Wil je een site die mensen onthouden? Vraag gerust een gratis preview aan.'] },
+    good: { k: ['Nearly there', 'Bijna'], h: ['Almost there. <em>Fix the last bits.</em>', 'Bijna klaar. <em>Nog even afmaken.</em>'],
+      p: ['The basics are in place. What’s left are quick wins, and some you can fix yourself today.', 'De basis staat. Wat overblijft zijn snelle winsten, en een paar kun je vandaag zelf regelen.'] },
+    mid: { k: ['Works, with gaps', 'Werkt, met gaten'], h: ['It works. <em>With gaps.</em>', 'Hij werkt. <em>Met gaten.</em>'],
+      p: ['Guests can find you, but they hit walls on the way in. Every no below is a point where someone can give up and go next door.', 'Gasten vinden je, maar lopen onderweg tegen muren aan. Elke nee hieronder is een moment waarop iemand kan afhaken en naar de buren gaat.'] },
+    low: { k: ['Looks closed', 'Lijkt gesloten'], h: ['On a phone, it looks <em>closed.</em>', 'Op een telefoon lijkt hij <em>gesloten.</em>'],
+      p: ['Most of the basics are missing, and that’s what guests see first. The good news: every one of these can be fixed, and fast.', 'Het meeste van de basis ontbreekt, en dat zien gasten als eerste. Goed nieuws: alles hieronder is op te lossen, en snel.'] }
+  };
+  var pt = $('#pt'), ptBox = pt && $('[data-pt-panes]', pt), ptPanes = pt ? $$('[data-tp]', pt) : [];
+  var ptIdx = 0, ptAns = [], ptRes = null, ptLast = null, ptBusy = false, ptT = 0, ptOvT = 0, PT_KEY = 'dolcessi_pt', PT_C = 289.03;
+  var ptL = function () { return LANG === 'nl' ? 1 : 0; };
+  function ptPane() { var p = ptPanes.filter(function (x) { return !x.hidden; })[0]; return p ? p.getAttribute('data-tp') : ''; }
+  function ptHead(name) {
+    var st = $('[data-pt-step]', pt), bar = $('[data-pt-bar]', pt);
+    if (name === 'q') { st.innerHTML = '<b>' + pad(ptIdx + 1) + '</b> / 10'; bar.style.width = ((ptIdx + 1) * 10) + '%'; }
+    else if (name === 'r') { st.textContent = t('ptResult'); bar.style.width = '100%'; }
+    else { st.textContent = '60 sec'; bar.style.width = '0%'; }
+  }
+  function ptShow(name, dir, instant, render) {
+    var go = function () {
+      ptPanes.forEach(function (p) { p.hidden = p.getAttribute('data-tp') !== name; });
+      if (render) render();
+      ptHead(name);
+      pt.setAttribute('aria-labelledby', name === 'q' ? 'pt-hq' : name === 'r' ? 'pt-hr' : 'pt-h0');
+      var pnl = $('.ask__panel', pt); if (pnl) pnl.scrollTop = 0;
+    };
+    var focusIt = function () { var p = ptPanes.filter(function (x) { return !x.hidden; })[0], h = p && $('.ask__h', p); if (h && ptOpen && !askOpen) h.focus({ preventScroll: true }); };
+    if (instant || REDUCE || !ptBox.animate) { go(); setTimeout(focusIt, 60); return; }
+    // timers, not animation events, drive the swap: answers never wait on a slow frame
+    ptBusy = true;
+    var h0 = ptBox.offsetHeight;
+    ptBox.style.overflow = 'hidden';
+    var out = ptBox.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(' + (-12 * dir) + 'px)' }], { duration: 150, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' });
+    setTimeout(function () {
+      go();
+      var h1 = ptBox.offsetHeight;
+      out.cancel();
+      ptBox.animate([{ opacity: 0, transform: 'translateX(' + (14 * dir) + 'px)', height: h0 + 'px' }, { opacity: 1, transform: 'none', height: h1 + 'px' }], { duration: 320, easing: 'cubic-bezier(.2,.7,.1,1)' });
+      clearTimeout(ptOvT); ptOvT = setTimeout(function () { ptBox.style.overflow = ''; }, 340);
+      ptBusy = false;
+      setTimeout(focusIt, 40);
+    }, 150);
+  }
+  function ptMark() {
+    $$('[data-pt-a]', pt).forEach(function (b) {
+      var on = ptAns[ptIdx] === (b.getAttribute('data-pt-a') === '1');
+      b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+  function ptRenderQ() {
+    var q = PTQ[ptIdx], L = ptL();
+    $('[data-pt-k]', pt).textContent = pad(ptIdx + 1) + ' · ' + q.s[L];
+    $('[data-pt-h]', pt).innerHTML = q.h[L];
+    $('[data-pt-p]', pt).textContent = q.p[L];
+    ptMark();
+  }
+  function ptAnswer(v) {
+    if (ptBusy || !ptOpen || ptPane() !== 'q') return;
+    ptAns[ptIdx] = v; ptMark();
+    ptBusy = true; clearTimeout(ptT);
+    ptT = setTimeout(function () {
+      ptBusy = false;
+      if (ptIdx < PTQ.length - 1) ptShow('q', 1, false, function () { ptIdx++; ptRenderQ(); });
+      else ptFinish(false);
+    }, REDUCE ? 0 : 170);
+  }
+  function ptStore() {
+    var r = ptRes, a = $('#f-pt-score'), b = $('#f-pt-fails');
+    if (!r) { if (a) a.value = ''; if (b) b.value = ''; return; }
+    if (a) a.value = r.noSite ? '0/10 (no website)' : r.score + '/10';
+    if (b) b.value = r.noSite ? 'No website yet' : r.fails.length ? r.fails.map(function (i) { return PTQ[i].s[0]; }).join('; ') : 'None, all 10 passed';
+  }
+  function ptFinish(noSite) {
+    var fails = [], score = 0;
+    PTQ.forEach(function (q, i) { if (!noSite && ptAns[i]) score++; else fails.push(i); });
+    ptRes = { score: score, noSite: !!noSite, fails: fails };
+    ptStore();
+    try { sessionStorage.setItem(PT_KEY, JSON.stringify(ptRes)); } catch (e) { }
+    ptShow('r', 1, false, function () { ptRenderR(false); });
+  }
+  function ptRenderR(still) {
+    var r = ptRes, L = ptL(), s = r.score;
+    var V = PTV[r.noSite ? 'none' : s === 10 ? 'top' : s >= 8 ? 'good' : s >= 5 ? 'mid' : 'low'];
+    $('[data-pt-tier]', pt).textContent = V.k[L];
+    $('[data-pt-vh]', pt).innerHTML = V.h[L];
+    $('[data-pt-vp]', pt).textContent = V.p[L];
+    $('[data-pt-fix]', pt).hidden = !r.fails.length;
+    $('[data-pt-fixlbl]', pt).textContent = (r.noSite ? t('ptDay') : t('ptFix')) + ' · ' + r.fails.length;
+    $('[data-pt-fails]', pt).innerHTML = r.fails.map(function (i) {
+      return '<li><span class="pt__i mono">' + pad(i + 1) + '</span><span><b>' + PTQ[i].s[L] + '</b><small>' + PTQ[i].f[L] + '</small></span></li>';
+    }).join('');
+    var ok = r.noSite ? [] : PTQ.filter(function (q, i) { return r.fails.indexOf(i) < 0; }).map(function (q) { return q.s[L]; });
+    var pass = $('[data-pt-pass]', pt);
+    pass.hidden = !ok.length;
+    pass.innerHTML = ok.length === PTQ.length ? '<b>✓ ' + t('ptAll') + '</b>' : '<b>✓ ' + t('ptPassed') + '</b> ' + ok.join(' · ');
+    $('[data-pt-wa]', pt).href = 'https://wa.me/31640421118?text=' + encodeURIComponent(r.noSite ? t('ptWaNone') : t('ptWa').replace('%s', s));
+    var arc = $('[data-pt-arc]', pt), n = $('[data-pt-n]', pt), off = (PT_C * (1 - s / 10)).toFixed(1);
+    if (still || REDUCE) { arc.style.transition = 'none'; arc.style.strokeDashoffset = off; n.textContent = s; return; }
+    arc.style.transition = 'none'; arc.style.strokeDashoffset = PT_C; n.textContent = '0';
+    void arc.getBoundingClientRect();
+    var t0 = performance.now() + 220;
+    setTimeout(function () { arc.style.transition = ''; arc.style.strokeDashoffset = off; }, 220);
+    (function step(now) {
+      var p = clamp((now - t0) / 1300, 0, 1), e = 1 - Math.pow(2, -10 * p);
+      n.textContent = Math.round(s * (p >= 1 ? 1 : e));
+      if (p < 1) requestAnimationFrame(step);
+    })(performance.now());
+  }
+  function openTest() {
+    if (!pt || ptOpen || askOpen) return;
+    setMenu(false);
+    ptOpen = true; ptLast = d.activeElement;
+    pt.hidden = false;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { if (ptOpen) pt.classList.add('is-open'); }); });
+    modalSync();
+    if (ptRes) ptShow('r', 1, true, function () { ptRenderR(true); });
+    else { ptAns = []; ptIdx = 0; ptShow('0', 1, true); }
+  }
+  function closeTest(silent) {
+    if (!ptOpen) return;
+    ptOpen = false; clearTimeout(ptT); ptBusy = false;
+    pt.classList.remove('is-open'); modalSync();
+    setTimeout(function () { if (!ptOpen) pt.hidden = true; }, 520);
+    if (/^#test$/i.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { } }
+    if (!silent && ptLast && ptLast.focus && ptLast !== d.body) ptLast.focus({ preventScroll: true });
+  }
+  // result → question flow, with the score and the fails in hidden fields
+  function ptPreview() {
+    if (!ptRes || !form) return;
+    ptStore();
+    if (!$('input[name="contact[help]"]:checked', form)) {
+      var v = ptRes.noSite ? 'A new website' : ptRes.score <= 7 ? 'Redesign my website' : '', o = v && $('input[name="contact[help]"][value="' + v + '"]', form);
+      if (o) { o.checked = true; syncOpts(); }
+    }
+    askSrc = 'Phone Test result';
+    openAsk(1, ptLast);
+    // the question flow fades in over the test; close the test once it's fully covered
+    (function wait(n) {
+      if (ask.classList.contains('is-open') || n > 40) setTimeout(function () { closeTest(true); }, REDUCE ? 0 : 520);
+      else requestAnimationFrame(function () { wait(n + 1); });
+    })(0);
+  }
+  W.openTest = openTest;
+  if (pt) {
+    try { var pr = JSON.parse(sessionStorage.getItem(PT_KEY) || 'null'); if (pr && pr.fails && typeof pr.score === 'number') { ptRes = pr; ptStore(); } } catch (e) { }
+    pt.addEventListener('click', function (e) {
+      var tg = e.target; if (!tg || !tg.closest) return;
+      if (tg.closest('[data-pt-close]')) { e.preventDefault(); closeTest(); return; }
+      var a = tg.closest('[data-pt-a]'); if (a) { ptAnswer(a.getAttribute('data-pt-a') === '1'); return; }
+      if (ptBusy) return;
+      if (tg.closest('[data-pt-start]')) { ptIdx = 0; ptAns = []; ptShow('q', 1, false, ptRenderQ); }
+      else if (tg.closest('[data-pt-nosite]')) { ptAns = []; ptFinish(true); }
+      else if (tg.closest('[data-pt-back]')) { if (ptIdx > 0) ptShow('q', -1, false, function () { ptIdx--; ptRenderQ(); }); else ptShow('0', -1); }
+      else if (tg.closest('[data-pt-preview]')) ptPreview();
+      else if (tg.closest('[data-pt-redo]')) {
+        ptRes = null; ptAns = []; ptIdx = 0; ptStore();
+        try { sessionStorage.removeItem(PT_KEY); } catch (x) { }
+        ptShow('q', -1, false, ptRenderQ);
+      }
+    });
+    d.addEventListener('keydown', function (e) {
+      if (!ptOpen || askOpen) return;
+      if (e.key === 'Escape') { e.preventDefault(); closeTest(); return; }
+      if (e.key === 'Tab') {
+        var f = focusables(pt); if (!f.length) return;
+        var a = f[0], z = f[f.length - 1];
+        if (e.shiftKey && (d.activeElement === a || !pt.contains(d.activeElement))) { e.preventDefault(); z.focus(); }
+        else if (!e.shiftKey && (d.activeElement === z || !pt.contains(d.activeElement))) { e.preventDefault(); a.focus(); }
+        return;
+      }
+      if (ptPane() !== 'q' || e.metaKey || e.ctrlKey || e.altKey) return;
+      var k = (e.key || '').toLowerCase();
+      if (k === 'y' || k === 'j') { e.preventDefault(); ptAnswer(true); }
+      else if (k === 'n') { e.preventDefault(); ptAnswer(false); }
+    });
+    d.addEventListener('lang', function () {
+      if (!ptOpen) return;
+      var n = ptPane();
+      if (n === 'q') ptRenderQ(); else if (n === 'r' && ptRes) ptRenderR(true);
+      ptHead(n);
+    });
+    // QR cards and messages link to dolcessi.com/#test
+    W.addEventListener('hashchange', function () { if (/^#test$/i.test(location.hash)) openTest(); });
+  }
+
   /* ───────── mobile menu ───────── */
   var mbtn = $('[data-menu]'), mnav = $('#mnav'), menuOpen = false;
   function setMenu(on) {
@@ -726,7 +1052,7 @@
       setTimeout(function () { var a = $('a', mnav); if (menuOpen && a) a.focus({ preventScroll: true }); }, 90);
     } else {
       mnav.classList.remove('is-open');
-      if (lenis && !askOpen) lenis.start();
+      if (lenis && !askOpen && !ptOpen) lenis.start();
       setTimeout(function () { if (!menuOpen) mnav.hidden = true; }, 380);
     }
   }
@@ -769,6 +1095,7 @@
     }
     if (preActive) setTimeout(function () { ignite(true); }, Math.max(150, 1450 - performance.now()));
     else ignite(!seen && !REDUCE);
+    if (/^#test$/i.test(location.hash)) setTimeout(openTest, REDUCE ? 0 : 260);
   }
   boot();
 })();
