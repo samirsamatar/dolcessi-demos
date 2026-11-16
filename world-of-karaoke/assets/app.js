@@ -486,11 +486,11 @@
     var cols = ['255,244,220', '138,244,242', '255,120,190', '170,150,255'];
     function size() { var r = c.getBoundingClientRect(); W = r.width; H = r.height; c.width = W * dpr; c.height = H * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0); }
     function seed() {
-      pts = []; var n = Math.round(Math.min(46, Math.max(18, W / 30)));
+      pts = []; var n = Math.round(Math.min(40, Math.max(14, W / 34)));
       for (var i = 0; i < n; i++) pts.push({ a: Math.random() * 6.283, r: 0.25 + Math.random() * 0.95, y: Math.random(), s: 3 + Math.random() * 9, c: cols[i % cols.length], w: 0.5 + Math.random(), ph: Math.random() * 6.283 });
     }
     function draw(t) {
-      x.clearRect(0, 0, W, H);
+      x.clearRect(0, 0, W, H); x.globalCompositeOperation = 'lighter';
       for (var i = 0; i < pts.length; i++) {
         var p = pts[i], a = p.a + t * 0.00006 * p.w;
         var px = W * (0.5 + Math.cos(a) * p.r * 0.62), py = H * (0.08 + p.y * 0.84) + Math.sin(a * 1.7 + p.ph) * 14;
@@ -501,7 +501,7 @@
         x.fillStyle = g; x.beginPath(); x.ellipse(px, py, rad * 1.5, rad, 0, 0, 6.283); x.fill();
       }
     }
-    function loop(t) { raf = requestAnimationFrame(loop); if (t - last < 33) return; last = t; draw(t); }
+    function loop(t) { raf = requestAnimationFrame(loop); if (document.hidden || t - last < 40) return; last = t; draw(t); }
     size(); seed();
     if (!MOTION) { draw(4000); return; }
     window.addEventListener('resize', function () { size(); seed(); });
@@ -520,7 +520,7 @@
     el.classList.add('run');
     setTimeout(function () { el.classList.add('out'); }, hold);
     setTimeout(function () { el.remove(); }, hold + 800);
-    return hold + 260;
+    return hold + 760;
   }
 
   /* ---------------------------------------------------------------- neon words: strike on when seen, then now and then one tube stutters */
@@ -581,19 +581,27 @@
     var sec = $('#sip'), track = $('#sipTrack'), bar = $('#sipBar'); if (!sec || !track) return;
     var wide = MOTION && window.matchMedia('(min-width: 1px)').matches;
     if (!MOTION) { sec.classList.add('native'); return; }
-    var dist = 0, top = 0, raf = 0, active = false, lastW = 0;
+    var dist = 0, top = 0, raf = 0, active = false, lastW = 0, cur = 0, tgt = 0, lastT = 0;
+    function target() { return dist ? Math.min(1, Math.max(0, (window.scrollY - top) / dist)) : 0; }
     function measure() {
       lastW = window.innerWidth;
       dist = Math.max(0, track.scrollWidth - window.innerWidth);
       sec.style.height = (window.innerHeight + dist) + 'px';
       top = sec.getBoundingClientRect().top + window.scrollY;
-      paint();
+      cur = tgt = target(); set();
     }
-    function paint() {
-      raf = 0;
-      var p = dist ? Math.min(1, Math.max(0, (window.scrollY - top) / dist)) : 0;
-      track.style.transform = 'translate3d(' + (-p * dist).toFixed(1) + 'px,0,0)';
-      if (bar) bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    function set() {
+      track.style.transform = 'translate3d(' + (-cur * dist).toFixed(2) + 'px,0,0)';
+      if (bar) bar.style.transform = 'scaleX(' + cur.toFixed(4) + ')';
+    }
+    function paint(t) {
+      var dt = lastT ? Math.min(64, t - lastT) : 16.7; lastT = t;
+      tgt = target();
+      cur += (tgt - cur) * (1 - Math.pow(1 - 0.16, dt / 16.7));   // ease toward the scroll position
+      if (Math.abs(tgt - cur) * dist < 0.4) cur = tgt;
+      set();
+      raf = cur !== tgt ? requestAnimationFrame(paint) : 0;
+      if (!raf) lastT = 0;
     }
     function onScroll() { if (active && !raf) raf = requestAnimationFrame(paint); }
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -694,6 +702,15 @@
 
     sign.addEventListener('click', switchSign);
     specks(); neonWords(); buttons(); taps(); sideways();
+    $$('img[loading="lazy"]').forEach(function (im) {
+      im.decoding = 'async';
+      if (im.complete && im.naturalWidth) im.classList.add('in');
+      else { im.addEventListener('load', function () { im.classList.add('in'); }, { once: true }); im.addEventListener('error', function () { im.classList.add('in'); }, { once: true }); }
+    });
+    window.addEventListener('load', function () {
+      var go = function () { $$('img[loading="lazy"]').forEach(function (im) { im.loading = 'eager'; }); };
+      if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 2500 }); else setTimeout(go, 1200);
+    });
     if (document.fonts && document.fonts.ready) { var started = false; var st = function () { if (!started) { started = true; setTimeout(ignite, LD); } }; document.fonts.ready.then(st); setTimeout(st, 900); } else ignite();
   }
 
