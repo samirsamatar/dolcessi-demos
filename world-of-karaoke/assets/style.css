@@ -2,6 +2,7 @@
    A dark wall lit by its own signs. Left-aligned editorial type; neon is reserved for
    the logo sign, the city signs, the open sign and the closing line. Gold is for actions only. */
 @font-face{font-family:"Fraunces";font-style:italic;font-weight:100 900;font-display:swap;src:url(../fonts/fraunces-latin-full-italic.woff2) format("woff2")}
+@font-face{font-family:"Fraunces";font-style:italic;font-weight:100 900;font-display:swap;src:url(../fonts/fraunces-macron-italic.woff2) format("woff2");unicode-range:U+0101,U+012A-012B,U+014D,U+016B}
 @font-face{font-family:"Instrument Sans";font-style:normal;font-weight:400 700;font-display:swap;src:url(../fonts/instrument-sans-latin-wght-normal.woff2) format("woff2")}
 @font-face{font-family:"Tilt Neon";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/tilt-neon-latin-400-normal.woff2) format("woff2")}
 @font-face{font-family:"Sacramento";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/sacramento-latin-400-normal.woff2) format("woff2")}
@@ -198,6 +199,19 @@ section{position:relative}
 .csign.fit .tube{color:color-mix(in srgb,var(--h) 22%,#fff);-webkit-text-stroke:0 transparent;text-shadow:0 0 .04em #fff,0 0 .16em var(--h),0 0 .42em var(--h),0 0 1em color-mix(in srgb,var(--h) 62%,transparent),0 0 2.2em color-mix(in srgb,var(--h) 34%,transparent)}
 .csign.fit small{color:rgba(239,236,248,.8)}
 .csign small i{font-style:normal;margin-left:7px;opacity:.85}
+.pp{width:.95em;height:.95em;vertical-align:-.14em;margin-right:5px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;flex:none}
+.csign.fit small .pp{color:var(--h);filter:drop-shadow(0 0 3px var(--h))}
+.csign.dying .tube{color:color-mix(in srgb,var(--h) 22%,#fff);-webkit-text-stroke:0 transparent;text-shadow:0 0 .04em #fff,0 0 .16em var(--h),0 0 .42em var(--h)}
+.csign.surge .tube{animation:surge .5s ease-out var(--d,0ms)}
+@keyframes surge{0%,100%{filter:none}28%{filter:brightness(1.7) saturate(1.2)}}
+.rooms-bar{position:relative}
+.rb-item label .pp{color:var(--ice)}
+.feed{position:absolute;left:0;right:0;bottom:-5px;height:9px;overflow:hidden;pointer-events:none}
+.feed::after{content:"";position:absolute;left:0;top:4px;width:24%;height:1px;background:linear-gradient(90deg,transparent,var(--ice) 40%,#fff 78%,transparent);box-shadow:0 0 6px 1px color-mix(in srgb,var(--ice) 70%,transparent);opacity:0;transform:translate3d(-100%,0,0)}
+.feed.go::after{animation:feed .56s cubic-bezier(.45,0,.25,1)}
+@keyframes feed{0%{opacity:1;transform:translate3d(-100%,0,0)}82%{opacity:1}100%{opacity:0;transform:translate3d(420%,0,0)}}
+.stepper input.bump{animation:bump .6s ease-out}
+@keyframes bump{0%{color:#fff;text-shadow:0 0 .06em #fff,0 0 .35em var(--ice),0 0 .9em var(--ice)}100%{text-shadow:0 0 0 transparent}}
 .csign.fit.dip .tube{color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--h) 46%,transparent);text-shadow:none}
 .csign.script.fit.dip .tube{-webkit-text-stroke-width:.8px}
 .csign::after{content:"";height:3px;width:0;border-radius:3px;background:var(--h);transition:width .25s ease}
@@ -459,9 +473,12 @@ section{position:relative}
 .sip-hint i{position:relative;width:64px;height:1px;background:var(--line-2);overflow:hidden}
 .sip-hint i::after{content:"";position:absolute;inset:0;background:var(--ice);transform:translateX(-100%);animation:hint 1.8s ease-in-out infinite}
 @keyframes hint{60%,100%{transform:translateX(100%)}}
-.sip-drink{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1fr);align-items:center;gap:clamp(20px,4vw,64px)}
-.sip-fig{max-width:460px;justify-self:end;width:100%}
-.sip-fig img{width:100%;height:auto}
+.sip-drink{position:relative;width:auto;display:grid;grid-template-columns:auto minmax(0,38ch);align-items:center;gap:clamp(22px,3vw,52px);margin-inline:clamp(24px,7vw,150px);will-change:opacity}
+/* each drink stands in its own pool of light: the photo and its words share one colour */
+.sip-drink::before{content:"";position:absolute;inset:-18% -10% -18% -16%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side at 30% 52%,color-mix(in srgb,var(--h) 26%,transparent),color-mix(in srgb,var(--h) 9%,transparent) 55%,transparent)}
+.sip-fig{position:relative;margin:0;width:min(420px,30vw,calc(64svh * .8));aspect-ratio:4/5;border-radius:26px;overflow:hidden;background:#140f24;box-shadow:0 34px 70px -34px color-mix(in srgb,var(--h) 70%,transparent),0 0 0 1px rgba(255,255,255,.06)}
+.sip-fig img{position:absolute;top:0;left:-28px;width:calc(100% + 56px);max-width:none;height:100%;object-fit:cover;will-change:transform}
+.sip-fig::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 22%,transparent 70%,rgba(6,5,12,.35))}
 .sip-copy{display:grid;gap:14px;max-width:38ch}
 .sip-no{font-size:.8125rem;color:var(--mute);font-variant-numeric:tabular-nums;letter-spacing:.04em}
 .sip-copy h3{font:italic 380 clamp(2.4rem,4.6vw,3.9rem)/1 var(--display);font-variation-settings:"SOFT" 70,"WONK" 1;letter-spacing:-.01em}
@@ -566,8 +583,8 @@ section{position:relative}
 }
 @media (max-width:760px){
   .sip-panel{width:86vw}
-  .sip-drink{grid-template-columns:1fr;gap:14px;align-content:center}
-  .sip-fig{justify-self:start;max-width:min(62vw,300px)}
+  .sip-drink{grid-template-columns:1fr;gap:16px;align-content:center;margin-inline:6vw}
+  .sip-fig{width:min(62vw,300px,calc(46svh * .8));border-radius:20px}
   .sip-copy{gap:9px}
   .sip-copy h3{font-size:2.1rem}
   .sip-ing,.sip-line{font-size:.9375rem}

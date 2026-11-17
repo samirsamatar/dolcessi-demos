@@ -295,11 +295,11 @@
     });
   }
 
-  var wall = $('#signwall'), panel = $('#room');
+  var wall = $('#signwall'), panel = $('#room'), PP = '<svg class="pp" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="3.7" r="2.2"/><path d="M1.9 11.2c0-2.5 1.8-4.2 4.1-4.2s4.1 1.7 4.1 4.2"/></svg>';
   function buildWall() {
     wall.innerHTML = ROOMS.map(function (r) {
       return '<button type="button" aria-pressed="false" class="csign' + (r.script ? ' script' : '') + '" data-room="' + r.id + '" style="--h:' + r.hue + ';--s:' + r.s + '">' +
-        '<span class="tube">' + esc(r.name) + '</span><small>' + r.min + '–' + r.max + (r.ktv ? ' <i lang="zh-Hans">' + (r.ktv === 'only' ? T[state.lang].ktvOnly : T[state.lang].ktvPlus) + '</i>' : '') + '</small></button>';
+        '<span class="tube">' + esc(r.name) + '</span><small>' + PP + r.min + '–' + r.max + (r.ktv ? ' <i lang="zh-Hans">' + (r.ktv === 'only' ? T[state.lang].ktvOnly : T[state.lang].ktvPlus) + '</i>' : '') + '</small></button>';
     }).join('');
   }
   function flick(el, cls, seq) { // seq: ms steps toggling cls, ends with cls removed
@@ -312,20 +312,29 @@
   function rnd(a, b) { return a + Math.random() * (b - a); }
 
   var wallSeen = !MOTION;
-  function renderWall(animate) {
-    var p = state.people;
+  function renderWall(animate, surge) {
+    // surge: the group size just changed. Power runs down the line from the stepper, then the signs answer in reading order:
+    // new fits strike up, signs that no longer fit sputter out, the ones that stay lit take a short surge.
+    var p = state.people, k = 0, s = 0;
+    surge = surge && wallSeen && MOTION;
     $$('.csign', wall).forEach(function (b, i) {
       var r = ROOMS[i], f = fits(r, p), was = b.classList.contains('fit');
       b.classList.toggle('fit', f);
       b.classList.toggle('sel', state.room === r.id);
       b.setAttribute('aria-pressed', state.room === r.id ? 'true' : 'false');
-      if (f && (!was || animate) && wallSeen) {
-        var seq = SEQS[Math.floor(Math.random() * SEQS.length)].slice(); seq[0] += animate ? i * 70 : rnd(0, 160);
+      if (!wallSeen) { if (f) b.classList.add('dip'); return; }
+      if (f && (!was || animate)) {
+        var seq = SEQS[Math.floor(Math.random() * SEQS.length)].slice();
+        seq[0] += surge ? 230 + k++ * 80 : animate ? i * 70 : rnd(0, 160);
         flick(b, 'dip', seq);
-      } else if (f && !wallSeen) { b.classList.add('dip'); }
+      } else if (surge && !f && was) {
+        flick(b, 'dying', [rnd(40, 110), 50, 60]);
+      } else if (surge && f && was) {
+        b.style.setProperty('--d', Math.round(200 + s++ * 55) + 'ms');
+        b.classList.remove('surge'); void b.offsetWidth; b.classList.add('surge');
+      }
     });
   }
-
   function renderPanel() {
     var L = T[state.lang], r = ROOMS.filter(function (x) { return x.id === state.room; })[0];
     if (!r) return;
@@ -415,12 +424,18 @@
     if (opts.day) state.sess = null;
     var cur = ROOMS.filter(function (x) { return x.id === state.room; })[0];
     if (!cur || (opts.people && !fits(cur, state.people))) { state.room = firstFit(); state.sess = null; }
-    renderOut(); renderWall(opts.animate); renderPanel();
+    renderOut(); renderWall(opts.animate, opts.people); renderPanel();
   }
   function setPeople(v, src) {
     v = Math.max(2, Math.min(25, parseInt(v, 10) || 2));
     if (v === state.people && src !== 'force') { renderOut(); return; }
-    state.people = v; update({ people: true });
+    state.people = v; update({ people: true }); powerLine();
+  }
+  var feed = $('.feed');
+  function powerLine() {
+    if (!MOTION) return;
+    $$('.stepper input').forEach(function (n) { n.classList.remove('bump'); void n.offsetWidth; n.classList.add('bump'); });
+    if (feed && wallSeen) { feed.classList.remove('go'); void feed.offsetWidth; feed.classList.add('go'); }
   }
 
   /* ------------------------------------------------------------------ hero sign */
@@ -436,18 +451,37 @@
     [0].concat(seq).forEach(function (ms) { t += ms; on = !on; (function (s) { setTimeout(function () { setUnit(u, s); }, t); })(on); });
     return t;
   }
-  var faultTimer = null, heroVisible = true;
-  function fault() {
+  var faultTimer = null, heroVisible = true, lastU = -1;
+  // after the ignition the sign keeps living: every few seconds one letter (sometimes two) catches a bad contact
+  var FAULTS = [
+    [55, 45],                          // quick blink
+    [40, 30, 30, 90, 40],              // stutter
+    [60, 40, 50, 30, 30, 260, 40],     // drops out for a beat, then catches
+    [30, 25, 30, 25, 30, 25, 140]      // nervous chatter
+  ];
+  function blinkUnit(u, seq, delay) {
+    var t = delay || 0, on = true;
+    seq.forEach(function (ms) { t += ms; on = !on; (function (s) { setTimeout(function () { setUnit(u, s); }, t); })(on); });
+    setTimeout(function () { setUnit(u, true); }, t + 30);
+  }
+  function pickUnit() {
+    var u; do { u = Math.random() < 0.3 ? 10 : Math.floor(Math.random() * UNITS); } while (u === lastU);
+    return (lastU = u);
+  }
+  function fault(first) {
     clearTimeout(faultTimer);
+    var wait = first ? rnd(1400, 2400) : rnd(1800, 4300) + (Math.random() < 0.14 ? rnd(2000, 3500) : 0);
     faultTimer = setTimeout(function () {
       if (power && heroVisible && !document.hidden) {
-        var u = Math.random() < 0.6 ? 10 : Math.floor(Math.random() * UNITS); // unit 10: the tube that never quite behaves
-        var seq = Math.random() < 0.5 ? [50, 40, 60] : [40, 30, 30, 90, 40];
-        var t = 0, on = true; seq.forEach(function (ms) { t += ms; on = !on; (function (s) { setTimeout(function () { setUnit(u, s); }, t); })(on); });
-        setTimeout(function () { setUnit(u, true); }, t + 30);
+        var r = Math.random(), seq = FAULTS[r < 0.38 ? 0 : r < 0.7 ? 1 : r < 0.88 ? 2 : 3];
+        var u = pickUnit(); blinkUnit(u, seq.map(function (x) { return x + rnd(-8, 12); }), 0);
+        if (Math.random() < 0.35) { // a neighbour shares the bad contact, a moment later
+          var v = u + (Math.random() < 0.5 ? -1 : 1); if (v < 0 || v >= UNITS) v = u > 0 ? u - 1 : 1;
+          blinkUnit(v, FAULTS[Math.random() < 0.5 ? 0 : 1], rnd(60, 180));
+        }
       }
       fault();
-    }, rnd(5200, 12500));
+    }, wait);
   }
   var power = true, busy = false;
   function switchSign() {
@@ -476,7 +510,7 @@
     setTimeout(function () { sign.style.opacity = '.35'; hero.style.setProperty('--lit', '0.3'); }, end + 260);
     setTimeout(function () { sign.style.opacity = ''; hero.style.setProperty('--lit', '1'); }, end + 330);
     setTimeout(function () { sign.style.opacity = '.6'; }, end + 420);
-    setTimeout(function () { sign.style.opacity = ''; if (!power) return; for (var k = 0; k < UNITS; k++) setUnit(k, true); fault(); }, end + 470);
+    setTimeout(function () { sign.style.opacity = ''; if (!power) return; for (var k = 0; k < UNITS; k++) setUnit(k, true); fault(true); }, end + 470);
   }
 
   /* ------------------------------------------------------------------ mirror-ball specks */
@@ -582,10 +616,13 @@
     var wide = MOTION && window.matchMedia('(min-width: 1px)').matches;
     if (!MOTION) { sec.classList.add('native'); return; }
     var dist = 0, top = 0, raf = 0, active = false, lastW = 0, cur = 0, tgt = 0, lastT = 0;
+    // drinks: each one's light comes up as it reaches the middle, and the photo drifts a little inside its frame
+    var drinks = $$('.sip-drink', track).map(function (el) { return { el: el, img: $('img', el), c: 0, op: -1, px: 99 }; });
     function target() { return dist ? Math.min(1, Math.max(0, (window.scrollY - top) / dist)) : 0; }
     function measure() {
       lastW = window.innerWidth;
       dist = Math.max(0, track.scrollWidth - window.innerWidth);
+      drinks.forEach(function (d) { var f = $('.sip-fig', d.el); d.c = d.el.offsetLeft + f.offsetLeft + f.offsetWidth / 2; d.op = -1; d.px = 99; });
       sec.style.height = (window.innerHeight + dist) + 'px';
       top = sec.getBoundingClientRect().top + window.scrollY;
       cur = tgt = target(); set();
@@ -593,6 +630,14 @@
     function set() {
       track.style.transform = 'translate3d(' + (-cur * dist).toFixed(2) + 'px,0,0)';
       if (bar) bar.style.transform = 'scaleX(' + cur.toFixed(4) + ')';
+      var vw = lastW || window.innerWidth, off = cur * dist;
+      for (var i = 0; i < drinks.length; i++) {
+        var d = drinks[i], x = (d.c - off - vw / 2) / vw;            // -0.5..0.5 while on screen
+        var op = Math.max(0.32, Math.min(1, 1 - (Math.abs(x) - 0.16) / 0.36));
+        var px = Math.max(-1, Math.min(1, x * 1.6)) * -26;
+        if (Math.abs(op - d.op) > 0.004) { d.el.style.opacity = op.toFixed(3); d.op = op; }
+        if (d.img && Math.abs(px - d.px) > 0.15) { d.img.style.transform = 'translate3d(' + px.toFixed(1) + 'px,0,0)'; d.px = px; }
+      }
     }
     function paint(t) {
       var dt = lastT ? Math.min(64, t - lastT) : 16.7; lastT = t;
@@ -637,6 +682,7 @@
       var t = ev.target; if (t && t.matches && t.matches('.days input')) { state.day = t.value; update({ day: true }); }
     });
     $('#finder').addEventListener('submit', function (ev) { ev.preventDefault(); go('#rooms'); });
+    wall.addEventListener('animationend', function (ev) { var b = ev.target.closest && ev.target.closest('.csign'); if (b) b.classList.remove('surge'); });
     wall.addEventListener('click', function (ev) {
       var b = ev.target.closest('.csign'); if (!b) return;
       state.room = b.getAttribute('data-room'); state.sess = null; renderWall(); renderPanel();

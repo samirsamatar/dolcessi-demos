@@ -15,7 +15,7 @@
 <link rel="preload" href="fonts/fraunces-latin-full-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/tilt-neon-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/style.css?v=1794871759">
+<link rel="stylesheet" href="assets/style.css?v=1794944221">
 <script>(function(d){var c=d.documentElement.classList;c.replace('no-js','js');if(window.matchMedia&&matchMedia('(prefers-reduced-motion: no-preference)').matches)c.add('pre');})(document)</script>
 </head>
 <body>
@@ -136,7 +136,7 @@
 
     <div class="rooms-bar">
       <div class="rb-item">
-        <label for="people2" data-i18n="rooms.for">People</label>
+        <label for="people2"><svg class="pp" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="3.7" r="2.2"/><path d="M1.9 11.2c0-2.5 1.8-4.2 4.1-4.2s4.1 1.7 4.1 4.2"/></svg><span data-i18n="rooms.for">People</span></label>
         <div class="stepper sm">
           <button type="button" data-step="-1" aria-label="One person fewer">−</button>
           <input id="people2" type="number" inputmode="numeric" min="2" max="25" value="4">
@@ -148,6 +148,7 @@
         <div class="days" data-days="rooms"></div>
       </fieldset>
       <p class="rb-out" aria-live="polite" data-out="bar"></p>
+      <i class="feed" aria-hidden="true"></i>
     </div>
 
     <div class="rooms-grid">
@@ -187,7 +188,7 @@
         <p class="sip-hint" aria-hidden="true"><span data-i18n="sip.hint">Scroll</span><i></i></p>
       </div>
       <article class="sip-panel sip-drink" style="--h:#ff4d67">
-        <figure class="sip-fig"><img loading="lazy" src="img/ck-uisuki-480.webp" srcset="img/ck-uisuki-480.webp 480w, img/ck-uisuki-900.webp 900w" sizes="(max-width:760px) 64vw, 30vw" alt="A Uisukī Sour with an orange slice, in their neon frame"></figure>
+        <figure class="sip-fig"><img loading="lazy" decoding="async" width="960" height="1200" src="img/sip-uisuki-480.webp" srcset="img/sip-uisuki-480.webp 480w, img/sip-uisuki-960.webp 960w" sizes="(max-width:760px) 64vw, 420px" alt="A Uisukī Sour with a dried orange slice, next to the yuzu liqueur and Toki whisky that go into it"></figure>
         <div class="sip-copy">
           <p class="sip-no">01 / 03</p>
           <h3><span class="nw" style="--h:#ff4d67">Uisukī Sour</span></h3>
@@ -198,7 +199,7 @@
         </div>
       </article>
       <article class="sip-panel sip-drink" style="--h:#8f9bff">
-        <figure class="sip-fig"><img loading="lazy" src="img/ck-espresso-480.webp" srcset="img/ck-espresso-480.webp 480w, img/ck-espresso-900.webp 900w" sizes="(max-width:760px) 64vw, 30vw" alt="An Espresso Martini with three coffee beans, in their neon frame"></figure>
+        <figure class="sip-fig"><img loading="lazy" decoding="async" width="960" height="1200" src="img/sip-espresso-480.webp" srcset="img/sip-espresso-480.webp 480w, img/sip-espresso-960.webp 960w" sizes="(max-width:760px) 64vw, 420px" alt="An Espresso Martini with three coffee beans on the foam, held up at the bar"></figure>
         <div class="sip-copy">
           <p class="sip-no">02 / 03</p>
           <h3><span class="nw" style="--h:#8f9bff">Espresso Martini</span></h3>
@@ -209,7 +210,7 @@
         </div>
       </article>
       <article class="sip-panel sip-drink" style="--h:#5dffb4">
-        <figure class="sip-fig"><img loading="lazy" src="img/ck-mojito-480.webp" srcset="img/ck-mojito-480.webp 480w, img/ck-mojito-900.webp 900w" sizes="(max-width:760px) 64vw, 30vw" alt="A Mojito with mint and lime, in their neon frame"></figure>
+        <figure class="sip-fig"><img loading="lazy" decoding="async" width="960" height="1200" src="img/sip-mojito-480.webp" srcset="img/sip-mojito-480.webp 480w, img/sip-mojito-960.webp 960w" sizes="(max-width:760px) 64vw, 420px" alt="A Mojito with fresh mint and crushed ice, held at the bar"></figure>
         <div class="sip-copy">
           <p class="sip-no">03 / 03</p>
           <h3><span class="nw" style="--h:#5dffb4">Mojito</span></h3>
@@ -464,8 +465,8 @@
   <a class="btn btn-gold" href="https://worldofkaraoke.nl/en/book-your-experience-2/" data-book target="_blank" rel="noopener" tabindex="-1" data-i18n="cta.book">Book a room</a>
 </div>
 
-<script src="assets/menu-data.js?v=1794871759"></script>
-<script src="assets/app.js?v=1794871759"></script>
+<script src="assets/menu-data.js?v=1794944221"></script>
+<script src="assets/app.js?v=1794944221"></script>
 <script>/* dolcessi-ping: tells Samir when this concept is opened */
 (function(){try{
 var q=new URLSearchParams(location.search);
