@@ -121,8 +121,8 @@ a:hover .lnk .ic,.lnk:hover .ic{transform:translateX(4px)}
 .queue b{display:block;font-weight:600;font-size:.875rem;line-height:1.2}
 .queue small{color:var(--ink-2);font-size:.75rem}
 .queue em{font:500 .75rem var(--mono);font-style:normal;color:var(--ink-2)}
-.hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 40px;flex-wrap:wrap}
-.hero-line{max-width:30ch;font:600 clamp(1.125rem,1.7vw,1.375rem)/1.35 var(--sans);letter-spacing:-.01em}
+.hero-foot{display:flex;align-items:center;justify-content:flex-end;gap:20px 40px;flex-wrap:wrap}
+.hero-line{max-width:34ch;text-align:right;font:600 clamp(1.125rem,1.7vw,1.375rem)/1.35 var(--sans);letter-spacing:-.01em}
 .hero-cta{display:flex;flex-wrap:wrap;gap:10px}
 
 /* ---------- section basics ---------- */
@@ -337,6 +337,8 @@ a.b:hover{transform:translateY(-3px)}
   .deck{width:min(100%,460px);margin-inline:auto}
   .player{max-width:none}
   .np-d{min-height:0}
+  .hero-foot{justify-content:space-between}
+  .hero-line{text-align:left}
   .steel-in{grid-template-columns:1fr}
   .rail{order:-1;width:min(300px,86%);margin:0 auto 10px}
   .kar-in{grid-template-columns:1fr}
@@ -353,6 +355,7 @@ a.b:hover{transform:translateY(-3px)}
   .nav-book{display:none}
   .status{font-size:.75rem}
   .hero-foot{flex-direction:column;align-items:stretch}
+  .hero-line{text-align:left}
   .hero-cta .btn{flex:1}
   .dr-cap{flex-direction:column;align-items:flex-start;gap:6px}
   .bb{grid-template-columns:1fr}
