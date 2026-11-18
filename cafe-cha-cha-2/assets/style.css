@@ -72,7 +72,7 @@ a:hover .lnk .ic,.lnk:hover .ic{transform:translateX(4px)}
 .hero{position:relative;min-height:calc(100svh - var(--navh) - 28px);display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,4vh,40px);
   padding:clamp(28px,5vh,56px) 0 clamp(28px,5vh,48px);background:url(../img/marble.webp) center/cover,var(--stone);overflow:hidden}
 .hero-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);align-items:center;gap:clamp(24px,5vw,80px)}
-.deck{position:relative;aspect-ratio:1.18/1;width:min(100%,calc((100svh - var(--navh) - 340px) * 1.18));justify-self:center}
+.deck{position:relative;aspect-ratio:1.18/1;width:clamp(min(100%,360px),calc((100svh - var(--navh) - 340px) * 1.18),100%);justify-self:center}
 .deck-shadow{position:absolute;left:12%;right:12%;bottom:6%;height:20%;border-radius:50%;background:radial-gradient(closest-side,rgba(40,34,28,.36),rgba(40,34,28,.12) 60%,transparent);filter:blur(6px);transform:translateZ(0)}
 .plate{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:translate3d(60%,4%,0) rotate(9deg);will-change:transform,opacity}
 .plate img{width:100%;height:100%;object-fit:contain}
