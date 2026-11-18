@@ -118,7 +118,7 @@ window.CC_NL = {
   'foot.photos': 'Foto\'s en menukaart van cafechacha.nl.',
 
   'mp.h': 'Lunch & diner',
-  'mp.p': 'Sandwiches en salades, burgers en pasta, vlees en vis van de grill en bites om te delen. Beweeg over een gerecht om het te zien. De foto\'s komen van de eigen menukaart van het café.',
+  'mp.p': 'Sandwiches en salades, burgers en pasta, vlees en vis van de grill en bites om te delen. Elke foto komt van de eigen menukaart van het café.',
   'tab.lunch': 'Lunch',
   'tab.burgers': 'Burgers & pasta',
   'tab.dinner': 'Vlees & vis',

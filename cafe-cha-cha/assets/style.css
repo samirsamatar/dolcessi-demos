@@ -162,8 +162,6 @@ svg.defs{position:absolute;width:0;height:0;overflow:hidden}
 .hero-media{position:absolute;inset:0;z-index:-2;background:var(--night)}
 .hero-media picture,.hero-media img{position:absolute;inset:0;width:100%;height:100%}
 .hero-media img{object-fit:cover}
-.mo .hero-media img{animation:drift 22s ease-out both}
-@keyframes drift{from{transform:scale(1.07)}to{transform:scale(1)}}
 .hero-media::after{content:"";position:absolute;inset:0;background:
   linear-gradient(90deg,rgba(20,14,11,.9) 0%,rgba(20,14,11,.6) 40%,rgba(20,14,11,.18) 72%,rgba(20,14,11,.34) 100%),
   linear-gradient(0deg,rgba(20,14,11,.94) 0%,rgba(20,14,11,0) 48%),
@@ -171,9 +169,7 @@ svg.defs{position:absolute;width:0;height:0;overflow:hidden}
 /* the glass: the Rokin reflected in it, overhead wires, a tram now and then */
 .pane{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .refl{position:absolute;inset:-4% -8%;opacity:.1;-webkit-mask-image:linear-gradient(90deg,transparent 18%,#000 62%);mask-image:linear-gradient(90deg,transparent 18%,#000 62%)}
-.refl img{width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:grayscale(1) blur(2.5px) brightness(1.2)}
-.mo .refl{animation:refl 46s ease-in-out infinite alternate}
-@keyframes refl{from{transform:translate3d(-2.5%,0,0)}to{transform:translate3d(2.5%,0,0)}}
+.refl img{width:100%;height:100%;object-fit:cover}
 .wires{position:absolute;left:0;top:calc(var(--navh) + 2vh);width:100%;height:60px;opacity:.1}
 .wires path{fill:none;stroke:#fff3da;stroke-width:1;vector-effect:non-scaling-stroke}
 .tramcar{position:absolute;left:0;bottom:22%;width:min(84vw,1180px);height:auto;color:#fff3da;fill:currentColor;opacity:.085;transform:translate3d(120vw,0,0)}
@@ -203,15 +199,23 @@ svg.defs{position:absolute;width:0;height:0;overflow:hidden}
 .logo.gilt .shn{fill:url(#shine)}
 .logo .shine{pointer-events:none}
 /* their logo dances in: slow, slow, quick-quick-quick */
-.mo .logo-hero .lt{animation:step .62s var(--ease) both;animation-delay:calc(var(--d,0) * 1ms + 200ms)}
-.mo .logo-hero .lt:nth-child(1){--d:0}.mo .logo-hero .lt:nth-child(2){--d:320}.mo .logo-hero .lt:nth-child(3){--d:640}
-.mo .logo-hero .lt:nth-child(4){--d:780}.mo .logo-hero .lt:nth-child(5){--d:900}.mo .logo-hero .lt:nth-child(6){--d:1020}
-.mo .logo-hero .lt:nth-child(odd){--x:-26px}.mo .logo-hero .lt:nth-child(even){--x:26px}
+/* hero logo: one small SVG per letter, animated as layers (no repaint of the gold) */
+.logo.layered{position:relative;display:block;aspect-ratio:500/433.4;height:auto}
+.logo.layered > svg{position:absolute;display:block;overflow:visible}
+.mo .logo-hero .lt{animation:step .62s var(--ease) both;animation-delay:calc(var(--d,0) * 1ms + 150ms)}
+.mo .logo-hero .lt:nth-of-type(1){--d:0}.mo .logo-hero .lt:nth-of-type(2){--d:320}.mo .logo-hero .lt:nth-of-type(3){--d:640}
+.mo .logo-hero .lt:nth-of-type(4){--d:780}.mo .logo-hero .lt:nth-of-type(5){--d:900}.mo .logo-hero .lt:nth-of-type(6){--d:1020}
+.mo .logo-hero .lt:nth-of-type(odd){--x:-8%}.mo .logo-hero .lt:nth-of-type(even){--x:8%}
+.glint{position:absolute;inset:0;overflow:hidden;pointer-events:none;-webkit-mask:url(../img/logo-mask.svg) 0 0/100% 100% no-repeat;mask:url(../img/logo-mask.svg) 0 0/100% 100% no-repeat}
+.glint i{position:absolute;top:-10%;bottom:-10%;left:0;width:34%;background:linear-gradient(100deg,rgba(255,251,233,0) 0%,rgba(255,251,233,.85) 50%,rgba(255,251,233,0) 100%);transform:translate3d(-120%,0,0) skewX(-14deg);will-change:transform}
+.mo .glint i{animation:glint 12s cubic-bezier(.45,0,.25,1) 1.9s infinite}
 @keyframes step{from{opacity:0;transform:translate3d(var(--x),0,0)}}
-.mo .logo-hero .cafe{animation:fade .6s ease 1.25s both}
+@keyframes glint{0%{transform:translate3d(-120%,0,0) skewX(-14deg)}17%,100%{transform:translate3d(420%,0,0) skewX(-14deg)}}
+.mo .logo-hero .cafe{animation:fade .6s ease 1.2s both}
 @keyframes fade{from{opacity:0}}
-.mo .hero-copy > *{animation:up .7s var(--ease) both}
-.mo .hero-copy > :nth-child(1){animation-delay:.5s}.mo .hero-copy > :nth-child(2){animation-delay:.7s}.mo .hero-copy > :nth-child(3){animation-delay:.86s}.mo .hero-copy > :nth-child(4){animation-delay:.98s}
+.mo .hero:not(.ready) .hero-copy > *{opacity:0}
+.mo .hero.ready .hero-copy > *{animation:up .7s var(--ease) both}
+.mo .hero.ready .hero-copy > :nth-child(1){animation-delay:.25s}.mo .hero.ready .hero-copy > :nth-child(2){animation-delay:.4s}.mo .hero.ready .hero-copy > :nth-child(3){animation-delay:.52s}.mo .hero.ready .hero-copy > :nth-child(4){animation-delay:.62s}
 @keyframes up{from{opacity:0;transform:translate3d(0,18px,0)}}
 
 /* ---------- intro: one sentence with the café in it ---------- */
@@ -228,14 +232,22 @@ svg.defs{position:absolute;width:0;height:0;overflow:hidden}
 .day{position:relative;display:grid;grid-template-columns:minmax(260px,.4fr) minmax(0,1fr);column-gap:clamp(30px,5vw,90px);padding-inline:var(--gut);color:var(--ink);
   background:radial-gradient(40% 50% at 12% 30%,rgba(233,162,59,.09),transparent 70%),url(../img/grain.webp),var(--paper)}
 .day-rail{grid-column:1;grid-row:1 / span 6;position:sticky;top:var(--navh);align-self:start;height:calc(100vh - var(--navh));height:calc(100svh - var(--navh));display:flex;flex-direction:column;justify-content:center;align-items:center;gap:clamp(18px,3vh,30px)}
-.cc-wrap{width:min(100%,380px,52vh);aspect-ratio:1;border-radius:50%;box-shadow:0 26px 40px -14px rgba(42,33,27,.34),0 3px 5px rgba(42,33,27,.22)}
-.cclock{display:block;width:100%;height:100%;overflow:visible}
-.cclock .cc-num{font:500 10.5px/1 var(--serif);text-anchor:middle;dominant-baseline:central}
-.cclock .cc-name{font:italic 600 7.2px/1 var(--serif);fill:#2A211B}
-.cclock .cc-sub{font:400 4.6px/1 var(--mono);fill:#6d6155}
-.cc-h,.cc-m,.cc-sun,.cc-moon{transform-box:view-box;will-change:transform}
-.cc-h,.cc-m{transform-origin:100px 100px}
-.cc-sun,.cc-moon{transform-origin:100px 79px}
+.cc-wrap{position:relative;width:min(100%,380px,52vh);aspect-ratio:1;border-radius:50%;box-shadow:0 26px 40px -14px rgba(42,33,27,.34),0 3px 5px rgba(42,33,27,.22)}
+.cc-wrap > svg,.cc-wrap > div{position:absolute}
+.cc-face,.cc-l{inset:0;width:100%;height:100%;display:block;overflow:visible}
+.cc-face .cc-num{font:500 10.5px/1 var(--serif);text-anchor:middle;dominant-baseline:central}
+.cc-face .cc-name{font:italic 600 7.2px/1 var(--serif);fill:#2A211B}
+.cc-face .cc-sub{font:400 4.6px/1 var(--mono);fill:#6d6155}
+.cc-hand{transform-origin:50% 50%;will-change:transform}
+/* the day/night window: a semicircle, clipped with rounded corners so its layers stay on the GPU */
+.cc-win{left:32.5%;top:22%;width:35%;height:17.5%;overflow:hidden;border-radius:50% 50% 0 0 / 100% 100% 0 0;isolation:isolate}
+.cw-sky{position:absolute;inset:0}
+.cw-day{background:linear-gradient(180deg,#8fbcd6 0%,#d9e7e6 70%,#f4e6c4 100%)}
+.cw-dusk{background:linear-gradient(180deg,#43546a 0%,#d4824c 55%,#f4c27a 100%);opacity:0;will-change:opacity}
+.cw-night{background:linear-gradient(180deg,#0e1a22 0%,#2C4654 100%);opacity:0;will-change:opacity}
+.cw-l{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.cw-stars{opacity:0;will-change:opacity}
+.cw-sun,.cw-moon{transform-origin:50% 100%;will-change:transform}
 .day-read{display:grid;justify-items:center;gap:14px;text-align:center}
 .dtime{font:300 clamp(1.6rem,2.2vw,2.1rem)/1 var(--mono);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .ticks{display:grid;gap:4px;font-size:.8125rem;color:var(--ink-mute)}
@@ -556,7 +568,7 @@ svg.defs{position:absolute;width:0;height:0;overflow:hidden}
 .pv-cards{display:grid;gap:18px}
 .pv{display:grid;gap:12px;justify-items:start;padding:30px;background:var(--paper-2);border:1px solid rgba(42,33,27,.55);outline:1px solid rgba(42,33,27,.55);outline-offset:-8px;transition:background-color .3s ease,opacity .3s ease}
 .pv h3{font:600 1.6rem/1.1 var(--serif)}
-.pv-price{font:600 clamp(2.6rem,4.4vw,3.8rem)/1 var(--serif);font-variant-numeric:tabular-nums}
+.pv-price{font:300 clamp(2.6rem,4.4vw,3.8rem)/1 var(--mono);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .pv > p:not(.pv-price){font-size:.875rem;color:var(--ink-mute);max-width:40ch}
 .pv.best{background:#f3d9a6}
 .pv.off{opacity:.5}
@@ -830,6 +842,19 @@ svg.defs{position:absolute;width:0;height:0;overflow:hidden}
   .voice{flex:1 1 100%;justify-content:center}
   .carte{padding:40px 20px 34px}
   .carte-h::before,.carte-h::after{max-width:40px}
+  /* phones: calmer section rhythm */
+  .intro,.sig,.bar,.kband,.grp,.guests,.rokin,.week,.private,.ka-strip,.occasions,.cap,.plan,.dsec,.book,.hours-sec,.route-sec,.faq{padding-top:68px;padding-bottom:68px}
+  .intro{padding-top:76px;padding-bottom:76px}
+  .tbox{grid-template-columns:1fr 1fr}
+  .tbox div:first-child{grid-column:1 / -1;border-bottom:1px solid rgba(233,162,59,.3)}
+  .tbox div:nth-child(2){border-left:0}
+  .tbox dd{font-size:.875rem}
+  .wk span{display:none}
+  .wk li{padding:14px 2px}
+  .wk b{font-size:1.1rem}
+  .pv-price{font:300 2.6rem/1 var(--mono);letter-spacing:-.03em}
+  .occ-grid img{aspect-ratio:4/3}
+  .veg{position:sticky;right:0;background:var(--night);box-shadow:-18px 0 14px var(--night)}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important;animation-iteration-count:1 !important}

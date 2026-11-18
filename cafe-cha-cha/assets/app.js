@@ -219,18 +219,21 @@
   }
 
   /* ---------------------------------------------------------------- i18n */
-  var EN = {};
+  var EN = {}, touched = false;
   function applyLang() {
     var nl = lang === 'nl';
-    root.lang = lang;
-    $$('[data-i18n]').forEach(function (el) {
-      var k = el.getAttribute('data-i18n'); if (!(k in EN)) EN[k] = el.textContent;
-      el.textContent = nl && NL[k] ? NL[k] : EN[k];
-    });
-    $$('[data-i18n-html]').forEach(function (el) {
-      var k = el.getAttribute('data-i18n-html'); if (!(('h:' + k) in EN)) EN['h:' + k] = el.innerHTML;
-      el.innerHTML = nl && NL[k] ? NL[k] : EN['h:' + k];
-    });
+    if (root.lang !== lang) root.lang = lang;
+    if (nl || touched) {
+      touched = true;
+      $$('[data-i18n]').forEach(function (el) {
+        var k = el.getAttribute('data-i18n'); if (!(k in EN)) EN[k] = el.textContent;
+        var t = nl && NL[k] ? NL[k] : EN[k]; if (el.textContent !== t) el.textContent = t;
+      });
+      $$('[data-i18n-html]').forEach(function (el) {
+        var k = el.getAttribute('data-i18n-html'); if (!(('h:' + k) in EN)) EN['h:' + k] = el.innerHTML;
+        var t = nl && NL[k] ? NL[k] : EN['h:' + k]; if (el.innerHTML !== t) el.innerHTML = t;
+      });
+    }
     $$('[data-lang]').forEach(function (b) { b.setAttribute('aria-label', L().langLabel); b.children[0].classList.toggle('on', !nl); b.children[1].classList.toggle('on', nl); });
     var s = renderStatus(); renderHero(s); renderKaraoke(); renderMood(); renderPlan(); renderRoom(); stage.lang();
     var v = $('[data-voice-label]'); if (v) v.textContent = stage.voiceOn() ? L().voice.on : L().voice.off;
@@ -256,21 +259,11 @@
     $$('.card-list a', c).forEach(function (a) { a.addEventListener('click', function (e) { if (a.hasAttribute('aria-current')) { e.preventDefault(); close(true); window.scrollTo({ top: 0, behavior: MOTION ? 'smooth' : 'auto' }); } }); });
   }
 
-  /* ---------------------------------------------------------------- gold leaf: the light runs across now and then */
-  function shine() {
-    var run = document.getElementById('shineRun');
-    if (!MOTION || !run || !$('.logo.gilt') || !run.beginElement) return;
-    setTimeout(function () { try { run.beginElement(); } catch (e) {} }, 2300);
-    // only spend the paint while a gilded logo is on screen
-    var defs = run.ownerSVGElement, on = {}, gilt = $$('.logo.gilt');
-    gilt.forEach(function (g, i) { seen(g, function (v) { on[i] = v; var any = gilt.some(function (x, j) { return on[j]; }); try { if (any) defs.unpauseAnimations(); else defs.pauseAnimations(); } catch (e) {} }); });
-  }
-
   /* ---------------------------------------------------------------- the day: a café clock turns from 11:00 to 23:00 */
   function day() {
     var sec = $('#day'); if (!sec) return;
     var panels = $$('.hour', sec), read = $('#clock'), ticks = $$('.ticks li', sec);
-    var hH = $('.cc-h', sec), hM = $('.cc-m', sec), sun = $('.cc-sun', sec), moon = $('.cc-moon', sec), dusk = $('.cc-dusk', sec), night = $('.cc-night', sec), stars = $('.cc-stars', sec);
+    var hH = $('.cc-h', sec), hM = $('.cc-m', sec), sun = $('.cw-sun', sec), moon = $('.cw-moon', sec), dusk = $('.cw-dusk', sec), night = $('.cw-night', sec), stars = $('.cw-stars', sec);
     var TIMES = [660, 900, 1080, 1260, 1380];
     var target = 660, cur = 660, shown = '', active = -1, raf = 0, inView = false, centers = [];
     function measure() { centers = panels.map(function (p) { var r = p.getBoundingClientRect(); return r.top + window.scrollY + r.height / 2; }); }
@@ -293,7 +286,7 @@
       sun.style.transform = 'rotate(' + (-58 + (m - 660) / 480 * 148).toFixed(2) + 'deg)';
       moon.style.transform = 'rotate(' + (m < 1140 ? -110 : -92 + (m - 1140) / 240 * 118).toFixed(2) + 'deg)';
       var du = cl((m - 1000) / 90) * (1 - cl((m - 1150) / 80)), ni = cl((m - 1130) / 100);
-      dusk.setAttribute('opacity', du.toFixed(3)); night.setAttribute('opacity', ni.toFixed(3)); stars.setAttribute('opacity', cl((m - 1170) / 70).toFixed(3));
+      dusk.style.opacity = du.toFixed(3); night.style.opacity = ni.toFixed(3); stars.style.opacity = cl((m - 1170) / 70).toFixed(3);
       var r = Math.round(m / 5) * 5, str = pad(Math.floor(r / 60) % 24) + ':' + pad(r % 60);
       if (str !== shown) { shown = str; read.textContent = str; }
     }
@@ -308,7 +301,7 @@
     window.addEventListener('scroll', req, { passive: true });
     window.addEventListener('resize', function () { measure(); req(); });
     window.addEventListener('load', function () { measure(); req(); });
-    seen(sec, function (v) { inView = v; if (v) { measure(); req(); } }, { rootMargin: '100px 0px' });
+    seen(sec, function (v) { inView = v; if (v) { measure(); aim(); cur = target; paint(cur); } }, { rootMargin: '100px 0px' });
     measure(); aim(); cur = target; paint(cur);
   }
 
@@ -582,10 +575,6 @@
       if (im.complete && im.naturalWidth) im.classList.add('in');
       else { im.addEventListener('load', function () { im.classList.add('in'); }, { once: true }); im.addEventListener('error', function () { im.classList.add('in'); }, { once: true }); }
     });
-    window.addEventListener('load', function () {
-      var go = function () { $$('img[loading="lazy"]').forEach(function (im) { if (im.offsetParent) im.loading = 'eager'; }); };
-      if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 3000 }); else setTimeout(go, 1500);
-    });
   }
   function intro() { var s = $('.intro'); if (!s) return; if (!MOTION) { s.classList.add('in'); return; } seen(s, function (v) { if (v) s.classList.add('in'); }, { threshold: 0.35 }); }
   function mapLoad() {
@@ -613,8 +602,9 @@
   function init() {
     room();
     applyLang();
+    var hero = $('.hero'); if (hero) requestAnimationFrame(function () { hero.classList.add('ready'); });
     $$('[data-lang]').forEach(function (b) { b.addEventListener('click', function () { lang = lang === 'en' ? 'nl' : 'en'; try { localStorage.setItem('cc_lang', lang); } catch (e) {} applyLang(); }); });
-    card(); shine(); day(); prompters(); bar(); guests(); rail(); foodMenu(); spiritTabs(); planner(); renderPlan(); images(); intro(); mapLoad(); chrome(); ticker();
+    card(); day(); prompters(); bar(); guests(); rail(); foodMenu(); spiritTabs(); planner(); renderPlan(); images(); intro(); mapLoad(); chrome(); ticker();
     if (location.hash === '#private' && $('#pvN')) setTimeout(function () { $('#pvN').focus({ preventScroll: true }); }, 400);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
