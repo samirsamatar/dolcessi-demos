@@ -151,7 +151,7 @@
       $('.tk-meta', ticket).innerHTML = '<span>TABLE ' + ('0' + t.table).slice(-2) + '</span><span>COVERS ' + t.guests + '</span><span>' + t.t + '</span>';
       $('.tk-rows', ticket).innerHTML = rows;
       $('.tk-tot span:last-child', ticket).textContent = tot;
-      slots.forEach(function (s, k) { var im = $('img', s); im.src = 'img/p-' + t.items[k].pic + '.webp'; im.alt = t.items[k].n; });
+      slots.forEach(function (s, k) { var im = $('img', s); im.src = 'img/td-' + t.items[k].pic + '.webp'; im.alt = t.items[k].n; });
     }
     function until() { return new Promise(function (r) { (function chk() { if (visible) r(); else setTimeout(chk, 400); })(); }); }
     async function loop() {
