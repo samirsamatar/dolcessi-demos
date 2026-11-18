@@ -224,41 +224,37 @@ svg.defs{position:absolute;width:0;height:0;overflow:hidden}
 .mo .intro.in .ip{transform:none;opacity:1}
 .mo .intro.in .ip{transition-delay:calc(var(--k,0) * 320ms + 100ms)}
 
-/* ---------- the day: 11:00 to 23:00 ---------- */
-.day{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(220px,.34fr) minmax(0,1fr);column-gap:clamp(20px,4vw,60px);padding-inline:var(--gut);color:var(--ink);--fg:var(--ink)}
-.day[data-tone="dusk"],.day[data-tone="night"]{--fg:var(--cream)}
-.day-stage{position:absolute;inset:0;z-index:-1;pointer-events:none}
-.day-stage > *{position:sticky;top:0;height:100vh;height:100lvh;margin-bottom:-100vh;margin-bottom:-100lvh}
-.day-stage{display:grid}
-.day-stage > *{grid-area:1/1}
-.sky{will-change:opacity}
-.sky-day{background:radial-gradient(70% 60% at 85% 10%,rgba(246,197,108,.42),transparent 70%),radial-gradient(60% 50% at 10% 100%,rgba(233,162,59,.16),transparent 70%),var(--paper)}
-.sky-dusk{opacity:0;background:radial-gradient(80% 70% at 80% 20%,#e79a45 0%,transparent 70%),linear-gradient(180deg,#b4672c 0%,#6c3a1d 70%,#3d2316 100%)}
-.sky-night{opacity:0;background:radial-gradient(40% 35% at 78% 70%,rgba(229,67,44,.16),transparent 70%),radial-gradient(50% 45% at 20% 20%,rgba(233,162,59,.12),transparent 70%),linear-gradient(180deg,#1e1612,#140f0c)}
-.grain{background:url(../img/grain.webp);opacity:.7}
-.day-rail{grid-column:1;grid-row:1 / span 6;position:sticky;top:calc(var(--navh) + 6vh);align-self:start;height:calc(100vh - var(--navh) - 12vh);display:flex;flex-direction:column;justify-content:center;gap:22px;color:var(--fg);transition:color .5s ease;padding:4vh 0}
-.clock{display:flex;font:200 clamp(4rem,8.6vw,8.6rem)/.9 var(--mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.clock span{display:inline-block;width:.6em;text-align:center;overflow:hidden}
-.clock b{font-weight:200;width:.42em;text-align:center;opacity:.6}
-.clock span.roll{animation:roll .42s var(--ease)}
-@keyframes roll{from{transform:translate3d(0,-.35em,0);opacity:0}}
-.arc{position:relative;width:min(240px,100%);aspect-ratio:200/60}
-.arc svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.arc path{fill:none;stroke:currentColor;stroke-width:1;stroke-dasharray:2 4;opacity:.5;vector-effect:non-scaling-stroke}
-#sun{position:absolute;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 5px rgba(233,162,59,.22);will-change:transform}
-.day[data-tone="night"] #sun{background:var(--cream);box-shadow:0 0 0 5px rgba(246,240,226,.14),inset -4px -1px 0 0 #bfb3a3}
-.ticks{display:flex;gap:14px;font-size:.75rem;opacity:.75}
-.ticks li{transition:color .3s,opacity .3s;opacity:.55}
-.ticks li.on{opacity:1;font-weight:700}
+/* ---------- the day: 11:00 to 23:00, told by a café clock ---------- */
+.day{position:relative;display:grid;grid-template-columns:minmax(260px,.4fr) minmax(0,1fr);column-gap:clamp(30px,5vw,90px);padding-inline:var(--gut);color:var(--ink);
+  background:radial-gradient(40% 50% at 12% 30%,rgba(233,162,59,.09),transparent 70%),url(../img/grain.webp),var(--paper)}
+.day-rail{grid-column:1;grid-row:1 / span 6;position:sticky;top:var(--navh);align-self:start;height:calc(100vh - var(--navh));height:calc(100svh - var(--navh));display:flex;flex-direction:column;justify-content:center;align-items:center;gap:clamp(18px,3vh,30px)}
+.cc-wrap{width:min(100%,380px,52vh);aspect-ratio:1;border-radius:50%;box-shadow:0 26px 40px -14px rgba(42,33,27,.34),0 3px 5px rgba(42,33,27,.22)}
+.cclock{display:block;width:100%;height:100%;overflow:visible}
+.cclock .cc-num{font:500 10.5px/1 var(--serif);text-anchor:middle;dominant-baseline:central}
+.cclock .cc-name{font:italic 600 7.2px/1 var(--serif);fill:#2A211B}
+.cclock .cc-sub{font:400 4.6px/1 var(--mono);fill:#6d6155}
+.cc-h,.cc-m,.cc-sun,.cc-moon{transform-box:view-box;will-change:transform}
+.cc-h,.cc-m{transform-origin:100px 100px}
+.cc-sun,.cc-moon{transform-origin:100px 79px}
+.day-read{display:grid;justify-items:center;gap:14px;text-align:center}
+.dtime{font:300 clamp(1.6rem,2.2vw,2.1rem)/1 var(--mono);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ticks{display:grid;gap:4px;font-size:.8125rem;color:var(--ink-mute)}
+.ticks li{position:relative;transition:color .3s ease}
+.ticks li::before{content:"";position:absolute;left:-16px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--amber);transform:scale(0);transition:transform .3s var(--ease)}
+.ticks li.on{color:var(--ink);font-weight:600}
+.ticks li.on::before{transform:scale(1)}
 .day-panels{grid-column:2;display:grid}
-.hour{min-height:100vh;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(22px,3.4vw,56px);align-items:center;padding:12vh 0;color:var(--ink);transition:color .5s ease}
-.hour[data-tone="dusk"],.hour[data-tone="night"]{color:var(--cream)}
-.hour-pic{aspect-ratio:4/5;overflow:hidden;background:rgba(0,0,0,.12)}
+.hour{min-height:100vh;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(22px,3.4vw,56px);align-items:center;padding:12vh 0}
+.hour + .hour{border-top:1px solid rgba(42,33,27,.12)}
+.hour-pic{aspect-ratio:4/5;overflow:hidden;background:var(--paper-2);box-shadow:0 30px 50px -36px rgba(42,33,27,.6)}
 .hour-pic img{width:100%;height:100%;object-fit:cover}
 .hour:nth-child(3) .hour-pic{aspect-ratio:2/1.4}
 .hour-copy{display:grid;gap:18px;justify-items:start}
-.hour-t{display:none}
-.hour-copy > p:not(.hour-t):not(.prompter){max-width:42ch}
+.hour-t{font:400 .8125rem/1 var(--mono);color:#9a5b10;font-variant-numeric:tabular-nums}
+.hour-copy > p:not(.hour-t):not(.prompter){max-width:42ch;color:var(--ink-mute)}
+.hour .prompter span{color:rgba(42,33,27,.28)}
+.hour .prompter span.sung{color:#a35f0e}
+.hour .more{color:var(--ink)}
 .picks{width:100%;max-width:400px;display:grid;gap:7px;padding:16px 0;border-block:1px solid currentColor;border-color:color-mix(in srgb,currentColor 20%,transparent);font-size:.875rem}
 .picks li{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:baseline}
 .picks i,.list i,.dn i,.wine-list i{height:1px;align-self:end;margin-bottom:.45em;background-image:radial-gradient(circle,currentColor .9px,transparent 1.1px);background-size:6px 2px;background-repeat:repeat-x;opacity:.4}
@@ -777,12 +773,16 @@ svg.defs{position:absolute;width:0;height:0;overflow:hidden}
   .shelf::after{display:none}
   .g{scroll-snap-align:start;box-shadow:inset -1px 0 0 rgba(233,162,59,.2);background:linear-gradient(180deg,rgba(255,236,200,.05),transparent 70%)}
   .g-b::before{top:-34px}
-  /* the day on a phone: clock pinned under the nav, panels stack */
+  /* the day on a phone: a small clock pinned under the nav, panels stack */
   .day{display:block;padding-inline:0}
-  .day-rail{position:sticky;top:var(--navh);z-index:5;height:auto;flex-direction:row;align-items:center;justify-content:space-between;gap:14px;padding:12px var(--gut);background:transparent}
-  .clock{font-size:2.6rem}
-  .arc{width:120px}
-  .ticks{display:none}
+  .day-rail{position:sticky;top:var(--navh);z-index:5;height:auto;flex-direction:row;justify-content:flex-start;gap:16px;padding:10px var(--gut);background:var(--paper);box-shadow:0 1px 0 rgba(42,33,27,.12)}
+  .cc-wrap{width:64px;flex:none;box-shadow:0 4px 8px -2px rgba(42,33,27,.3)}
+  .day-read{justify-items:start;text-align:left;gap:4px}
+  .dtime{font-size:1.4rem}
+  .ticks{display:block}
+  .ticks li{display:none}
+  .ticks li.on{display:block;font-weight:600}
+  .ticks li::before{display:none}
   .hour{min-height:0;grid-template-columns:1fr;padding:8vh var(--gut) 10vh;gap:24px}
   .hour-pic{aspect-ratio:4/3}
   .hour:nth-child(3) .hour-pic{aspect-ratio:2/1.2}

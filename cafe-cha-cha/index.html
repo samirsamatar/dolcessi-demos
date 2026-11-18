@@ -14,7 +14,7 @@
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/bodoni-moda-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/jetbrains-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/style.css?v=1794965471">
+<link rel="stylesheet" href="assets/style.css?v=1795007041">
 <script>(function(d){var c=d.documentElement.classList;c.replace('no-js','js');if(window.matchMedia&&matchMedia('(prefers-reduced-motion: no-preference)').matches)c.add('mo');try{if(localStorage.getItem('cc_lang')==='nl')d.documentElement.lang='nl'}catch(e){}})(document)</script>
 </head>
 <body data-page="home">
@@ -74,20 +74,20 @@
   <div class="hero-media" aria-hidden="true">
     <picture data-shot="day">
       <source media="(max-width: 760px)" srcset="img/hero-day-m-800.webp">
-      <img src="img/hero-day-960.webp" srcset="img/hero-day-960.webp 960w" sizes="100vw" alt="" fetchpriority="high">
+      <img decoding="async" src="img/hero-day-1600.webp" srcset="img/hero-day-960.webp 960w, img/hero-day-1600.webp 1600w, img/hero-day-2048.webp 2048w" sizes="100vw" alt="" fetchpriority="high">
     </picture>
     <picture data-shot="eve" hidden>
       <source media="(max-width: 760px)" data-srcset="img/hero-eve-m-800.webp">
-      <img data-src="img/hero-eve-960.webp" data-srcset="img/hero-eve-960.webp 960w" sizes="100vw" alt="">
+      <img decoding="async" data-src="img/hero-eve-1600.webp" data-srcset="img/hero-eve-960.webp 960w, img/hero-eve-1600.webp 1600w, img/hero-eve-2048.webp 2048w" sizes="100vw" alt="">
     </picture>
     <picture data-shot="night" hidden>
       <source media="(max-width: 760px)" data-srcset="img/hero-night-m-800.webp">
-      <img data-src="img/hero-night-960.webp" data-srcset="img/hero-night-960.webp 960w" sizes="100vw" alt="">
+      <img decoding="async" data-src="img/hero-night-1600.webp" data-srcset="img/hero-night-960.webp 960w, img/hero-night-1600.webp 1600w, img/hero-night-2048.webp 2048w" sizes="100vw" alt="">
     </picture>
   </div>
   <!-- the front window: the Rokin reflected in the glass, a tram going past now and then -->
   <div class="pane" aria-hidden="true">
-    <div class="refl"><img src="img/rokin-old-800.webp" alt=""></div>
+    <div class="refl"><img decoding="async" src="img/rokin-old-800.webp" alt=""></div>
     <svg class="wires" viewBox="0 0 1000 60" preserveAspectRatio="none"><path d="M0 18 Q500 34 1000 14M0 30 Q500 46 1000 26"/></svg>
     <svg class="tramcar" viewBox="0 0 900 120"><path fill-rule="evenodd" d="M58 26h820q12 0 12 12v58q0 8-8 8H18q-10 0-10-10V74q2-40 34-46 8-2 16-2zM70 40v28h46V40zm60 0v28h46V40zm60 0v28h46V40zm60 0v28h46V40zm72 0v28h46V40zm60 0v28h46V40zm60 0v28h46V40zm60 0v28h46V40zm72 0v28h46V40zm60 0v28h46V40zm60 0v28h46V40zM16 70q4-28 34-30v30z"/><path d="M430 26 452 6h30M452 6l22 20" fill="none" stroke="currentColor" stroke-width="3"/><path d="M296 26v78M608 26v78" stroke="#000" stroke-opacity=".25" stroke-width="3"/></svg>
     <i class="sheen"></i>
@@ -113,25 +113,60 @@
 
 <section class="intro" id="intro" aria-label="Café CHA CHA">
   <div class="wrap">
-    <p class="intro-p"><span data-i18n="in.a">Steaks from the grill</span> <span class="ip"><img loading="lazy" src="img/d-entrecote-480.webp" alt=""></span><span data-i18n="in.b">, cocktails at the bar</span> <span class="ip" style="--k:1"><img loading="lazy" src="img/pornstar-700.webp" alt=""></span> <span data-i18n="in.c">and, five nights a week, a microphone</span> <span class="ip" style="--k:2"><img loading="lazy" src="img/cheers-800.webp" alt=""></span><span data-i18n="in.d">. Café CHA CHA is the Rokin's living room, from the first cappuccino to the last song.</span></p>
+    <p class="intro-p"><span data-i18n="in.a">Steaks from the grill</span> <span class="ip"><img decoding="async" loading="lazy" src="img/d-entrecote-480.webp" alt=""></span><span data-i18n="in.b">, cocktails at the bar</span> <span class="ip" style="--k:1"><img decoding="async" loading="lazy" src="img/pornstar-700.webp" alt=""></span> <span data-i18n="in.c">and, five nights a week, a microphone</span> <span class="ip" style="--k:2"><img decoding="async" loading="lazy" src="img/cheers-800.webp" alt=""></span><span data-i18n="in.d">. Café CHA CHA is the Rokin's living room, from the first cappuccino to the last song.</span></p>
   </div>
 </section>
 
 <section class="day" id="day" aria-labelledby="day-h">
-  <div class="day-stage" aria-hidden="true">
-    <div class="sky sky-day"></div><div class="sky sky-dusk"></div><div class="sky sky-night"></div>
-    <div class="grain"></div>
-  </div>
   <div class="day-rail" aria-hidden="true">
-    <p class="clock" id="clock"><span data-d="0">1</span><span data-d="1">1</span><b>:</b><span data-d="2">0</span><span data-d="3">0</span></p>
-    <div class="arc"><svg viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M4 56 Q100 -30 196 56" /></svg><i id="sun"></i></div>
-    <ol class="ticks"><li>11:00</li><li>15:00</li><li>18:00</li><li>21:00</li><li>23:00</li></ol>
+    <div class="cc-wrap"><svg class="cclock" viewBox="0 0 200 200" aria-hidden="true">
+  <defs>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbe7ad"/><stop offset=".3" stop-color="#d4922e"/><stop offset=".55" stop-color="#fff2c8"/><stop offset=".75" stop-color="#9a6018"/><stop offset="1" stop-color="#e3b157"/></linearGradient>
+    <radialGradient id="dial" cx=".5" cy=".42" r=".62"><stop offset="0" stop-color="#fffdf5"/><stop offset=".8" stop-color="#f6eedb"/><stop offset="1" stop-color="#e9dcc0"/></radialGradient>
+    <linearGradient id="skyday" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fbcd6"/><stop offset=".7" stop-color="#d9e7e6"/><stop offset="1" stop-color="#f4e6c4"/></linearGradient><linearGradient id="skydusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#43546a"/><stop offset=".55" stop-color="#d4824c"/><stop offset="1" stop-color="#f4c27a"/></linearGradient>
+    <linearGradient id="skynight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1a22"/><stop offset="1" stop-color="#2C4654"/></linearGradient>
+    <radialGradient id="sunball" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff2c8"/><stop offset=".6" stop-color="#e9a23b"/><stop offset="1" stop-color="#b8741c"/></radialGradient>
+    <radialGradient id="moonball" cx=".38" cy=".35" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#bdb5a6"/></radialGradient>
+    <clipPath id="win"><path d="M65 79A35 35 0 0 1 135 79Z"/></clipPath>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="99" fill="#2a1c10"/>
+  <circle cx="100" cy="100" r="97" fill="url(#brass)"/>
+  <circle cx="100" cy="100" r="91.5" fill="#5a3810"/>
+  <circle cx="100" cy="100" r="90.5" fill="url(#dial)"/>
+  <circle cx="100" cy="100" r="88.5" fill="none" stroke="#2A211B" stroke-width=".4" opacity=".5"/>
+  <g class="cc-win" clip-path="url(#win)">
+    <rect x="60" y="40" width="80" height="42" fill="url(#skyday)"/>
+    <rect class="cc-dusk" x="60" y="40" width="80" height="42" fill="url(#skydusk)" opacity="0"/>
+    <rect class="cc-night" x="60" y="40" width="80" height="42" fill="url(#skynight)" opacity="0"/>
+    <g class="cc-stars" fill="#fff8e6" opacity="0"><circle cx="86" cy="88" r="0.8"/><circle cx="94" cy="99" r="0.6"/><circle cx="109" cy="91" r="0.7"/><circle cx="117" cy="101" r="0.55"/><circle cx="79" cy="96" r="0.5"/><circle cx="104" cy="106" r="0.45"/><circle cx="122" cy="88" r="0.45"/><circle cx="89" cy="107" r="0.45"/><circle cx="74" cy="85" r="0.4"/><circle cx="127" cy="95" r="0.4"/></g>
+    <g class="cc-sun" style="transform:rotate(-70deg)"><circle cx="100" cy="56" r="10" fill="#fff2c8" opacity=".25"/><circle cx="100" cy="56" r="6" fill="url(#sunball)"/></g>
+    <g class="cc-moon" style="transform:rotate(-120deg)"><circle cx="100" cy="57" r="5" fill="url(#moonball)"/><circle cx="102.2" cy="55.8" r="4.3" fill="#16252f" opacity=".85"/></g>
+    <path class="cc-town" d="M65 79V75h3v-2.5l1.5-1.5 1.5 1.5V75h2v-4l1-1.2h1v-1.3h1.6v1.3h1l1 1.2v4h1.6v-3.2l2.4-2.6 2.4 2.6V75h1.5v-5.5h1v-1.2h1v-1.1h1.6v1.1h1v1.2h1V75h1.6v-3.6q0-1.6 1.6-2v-1h1.4v1q1.6.4 1.6 2V75h1.4v-4.4l1.4-1.4V68h1.6v1.2l1.4 1.4V75h1.6v-3l2.2-2.4 2.2 2.4v3h1.4v-4.6h1v-1.2h1.6v1.2h1v4.6h2v-2.6l1.5-1.6 1.5 1.6V75h3v4Z" fill="#2A211B"/>
+    <g fill="#f0b45a"><rect x="75.1" y="72" width=".9" height="1.1"/><rect x="85.4" y="71" width=".9" height="1.1"/><rect x="93.6" y="72.6" width=".9" height="1.1"/><rect x="99.2" y="72.2" width=".9" height="1.1"/><rect x="106.1" y="71.4" width=".9" height="1.1"/><rect x="113" y="72.5" width=".9" height="1.1"/><rect x="118.6" y="71.2" width=".9" height="1.1"/><rect x="77.4" y="74" width=".9" height="1.1"/><rect x="101.6" y="74.2" width=".9" height="1.1"/><rect x="120.6" y="73.6" width=".9" height="1.1"/></g>
+  </g>
+  <path d="M65 79A35 35 0 0 1 135 79Z" fill="none" stroke="url(#brass)" stroke-width="1.8" stroke-linejoin="round"/>
+  <g class="cc-ticks" stroke="#2A211B"><line x1="100.00" y1="19.50" x2="100.00" y2="13.50" stroke-width="1.5"/><line x1="108.78" y1="16.46" x2="109.04" y2="13.97" stroke-width="0.55"/><line x1="117.46" y1="17.84" x2="117.98" y2="15.39" stroke-width="0.55"/><line x1="125.96" y1="20.11" x2="126.73" y2="17.73" stroke-width="0.55"/><line x1="134.17" y1="23.26" x2="135.18" y2="20.98" stroke-width="0.55"/><line x1="140.25" y1="30.28" x2="143.25" y2="25.09" stroke-width="1.5"/><line x1="149.37" y1="32.04" x2="150.84" y2="30.02" stroke-width="0.55"/><line x1="156.21" y1="37.58" x2="157.88" y2="35.72" stroke-width="0.55"/><line x1="162.42" y1="43.79" x2="164.28" y2="42.12" stroke-width="0.55"/><line x1="167.96" y1="50.63" x2="169.98" y2="49.16" stroke-width="0.55"/><line x1="169.72" y1="59.75" x2="174.91" y2="56.75" stroke-width="1.5"/><line x1="176.74" y1="65.83" x2="179.02" y2="64.82" stroke-width="0.55"/><line x1="179.89" y1="74.04" x2="182.27" y2="73.27" stroke-width="0.55"/><line x1="182.16" y1="82.54" x2="184.61" y2="82.02" stroke-width="0.55"/><line x1="183.54" y1="91.22" x2="186.03" y2="90.96" stroke-width="0.55"/><line x1="180.50" y1="100.00" x2="186.50" y2="100.00" stroke-width="1.5"/><line x1="183.54" y1="108.78" x2="186.03" y2="109.04" stroke-width="0.55"/><line x1="182.16" y1="117.46" x2="184.61" y2="117.98" stroke-width="0.55"/><line x1="179.89" y1="125.96" x2="182.27" y2="126.73" stroke-width="0.55"/><line x1="176.74" y1="134.17" x2="179.02" y2="135.18" stroke-width="0.55"/><line x1="169.72" y1="140.25" x2="174.91" y2="143.25" stroke-width="1.5"/><line x1="167.96" y1="149.37" x2="169.98" y2="150.84" stroke-width="0.55"/><line x1="162.42" y1="156.21" x2="164.28" y2="157.88" stroke-width="0.55"/><line x1="156.21" y1="162.42" x2="157.88" y2="164.28" stroke-width="0.55"/><line x1="149.37" y1="167.96" x2="150.84" y2="169.98" stroke-width="0.55"/><line x1="140.25" y1="169.72" x2="143.25" y2="174.91" stroke-width="1.5"/><line x1="134.17" y1="176.74" x2="135.18" y2="179.02" stroke-width="0.55"/><line x1="125.96" y1="179.89" x2="126.73" y2="182.27" stroke-width="0.55"/><line x1="117.46" y1="182.16" x2="117.98" y2="184.61" stroke-width="0.55"/><line x1="108.78" y1="183.54" x2="109.04" y2="186.03" stroke-width="0.55"/><line x1="100.00" y1="180.50" x2="100.00" y2="186.50" stroke-width="1.5"/><line x1="91.22" y1="183.54" x2="90.96" y2="186.03" stroke-width="0.55"/><line x1="82.54" y1="182.16" x2="82.02" y2="184.61" stroke-width="0.55"/><line x1="74.04" y1="179.89" x2="73.27" y2="182.27" stroke-width="0.55"/><line x1="65.83" y1="176.74" x2="64.82" y2="179.02" stroke-width="0.55"/><line x1="59.75" y1="169.72" x2="56.75" y2="174.91" stroke-width="1.5"/><line x1="50.63" y1="167.96" x2="49.16" y2="169.98" stroke-width="0.55"/><line x1="43.79" y1="162.42" x2="42.12" y2="164.28" stroke-width="0.55"/><line x1="37.58" y1="156.21" x2="35.72" y2="157.88" stroke-width="0.55"/><line x1="32.04" y1="149.37" x2="30.02" y2="150.84" stroke-width="0.55"/><line x1="30.28" y1="140.25" x2="25.09" y2="143.25" stroke-width="1.5"/><line x1="23.26" y1="134.17" x2="20.98" y2="135.18" stroke-width="0.55"/><line x1="20.11" y1="125.96" x2="17.73" y2="126.73" stroke-width="0.55"/><line x1="17.84" y1="117.46" x2="15.39" y2="117.98" stroke-width="0.55"/><line x1="16.46" y1="108.78" x2="13.97" y2="109.04" stroke-width="0.55"/><line x1="19.50" y1="100.00" x2="13.50" y2="100.00" stroke-width="1.5"/><line x1="16.46" y1="91.22" x2="13.97" y2="90.96" stroke-width="0.55"/><line x1="17.84" y1="82.54" x2="15.39" y2="82.02" stroke-width="0.55"/><line x1="20.11" y1="74.04" x2="17.73" y2="73.27" stroke-width="0.55"/><line x1="23.26" y1="65.83" x2="20.98" y2="64.82" stroke-width="0.55"/><line x1="30.28" y1="59.75" x2="25.09" y2="56.75" stroke-width="1.5"/><line x1="32.04" y1="50.63" x2="30.02" y2="49.16" stroke-width="0.55"/><line x1="37.58" y1="43.79" x2="35.72" y2="42.12" stroke-width="0.55"/><line x1="43.79" y1="37.58" x2="42.12" y2="35.72" stroke-width="0.55"/><line x1="50.63" y1="32.04" x2="49.16" y2="30.02" stroke-width="0.55"/><line x1="59.75" y1="30.28" x2="56.75" y2="25.09" stroke-width="1.5"/><line x1="65.83" y1="23.26" x2="64.82" y2="20.98" stroke-width="0.55"/><line x1="74.04" y1="20.11" x2="73.27" y2="17.73" stroke-width="0.55"/><line x1="82.54" y1="17.84" x2="82.02" y2="15.39" stroke-width="0.55"/><line x1="91.22" y1="16.46" x2="90.96" y2="13.97" stroke-width="0.55"/></g>
+  <g class="cc-num" fill="#2A211B"><text x="100.00" y="30.00" transform="rotate(0 100.00 30.00)">XII</text><text x="135.00" y="39.38" transform="rotate(30 135.00 39.38)">I</text><text x="160.62" y="65.00" transform="rotate(60 160.62 65.00)">II</text><text x="170.00" y="100.00" transform="rotate(90 170.00 100.00)">III</text><text x="160.62" y="135.00" transform="rotate(-60 160.62 135.00)">IIII</text><text x="135.00" y="160.62" transform="rotate(-30 135.00 160.62)">V</text><text x="100.00" y="170.00" transform="rotate(0 100.00 170.00)">VI</text><text x="65.00" y="160.62" transform="rotate(30 65.00 160.62)">VII</text><text x="39.38" y="135.00" transform="rotate(60 39.38 135.00)">VIII</text><text x="30.00" y="100.00" transform="rotate(270 30.00 100.00)">IX</text><text x="39.38" y="65.00" transform="rotate(300 39.38 65.00)">X</text><text x="65.00" y="39.38" transform="rotate(330 65.00 39.38)">XI</text></g>
+  <text class="cc-name" x="100" y="128" text-anchor="middle">Café CHA CHA</text>
+  <text class="cc-sub" x="100" y="137" text-anchor="middle">Rokin 103</text>
+  <g class="cc-h" style="transform:rotate(330deg)"><g transform="translate(1.1 1.5)" opacity=".2"><path d="M98.2 112 L98.6 60 Q100 53 101.4 60 L101.8 112 Z" fill="#2A211B"/><circle cx="100" cy="66" r="4.2" fill="none" stroke="#2A211B" stroke-width="1.7"/></g><path d="M98.2 112 L98.6 60 Q100 53 101.4 60 L101.8 112 Z" fill="#2A211B"/><circle cx="100" cy="66" r="4.2" fill="none" stroke="#2A211B" stroke-width="1.7"/></g>
+  <g class="cc-m" style="transform:rotate(0deg)"><path transform="translate(1.3 1.8)" opacity=".2" d="M99.1 116 L99.5 24 L100 18 L100.5 24 L100.9 116 Z" fill="#2A211B"/><path d="M99.1 116 L99.5 24 L100 18 L100.5 24 L100.9 116 Z" fill="#2A211B"/></g>
+  <circle cx="100" cy="100" r="4.6" fill="url(#brass)" stroke="#5a3810" stroke-width=".6"/>
+  <circle cx="100" cy="100" r="1.3" fill="#2A211B"/>
+  <path d="M22 76A82 82 0 0 1 150 30A92 92 0 0 0 22 76Z" fill="url(#glass)" opacity=".5"/>
+</svg></div>
+    <div class="day-read">
+      <p class="dtime" id="clock">11:00</p>
+      <ol class="ticks"><li data-i18n="d1.h">Doors open</li><li data-i18n="d2.h">Terrace hours</li><li data-i18n="d3.h">From the grill</li><li data-i18n="d4.h">Free karaoke</li><li data-i18n="d5.h">One more round</li></ol>
+    </div>
   </div>
   <h2 id="day-h" class="sr" data-i18n="day.h">A day at Café CHA CHA</h2>
   <div class="day-panels">
     <article class="hour" data-t="11:00" data-tone="day">
-      <figure class="hour-pic"><img loading="lazy" src="img/salads-800.webp" srcset="img/salads-800.webp 800w" sizes="(max-width:860px) 92vw, 44vw" alt="A steak salad and a smoked salmon salad on a wooden table, tropical leaf wallpaper behind"></figure>
+      <figure class="hour-pic"><img decoding="async" loading="lazy" src="img/salads-800.webp" srcset="img/salads-800.webp 800w, img/salads-1400.webp 1400w" sizes="(max-width:860px) 92vw, 44vw" alt="A steak salad and a smoked salmon salad on a wooden table, tropical leaf wallpaper behind"></figure>
       <div class="hour-copy">
+        <p class="hour-t">11:00</p>
         <h3 class="h-l" data-i18n="d1.h">Doors open</h3>
         <p data-i18n="d1.p">Start slow: a cappuccino, a club sandwich or a Caesar salad, with the trams going past on the Rokin.</p>
         <ul class="picks"><li><span>Chicken club sandwich</span><i aria-hidden="true"></i><b>16,50</b></li><li><span>Caesar salad</span><i aria-hidden="true"></i><b>15,50</b></li><li><span>Cappuccino</span><i aria-hidden="true"></i><b>5,80</b></li><li><span>Fresh jus d'orange</span><i aria-hidden="true"></i><b>5,80</b></li></ul>
@@ -139,8 +174,9 @@
       </div>
     </article>
     <article class="hour" data-t="15:00" data-tone="day">
-      <figure class="hour-pic"><img loading="lazy" src="img/beer-bites-800.webp" srcset="img/beer-bites-800.webp 800w" sizes="(max-width:860px) 92vw, 44vw" alt="A cold beer with cheese sticks, spring rolls and chicken wings on the table"></figure>
+      <figure class="hour-pic"><img decoding="async" loading="lazy" src="img/beer-bites-800.webp" srcset="img/beer-bites-800.webp 800w, img/beer-bites-1400.webp 1400w" sizes="(max-width:860px) 92vw, 44vw" alt="A cold beer with cheese sticks, spring rolls and chicken wings on the table"></figure>
       <div class="hour-copy">
+        <p class="hour-t">15:00</p>
         <h3 class="h-l" data-i18n="d2.h">Terrace hours</h3>
         <p data-i18n="d2.p">A spritz and something to share outside. The terrace has heaters, so it works on cooler days too.</p>
         <ul class="picks"><li><span>Aperol Spritz</span><i aria-hidden="true"></i><b>13,50</b></li><li><span>Bitterballen</span><i aria-hidden="true"></i><b>9,50</b></li><li><span>Nachos</span><i aria-hidden="true"></i><b>14,50</b></li><li><span>Heineken pint</span><i aria-hidden="true"></i><b>9,00</b></li></ul>
@@ -148,8 +184,9 @@
       </div>
     </article>
     <article class="hour" data-t="18:00" data-tone="dusk">
-      <figure class="hour-pic"><img loading="lazy" src="img/d-entrecote-480.webp" srcset="img/d-entrecote-480.webp 480w" sizes="(max-width:860px) 92vw, 44vw" alt="Entrecôte with herb butter, fries, tomato and mayonnaise"></figure>
+      <figure class="hour-pic"><img decoding="async" loading="lazy" src="img/d-entrecote-480.webp" srcset="img/d-entrecote-480.webp 480w" sizes="(max-width:860px) 92vw, 44vw" alt="Entrecôte with herb butter, fries, tomato and mayonnaise"></figure>
       <div class="hour-copy">
+        <p class="hour-t">18:00</p>
         <h3 class="h-l" data-i18n="d3.h">From the grill</h3>
         <p data-i18n="d3.p">Entrecôte, ribeye, spareribs and gambas, served with fries and a side salad. Or a burger, if that's the mood.</p>
         <ul class="picks"><li><span>Entrecôte 250 g</span><i aria-hidden="true"></i><b>26,50</b></li><li><span>Spareribs</span><i aria-hidden="true"></i><b>23,50</b></li><li><span>Cheeseburger</span><i aria-hidden="true"></i><b>19,50</b></li><li><span>Gambas</span><i aria-hidden="true"></i><b>32,50</b></li></ul>
@@ -157,8 +194,9 @@
       </div>
     </article>
     <article class="hour hour-karaoke" data-t="21:00" data-tone="night">
-      <figure class="hour-pic"><img loading="lazy" src="img/hero-night-960.webp" srcset="img/hero-night-960.webp 960w" sizes="(max-width:860px) 92vw, 44vw" alt="Friends raising their cocktails for a toast"></figure>
+      <figure class="hour-pic"><img decoding="async" loading="lazy" src="img/hero-night-960.webp" srcset="img/hero-night-960.webp 960w, img/hero-night-1600.webp 1600w" sizes="(max-width:860px) 92vw, 44vw" alt="Friends raising their cocktails for a toast"></figure>
       <div class="hour-copy">
+        <p class="hour-t">21:00</p>
         <h3 class="h-l" data-i18n="d4.h">Free karaoke</h3>
         <p class="prompter" aria-hidden="true" data-prompter="0"><span>Grab</span> <span>the</span> <span>mic,</span> <span>gather</span> <span>your</span> <span>friends.</span></p>
         <p data-i18n="d4.p">Every Wednesday to Sunday from 21:00 the café turns into a karaoke bar. Singing is free.</p>
@@ -167,8 +205,9 @@
       </div>
     </article>
     <article class="hour" data-t="23:00" data-tone="night">
-      <figure class="hour-pic"><img loading="lazy" src="img/bar-cocktail-700.webp" srcset="img/bar-cocktail-700.webp 700w" sizes="(max-width:860px) 92vw, 34vw" alt="A cocktail with a strawberry garnish on the bar, bottles behind it"></figure>
+      <figure class="hour-pic"><img decoding="async" loading="lazy" src="img/bar-cocktail-700.webp" srcset="img/bar-cocktail-700.webp 700w" sizes="(max-width:860px) 92vw, 34vw" alt="A cocktail with a strawberry garnish on the bar, bottles behind it"></figure>
       <div class="hour-copy">
+        <p class="hour-t">23:00</p>
         <h3 class="h-l" data-i18n="d5.h">One more round</h3>
         <p data-i18n="d5.p">Espresso martinis, a gin and tonic, a shot for the table. Thursday to Saturday the bar stays open until 01:00.</p>
         <ul class="picks"><li><span>Espresso Martini</span><i aria-hidden="true"></i><b>15,50</b></li><li><span>Hendrick's &amp; tonic</span><i aria-hidden="true"></i><b>14,50</b></li><li><span>Irish Coffee</span><i aria-hidden="true"></i><b>13,50</b></li><li><span>Shots</span><i aria-hidden="true"></i><b>5,00</b></li></ul>
@@ -188,27 +227,27 @@
   </div>
   <div class="rail" tabindex="0" aria-label="Signature dishes">
     <figure class="plate">
-      <img loading="lazy" src="img/d-entrecote-480.webp" srcset="img/d-entrecote-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Entrecôte" width="800" height="400">
+      <img decoding="async" loading="lazy" src="img/d-entrecote-480.webp" srcset="img/d-entrecote-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Entrecôte" width="800" height="400">
       <figcaption><b>Entrecôte</b><span>250 gram</span><i>26,50</i></figcaption>
     </figure>
     <figure class="plate">
-      <img loading="lazy" src="img/d-spareribs-480.webp" srcset="img/d-spareribs-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Spareribs" width="800" height="400">
+      <img decoding="async" loading="lazy" src="img/d-spareribs-480.webp" srcset="img/d-spareribs-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Spareribs" width="800" height="400">
       <figcaption><b>Spareribs</b><span>Sweet barbecue marinade</span><i>23,50</i></figcaption>
     </figure>
     <figure class="plate">
-      <img loading="lazy" src="img/d-chicken-satay-480.webp" srcset="img/d-chicken-satay-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Chicken satay" width="800" height="400">
+      <img decoding="async" loading="lazy" src="img/d-chicken-satay-480.webp" srcset="img/d-chicken-satay-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Chicken satay" width="800" height="400">
       <figcaption><b>Chicken satay</b><span>Served with prawn crackers</span><i>22,50</i></figcaption>
     </figure>
     <figure class="plate">
-      <img loading="lazy" src="img/d-gambas-480.webp" srcset="img/d-gambas-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Gambas" width="800" height="400">
+      <img decoding="async" loading="lazy" src="img/d-gambas-480.webp" srcset="img/d-gambas-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Gambas" width="800" height="400">
       <figcaption><b>Gambas</b><span>5 pcs</span><i>32,50</i></figcaption>
     </figure>
     <figure class="plate">
-      <img loading="lazy" src="img/d-grilled-salmon-480.webp" srcset="img/d-grilled-salmon-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Grilled salmon" width="800" height="400">
+      <img decoding="async" loading="lazy" src="img/d-grilled-salmon-480.webp" srcset="img/d-grilled-salmon-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Grilled salmon" width="800" height="400">
       <figcaption><b>Grilled salmon</b><span>250 gram</span><i>28,50</i></figcaption>
     </figure>
     <figure class="plate">
-      <img loading="lazy" src="img/d-cheeseburger-xl-480.webp" srcset="img/d-cheeseburger-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Cheeseburger" width="800" height="400">
+      <img decoding="async" loading="lazy" src="img/d-cheeseburger-xl-480.webp" srcset="img/d-cheeseburger-480.webp 480w" sizes="(max-width:760px) 82vw, 34vw" alt="Cheeseburger" width="800" height="400">
       <figcaption><b>Cheeseburger</b><span>Little gem, tomato, cucumber, gherkin and truffle mayonnaise</span><i>19,50</i></figcaption>
     </figure>
   </div>
@@ -314,7 +353,7 @@
 </section>
 
 <section class="rokin" aria-labelledby="rokin-h">
-  <div class="rokin-bg" aria-hidden="true"><img loading="lazy" src="img/rokin-old-800.webp" srcset="img/rokin-old-800.webp 800w" sizes="100vw" alt=""></div>
+  <div class="rokin-bg" aria-hidden="true"><img decoding="async" loading="lazy" src="img/rokin-old-1400.webp" srcset="img/rokin-old-800.webp 800w, img/rokin-old-1400.webp 1400w" sizes="100vw" alt=""></div>
   <div class="wrap rokin-in">
     <h2 id="rokin-h" class="rokin-n">Rokin 103</h2>
     <p data-i18n="rokin.p">On the Rokin, a few minutes' walk from Dam Square. Metro 52 and trams 4 and 14 stop at Rokin.</p>
@@ -328,7 +367,7 @@
 
 
 <section class="outro" aria-labelledby="outro-h">
-  <div class="outro-bg" aria-hidden="true"><img loading="lazy" src="img/bar-cocktail-700.webp" srcset="img/bar-cocktail-700.webp 700w" sizes="(max-width:760px) 100vw, 46vw" alt=""></div>
+  <div class="outro-bg" aria-hidden="true"><img decoding="async" loading="lazy" src="img/bar-cocktail-700.webp" srcset="img/bar-cocktail-700.webp 700w" sizes="(max-width:760px) 100vw, 46vw" alt=""></div>
   <div class="wrap outro-in">
     <h2 id="outro-h" class="h-xl" data-i18n="outro.h">A table on the Rokin tonight?</h2>
     <p class="outro-p"><span data-status-text>Open today from 11:00</span>. <span data-i18n="outro.p">Book online in a minute, or just walk in for a drink at the bar.</span></p>
@@ -386,8 +425,8 @@
   <a class="dock-book" href="https://www.cafechacha.nl/reservations/" target="_blank" rel="noopener" data-i18n="cta.book">Book a table</a>
 </nav>
 
-<script src="assets/nl.js?v=1794965471"></script>
-<script src="assets/app.js?v=1794965471"></script>
+<script src="assets/nl.js?v=1795007041"></script>
+<script src="assets/app.js?v=1795007041"></script>
 <script>/* dolcessi-ping: tells Samir when this concept is opened */
 (function(){try{
 var q=new URLSearchParams(location.search);

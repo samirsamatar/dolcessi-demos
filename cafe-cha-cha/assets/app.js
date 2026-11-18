@@ -266,38 +266,50 @@
     gilt.forEach(function (g, i) { seen(g, function (v) { on[i] = v; var any = gilt.some(function (x, j) { return on[j]; }); try { if (any) defs.unpauseAnimations(); else defs.pauseAnimations(); } catch (e) {} }); });
   }
 
-  /* ---------------------------------------------------------------- the day: clock, sky, sun */
+  /* ---------------------------------------------------------------- the day: a café clock turns from 11:00 to 23:00 */
   function day() {
     var sec = $('#day'); if (!sec) return;
-    var panels = $$('.hour', sec), clock = $('#clock'), sun = $('#sun'), path = $('.arc path', sec), ticks = $$('.ticks li', sec);
-    var skyD = $('.sky-dusk', sec), skyN = $('.sky-night', sec);
+    var panels = $$('.hour', sec), read = $('#clock'), ticks = $$('.ticks li', sec);
+    var hH = $('.cc-h', sec), hM = $('.cc-m', sec), sun = $('.cc-sun', sec), moon = $('.cc-moon', sec), dusk = $('.cc-dusk', sec), night = $('.cc-night', sec), stars = $('.cc-stars', sec);
     var TIMES = [660, 900, 1080, 1260, 1380];
-    var digits = $$('span', clock), shown = ['1', '1', '0', '0'], tone = '', active = -1, raf = 0, inView = false, centers = [], plen = 0;
-    function measure() { centers = panels.map(function (p) { var r = p.getBoundingClientRect(); return r.top + window.scrollY + r.height / 2; }); plen = path.getTotalLength(); }
+    var target = 660, cur = 660, shown = '', active = -1, raf = 0, inView = false, centers = [];
+    function measure() { centers = panels.map(function (p) { var r = p.getBoundingClientRect(); return r.top + window.scrollY + r.height / 2; }); }
+    function aim() {
+      var y = window.scrollY + window.innerHeight * 0.5, f = 0;
+      if (!centers.length || y <= centers[0]) f = 0; else if (y >= centers[centers.length - 1]) f = centers.length - 1;
+      else for (var i = 0; i < centers.length - 1; i++) if (y < centers[i + 1]) { f = i + (y - centers[i]) / (centers[i + 1] - centers[i]); break; }
+      var i0 = Math.floor(f), t = f - i0;
+      // hold on each hour for a moment, then move on
+      t = t < 0.18 ? 0 : t > 0.82 ? 1 : (t - 0.18) / 0.64; t = t * t * (3 - 2 * t);
+      target = i0 >= TIMES.length - 1 ? TIMES[TIMES.length - 1] : TIMES[i0] + (TIMES[i0 + 1] - TIMES[i0]) * t;
+      var a = Math.round(f); if (a !== active) { active = a; ticks.forEach(function (li, j) { li.classList.toggle('on', j === a); }); }
+    }
+    function paint(m) {
+      hH.style.transform = 'rotate(' + (m / 2).toFixed(2) + 'deg)';
+      hM.style.transform = 'rotate(' + (m * 6).toFixed(2) + 'deg)';
+      // the day/night window: sun rises over the dial, sets after 18:00, the moon follows
+      // the day/night window: the sun crosses the Rokin and sets behind the houses, then the moon comes up
+      function cl(v) { return Math.max(0, Math.min(1, v)); }
+      sun.style.transform = 'rotate(' + (-58 + (m - 660) / 480 * 148).toFixed(2) + 'deg)';
+      moon.style.transform = 'rotate(' + (m < 1140 ? -110 : -92 + (m - 1140) / 240 * 118).toFixed(2) + 'deg)';
+      var du = cl((m - 1000) / 90) * (1 - cl((m - 1150) / 80)), ni = cl((m - 1130) / 100);
+      dusk.setAttribute('opacity', du.toFixed(3)); night.setAttribute('opacity', ni.toFixed(3)); stars.setAttribute('opacity', cl((m - 1170) / 70).toFixed(3));
+      var r = Math.round(m / 5) * 5, str = pad(Math.floor(r / 60) % 24) + ':' + pad(r % 60);
+      if (str !== shown) { shown = str; read.textContent = str; }
+    }
     function frame() {
       raf = 0;
-      var y = window.scrollY + window.innerHeight * 0.5, f = 0;
-      if (y <= centers[0]) f = 0; else if (y >= centers[centers.length - 1]) f = centers.length - 1;
-      else for (var i = 0; i < centers.length - 1; i++) if (y < centers[i + 1]) { f = i + (y - centers[i]) / (centers[i + 1] - centers[i]); break; }
-      var i0 = Math.floor(f), t = f - i0, mins = i0 >= TIMES.length - 1 ? TIMES[TIMES.length - 1] : TIMES[i0] + (TIMES[i0 + 1] - TIMES[i0]) * t;
-      mins = Math.round(mins / 5) * 5;
-      var hv = Math.floor(mins / 60) % 24, mm = mins % 60, str = pad(hv) + pad(mm);
-      for (var k = 0; k < 4; k++) if (shown[k] !== str[k]) { shown[k] = str[k]; digits[k].textContent = str[k]; if (MOTION) { digits[k].classList.remove('roll'); void digits[k].offsetWidth; digits[k].classList.add('roll'); } }
-      var dusk = Math.min(1, Math.max(0, (f - 1.05) / 0.7)), night = Math.min(1, Math.max(0, (f - 2.25) / 0.65));
-      skyD.style.opacity = dusk.toFixed(3); skyN.style.opacity = night.toFixed(3);
-      var tn = f < 1.55 ? 'day' : f < 2.45 ? 'dusk' : 'night';
-      if (tn !== tone) { tone = tn; sec.setAttribute('data-tone', tn); }
-      var a = Math.round(f); if (a !== active) { active = a; ticks.forEach(function (li, j) { li.classList.toggle('on', j === a); }); }
-      var pt = path.getPointAtLength(plen * Math.min(1, f / (TIMES.length - 1)));
-      var box = path.ownerSVGElement.getBoundingClientRect(), vb = path.ownerSVGElement.viewBox.baseVal;
-      sun.style.transform = 'translate3d(' + (pt.x / vb.width * box.width).toFixed(1) + 'px,' + (pt.y / vb.height * box.height).toFixed(1) + 'px,0)';
+      cur += (target - cur) * (MOTION ? 0.14 : 1);
+      if (Math.abs(target - cur) < 0.05) cur = target;
+      paint(cur);
+      if (cur !== target) raf = requestAnimationFrame(frame);
     }
-    function req() { if (inView && !raf) raf = requestAnimationFrame(frame); }
+    function req() { aim(); if (inView && !raf) raf = requestAnimationFrame(frame); }
     window.addEventListener('scroll', req, { passive: true });
     window.addEventListener('resize', function () { measure(); req(); });
     window.addEventListener('load', function () { measure(); req(); });
     seen(sec, function (v) { inView = v; if (v) { measure(); req(); } }, { rootMargin: '100px 0px' });
-    measure(); frame();
+    measure(); aim(); cur = target; paint(cur);
   }
 
   /* ---------------------------------------------------------------- the karaoke line in the day */
